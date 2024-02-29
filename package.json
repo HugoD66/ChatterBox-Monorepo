@@ -1,0 +1,16 @@
+{
+  "name": "chatter-box",
+  "version": "0.9.0",
+  "private": true,
+  "workspaces": [
+    "chatter-back",
+    "chatter-front"
+  ],
+  "scripts": {
+    "format:fix": "prettier --ignore-unknown --write .",
+    "lint:fix": "eslint --fix ."
+  },
+  "devDependencies": {
+    "eslint": "^8.57.0"
+  }
+}
