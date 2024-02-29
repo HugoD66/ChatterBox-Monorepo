@@ -1,0 +1,16 @@
+services:
+  postgres:
+    container_name: chatter-db
+    image: bitnami/postgresql:latest
+    restart: always
+    environment:
+      POSTGRES_PASSWORD: 'chatter'
+      POSTGRES_USER: 'chatter'
+      POSTGRES_DB: 'chatter-db'
+    ports:
+      - '5250:5432'
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+volumes:
+  postgres_data: {}

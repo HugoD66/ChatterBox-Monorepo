@@ -7,6 +7,9 @@
     "chatter-front"
   ],
   "scripts": {
+    "startd": "cd chatter-back && docker-compose up -V --force-recreate",
+    "startb": "cd chatter-back && nest start",
+    "startf": "cd chatter-front && ng serve",
     "format:fix": "prettier --ignore-unknown --write .",
     "lint:fix": "eslint --fix ."
   },
