@@ -1,6 +1,6 @@
 @use "../../node_modules/@angular/material" as mat;
 @use "./assets/scss/colors" as colors;
-@use "@material/typography" as mdc-typography;
+@use "../../node_modules/@material/typography" as mdc-typography;
 
 @include mat.core();
 
