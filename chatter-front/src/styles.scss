@@ -1,6 +1,5 @@
 @use "../../node_modules/@angular/material" as mat;
 @use "./assets/scss/colors" as colors;
-@use "../../node_modules/@material/typography" as mdc-typography;
 
 @include mat.core();
 
@@ -33,9 +32,11 @@ body {
 }
 body {
   margin: 0;
-  font-family: Roboto, "Helvetica Neue", sans-serif;
+  font-family: 'JostRegular', serif;
 }
-
+button {
+  font-family: 'Button', serif;
+}
 // --------- FONTS --------- //
 
 @font-face {
@@ -66,12 +67,19 @@ body {
   font-style: normal;
 }
 
+
+
+// !!!!!!!!!!! TRADE THEME !!!!!!!!!!! //
+//    transition: global.$theme-transition;
+
 // --------- LIGHT THEME --------- //
 h1 {
-  color: colors.$gradient-white;
+  color: colors.$dark-blue;
 }
 
 // --------- DARK THEME --------- //
+/*
 .theme-dark h1 {
   color: rgba(66, 56, 44, 1);
 }
+*/

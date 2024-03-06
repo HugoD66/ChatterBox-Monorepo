@@ -1,0 +1,47 @@
+<div class="content">
+  <div class="titleForm">
+    <h1>Chatter-Box</h1>
+    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+      <mat-form-field class="form-field" appearance="fill">
+        <mat-label>Nom d'utilisateur</mat-label>
+        <input class="form-control" matInput formControlName="username" />
+      </mat-form-field>
+
+      <mat-form-field class="form-field" appearance="fill">
+        <mat-label>Mot de passe</mat-label>
+        <input
+          class="form-control"
+          matInput
+          formControlName="password"
+          [type]="hide ? 'password' : 'text'"
+        />
+        <button
+          type="button"
+          mat-icon-button
+          matSuffix
+          (click)="hide = !hide"
+          [attr.aria-label]="'Hide password'"
+          [attr.aria-pressed]="hide"
+        >
+          <mat-icon>{{ hide ? "visibility_off" : "visibility" }}</mat-icon>
+        </button>
+      </mat-form-field>
+
+      <div class="actions">
+        <button mat-raised-button color="primary" type="submit" [disabled]="!loginForm.valid">Se connecter</button>
+      </div>
+    </form>
+  </div>
+  <div class="contentLoginFooter">
+    <p> Là où les conversations entre amis prennent vie !</p>
+    <img src="./assets/logos/cb-logo-dark-withoutBG.png" alt="logo de l'application Chatter-Box">
+  </div>
+</div>
+
+
+<div
+  class="background-web"
+  [ngStyle]="{ 'background-image': 'url(' + pictureBackWeb + ')' }"
+></div>
+
+<!--   <button style='color: black;' (click)="toggleTheme()">Changer Thème</button>  -->
