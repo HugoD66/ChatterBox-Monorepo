@@ -1,9 +1,23 @@
-/* You can add global styles to this file, and also import other style files */
-body {
-  margin: 0;
-  padding: 0;
-  height: 100%;
-  width: 100%;
-}
+/* Error: Can't find stylesheet to import.
+ *   ,
+ * 4 | @use '@material/typography' as mdc-typography;
+ *   | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+ *   '
+ *   ..\..\node_modules\@angular\material\core\typography\_definition.scss 4:1  @use
+ *   ..\..\node_modules\@angular\material\core\typography\_versioning.scss 2:1  @use
+ *   ..\..\node_modules\@angular\material\core\theming\_m2-inspection.scss 6:1  @use
+ *   ..\..\node_modules\@angular\material\core\theming\_inspection.scss 4:1     @use
+ *   ..\..\node_modules\@angular\material\core\typography\_typography.scss 5:1  @forward
+ *   ..\..\node_modules\@angular\material\_index.scss 13:1                      @use
+ *   styles.scss 1:1                                                            root stylesheet */
 
-/*# sourceMappingURL=styles.css.map */
+body::before {
+  font-family: "Source Code Pro", "SF Mono", Monaco, Inconsolata, "Fira Mono",
+      "Droid Sans Mono", monospace, monospace;
+  white-space: pre;
+  display: block;
+  padding: 1em;
+  margin-bottom: 1em;
+  border-bottom: 2px solid black;
+  content: "Error: Can't find stylesheet to import.\a   \2577 \a 4 \2502  @use '@material/typography' as mdc-typography;\a   \2502  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\a   \2575 \a   ..\\..\\node_modules\\@angular\\material\\core\\typography\\_definition.scss 4:1  @use\a   ..\\..\\node_modules\\@angular\\material\\core\\typography\\_versioning.scss 2:1  @use\a   ..\\..\\node_modules\\@angular\\material\\core\\theming\\_m2-inspection.scss 6:1  @use\a   ..\\..\\node_modules\\@angular\\material\\core\\theming\\_inspection.scss 4:1     @use\a   ..\\..\\node_modules\\@angular\\material\\core\\typography\\_typography.scss 5:1  @forward\a   ..\\..\\node_modules\\@angular\\material\\_index.scss 13:1                      @use\a   styles.scss 1:1                                                            root stylesheet";
+}
