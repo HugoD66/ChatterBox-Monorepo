@@ -1,6 +1,6 @@
 @use "../../node_modules/@angular/material" as mat;
 @use "./assets/scss/colors" as colors;
-
+@use "./assets/scss/global" as global;
 @include mat.core();
 
 $chatter-front-primary: mat.define-palette(mat.$indigo-palette);
@@ -37,6 +37,7 @@ body {
 button {
   font-family: 'Button', serif;
 }
+
 // --------- FONTS --------- //
 
 @font-face {
@@ -83,3 +84,28 @@ h1 {
   color: rgba(66, 56, 44, 1);
 }
 */
+
+
+
+
+// --------- GLOBAL COMPONENT --------- //
+.buttonLogin {
+  background-color: colors.$dark-blue;
+  color: colors.$light-blue;
+  font-size: 1.2rem;
+  width: 100%;
+  height: 3rem;
+  border-radius: 0.5rem;
+  border: none;
+  cursor: pointer;
+  transition: 0.3s;
+  padding-bottom: 3px;
+  &:hover {
+    background-color: transparent;
+    color: colors.$dark-blue;
+    transform: scale(1.1);
+  }
+}
+
+
+

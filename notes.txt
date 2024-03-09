@@ -29,3 +29,24 @@ MEDIA QUERIES BREAKS :
 -----------------------
 
 Remove back-login-mobile photo ?
+
+Créer une enum des routes, pour le switch case dans le homecomponent, et child components en fonction de la route.
+Créer une enum pour le retour des erreur de l'api, pour les afficher dans le snackbar.
+
+---------------------
+
+CHANGE THEME :
+
+
+/* Changement de thème
+
+import {ThemeService} from "../../services/theme.service";
+
+constructor(
+  public themeService: ThemeService
+) {}
+
+toggleTheme(): void {
+  this.themeService.toggleTheme();
+}
+*/

@@ -17,8 +17,7 @@ export class CreateUserDto {
   @IsNotEmpty()
   public email!: string;
 
-  @IsNotEmpty()
-  public role!: UserRoleEnum;
+  public role?: UserRoleEnum;
 
   @MinLength(3)
   @IsStrongPassword(

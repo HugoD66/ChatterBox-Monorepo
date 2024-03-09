@@ -1,7 +1,8 @@
+@use "./colors" as colors;
+
 $theme-transition: color 0.5s ease;
 
-
-
+// --------------------------- //
 
 @mixin full-size-absolute {
   position: absolute;

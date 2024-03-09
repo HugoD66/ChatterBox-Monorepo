@@ -3,8 +3,8 @@
     <h1>Chatter-Box</h1>
     <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
       <mat-form-field class="form-field" appearance="fill">
-        <mat-label>Nom d'utilisateur</mat-label>
-        <input class="form-control" matInput formControlName="username" />
+        <mat-label>Email</mat-label>
+        <input class="form-control" matInput formControlName="email" />
       </mat-form-field>
 
       <mat-form-field class="form-field" appearance="fill">
@@ -28,7 +28,7 @@
       </mat-form-field>
 
       <div class="actions">
-        <button mat-raised-button color="primary" type="submit" [disabled]="!loginForm.valid">Se connecter</button>
+        <button  class="buttonLogin" type="submit" [disabled]="!loginForm.valid">Connexion</button>
       </div>
     </form>
   </div>

@@ -1,0 +1,28 @@
+.home {
+  width: 100%;
+  height: 100%;
+}
+
+.arrayOne {
+  width: 100%;
+  height: 100%;
+  background-color: red;
+}
+.arrayOne .arrayTwo {
+  width: 600px;
+  height: 100px;
+  background-color: blue;
+}
+
+.example-sidenav-content {
+  display: flex;
+  height: 100%;
+  align-items: center;
+  justify-content: center;
+}
+
+.example-sidenav {
+  padding: 20px;
+}
+
+/*# sourceMappingURL=home.component.css.map */

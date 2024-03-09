@@ -11,6 +11,7 @@ import { MatFormField, MatLabel } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInput } from '@angular/material/input';
 import { MatButton, MatIconButton } from '@angular/material/button';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -32,20 +33,28 @@ import { MatButton, MatIconButton } from '@angular/material/button';
   styleUrl: './login.component.scss',
 })
 export class LoginComponent {
+  public tempUser = 'aze@aze.com';
+  public tempPass = 'azeaze';
   hide = true;
   public pictureBackWeb: string =
     '../assets/pictures/background/back-login-web.jpg';
 
+  constructor(private router: Router) {}
+
   loginForm = new FormGroup({
-    username: new FormControl('', [
-      Validators.required,
-      Validators.minLength(4),
-    ]),
+    email: new FormControl('', [Validators.required]),
     password: new FormControl('', [Validators.required]),
   });
 
   onSubmit() {
-    console.log('coucou ! ');
+    console.warn(this.loginForm.value);
+    if (
+      this.loginForm.value.email === this.tempUser &&
+      this.loginForm.value.password === this.tempPass
+    ) {
+      console.log('Login success');
+      this.router.navigate(['/home']);
+    }
   }
 }
 

@@ -3,13 +3,24 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { ConfigModule, ConfigService } from '@nestjs/config';
-import { UsersResolver } from './users/users.resolver';
 import { UsersModule } from './users/users.module';
+import { PassportModule } from '@nestjs/passport';
+import { AuthGuard } from './security/auth/auth.guard';
+import { JwtModule } from '@nestjs/jwt';
+import { jwtConstants } from './security/auth/constant';
+import { User } from './users/entities/user.entity';
+import { APP_GUARD } from '@nestjs/core';
 
 @Module({
   imports: [
+    UsersModule,
     ConfigModule.forRoot({ isGlobal: true }),
-
+    PassportModule.register({ defaultStrategy: `jwt` }),
+    JwtModule.register({
+      global: true,
+      secret: jwtConstants.secret,
+      signOptions: { expiresIn: `1h` },
+    }),
     TypeOrmModule.forRootAsync({
       imports: [ConfigModule],
       useFactory: (configService: ConfigService) => {
@@ -20,7 +31,7 @@ import { UsersModule } from './users/users.module';
           username: configService.get(`DB_USERNAME`),
           password: configService.get(`DB_PASSWORD`),
           database: configService.get(`DB_NAME`),
-          entities: [],
+          entities: [User],
           synchronize: true,
         };
         console.log(dbConfig);
@@ -28,10 +39,14 @@ import { UsersModule } from './users/users.module';
       },
       inject: [ConfigService],
     }),
-
-    UsersModule,
   ],
   controllers: [AppController],
-  providers: [AppService, UsersResolver],
+  providers: [
+    {
+      provide: APP_GUARD,
+      useClass: AuthGuard,
+    },
+    AppService,
+  ],
 })
 export class AppModule {}
