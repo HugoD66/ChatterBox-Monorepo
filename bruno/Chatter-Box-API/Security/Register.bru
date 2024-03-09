@@ -1,18 +1,19 @@
 meta {
   name: Register
   type: http
-  seq: 3
+  seq: 2
 }
 
 post {
-  url: https://{{url}}:{{port}}/users/auth/register
+  url: http://{{url}}:{{port}}/{{security}}/register
   body: json
   auth: none
 }
 
 body:json {
   {
+    "pseudo": "Administrateur",
     "email": "aze@aze.com",
-    "password": "azeaze"
+    "password": "Azeaze.66"
   }
 }

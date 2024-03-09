@@ -12,6 +12,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatInput } from '@angular/material/input';
 import { MatButton, MatIconButton } from '@angular/material/button';
 import { Router } from '@angular/router';
+import { AuthService, LoginCredentials } from '../../../services/auth.service';
 
 @Component({
   selector: 'app-login',
@@ -29,17 +30,19 @@ import { Router } from '@angular/router';
     MatButton,
     MatLabel,
   ],
+
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss',
 })
 export class LoginComponent {
-  public tempUser = 'aze@aze.com';
-  public tempPass = 'azeaze';
   hide = true;
   public pictureBackWeb: string =
     '../assets/pictures/background/back-login-web.jpg';
 
-  constructor(private router: Router) {}
+  constructor(
+    private router: Router,
+    private authService: AuthService,
+  ) {}
 
   loginForm = new FormGroup({
     email: new FormControl('', [Validators.required]),
@@ -47,17 +50,23 @@ export class LoginComponent {
   });
 
   onSubmit() {
-    console.warn(this.loginForm.value);
-    if (
-      this.loginForm.value.email === this.tempUser &&
-      this.loginForm.value.password === this.tempPass
-    ) {
-      console.log('Login success');
-      this.router.navigate(['/home']);
+    const email = this.loginForm.value.email;
+    const password = this.loginForm.value.password;
+    if (this.loginForm.valid && email != null && password != null) {
+      const credentials: LoginCredentials = { email, password };
+      this.authService.login(credentials).subscribe({
+        next: () => {
+          this.router.navigate(['/home']);
+        },
+        error: (error) => {
+          console.error('Erreur lors de la connexion', error);
+        },
+      });
+    } else {
+      console.log("Les champs 'email' et 'password' doivent être remplis.");
     }
   }
 }
-
 /* Changement de thème
 
 import {ThemeService} from "../../services/theme.service";

@@ -5,11 +5,14 @@ meta {
 }
 
 post {
-  url: 
-  body: none
+  url: http://{{url}}:{{port}}/{{security}}/login
+  body: json
   auth: none
 }
 
-script:pre-request {
-  bru.setVar("bearerToken",res.body.access_token)
+body:json {
+  {
+    "email": "aze@aze.com",
+    "password": "Azeaze.66"
+  }
 }
