@@ -31,6 +31,7 @@ let UsersController = class UsersController {
         return user;
     }
     async login(loginDto) {
+        console.log(loginDto);
         const user = await this.usersService.login(loginDto);
         console.log(user);
         return user;
@@ -70,6 +71,7 @@ __decorate([
     __metadata("design:returntype", Promise)
 ], UsersController.prototype, "login", null);
 __decorate([
+    (0, public_decorator_1.Public)(),
     (0, common_1.Post)(`/auth/logout`),
     (0, common_1.UseGuards)(auth_guard_1.AuthGuard),
     __metadata("design:type", Function),

@@ -32,6 +32,8 @@ export class AuthService {
   }
 
   login(values: LoginCredentials): Observable<LoginResponse> {
+    console.log('values', values);
+
     return this.http
       .post<LoginResponse>(`${this.apiUrl}/users/auth/login`, values)
       .pipe(

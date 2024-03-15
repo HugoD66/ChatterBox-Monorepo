@@ -9,7 +9,6 @@ import {
   ValidationPipe,
   UsePipes,
   UseGuards,
-  Res,
 } from '@nestjs/common';
 import { UsersService } from './users.service';
 import { CreateUserDto } from './dto/create-user.dto';
@@ -39,11 +38,13 @@ export class UsersController {
   @Public()
   @Post(`/auth/login`)
   async login(@Body() loginDto: LoginDto): Promise<LoginResponseDto> {
+    console.log(loginDto);
     const user = await this.usersService.login(loginDto);
     console.log(user);
     return user;
   }
 
+  @Public()
   @Post(`/auth/logout`)
   @UseGuards(AuthGuard)
   async logout(): Promise<void> {
