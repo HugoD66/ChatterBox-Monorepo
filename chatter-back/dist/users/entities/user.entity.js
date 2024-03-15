@@ -11,7 +11,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.User = void 0;
 const typeorm_1 = require("typeorm");
-const user_roles_enum_1 = require("./types/user.roles.enum");
+const user_general_roles_enum_1 = require("./types/user.general.roles.enum");
 let User = class User {
 };
 exports.User = User;
@@ -32,9 +32,18 @@ __decorate([
     __metadata("design:type", String)
 ], User.prototype, "lastName", void 0);
 __decorate([
+    (0, typeorm_1.Column)({ nullable: true }),
+    __metadata("design:type", String)
+], User.prototype, "picture", void 0);
+__decorate([
+    (0, typeorm_1.Index)('email_index', { unique: true }),
     (0, typeorm_1.Column)(),
     __metadata("design:type", String)
 ], User.prototype, "email", void 0);
+__decorate([
+    (0, typeorm_1.CreateDateColumn)(),
+    __metadata("design:type", Date)
+], User.prototype, "createdAt", void 0);
 __decorate([
     (0, typeorm_1.Column)(),
     __metadata("design:type", String)
@@ -42,11 +51,11 @@ __decorate([
 __decorate([
     (0, typeorm_1.Column)({
         type: `enum`,
-        enum: user_roles_enum_1.UserRoleEnum,
-        default: user_roles_enum_1.UserRoleEnum.Utilisateur,
+        enum: user_general_roles_enum_1.UserGeneralRoleEnum,
+        default: user_general_roles_enum_1.UserGeneralRoleEnum.Utilisateur,
     }),
     __metadata("design:type", String)
-], User.prototype, "role", void 0);
+], User.prototype, "roleGeneral", void 0);
 exports.User = User = __decorate([
     (0, typeorm_1.Entity)()
 ], User);

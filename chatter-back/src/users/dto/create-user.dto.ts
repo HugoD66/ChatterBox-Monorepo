@@ -5,7 +5,7 @@ import {
   IsEmail,
   IsStrongPassword,
 } from 'class-validator';
-import { UserRoleEnum } from '../entities/types/user.roles.enum';
+import { UserGeneralRoleEnum } from '../entities/types/user.general.roles.enum';
 
 export class CreateUserDto {
   @MinLength(2)
@@ -17,7 +17,7 @@ export class CreateUserDto {
   @IsNotEmpty()
   public email!: string;
 
-  public role?: UserRoleEnum;
+  public roleGeneral?: UserGeneralRoleEnum;
 
   @MinLength(3)
   @IsStrongPassword(

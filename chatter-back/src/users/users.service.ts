@@ -14,7 +14,7 @@ import { LoginDto } from './dto/login.dto';
 import { LoginResponseDto } from './dto/login.response.dto';
 import * as bcrypt from 'bcrypt';
 import { JwtService } from '@nestjs/jwt';
-import { UserRoleEnum } from './entities/types/user.roles.enum';
+import { UserGeneralRoleEnum } from './entities/types/user.general.roles.enum';
 
 @Injectable()
 export class UsersService {
@@ -37,7 +37,7 @@ export class UsersService {
       pseudo: createUserDto.pseudo,
       email: createUserDto.email,
       password: hashedPassword,
-      role: createUserDto.role ?? UserRoleEnum.Utilisateur,
+      roleGeneral: createUserDto.roleGeneral ?? UserGeneralRoleEnum.Utilisateur,
     });
     const savedUser: User = await this.usersRepository.save(user);
     return savedUser;

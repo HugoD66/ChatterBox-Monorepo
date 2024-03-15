@@ -20,7 +20,7 @@ const typeorm_2 = require("typeorm");
 const EmailAlreadyExistsException_1 = require("../exceptions/EmailAlreadyExistsException");
 const bcrypt = require("bcrypt");
 const jwt_1 = require("@nestjs/jwt");
-const user_roles_enum_1 = require("./entities/types/user.roles.enum");
+const user_general_roles_enum_1 = require("./entities/types/user.general.roles.enum");
 let UsersService = class UsersService {
     constructor(usersRepository, jwtService) {
         this.usersRepository = usersRepository;
@@ -39,7 +39,7 @@ let UsersService = class UsersService {
             pseudo: createUserDto.pseudo,
             email: createUserDto.email,
             password: hashedPassword,
-            role: createUserDto.role ?? user_roles_enum_1.UserRoleEnum.Utilisateur,
+            roleGeneral: createUserDto.roleGeneral ?? user_general_roles_enum_1.UserGeneralRoleEnum.Utilisateur,
         });
         const savedUser = await this.usersRepository.save(user);
         return savedUser;

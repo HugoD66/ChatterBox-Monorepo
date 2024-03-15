@@ -1,7 +1,7 @@
-import { UserRoleEnum } from '../entities/types/user.roles.enum';
+import { UserGeneralRoleEnum } from '../entities/types/user.general.roles.enum';
 export declare class CreateUserDto {
     pseudo: string;
     email: string;
-    role?: UserRoleEnum;
+    roleGeneral?: UserGeneralRoleEnum;
     password: string;
 }

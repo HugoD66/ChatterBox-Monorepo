@@ -1,10 +1,12 @@
-import { UserRoleEnum } from './types/user.roles.enum';
+import { UserGeneralRoleEnum } from './types/user.general.roles.enum';
 export declare class User {
     id: string;
     pseudo: string;
     firstName: string;
     lastName: string;
+    picture: string | null;
     email: string;
+    createdAt: Date;
     password: string;
-    role: UserRoleEnum;
+    roleGeneral: UserGeneralRoleEnum;
 }

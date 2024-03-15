@@ -12,6 +12,7 @@ import { MatDrawer, MatDrawerContainer } from '@angular/material/sidenav';
 })
 export class HomeComponent implements OnInit {
   showFiller: boolean = false;
+
   public getMe: WritableSignal<boolean> = signal(true); //Change boolean to usermodel
   constructor(private router: Router) {
     if (!this.getMe()) {
@@ -19,5 +20,8 @@ export class HomeComponent implements OnInit {
     }
   }
 
+  additionalClickAction(): void {
+    console.log('Action supplémentaire lors du clic du bouton!');
+  }
   ngOnInit() {}
 }

@@ -1,7 +1,7 @@
 import { CreateUserDto } from '../users/dto/create-user.dto';
 import { Injectable } from '@nestjs/common';
 import { UsersService } from '../users/users.service';
-import { UserRoleEnum } from '../users/entities/types/user.roles.enum';
+import { UserGeneralRoleEnum } from '../users/entities/types/user.general.roles.enum';
 
 @Injectable()
 export class UserFixtures {
@@ -12,7 +12,7 @@ export class UserFixtures {
       pseudo: `Administrateur`,
       email: `test@test.com`,
       password: `Azeaze.66`,
-      role: UserRoleEnum.Admin,
+      roleGeneral: UserGeneralRoleEnum.Admin,
     };
     console.log('user ! ');
 

@@ -1,5 +1,11 @@
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
-import { UserRoleEnum } from './types/user.roles.enum';
+import {
+  Column,
+  CreateDateColumn,
+  Entity,
+  Index,
+  PrimaryGeneratedColumn,
+} from 'typeorm';
+import { UserGeneralRoleEnum } from './types/user.general.roles.enum';
 
 @Entity()
 export class User {
@@ -15,16 +21,23 @@ export class User {
   @Column({ nullable: true, length: 500 })
   public lastName: string;
 
+  @Column({ nullable: true })
+  public picture: string | null;
+
+  @Index('email_index', { unique: true })
   @Column()
   public email!: string;
+
+  @CreateDateColumn()
+  public createdAt!: Date;
 
   @Column()
   public password!: string;
 
   @Column({
     type: `enum`,
-    enum: UserRoleEnum,
-    default: UserRoleEnum.Utilisateur,
+    enum: UserGeneralRoleEnum,
+    default: UserGeneralRoleEnum.Utilisateur,
   })
-  public role: UserRoleEnum;
+  public roleGeneral: UserGeneralRoleEnum;
 }

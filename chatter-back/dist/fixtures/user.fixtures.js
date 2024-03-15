@@ -12,7 +12,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.UserFixtures = void 0;
 const common_1 = require("@nestjs/common");
 const users_service_1 = require("../users/users.service");
-const user_roles_enum_1 = require("../users/entities/types/user.roles.enum");
+const user_general_roles_enum_1 = require("../users/entities/types/user.general.roles.enum");
 let UserFixtures = class UserFixtures {
     constructor(usersService) {
         this.usersService = usersService;
@@ -22,7 +22,7 @@ let UserFixtures = class UserFixtures {
             pseudo: `Administrateur`,
             email: `test@test.com`,
             password: `Azeaze.66`,
-            role: user_roles_enum_1.UserRoleEnum.Admin,
+            roleGeneral: user_general_roles_enum_1.UserGeneralRoleEnum.Admin,
         };
         console.log('user ! ');
         await this.usersService.register(user);

@@ -1,21 +1,6 @@
-.home {
+.contentHome {
   width: 100%;
   height: 100%;
-}
-.arrayOne {
-   width: 100%;
-  height: 100%;
-  background-color: red;
-
-  .arrayTwo {
-    width: 600px;
-    height: 100px;
-    background-color: blue;
-  }
-}
-
-
-
   .example-sidenav-content {
     display: flex;
     height: 100%;
@@ -23,7 +8,24 @@
     justify-content: center;
 
   }
+  .arrayOne {
+    width: 100%;
+    height: 100%;
+    background-color: red;
+
+    .arrayTwo {
+      width: 600px;
+      height: 100px;
+      background-color: blue;
+    }
+  }
 
   .example-sidenav {
     padding: 20px;
   }
+
+
+}
+
+
+
