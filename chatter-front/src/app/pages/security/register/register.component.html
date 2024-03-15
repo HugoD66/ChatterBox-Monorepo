@@ -30,8 +30,10 @@
   </mat-form-field>
 
   <div class="actions">
-    <button  class="buttonLogin" type="submit" [disabled]="!registerForm.valid">Enregistrement</button>
+    <button class="buttonLogin" type="submit" [disabled]="!registerForm.valid">
+      Enregistrement
+    </button>
   </div>
+  <p><a (click)="goRegister()">Déjà inscrit ? </a></p>
+
 </form>
-
-

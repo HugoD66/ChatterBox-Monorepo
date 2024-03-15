@@ -35,4 +35,8 @@ export class AuthComponent {
       ? this.isLoginChildren.set(false)
       : this.isLoginChildren.set(true);
   }
+
+  handleRegisterClick() {
+    this.goRegister();
+  }
 }

@@ -5,13 +5,13 @@ import { ResponseUserDto } from './dto/response-user.dto';
 import { LoginResponseDto } from './dto/login.response.dto';
 import { LoginDto } from './dto/login.dto';
 export declare class UsersController {
-    private readonly usersService;
-    constructor(usersService: UsersService);
-    register(createUserDto: CreateUserDto): Promise<ResponseUserDto>;
-    login(loginDto: LoginDto): Promise<LoginResponseDto>;
-    logout(): Promise<void>;
-    findAll(): Promise<ResponseUserDto[]>;
-    findOne(id: string): Promise<ResponseUserDto>;
-    update(id: string, updateUserDto: UpdateUserDto): Promise<ResponseUserDto>;
-    remove(id: string): Promise<void>;
+  private readonly usersService;
+  constructor(usersService: UsersService);
+  register(createUserDto: CreateUserDto): Promise<ResponseUserDto>;
+  login(loginDto: LoginDto): Promise<LoginResponseDto>;
+  logout(): Promise<void>;
+  findAll(): Promise<ResponseUserDto[]>;
+  findOne(id: string): Promise<ResponseUserDto>;
+  update(id: string, updateUserDto: UpdateUserDto): Promise<ResponseUserDto>;
+  remove(id: string): Promise<void>;
 }

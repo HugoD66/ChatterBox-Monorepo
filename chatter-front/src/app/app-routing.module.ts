@@ -19,7 +19,6 @@ export const routes: Routes = [
   { path: 'home', component: HomeComponent, canActivate: [AuthGuard] },
   { path: '', redirectTo: '/home', pathMatch: 'full' },
   { path: '**', redirectTo: '/home' },
-
   //TODO: A delete si ca marche
   //{ path: 'login', component: LoginComponent },
   //{ path: 'register', component: RegisterComponent },

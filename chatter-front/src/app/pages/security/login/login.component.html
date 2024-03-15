@@ -23,10 +23,11 @@
       <mat-icon>{{ hide ? "visibility_off" : "visibility" }}</mat-icon>
     </button>
   </mat-form-field>
-
   <div class="actions">
-    <button  class="buttonLogin" type="submit" [disabled]="!loginForm.valid">Connexion</button>
+    <button class="buttonLogin" type="submit" [disabled]="!loginForm.valid">
+      Connexion
+    </button>
   </div>
-
+  <p><a (click)="goRegister()">Pas encore inscrit ? </a></p>
 </form>
 <!--   <button style='color: black;' (click)="toggleTheme()">Changer Thème</button>  -->

@@ -32,10 +32,10 @@ body {
 }
 body {
   margin: 0;
-  font-family: 'JostRegular', serif;
+  font-family: "JostRegular", serif;
 }
 button {
-  font-family: 'Button', serif;
+  font-family: "Button", serif;
 }
 
 // --------- FONTS --------- //
@@ -68,8 +68,6 @@ button {
   font-style: normal;
 }
 
-
-
 // !!!!!!!!!!! TRADE THEME !!!!!!!!!!! //
 //    transition: global.$theme-transition;
 
@@ -84,9 +82,6 @@ h1 {
   color: rgba(66, 56, 44, 1);
 }
 */
-
-
-
 
 // --------- GLOBAL COMPONENT --------- //
 .buttonLogin {
@@ -106,6 +101,3 @@ h1 {
     transform: scale(1.1);
   }
 }
-
-
-

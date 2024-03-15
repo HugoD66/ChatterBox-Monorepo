@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from '../../../services/auth.service';
 import {
@@ -33,6 +33,12 @@ import { RegisterModel } from '../../../models/register.model';
   styleUrls: ['./register.component.scss'], // Assurez-vous que la propriété s'appelle styleUrls au lieu de styleUrl
 })
 export class RegisterComponent {
+  @Output() registerClicked: EventEmitter<void> = new EventEmitter<void>();
+
+  goRegister() {
+    this.registerClicked.emit();
+  }
+
   hide = true;
 
   registerForm = new FormGroup({

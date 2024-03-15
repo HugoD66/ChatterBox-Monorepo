@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {
   FormControl,
@@ -35,6 +35,7 @@ import { AuthService, LoginCredentials } from '../../../services/auth.service';
   styleUrl: './login.component.scss',
 })
 export class LoginComponent {
+  @Output() loginClicked: EventEmitter<void> = new EventEmitter<void>();
   hide = true;
   constructor(
     private router: Router,
@@ -64,6 +65,10 @@ export class LoginComponent {
     } else {
       console.log("Les champs 'email' et 'password' doivent être remplis.");
     }
+  }
+
+  goRegister() {
+    this.loginClicked.emit();
   }
 }
 /* Changement de thème
