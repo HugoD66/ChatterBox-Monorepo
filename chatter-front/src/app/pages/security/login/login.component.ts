@@ -36,9 +36,6 @@ import { AuthService, LoginCredentials } from '../../../services/auth.service';
 })
 export class LoginComponent {
   hide = true;
-  public pictureBackWeb: string =
-    '../assets/pictures/background/back-login-web.jpg';
-
   constructor(
     private router: Router,
     private authService: AuthService,

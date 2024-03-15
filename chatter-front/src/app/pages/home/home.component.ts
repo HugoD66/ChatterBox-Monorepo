@@ -21,7 +21,7 @@ export class HomeComponent implements OnInit {
     private authService: AuthService,
   ) {
     if (!this.getMe()) {
-      this.router.navigate(['/login']);
+      this.router.navigate(['/auth']);
     }
   }
 
@@ -34,6 +34,6 @@ export class HomeComponent implements OnInit {
     this.getMe.set(false);
     this.authService.logout();
     console.log(this.getMe());
-    this.router.navigate(['/login']);
+    this.router.navigate(['/auth']);
   }
 }

@@ -1,0 +1,28 @@
+<div class="content">
+  <div class="titleForm">
+    <h1>Chatter-Box</h1>
+
+    <div class="login-register">
+      @if (isLoginChildren()) {
+        <app-login />
+        <p><a (click)="goRegister()">Pas encore inscrit ? </a></p>
+      } @else {
+        <app-register />
+        <p><a (click)="goRegister()">Déjà inscrit ? </a></p>
+      }
+    </div>
+
+  </div>
+  <div class="contentLoginFooter">
+    <p> Là où les conversations entre amis prennent vie ! </p>
+    <img src="./assets/logos/cb-logo-dark-withoutBG.png" alt="logo de l'application Chatter-Box">
+  </div>
+</div>
+
+
+<div
+  class="background-web"
+  [ngStyle]="{ 'background-image': 'url(' + pictureBackWeb + ')' }"
+></div>
+
+<!--   <button style='color: black;' (click)="toggleTheme()">Changer Thème</button>  -->

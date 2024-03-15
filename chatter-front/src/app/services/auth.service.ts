@@ -3,6 +3,8 @@ import { environment } from '../../env';
 import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { catchError, Observable, throwError } from 'rxjs';
+import { UserModel } from '../models/user.model';
+import { RegisterModel } from '../models/register.model';
 
 export interface LoginResponse {
   access_token: string;
@@ -47,5 +49,16 @@ export class AuthService {
   logout(): void {
     localStorage.removeItem('authToken');
     this.router.navigate(['/login']);
+  }
+
+  register(values: RegisterModel): Observable<UserModel> {
+    return this.http
+      .post<UserModel>(`${this.apiUrl}/users/auth/register`, values)
+      .pipe(
+        catchError((error) => {
+          console.error("Erreur lors de l'inscription", error);
+          return throwError(() => error);
+        }),
+      );
   }
 }
