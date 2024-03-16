@@ -1,20 +1,18 @@
 import {
   IsNotEmpty,
   MinLength,
-  MaxLength,
-  IsEmail,
   IsStrongPassword,
+  IsEmail,
 } from 'class-validator';
 import { UserGeneralRoleEnum } from '../entities/types/user.general.roles.enum';
-
+import { ValidationErrors } from '../../exceptions/ValidationErrors';
 export class CreateUserDto {
-  @MinLength(2)
-  @MaxLength(20)
-  @IsNotEmpty()
+  @IsNotEmpty({ message: ValidationErrors.REQUIRED_FIELD })
+  @MinLength(3, { message: ValidationErrors.PSEUDO_LENGTH })
   public pseudo!: string;
 
-  @IsEmail()
-  @IsNotEmpty()
+  @IsNotEmpty({ message: ValidationErrors.REQUIRED_FIELD })
+  @IsEmail({}, { message: ValidationErrors.EMAIL_INVALID })
   public email!: string;
 
   public roleGeneral?: UserGeneralRoleEnum;
@@ -32,6 +30,6 @@ export class CreateUserDto {
       message: `Le mot de passe doit contenir au moins 8 caractères, une majuscule, une minuscule, un chiffre et un caractère spécial`,
     },
   )
-  @IsNotEmpty({ message: `Le mot de passe ne peut pas être vide` })
+  @IsNotEmpty({ message: ValidationErrors.REQUIRED_FIELD })
   public password!: string;
 }

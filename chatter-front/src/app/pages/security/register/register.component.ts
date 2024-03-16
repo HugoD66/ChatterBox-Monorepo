@@ -1,4 +1,10 @@
-import { Component, EventEmitter, Output } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  Output,
+  signal,
+  WritableSignal,
+} from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from '../../../services/auth.service';
 import {
@@ -34,20 +40,23 @@ import { RegisterModel } from '../../../models/register.model';
 })
 export class RegisterComponent {
   @Output() registerClicked: EventEmitter<void> = new EventEmitter<void>();
+  public hide = true;
+  public errorMessage: WritableSignal<string> = signal('');
 
-  goRegister() {
+  goLogin() {
     this.registerClicked.emit();
   }
 
-  hide = true;
-
   registerForm = new FormGroup({
-    email: new FormControl('', [Validators.required, Validators.email]), // Vous pouvez ajouter des validateurs supplémentaires si nécessaire
-    pseudo: new FormControl('', [Validators.required]),
+    email: new FormControl('', {
+      validators: [Validators.required, Validators.email],
+      updateOn: 'blur',
+    }),
+    pseudo: new FormControl('', [Validators.required, Validators.minLength(3)]),
     password: new FormControl('', [
       Validators.required,
       Validators.minLength(6),
-    ]), // Exemple: mot de passe avec une longueur minimale
+    ]),
   });
 
   constructor(
@@ -67,18 +76,19 @@ export class RegisterComponent {
     ) {
       const user: RegisterModel = { email, pseudo, password };
       this.authService.register(user).subscribe({
-        next: (response: UserModel) => {
-          console.log('Inscription réussie', response);
+        next: () => {
           this.router.navigate(['/auth/login']);
         },
         error: (error) => {
-          console.error("Erreur lors de l'inscription", error);
+          console.log(error);
+          this.errorMessage.set(
+            error.error.message ||
+              "Une erreur est survenue lors de l'inscription.",
+          );
         },
       });
     } else {
-      console.log(
-        "Les champs 'email', 'pseudo' et 'password' doivent être remplis.",
-      );
+      this.errorMessage.set('Tous les champs sont requis.');
     }
   }
 }

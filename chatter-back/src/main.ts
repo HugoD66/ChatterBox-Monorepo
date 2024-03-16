@@ -1,6 +1,7 @@
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import { CorsOptions } from '@nestjs/common/interfaces/external/cors-options.interface';
+import { HttpExceptionFilter } from './exceptions/HttpExceptionFilter';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule, { cors: true });
@@ -12,6 +13,7 @@ async function bootstrap() {
     optionsSuccessStatus: 204,
   };
   app.enableCors(corsOptions);
+  app.useGlobalFilters(new HttpExceptionFilter());
 
   //const userFixtures: UserFixtures = app.get(UserFixtures);
   //await userFixtures.seedUsers();

@@ -33,7 +33,12 @@
     <button class="buttonLogin" type="submit" [disabled]="!registerForm.valid">
       Enregistrement
     </button>
+    @if(errorMessage()) {
+      <div class="error-message">
+        {{ errorMessage() }}
+      </div>
+    }
   </div>
-  <p><a (click)="goRegister()">Déjà inscrit ? </a></p>
+  <p><a (click)="goLogin()">Déjà inscrit ? </a></p>
 
 </form>

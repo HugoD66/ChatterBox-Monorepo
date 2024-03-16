@@ -27,6 +27,11 @@
     <button class="buttonLogin" type="submit" [disabled]="!loginForm.valid">
       Connexion
     </button>
+    @if(errorMessage()) {
+      <div class="error-message">
+        {{ errorMessage() }}
+      </div>
+    }
   </div>
   <p><a (click)="goRegister()">Pas encore inscrit ? </a></p>
 </form>

@@ -1,4 +1,10 @@
-import { Component, EventEmitter, Output } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  Output,
+  signal,
+  WritableSignal,
+} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {
   FormControl,
@@ -7,7 +13,7 @@ import {
   Validators,
 } from '@angular/forms';
 import { MatCard, MatCardContent, MatCardHeader } from '@angular/material/card';
-import { MatFormField, MatLabel } from '@angular/material/form-field';
+import { MatError, MatFormField, MatLabel } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInput } from '@angular/material/input';
 import { MatButton, MatIconButton } from '@angular/material/button';
@@ -29,6 +35,7 @@ import { AuthService, LoginCredentials } from '../../../services/auth.service';
     MatIconButton,
     MatButton,
     MatLabel,
+    MatError,
   ],
 
   templateUrl: './login.component.html',
@@ -36,15 +43,24 @@ import { AuthService, LoginCredentials } from '../../../services/auth.service';
 })
 export class LoginComponent {
   @Output() loginClicked: EventEmitter<void> = new EventEmitter<void>();
-  hide = true;
+  public hide = true;
+  public errors: WritableSignal<string[]> = signal([]);
+  public errorMessage: WritableSignal<string> = signal('');
+
   constructor(
     private router: Router,
     private authService: AuthService,
   ) {}
 
   loginForm = new FormGroup({
-    email: new FormControl('', [Validators.required]),
-    password: new FormControl('', [Validators.required]),
+    email: new FormControl('', {
+      validators: [Validators.required, Validators.email],
+      updateOn: 'blur',
+    }),
+    password: new FormControl('', [
+      Validators.required,
+      Validators.minLength(6),
+    ]),
   });
 
   onSubmit() {
@@ -60,10 +76,14 @@ export class LoginComponent {
         },
         error: (error) => {
           console.error('Erreur lors de la connexion', error);
+          this.errorMessage.set(
+            error.error.message ||
+              'Une erreur est survenue lors de la connexion.',
+          );
         },
       });
     } else {
-      console.log("Les champs 'email' et 'password' doivent être remplis.");
+      this.errorMessage.set('Tous les champs sont requis.');
     }
   }
 

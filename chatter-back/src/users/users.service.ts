@@ -1,4 +1,5 @@
 import {
+  BadRequestException,
   Injectable,
   NotFoundException,
   UnauthorizedException,
@@ -9,12 +10,12 @@ import { ResponseUserDto } from './dto/response-user.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { User } from './entities/user.entity';
 import { Repository } from 'typeorm';
-import { EmailAlreadyExistsException } from '../exceptions/EmailAlreadyExistsException';
 import { LoginDto } from './dto/login.dto';
 import { LoginResponseDto } from './dto/login.response.dto';
 import * as bcrypt from 'bcrypt';
 import { JwtService } from '@nestjs/jwt';
 import { UserGeneralRoleEnum } from './entities/types/user.general.roles.enum';
+import { ValidationErrors } from '../exceptions/ValidationErrors';
 
 @Injectable()
 export class UsersService {
@@ -28,7 +29,7 @@ export class UsersService {
       where: { email: createUserDto.email },
     });
     if (isEmailFree > 0) {
-      throw new EmailAlreadyExistsException();
+      throw new BadRequestException(ValidationErrors.EMAIL_ALREADY_USED);
     }
     const salt = await bcrypt.genSalt();
     const hashedPassword = await bcrypt.hash(createUserDto.password, salt);
@@ -48,14 +49,14 @@ export class UsersService {
       where: { email: loginDto.email },
     });
     if (!user) {
-      throw new NotFoundException(`User not found`);
+      throw new NotFoundException(ValidationErrors.USER_NOT_FOUND);
     }
     const passwordMatch = await bcrypt.compare(
       loginDto.password,
       user.password,
     );
     if (!passwordMatch) {
-      throw new UnauthorizedException(`Invalid password`);
+      throw new UnauthorizedException(ValidationErrors.CREDENTIALS_INVALID);
     }
     const payload = { sub: user.id, email: user.email };
     return {

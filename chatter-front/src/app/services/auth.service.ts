@@ -40,7 +40,6 @@ export class AuthService {
       .post<LoginResponse>(`${this.apiUrl}/users/auth/login`, values)
       .pipe(
         catchError((error) => {
-          console.error('Erreur lors de la connexion', error);
           return throwError(() => error);
         }),
       );
@@ -56,7 +55,6 @@ export class AuthService {
       .post<UserModel>(`${this.apiUrl}/users/auth/register`, values)
       .pipe(
         catchError((error) => {
-          console.error("Erreur lors de l'inscription", error);
           return throwError(() => error);
         }),
       );
