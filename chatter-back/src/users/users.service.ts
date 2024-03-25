@@ -29,7 +29,7 @@ export class UsersService {
       where: { email: createUserDto.email },
     });
     if (isEmailFree > 0) {
-      throw new BadRequestException(ValidationErrors.EMAIL_ALREADY_USED);
+      throw new BadRequestException("Email ou Nom d'utilisateur déjà pris.");
     }
     const salt = await bcrypt.genSalt();
     const hashedPassword = await bcrypt.hash(createUserDto.password, salt);

@@ -23,5 +23,8 @@ form .actions .error-message {
   font-weight: bold;
   color: rgb(248, 65, 65);
 }
+form .goRegister {
+  cursor: pointer;
+}
 
 /*# sourceMappingURL=login.component.css.map */

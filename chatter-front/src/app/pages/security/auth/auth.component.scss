@@ -23,6 +23,7 @@
       margin: auto;
       color: colors.$dark-blue;
       text-shadow: 2px 2px 18px colors.$medium-blue;
+      user-select: none;
       @media screen and (max-width: 820px) {
         font-size: 14vw;
         font-weight: 400;
@@ -47,6 +48,7 @@
       width: 100%;
       font-size: 1.1rem;
       text-align: center;
+      user-select: none;
       color: colors.$dark-blue;
       text-shadow: 2px 2px 18px colors.$medium-blue;
       @media screen and (max-width: 820px) {

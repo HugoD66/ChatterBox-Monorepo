@@ -31,7 +31,7 @@ let UsersService = class UsersService {
             where: { email: createUserDto.email },
         });
         if (isEmailFree > 0) {
-            throw new common_1.BadRequestException(ValidationErrors_1.ValidationErrors.EMAIL_ALREADY_USED);
+            throw new common_1.BadRequestException("Email ou Nom d'utilisateur déjà pris.");
         }
         const salt = await bcrypt.genSalt();
         const hashedPassword = await bcrypt.hash(createUserDto.password, salt);
@@ -49,11 +49,11 @@ let UsersService = class UsersService {
             where: { email: loginDto.email },
         });
         if (!user) {
-            throw new common_1.NotFoundException(`User not found`);
+            throw new common_1.NotFoundException(ValidationErrors_1.ValidationErrors.USER_NOT_FOUND);
         }
         const passwordMatch = await bcrypt.compare(loginDto.password, user.password);
         if (!passwordMatch) {
-            throw new common_1.UnauthorizedException(`Invalid password`);
+            throw new common_1.UnauthorizedException(ValidationErrors_1.ValidationErrors.CREDENTIALS_INVALID);
         }
         const payload = { sub: user.id, email: user.email };
         return {

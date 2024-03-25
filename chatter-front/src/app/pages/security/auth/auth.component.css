@@ -34,6 +34,7 @@
   margin: auto;
   color: rgb(8, 27, 42);
   text-shadow: 2px 2px 18px rgb(104, 193, 236);
+  user-select: none;
 }
 @media screen and (max-width: 820px) {
   .content .titleForm h1 {
@@ -62,6 +63,7 @@
   width: 100%;
   font-size: 1.1rem;
   text-align: center;
+  user-select: none;
   color: rgb(8, 27, 42);
   text-shadow: 2px 2px 18px rgb(104, 193, 236);
 }

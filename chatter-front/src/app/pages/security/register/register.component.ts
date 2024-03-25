@@ -19,7 +19,6 @@ import { MatFormField, MatLabel } from '@angular/material/form-field';
 import { MatIcon } from '@angular/material/icon';
 import { MatIconButton } from '@angular/material/button';
 import { MatInput } from '@angular/material/input';
-import { UserModel } from '../../../models/user.model';
 import { RegisterModel } from '../../../models/register.model';
 
 @Component({
@@ -36,12 +35,14 @@ import { RegisterModel } from '../../../models/register.model';
     ReactiveFormsModule,
   ],
   templateUrl: './register.component.html',
-  styleUrls: ['./register.component.scss'], // Assurez-vous que la propriété s'appelle styleUrls au lieu de styleUrl
+  styleUrls: ['./register.component.scss'],
 })
 export class RegisterComponent {
   @Output() registerClicked: EventEmitter<void> = new EventEmitter<void>();
   public hide = true;
   public errorMessage: WritableSignal<string> = signal('');
+
+  constructor(private authService: AuthService) {}
 
   goLogin() {
     this.registerClicked.emit();
@@ -59,11 +60,6 @@ export class RegisterComponent {
     ]),
   });
 
-  constructor(
-    private router: Router,
-    private authService: AuthService,
-  ) {}
-
   onSubmit(): void {
     const email = this.registerForm.value.email;
     const pseudo = this.registerForm.value.pseudo;
@@ -77,13 +73,14 @@ export class RegisterComponent {
       const user: RegisterModel = { email, pseudo, password };
       this.authService.register(user).subscribe({
         next: () => {
-          this.router.navigate(['/auth/login']);
+          console.log('Inscription réussie.');
+          this.errorMessage.set('');
+          this.goLogin();
         },
         error: (error) => {
           console.log(error);
           this.errorMessage.set(
-            error.error.message ||
-              "Une erreur est survenue lors de l'inscription.",
+            error || "Une erreur est survenue lors de l'inscription.",
           );
         },
       });

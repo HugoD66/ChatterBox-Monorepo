@@ -21,7 +21,6 @@ export class AuthService {
 
   constructor(
     private router: Router,
-
     private http: HttpClient,
   ) {}
 
@@ -35,7 +34,6 @@ export class AuthService {
 
   login(values: LoginCredentials): Observable<LoginResponse> {
     console.log('values', values);
-
     return this.http
       .post<LoginResponse>(`${this.apiUrl}/users/auth/login`, values)
       .pipe(
@@ -55,7 +53,9 @@ export class AuthService {
       .post<UserModel>(`${this.apiUrl}/users/auth/register`, values)
       .pipe(
         catchError((error) => {
-          return throwError(() => error);
+          const errorMessage =
+            error.error.message || 'Une erreur inattendue est survenue';
+          return throwError(() => new Error(errorMessage));
         }),
       );
   }
