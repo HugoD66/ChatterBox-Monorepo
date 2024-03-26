@@ -25,12 +25,13 @@ export class UsersService {
     private readonly jwtService: JwtService,
   ) {}
   async register(createUserDto: CreateUserDto): Promise<ResponseUserDto> {
-    const isEmailFree: number = await this.usersRepository.count({
-      where: { email: createUserDto.email },
+    const existingUser = await this.usersRepository.findOne({
+      where: [{ email: createUserDto.email }, { pseudo: createUserDto.pseudo }],
     });
-    if (isEmailFree > 0) {
+    if (existingUser) {
       throw new BadRequestException("Email ou Nom d'utilisateur déjà pris.");
     }
+
     const salt = await bcrypt.genSalt();
     const hashedPassword = await bcrypt.hash(createUserDto.password, salt);
 
