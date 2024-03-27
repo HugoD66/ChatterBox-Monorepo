@@ -9,6 +9,8 @@ import {
   ValidationPipe,
   UsePipes,
   UseGuards,
+  Req,
+  UnauthorizedException,
 } from '@nestjs/common';
 import { UsersService } from './users.service';
 import { CreateUserDto } from './dto/create-user.dto';
@@ -38,10 +40,7 @@ export class UsersController {
   @Public()
   @Post(`/auth/login`)
   async login(@Body() loginDto: LoginDto): Promise<LoginResponseDto> {
-    console.log(loginDto);
-    const user = await this.usersService.login(loginDto);
-    console.log(user);
-    return user;
+    return await this.usersService.login(loginDto);
   }
 
   @Public()
@@ -51,8 +50,14 @@ export class UsersController {
     return;
   }
 
-  //TODO : remove Public()
-  @Public()
+  @Get('/auth/me')
+  @UseGuards(AuthGuard)
+  async getMe(@Req() req): Promise<ResponseUserDto> {
+    console.log('req.user');
+    console.log(req.user);
+    return this.usersService.findOne(req.user.id);
+  }
+
   @Get()
   async findAll(): Promise<ResponseUserDto[]> {
     return this.usersService.findAll();

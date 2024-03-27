@@ -31,13 +31,15 @@ let UsersController = class UsersController {
         return user;
     }
     async login(loginDto) {
-        console.log(loginDto);
-        const user = await this.usersService.login(loginDto);
-        console.log(user);
-        return user;
+        return await this.usersService.login(loginDto);
     }
     async logout() {
         return;
+    }
+    async getMe(req) {
+        console.log('req.user');
+        console.log(req.user);
+        return this.usersService.findOne(req.user.id);
     }
     async findAll() {
         return this.usersService.findAll();
@@ -79,7 +81,14 @@ __decorate([
     __metadata("design:returntype", Promise)
 ], UsersController.prototype, "logout", null);
 __decorate([
-    (0, public_decorator_1.Public)(),
+    (0, common_1.Get)('/auth/me'),
+    (0, common_1.UseGuards)(auth_guard_1.AuthGuard),
+    __param(0, (0, common_1.Req)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Object]),
+    __metadata("design:returntype", Promise)
+], UsersController.prototype, "getMe", null);
+__decorate([
     (0, common_1.Get)(),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", []),

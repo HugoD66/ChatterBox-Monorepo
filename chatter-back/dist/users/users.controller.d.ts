@@ -10,6 +10,7 @@ export declare class UsersController {
     register(createUserDto: CreateUserDto): Promise<ResponseUserDto>;
     login(loginDto: LoginDto): Promise<LoginResponseDto>;
     logout(): Promise<void>;
+    getMe(req: any): Promise<ResponseUserDto>;
     findAll(): Promise<ResponseUserDto[]>;
     findOne(id: string): Promise<ResponseUserDto>;
     update(id: string, updateUserDto: UpdateUserDto): Promise<ResponseUserDto>;

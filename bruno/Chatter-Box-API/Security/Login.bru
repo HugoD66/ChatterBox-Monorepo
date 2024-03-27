@@ -5,14 +5,14 @@ meta {
 }
 
 post {
-  url: http://{{url}}:{{port}}/{{security}}/login
+  url: http://{{url}}:{{port}}/users/auth/login
   body: json
   auth: none
 }
 
 body:json {
   {
-    "email": "aze@aze.com",
-    "password": "Azeaze.66"
+    "email": "user1@email.com",
+    "password": "Password.66"
   }
 }

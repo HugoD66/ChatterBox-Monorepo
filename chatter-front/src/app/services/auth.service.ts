@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { environment } from '../../env';
 import { Router } from '@angular/router';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { catchError, Observable, throwError } from 'rxjs';
 import { UserModel } from '../models/user.model';
 import { RegisterModel } from '../models/register.model';
@@ -33,7 +33,6 @@ export class AuthService {
   }
 
   login(values: LoginCredentials): Observable<LoginResponse> {
-    console.log('values', values);
     return this.http
       .post<LoginResponse>(`${this.apiUrl}/users/auth/login`, values)
       .pipe(
@@ -56,6 +55,24 @@ export class AuthService {
           const errorMessage =
             error.error.message || 'Une erreur inattendue est survenue';
           return throwError(() => new Error(errorMessage));
+        }),
+      );
+  }
+
+  getMe(): Observable<UserModel> {
+    const accessToken = localStorage.getItem(`access_token`);
+
+    const headers = new HttpHeaders().set(
+      `Authorization`,
+      `Bearer ${accessToken}`,
+    );
+    const options = { headers: headers };
+    console.log('options', options);
+    return this.http
+      .get<UserModel>(`${this.apiUrl}/users/auth/me`, options)
+      .pipe(
+        catchError((error) => {
+          return throwError(() => error);
         }),
       );
   }

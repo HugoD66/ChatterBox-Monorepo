@@ -1,0 +1,15 @@
+meta {
+  name: User-GetMe
+  type: http
+  seq: 2
+}
+
+get {
+  url: http://{{url}}:{{port}}/users/auth/me
+  body: none
+  auth: bearer
+}
+
+auth:bearer {
+  token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJiYzkzOWNiZC1hYTkzLTQ3NjQtOTM5MS1hMWMzOTFiMDlkYjMiLCJlbWFpbCI6InVzZXIxQGVtYWlsLmNvbSIsImlhdCI6MTcxMTU2NTQ5MywiZXhwIjoxNzExNTY5MDkzfQ.6SeNbmC0xdhu7aVzJkawNqGLcJkrAKVDJnwDy6e9KUo
+}

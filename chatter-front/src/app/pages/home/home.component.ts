@@ -4,6 +4,7 @@ import { SidenavComponent } from '../../components/sidenav/sidenav.component';
 import { MatDrawer, MatDrawerContainer } from '@angular/material/sidenav';
 import { MatButton } from '@angular/material/button';
 import { AuthService } from '../../services/auth.service';
+import { UserModel } from '../../models/user.model';
 
 @Component({
   selector: 'app-home',
@@ -14,12 +15,25 @@ import { AuthService } from '../../services/auth.service';
 })
 export class HomeComponent implements OnInit {
   showFiller: boolean = false;
-
-  public getMe: WritableSignal<boolean> = signal(true); //Change boolean to usermodel
+  public getMe: WritableSignal<UserModel | null> = signal(null);
   constructor(
     private router: Router,
     private authService: AuthService,
   ) {
+    const getUser = this.authService.getMe().subscribe(
+      (user) => {
+        this.getMe.set(user);
+        if (!this.getMe()) {
+          this.router.navigate(['/auth']);
+        }
+      },
+      (error) => {
+        console.error('error', error);
+        this.router.navigate(['/auth']);
+      },
+    );
+    console.log('getUser', getUser);
+    //this.getMe.set(getUser);
     if (!this.getMe()) {
       this.router.navigate(['/auth']);
     }
@@ -31,9 +45,8 @@ export class HomeComponent implements OnInit {
   ngOnInit() {}
 
   logout(): void {
-    this.getMe.set(false);
     this.authService.logout();
-    console.log(this.getMe());
+    this.getMe.set(null);
     this.router.navigate(['/auth']);
   }
 }
