@@ -1,0 +1,19 @@
+@use "../../../assets/scss/colors" as colors;
+@use "../../../assets/scss/global" as global;
+
+mat-sidenav {
+  display: flex;
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  background-color: colors.$back-blue;
+  transition: width 0.3s ease;
+  opacity: 0.2;
+  &.expanded {
+    width: 15em !important;
+  }
+  &.collapsed {
+    width: 5em !important; //5
+  }
+}

@@ -1,9 +1,6 @@
-<!--
-<mat-drawer #drawer class="example-sidenav" mode="side">
-  <p>Auto-resizing sidenav</p>
+<mat-sidenav opened [ngClass]="isExpanded() ? 'expanded' : 'collapsed'">
   <button mat-flat-button (click)="logout()">Logout</button>
-  @if (showFiller) {
-    <p>Lorem, ipsum dolor sit amet consectetur.</p>
-  }
-  <button (click)="showFiller = !showFiller">Toggle extra text</button>
-</mat-drawer>-->
+  <button mat-button (click)="changeSidenavMode()">
+    <span class="">{{ isExpanded() ? "Collapse" : "Expand" }} </span>
+  </button>
+</mat-sidenav>

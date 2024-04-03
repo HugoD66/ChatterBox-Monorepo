@@ -1,18 +1,6 @@
-<mat-drawer-container class="contentHome" autosize>
-  <!--<app-sidenav #drawer [getMe]="getMe" [showFiller]="showFiller"/>-->
-  <mat-drawer #drawer class="example-sidenav" mode="side">
-    <p>Auto-resizing sidenav</p>
-    <button mat-flat-button (click)="logout()">Logout</button>
-    @if (showFiller) {
-      <p>Lorem, ipsum dolor sit amet consectetur.</p>
-    }
-    <button (click)="showFiller = !showFiller">Toggle extra text</button>
-  </mat-drawer>
-  <!-- <app-sidenav #drawer></app-sidenav> -->
-  <div class="example-sidenav-content">
-    <button type="button" (click)="drawer.toggle()">Toggle sidenav</button>
-  </div>
-  <div class="arrayOne">
-    <div class="arrayTwo">aze</div>
-  </div>
-</mat-drawer-container>
+<app-profil />
+<app-last-message />
+<app-friend-list />
+
+
+

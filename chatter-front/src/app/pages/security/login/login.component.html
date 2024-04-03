@@ -27,7 +27,7 @@
     <button class="buttonLogin" type="submit" [disabled]="!loginForm.valid">
       Connexion
     </button>
-    @if(errorMessage()) {
+    @if (errorMessage()) {
       <div class="error-message">
         {{ errorMessage() }}
       </div>

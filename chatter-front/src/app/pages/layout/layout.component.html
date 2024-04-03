@@ -1,0 +1,6 @@
+<div class="layout" [class.sidebar-collapsed]="sidebarCollapsed()">
+<app-sidenav [getMe]="getMe" (isExpandedChange)="isExpandedChange($event)" />
+  <div class="layout-content">
+    <router-outlet />
+  </div>
+</div>

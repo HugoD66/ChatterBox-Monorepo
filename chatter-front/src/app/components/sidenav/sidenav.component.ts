@@ -1,4 +1,11 @@
-import { Component, Input, WritableSignal } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  EventEmitter,
+  Input,
+  Output,
+  signal,
+} from '@angular/core';
 import {
   MatDrawer,
   MatDrawerContainer,
@@ -9,7 +16,15 @@ import { MatButton } from '@angular/material/button';
 import { UserModel } from '../../models/user.model';
 import { Router } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
+import { BehaviorSubject } from 'rxjs';
+
+enum SidebarModeEnum {
+  COLLAPSED = 'collapsed',
+  EXPANDED = 'expanded',
+}
+
 @Component({
+  changeDetection: ChangeDetectionStrategy.OnPush,
   selector: 'app-sidenav',
   standalone: true,
   imports: [
@@ -23,22 +38,30 @@ import { AuthService } from '../../services/auth.service';
   styleUrl: './sidenav.component.scss',
 })
 export class SidenavComponent {
-  @Input() getMe!: WritableSignal<UserModel | null>;
-  @Input() showFiller!: boolean;
-  //showFiller: boolean = false;
+  @Input() getMe!: BehaviorSubject<UserModel | null>;
+  public sidebarActivatedMode = signal(SidebarModeEnum.EXPANDED);
+
+  public isExpanded = signal(true);
+  @Output() isExpandedChange = new EventEmitter<boolean>();
 
   constructor(
     private router: Router,
     private authService: AuthService,
-  ) {
-    if (!this.getMe()) {
-      this.router.navigate(['/auth']);
-    }
-  }
+  ) {}
 
+  changeSidenavMode(): void {
+    if (this.isExpanded()) {
+      this.sidebarActivatedMode.set(SidebarModeEnum.COLLAPSED);
+      this.isExpanded.set(false);
+    } else {
+      this.sidebarActivatedMode.set(SidebarModeEnum.EXPANDED);
+      this.isExpanded.set(true);
+    }
+    this.isExpandedChange.emit(this.isExpanded());
+  }
   logout(): void {
     this.authService.logout();
-    this.getMe.set(null);
-    this.router.navigate(['/auth']);
+    this.getMe.next(null);
+    this.router.navigate(['/auth/login']);
   }
 }

@@ -1,3 +1,18 @@
-
+mat-sidenav {
+  display: flex;
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  background-color: rgb(0, 75, 93);
+  transition: width 0.3s ease;
+  opacity: 0.2;
+}
+mat-sidenav.expanded {
+  width: 15em !important;
+}
+mat-sidenav.collapsed {
+  width: 5em !important;
+}
 
 /*# sourceMappingURL=sidenav.component.css.map */

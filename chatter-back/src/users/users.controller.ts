@@ -53,6 +53,7 @@ export class UsersController {
   @Get('/auth/me')
   @UseGuards(AuthGuard)
   async getMe(@Req() req): Promise<ResponseUserDto> {
+    console.log(req);
     console.log('req.user');
     console.log(req.user);
     return this.usersService.findOne(req.user.id);

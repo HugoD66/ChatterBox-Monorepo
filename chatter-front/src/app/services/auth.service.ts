@@ -61,15 +61,13 @@ export class AuthService {
 
   getMe(): Observable<UserModel> {
     const accessToken = localStorage.getItem(`access_token`);
-
-    const headers = new HttpHeaders().set(
-      `Authorization`,
-      `Bearer ${accessToken}`,
-    );
-    const options = { headers: headers };
-    console.log('options', options);
     return this.http
-      .get<UserModel>(`${this.apiUrl}/users/auth/me`, options)
+      .get<UserModel>(`${this.apiUrl}/users/auth/me`, {
+        headers: new HttpHeaders().set(
+          'Authorization',
+          'Bearer ' + accessToken,
+        ),
+      })
       .pipe(
         catchError((error) => {
           return throwError(() => error);

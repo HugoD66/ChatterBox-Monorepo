@@ -1,0 +1,17 @@
+.layout {
+  width: 100vw;
+  height: 100vh;
+  .layout-content {
+    width: calc(100% - 15em);
+    height: 100%;
+    right: 0;
+    float: right;
+    margin: auto;
+    background-color: #03a48c;
+    transition: width 0.3s ease;
+  }
+}
+.sidebar-collapsed .layout-content {
+  width: calc(100% - 5em);
+
+}

@@ -1,7 +1,6 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
+'use strict';
+Object.defineProperty(exports, '__esModule', { value: true });
 exports.ResponseUserDto = void 0;
-class ResponseUserDto {
-}
+class ResponseUserDto {}
 exports.ResponseUserDto = ResponseUserDto;
 //# sourceMappingURL=response-user.dto.js.map
