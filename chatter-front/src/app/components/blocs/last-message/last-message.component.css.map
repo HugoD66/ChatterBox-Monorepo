@@ -1,1 +1,1 @@
-{"version":3,"sourceRoot":"","sources":["last-message.component.scss"],"names":[],"mappings":"AAAA;EACE;EACA;EACA;EACA","file":"last-message.component.css"}
+{"version":3,"sourceRoot":"","sources":["last-message.component.scss","../../../../assets/scss/_global.scss"],"names":[],"mappings":"AAGA;EACE;EACA;EACA;EACA;;AAEA;EACE;EACA;EACA;;AAEF;ECeA;EACA;EACA;EACA;EDhBE","file":"last-message.component.css"}

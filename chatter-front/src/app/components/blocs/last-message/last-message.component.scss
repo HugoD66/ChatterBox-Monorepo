@@ -1,7 +1,19 @@
-.last-message-content {
+@use "../../../../assets/scss/colors" as colors;
+@use "../../../../assets/scss/global" as global;
+
+.last-messages-content {
   margin: 5% auto auto;
   width: 100%;
-  height: 500px;//TODO CHANGE TO % OR VH
+  height: 50vh;
   background-color: #f1f107;
 
+  h3 {
+    text-align: center;
+    width: 100%;
+    padding: 10px;
+  }
+  .last-messages {
+    @include global.flex-center-column;
+    height: 80%;
+  }
 }

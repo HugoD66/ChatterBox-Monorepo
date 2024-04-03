@@ -1,7 +1,7 @@
 @use "../../../../assets/scss/colors" as colors;
 @use "../../../../assets/scss/global" as global;
 form {
-  @include global.flex;
+  @include global.flex-center;
   justify-content: space-around;
   flex-direction: column;
   width: 100%;

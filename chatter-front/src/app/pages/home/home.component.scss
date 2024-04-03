@@ -1,3 +1,6 @@
+@use "../../../assets/scss/colors" as colors;
+@use "../../../assets/scss/global" as global;
+
 .home-content {
   width: 90%;
   margin: 5vh auto;
@@ -12,6 +15,17 @@
     background-color: darkgoldenrod;
     @media screen and (max-width: 768px) {
       flex-direction: column;
+    }
+    .last-messages-content {
+      width: 47%;
+    }
+    .friend-list-content  {
+      width: 47%;
+    }
+    .last-messages-content, .friend-list-content {
+      @media screen and (max-width: 768px) {
+        width: 100%;
+      }
     }
   }
 }

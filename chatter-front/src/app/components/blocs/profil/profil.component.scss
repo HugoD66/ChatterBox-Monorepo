@@ -1,6 +1,58 @@
+@use "../../../../assets/scss/colors" as colors;
+@use "../../../../assets/scss/global" as global;
+
 .profil-content {
   margin: auto;
   width: 100%;
-  height: 35vh;
+  height: 38vh;
   background-color: red;
+  @include global.flex-center-row;
+  @media screen and (max-width: 600px) {
+    flex-direction: column;
+    height: auto;
+
+  }
+  .bloc-profile {
+    width: 60%;
+    margin: 5%;
+
+    .pseudo-content, .email-content, .phone-content {
+        @include global.flex-center-row;
+        margin: auto;
+        justify-content: space-between;
+      }
+      .pseudo-content {
+        .pseudo  {
+
+        }
+
+      }
+      .email-content {
+        .email {
+
+        }
+      }
+      .phone-contente {
+        .phone {
+
+        }
+      }
+      .createdBy {
+        padding: 0;
+        width: 100%;
+        text-align: end;
+      }
+    }
+
+    .picture-profile {
+      margin: auto;
+      width: 30%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      .add-picture {
+          align-self: end;
+      }
+    }
+
 }

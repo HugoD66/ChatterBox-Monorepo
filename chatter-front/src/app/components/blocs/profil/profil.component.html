@@ -1,3 +1,30 @@
 <div class="profil-content">
-
+    <div class="bloc-profile">
+      <div class="pseudo-content">
+        <div class="pseudo">
+          <span>Pseudo</span>
+          <p>user1</p>
+        </div>
+        <button mat-flat-button>Modifier</button>
+      </div>
+      <div class="email-content">
+        <div class="email">
+          <span>Email</span>
+          <p>user1aremail.com</p>
+        </div>
+        <button mat-flat-button>Modifier</button>
+      </div>
+      <div class="phone-content">
+        <div class="phone">
+          <span>Numero</span>
+          <p>0606060606</p>
+        </div>
+        <button mat-flat-button>Modifier</button>
+      </div>
+      <div class="createdBy">Membre chatter-box depuis le: 18/05/04 </div>
+    </div>
+    <div class="picture-profile">
+      <div [innerHTML]="iconSvg"></div>
+      <span class="add-picture"><a href="/home">Modifier</a></span>
+    </div>
 </div>

@@ -1,8 +1,45 @@
 .profil-content {
   margin: auto;
   width: 100%;
-  height: 35vh;
+  height: 38vh;
   background-color: red;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
+}
+@media screen and (max-width: 600px) {
+  .profil-content {
+    flex-direction: column;
+    height: auto;
+  }
+}
+.profil-content .bloc-profile {
+  width: 60%;
+  margin: 5%;
+}
+.profil-content .bloc-profile .pseudo-content, .profil-content .bloc-profile .email-content, .profil-content .bloc-profile .phone-content {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
+  margin: auto;
+  justify-content: space-between;
+}
+.profil-content .bloc-profile .createdBy {
+  padding: 0;
+  width: 100%;
+  text-align: end;
+}
+.profil-content .picture-profile {
+  margin: auto;
+  width: 30%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.profil-content .picture-profile .add-picture {
+  align-self: end;
 }
 
 /*# sourceMappingURL=profil.component.css.map */

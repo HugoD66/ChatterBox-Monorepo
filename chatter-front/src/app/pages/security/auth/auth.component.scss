@@ -4,7 +4,7 @@
   @include global.full-size-absolute;
   z-index: 1;
   .titleForm {
-    @include global.flex;
+    @include global.flex-center;
     flex-direction: column;
     height: 90%;
     width: 40%;
@@ -40,7 +40,7 @@
     }
   }
   .contentLoginFooter {
-    @include global.flex;
+    @include global.flex-center;
     height: 8%;
     width: 100%;
     p {

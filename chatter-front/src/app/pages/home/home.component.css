@@ -17,5 +17,16 @@
     flex-direction: column;
   }
 }
+.home-content .message-friends .last-messages-content {
+  width: 47%;
+}
+.home-content .message-friends .friend-list-content {
+  width: 47%;
+}
+@media screen and (max-width: 768px) {
+  .home-content .message-friends .last-messages-content, .home-content .message-friends .friend-list-content {
+    width: 100%;
+  }
+}
 
 /*# sourceMappingURL=home.component.css.map */

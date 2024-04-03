@@ -1,6 +1,11 @@
+@use "../../../../assets/scss/colors" as colors;
+@use "../../../../assets/scss/global" as global;
+
+
 .friend-list-content {
+
   width: 100%;
-  height: 500px; //TODO CHANGE TO % OR VH
+  height: 50vh;
   background-color: #081f1b;
   margin: 5% auto auto;
 }
