@@ -1,0 +1,18 @@
+.home-content {
+  width: 90%;
+  margin: 5vh auto;
+  background-color: antiquewhite;
+  .message-friends {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    flex-direction: row;
+    align-items: start;
+    height: 90%;
+    background-color: darkgoldenrod;
+    @media screen and (max-width: 768px) {
+      flex-direction: column;
+    }
+  }
+}
+

@@ -1,1 +1,1 @@
-{"version":3,"sourceRoot":"","sources":["sidenav.component.scss","../../../assets/scss/_colors.scss"],"names":[],"mappings":"AAGA;EACE;EACA;EACA;EACA;EACA;EACA,kBCJU;EDKV;EACA;;AACA;EACE;;AAEF;EACE","file":"sidenav.component.css"}
+{"version":3,"sourceRoot":"","sources":["sidenav.component.scss","../../../assets/scss/_colors.scss"],"names":[],"mappings":"AAGA;EACE;EACA;EACA;EACA;EACA,kBCHU;EDIV;EACA;EACA;;AAGA;EACE;;AACA;EAFF;IAGI;;;AAGJ;EACE","file":"sidenav.component.css"}

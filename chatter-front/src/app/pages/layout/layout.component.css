@@ -8,8 +8,14 @@
   right: 0;
   float: right;
   margin: auto;
-  background-color: #03a48c;
   transition: width 0.3s ease;
+}
+@media screen and (max-width: 600px) {
+  .layout .layout-content {
+    width: 0;
+    height: 0;
+    transition: width 0.3s ease, height 0.3s ease;
+  }
 }
 
 .sidebar-collapsed .layout-content {

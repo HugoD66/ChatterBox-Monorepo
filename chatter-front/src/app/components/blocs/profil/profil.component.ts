@@ -1,4 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
+import { BehaviorSubject } from 'rxjs';
+import { UserModel } from '../../../models/user.model';
 
 @Component({
   selector: 'app-profil',
@@ -7,4 +9,6 @@ import { Component } from '@angular/core';
   templateUrl: './profil.component.html',
   styleUrl: './profil.component.scss',
 })
-export class ProfilComponent {}
+export class ProfilComponent {
+  @Input() getMe!: BehaviorSubject<UserModel | null>;
+}

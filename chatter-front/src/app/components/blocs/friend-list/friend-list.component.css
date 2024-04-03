@@ -1,8 +1,8 @@
-.test {
-  width: 80%;
-  height: 800px;
+.friend-list-content {
+  width: 100%;
+  height: 500px;
   background-color: #081f1b;
-  margin: auto;
+  margin: 5% auto auto;
 }
 
 /*# sourceMappingURL=friend-list.component.css.map */

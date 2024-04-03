@@ -1,2 +1,6 @@
 node_modules
 /node_modules
+
+# Ignore the dist directory
+chatter-back/dist/**
+chatter-front/dist/**

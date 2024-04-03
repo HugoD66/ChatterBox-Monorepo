@@ -1,6 +1,10 @@
-<app-profil />
-<app-last-message />
-<app-friend-list />
+<div class="home-content">
+  <app-profil [getMe]="getMe" />
+  <div class="message-friends">
+    <app-last-message />
+    <app-friend-list />
+  </div>
+</div>
 
 
 
