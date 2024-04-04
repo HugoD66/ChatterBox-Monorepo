@@ -25,9 +25,8 @@
   font-size: 1.05em;
 }
 .friend-list-content .friend-list .negative-condition-friend-list .button-one {
-  background-color: rgb(237, 244, 255);
+  background-color: rgb(246, 246, 246);
   color: rgb(7, 24, 38);
-  border: 1px solid rgb(188, 221, 230);
   font-size: 1.05rem;
   height: 3rem;
   border-radius: 0.5rem;

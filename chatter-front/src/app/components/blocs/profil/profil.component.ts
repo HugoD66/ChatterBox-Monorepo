@@ -4,11 +4,12 @@ import { UserModel } from '../../../models/user.model';
 import { MatButton } from '@angular/material/button';
 import * as jdenticon from 'jdenticon';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
+import { MatDivider } from '@angular/material/divider';
 
 @Component({
   selector: 'app-profil',
   standalone: true,
-  imports: [MatButton],
+  imports: [MatButton, MatDivider],
   templateUrl: './profil.component.html',
   styleUrl: './profil.component.scss',
 })

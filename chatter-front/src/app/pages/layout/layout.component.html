@@ -1,5 +1,8 @@
 <div class="layout" [class.sidebar-collapsed]="sidebarCollapsed()">
-<app-sidenav [getMe]="getMe" (isExpandedChange)="isExpandedChange($event)" />
+<app-sidenav
+  [getMe]="getMe()"
+  (removeGetMe)="removeGetMe()"
+  (isExpandedChange)="isExpandedChange($event)" />
   <div class="layout-content">
     <router-outlet />
   </div>

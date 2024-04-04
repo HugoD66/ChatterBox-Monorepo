@@ -2,7 +2,11 @@ import {
   ChangeDetectionStrategy,
   Component,
   EventEmitter,
+  input,
   Input,
+  InputSignal,
+  model,
+  ModelSignal,
   Output,
   signal,
 } from '@angular/core';
@@ -16,7 +20,6 @@ import { MatButton } from '@angular/material/button';
 import { UserModel } from '../../models/user.model';
 import { Router } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
-import { BehaviorSubject } from 'rxjs';
 
 enum SidebarModeEnum {
   COLLAPSED = 'collapsed',
@@ -38,11 +41,12 @@ enum SidebarModeEnum {
   styleUrl: './sidenav.component.scss',
 })
 export class SidenavComponent {
-  @Input() getMe!: BehaviorSubject<UserModel | null>;
+  public getMe: InputSignal<UserModel | null> =
+    input.required<UserModel | null>();
   public sidebarActivatedMode = signal(SidebarModeEnum.EXPANDED);
-
   public isExpanded = signal(true);
   @Output() isExpandedChange = new EventEmitter<boolean>();
+  @Output() removeGetMe = new EventEmitter<UserModel>();
 
   constructor(
     private router: Router,
@@ -61,7 +65,7 @@ export class SidenavComponent {
   }
   logout(): void {
     this.authService.logout();
-    this.getMe.next(null);
+    this.removeGetMe.emit();
     this.router.navigate(['/auth/login']);
   }
 }

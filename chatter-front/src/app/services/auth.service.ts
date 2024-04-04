@@ -25,10 +25,6 @@ export class AuthService {
   ) {}
 
   isLoggedIn(): boolean {
-    console.log(
-      'localStorage.getItem(authToken)',
-      localStorage.getItem('authToken'),
-    );
     return !!localStorage.getItem('authToken');
   }
 
@@ -44,7 +40,7 @@ export class AuthService {
 
   logout(): void {
     localStorage.removeItem('authToken');
-    this.router.navigate(['/login']);
+    this.router.navigate(['/auth/login']);
   }
 
   register(values: RegisterModel): Observable<UserModel> {

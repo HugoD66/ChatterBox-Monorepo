@@ -63,13 +63,18 @@ $radius-background: 16px;
   font-size: 1.05em;
 }
 
+@mixin subtitle {
+  font-size: 0.9em;
+  color: colors.$gradient-dark-g;
+  font-family: "JostLight", sans-serif;
+  margin: 0;
+}
 //Buttons
 
 @mixin button-one {
   // Add mat-raised-button
-  background-color: colors.$back-light-b;
+  background-color: colors.$back-body;
   color: colors.$dark-b;
-  border: 1px solid colors.$light-b;
   font-size: 1.05rem;
   height: 3rem;
   border-radius: 0.5rem;

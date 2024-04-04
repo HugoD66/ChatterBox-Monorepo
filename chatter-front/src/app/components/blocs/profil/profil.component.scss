@@ -5,6 +5,7 @@
   margin: auto;
   width: 100%;
   height: 38vh;
+  max-height: 100%;
   @include global.bloc;
   @include global.flex-center-row;
   @media screen and (max-width: 600px) {
@@ -14,10 +15,24 @@
   .bloc-profile {
     width: 60%;
     margin: 5%;
+    height:72%;
     .pseudo-content, .email-content, .phone-content {
         @include global.flex-center-row;
         margin: auto;
         justify-content: space-between;
+        width: 96%;
+        height: 30%;
+        span {
+          @include global.subtitle;
+        }
+        p {
+          @include global.p;
+          font-size: 1.1em;
+        }
+        button {
+          @include global.button-one;
+          font-size: 0.9em;
+        }
       }
       .pseudo-content {
         .pseudo  {
@@ -36,20 +51,21 @@
         }
       }
       .createdBy {
+        @include global.subtitle;
         padding: 0;
         width: 100%;
         text-align: end;
+        font-style: italic;
       }
     }
-    .picture-profile {
-      margin: auto;
-      width: 30%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      .add-picture {
-          align-self: end;
-      }
+  .picture-profile {
+    margin: auto;
+    width: 30%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    .add-picture {
+        align-self: end;
     }
-
+  }
 }
