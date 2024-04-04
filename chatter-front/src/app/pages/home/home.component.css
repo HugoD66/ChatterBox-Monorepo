@@ -22,7 +22,8 @@
   width: 47%;
 }
 @media screen and (max-width: 768px) {
-  .home-content .message-friends .last-messages-content, .home-content .message-friends .friend-list-content {
+  .home-content .message-friends .last-messages-content,
+  .home-content .message-friends .friend-list-content {
     width: 100%;
   }
 }

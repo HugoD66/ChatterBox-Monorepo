@@ -15,49 +15,47 @@
   .bloc-profile {
     width: 60%;
     margin: 5%;
-    height:72%;
-    .pseudo-content, .email-content, .phone-content {
-        @include global.flex-center-row;
-        margin: auto;
-        justify-content: space-between;
-        width: 96%;
-        height: 30%;
-        span {
-          @include global.subtitle;
-        }
-        p {
-          @include global.p;
-          font-size: 1.1em;
-        }
-        button {
-          @include global.button-one;
-          font-size: 0.9em;
-        }
-      }
-      .pseudo-content {
-        .pseudo  {
-
-        }
-
-      }
-      .email-content {
-        .email {
-
-        }
-      }
-      .phone-contente {
-        .phone {
-
-        }
-      }
-      .createdBy {
+    height: 72%;
+    .pseudo-content,
+    .email-content,
+    .phone-content {
+      @include global.flex-center-row;
+      margin: auto;
+      justify-content: space-between;
+      width: 96%;
+      height: 30%;
+      span {
         @include global.subtitle;
-        padding: 0;
-        width: 100%;
-        text-align: end;
-        font-style: italic;
+      }
+      p {
+        @include global.p;
+        font-size: 1.1em;
+      }
+      button {
+        @include global.button-one;
+        font-size: 0.9em;
       }
     }
+    .pseudo-content {
+      .pseudo {
+      }
+    }
+    .email-content {
+      .email {
+      }
+    }
+    .phone-contente {
+      .phone {
+      }
+    }
+    .createdBy {
+      @include global.subtitle;
+      padding: 0;
+      width: 100%;
+      text-align: end;
+      font-style: italic;
+    }
+  }
   .picture-profile {
     margin: auto;
     width: 30%;
@@ -65,7 +63,7 @@
     align-items: center;
     justify-content: center;
     .add-picture {
-        align-self: end;
+      align-self: end;
     }
   }
 }

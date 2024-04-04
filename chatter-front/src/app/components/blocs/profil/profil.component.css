@@ -22,7 +22,9 @@
   margin: 5%;
   height: 72%;
 }
-.profil-content .bloc-profile .pseudo-content, .profil-content .bloc-profile .email-content, .profil-content .bloc-profile .phone-content {
+.profil-content .bloc-profile .pseudo-content,
+.profil-content .bloc-profile .email-content,
+.profil-content .bloc-profile .phone-content {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -32,18 +34,24 @@
   width: 96%;
   height: 30%;
 }
-.profil-content .bloc-profile .pseudo-content span, .profil-content .bloc-profile .email-content span, .profil-content .bloc-profile .phone-content span {
+.profil-content .bloc-profile .pseudo-content span,
+.profil-content .bloc-profile .email-content span,
+.profil-content .bloc-profile .phone-content span {
   font-size: 0.9em;
   color: rgb(64, 64, 64);
   font-family: "JostLight", sans-serif;
   margin: 0;
 }
-.profil-content .bloc-profile .pseudo-content p, .profil-content .bloc-profile .email-content p, .profil-content .bloc-profile .phone-content p {
+.profil-content .bloc-profile .pseudo-content p,
+.profil-content .bloc-profile .email-content p,
+.profil-content .bloc-profile .phone-content p {
   font-family: "JostRegular", sans-serif;
   font-size: 1.05em;
   font-size: 1.1em;
 }
-.profil-content .bloc-profile .pseudo-content button, .profil-content .bloc-profile .email-content button, .profil-content .bloc-profile .phone-content button {
+.profil-content .bloc-profile .pseudo-content button,
+.profil-content .bloc-profile .email-content button,
+.profil-content .bloc-profile .phone-content button {
   background-color: rgb(246, 246, 246);
   color: rgb(7, 24, 38);
   font-size: 1.05rem;

@@ -3,7 +3,6 @@
 $theme-transition: color 0.5s ease;
 $radius-background: 16px;
 
-
 // Mixin
 
 @mixin full-size-absolute {
@@ -44,7 +43,12 @@ $radius-background: 16px;
 @mixin bloc {
   border-radius: $radius-background;
   box-shadow: 0 0 10px rgba(68, 68, 68, 0.1);
-  background: linear-gradient(110deg, colors.$back-light-b 0%, white 48%, colors.$back-light-b 100%);
+  background: linear-gradient(
+    110deg,
+    colors.$back-light-b 0%,
+    white 48%,
+    colors.$back-light-b 100%
+  );
 }
 
 //Fonts
@@ -84,5 +88,4 @@ $radius-background: 16px;
 }
 
 @mixin button-two {
-
 }

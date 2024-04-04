@@ -17,14 +17,14 @@
     .last-messages-content {
       width: 47%;
     }
-    .friend-list-content  {
+    .friend-list-content {
       width: 47%;
     }
-    .last-messages-content, .friend-list-content {
+    .last-messages-content,
+    .friend-list-content {
       @media screen and (max-width: 768px) {
         width: 100%;
       }
     }
   }
 }
-

@@ -3,10 +3,7 @@ import {
   Component,
   EventEmitter,
   input,
-  Input,
   InputSignal,
-  model,
-  ModelSignal,
   Output,
   signal,
 } from '@angular/core';
