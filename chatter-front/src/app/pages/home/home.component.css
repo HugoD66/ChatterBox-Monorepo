@@ -1,7 +1,6 @@
 .home-content {
   width: 90%;
   margin: 5vh auto;
-  background-color: antiquewhite;
 }
 .home-content .message-friends {
   width: 100%;
@@ -10,7 +9,6 @@
   flex-direction: row;
   align-items: start;
   height: 90%;
-  background-color: darkgoldenrod;
 }
 @media screen and (max-width: 768px) {
   .home-content .message-friends {

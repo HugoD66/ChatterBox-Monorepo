@@ -5,17 +5,15 @@
   margin: auto;
   width: 100%;
   height: 38vh;
-  background-color: red;
+  @include global.bloc;
   @include global.flex-center-row;
   @media screen and (max-width: 600px) {
     flex-direction: column;
     height: auto;
-
   }
   .bloc-profile {
     width: 60%;
     margin: 5%;
-
     .pseudo-content, .email-content, .phone-content {
         @include global.flex-center-row;
         margin: auto;
@@ -43,7 +41,6 @@
         text-align: end;
       }
     }
-
     .picture-profile {
       margin: auto;
       width: 30%;

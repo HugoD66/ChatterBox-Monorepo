@@ -21,13 +21,13 @@
       width: 100%;
       text-wrap: none;
       margin: auto;
-      color: colors.$dark-blue;
-      text-shadow: 2px 2px 18px colors.$medium-blue;
+      color: colors.$dark-b;
+      text-shadow: 2px 2px 18px colors.$medium-b;
       user-select: none;
       @media screen and (max-width: 820px) {
         font-size: 14vw;
         font-weight: 400;
-        text-shadow: 2px 2px 18px colors.$dark-blue;
+        text-shadow: 2px 2px 18px colors.$dark-b;
       }
     }
     .login-register {
@@ -49,8 +49,8 @@
       font-size: 1.1rem;
       text-align: center;
       user-select: none;
-      color: colors.$dark-blue;
-      text-shadow: 2px 2px 18px colors.$medium-blue;
+      color: colors.$dark-b;
+      text-shadow: 2px 2px 18px colors.$medium-b;
       @media screen and (max-width: 820px) {
         font-size: 0.8rem;
         width: 80%;

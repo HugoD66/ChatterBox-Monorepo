@@ -1,8 +1,10 @@
 @use "./colors" as colors;
 
 $theme-transition: color 0.5s ease;
+$radius-background: 16px;
 
-// --------------------------- //
+
+// Mixin
 
 @mixin full-size-absolute {
   position: absolute;
@@ -14,7 +16,6 @@ $theme-transition: color 0.5s ease;
   height: 100%;
   margin: 0;
 }
-
 @mixin flex-center {
   display: flex;
   justify-content: center;
@@ -31,4 +32,52 @@ $theme-transition: color 0.5s ease;
   justify-content: center;
   align-items: center;
   flex-direction: column;
+}
+@mixin flex-around-column {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  flex-direction: column;
+}
+//Blocks
+
+@mixin bloc {
+  border-radius: $radius-background;
+  box-shadow: 0 0 10px rgba(68, 68, 68, 0.1);
+  background: linear-gradient(110deg, colors.$back-light-b 0%, white 48%, colors.$back-light-b 100%);
+}
+
+//Fonts
+
+@mixin h3-title {
+  text-align: center;
+  width: 100%;
+  padding: 5px;
+  color: colors.$gradient-dark-g;
+  font-family: "JostLight", sans-serif;
+  //Add letterSpace(3px)
+}
+
+@mixin p {
+  font-family: "JostRegular", sans-serif;
+  font-size: 1.05em;
+}
+
+//Buttons
+
+@mixin button-one {
+  // Add mat-raised-button
+  background-color: colors.$back-light-b;
+  color: colors.$dark-b;
+  border: 1px solid colors.$light-b;
+  font-size: 1.05rem;
+  height: 3rem;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  transition: 0.3s;
+  padding-bottom: 1px;
+}
+
+@mixin button-two {
+
 }

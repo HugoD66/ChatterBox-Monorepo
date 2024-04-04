@@ -5,15 +5,25 @@
   margin: 5% auto auto;
   width: 100%;
   height: 50vh;
-  background-color: #f1f107;
-
-  h3 {
-    text-align: center;
-    width: 100%;
-    padding: 10px;
-  }
   .last-messages {
-    @include global.flex-center-column;
-    height: 80%;
+    @include global.flex-around-column;
+    @include global.bloc;
+    height: 100%;
+    h3 {
+      letter-spacing: 3px;
+      @include global.h3-title;
+      top: 0;
+    }
+    .negative-condition-last-message {
+      @include global.flex-around-column;
+      height: 50%;
+      p {
+        @include global.p;
+      }
+      .button-one {
+        @include global.button-one;
+      }
+    }
+
   }
 }
