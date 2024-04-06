@@ -1,5 +1,6 @@
 import {
   AfterViewInit,
+  ChangeDetectionStrategy,
   Component,
   signal,
   WritableSignal,
@@ -22,6 +23,7 @@ import { AuthService } from '../../services/auth.service';
     SidenavComponent,
     RouterOutlet,
   ],
+  changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './layout.component.html',
   styleUrl: './layout.component.scss',
 })

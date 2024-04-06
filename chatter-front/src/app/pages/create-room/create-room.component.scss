@@ -4,24 +4,64 @@
 .create-room-content {
   width: 90%;
   margin: 5vh auto;
-  height: 90%;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  background-color: #ceb2e6;
+  height: 100%;
   @include global.flex-around-column;
   .picture-content {
-
+    height: 30%;
+    position: relative;
+    img {
+      width: 100%;
+      height: 80%;
+      border-radius: 90%;
+    }
+    .upload-picture {
+      cursor: pointer;
+      position: absolute;
+      right: 1%;
+      bottom: 15%;
+      button {
+        border-radius: 90%;
+        cursor: pointer;
+        height: 60px;
+        width: 60px;
+        box-shadow: 0 0 10px rgba(68, 68, 68, 0.1);
+        border: 2px solid rgba(68, 68, 68, 0.1);
+        input {
+        }
+      }
+      .picture-add {
+        background-color: colors.$back-light-b;
+      }
+      .picture-added {
+        background-color: colors.$valid;
+      }
+      img {
+      }
+    }
   }
   .inputs-content {
     height: 30%;
-    img {
+    width: 40%;
+    @include global.flex-around-column;
+    mat-form-field {
       width: 100%;
-      height: 100%;
-      border-radius: 90%;
+      button {
+      }
+    }
+    .password {
+      display: flex;
+      align-items: center;
+      flex-direction: row;
+      width: 100%;
+      mat-form-field {
+        width: 100%;
+        button {
+        }
+      }
     }
   }
   .friend-list-content {
-    height: 30%;
+    width: 70%;
+    height: 40%;
   }
 }

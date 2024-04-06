@@ -1,10 +1,11 @@
 .layout {
   width: 100vw;
-  height: 100vh;
+  height: 90%;
 }
 .layout .layout-content {
   width: calc(100% - 15em);
   height: 100%;
+  min-height: 100%;
   right: 0;
   float: right;
   margin: auto;
@@ -14,7 +15,9 @@
   .layout .layout-content {
     width: 0;
     height: 0;
-    transition: width 0.3s ease, height 0.3s ease;
+    transition:
+      width 0.3s ease,
+      height 0.3s ease;
   }
 }
 

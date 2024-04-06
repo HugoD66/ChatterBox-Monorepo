@@ -1,16 +1,93 @@
-<div class="create-room-content">
-   <!--image-->
+<div
+  class="create-room-content"
+  [formGroup]="createRoomForm"
+  (ngSubmit)="onSubmit()"
+>
   <!--nom salon-->
   <!--mdp optionnel-->
-  <!--liste friends-->
   <div class="picture-content">
-
+    <img src="./assets/logos/cb-logo-dark.jpg" alt="Add icon" />
+    <div class="upload-picture">
+      @if (isSelectedFile()) {
+        <button type="button" class="picture-added" (click)="fileInput.click()">
+          <img
+            class="icon-add"
+            src="./assets/icons/icon-checked-light.png"
+            alt=""
+          />
+        </button>
+      } @else {
+        <button type="button" class="picture-add" (click)="fileInput.click()">
+          <img
+            class="icon-added"
+            src="./assets/icons/icon-add-light.png"
+            alt=""
+          />
+        </button>
+      }
+      <input
+        hidden
+        (change)="onFileSelected($event)"
+        #fileInput
+        type="file"
+        accept="image/png, image/jpeg, image/webp"
+      />
+    </div>
   </div>
   <div class="inputs-content">
-    <img src="./assets/logos/cb-logo-dark.jpg" alt="">
+    <mat-form-field appearance="fill">
+      <mat-label>Nom du salon </mat-label>
+      <input
+        class="form-control"
+        matInput
+        formControlName="nameRoom"
+        (change)="onNameChange()"
+      />
+    </mat-form-field>
+    <div class="password">
+      <mat-form-field>
+        <mat-label>Enter your password</mat-label>
+        <input
+          class="form-control"
+          placeholder="Optionnel"
+          matInput
+          [type]="hide ? 'password' : 'text'"
+          formControlName="passwordRoom"
+        />
+      </mat-form-field>
+      <button
+        mat-icon-button
+        matSuffix
+        (click)="hide = !hide"
+        [attr.aria-label]="'Hide password'"
+        [attr.aria-pressed]="hide"
+      >
+        <mat-icon>{{ hide ? "visibility_off" : "visibility" }}</mat-icon>
+      </button>
+    </div>
+    <button type="submit" (click)="onSubmit()">Set preset</button>
+
+    <!--
+      (click)="setPreset()"
+
+
+      <mat-form-field appearance="fill">
+      <mat-label>Mot de passe </mat-label>
+      <input
+        class="form-control"
+        matInput
+        formControlName="passwordRoom"
+        (change)="onPasswordChange()"
+      />
+        @if ( barForm.get('adresse')?.invalid &&
+        barForm.get('adresse')?.touched ) {
+          <mat-error>Adresse obligatoire.</mat-error>
+        }
+      </mat-form-field>
+
+    -->
   </div>
   <div class="friend-list-content">
     <app-friend-list />
   </div>
-
 </div>

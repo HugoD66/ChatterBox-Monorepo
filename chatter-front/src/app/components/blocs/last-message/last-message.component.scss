@@ -2,9 +2,9 @@
 @use "../../../../assets/scss/global" as global;
 
 .last-messages-content {
-  margin: 5% auto auto;
+  //margin: 5% auto auto;
   width: 100%;
-  height: 50vh;
+  height: 90%;
   .last-messages {
     @include global.flex-around-column;
     @include global.bloc;

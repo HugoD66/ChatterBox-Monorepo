@@ -5,26 +5,30 @@
   width: 90%;
   margin: 5vh auto;
   display: flex;
-  justify-content: space-between;
   flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
+  .profil {
+    height: 50%;
+  }
   .message-friends {
     width: 100%;
     display: flex;
     justify-content: space-between;
+    align-items: flex-end;
     flex-direction: row;
-    align-items: start;
-    height: 90%;
+    height: 50%;
     @media screen and (max-width: 768px) {
       flex-direction: column;
     }
     .last-messages-content {
-      width: 47%;
     }
     .friend-list-content {
-      width: 47%;
     }
     .last-messages-content,
     .friend-list-content {
+      width: 48%;
+      height: 100%;
       @media screen and (max-width: 768px) {
         width: 100%;
       }

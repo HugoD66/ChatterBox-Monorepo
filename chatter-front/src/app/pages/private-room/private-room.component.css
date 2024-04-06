@@ -1,12 +1,12 @@
 .private-room-content {
   width: 90%;
   margin: 5vh auto;
-  height: 90%;
+  height: 100%;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
 }
-.private-room-content .friend-list {
+.private-room-content .friend-profil {
   width: 100%;
 }
 .private-room-content .discussion {

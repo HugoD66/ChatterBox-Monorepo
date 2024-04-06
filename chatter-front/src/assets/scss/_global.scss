@@ -43,6 +43,7 @@ $radius-background: 16px;
 @mixin bloc {
   border-radius: $radius-background;
   box-shadow: 0 0 10px rgba(68, 68, 68, 0.1);
+  border: 2px solid rgba(68, 68, 68, 0.1);
   background: linear-gradient(
     110deg,
     colors.$back-light-b 0%,

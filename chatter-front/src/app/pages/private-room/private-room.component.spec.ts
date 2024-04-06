@@ -8,10 +8,9 @@ describe('PrivateRoomComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [PrivateRoomComponent]
-    })
-    .compileComponents();
-    
+      imports: [PrivateRoomComponent],
+    }).compileComponents();
+
     fixture = TestBed.createComponent(PrivateRoomComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();

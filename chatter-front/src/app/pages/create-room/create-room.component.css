@@ -1,26 +1,64 @@
 .create-room-content {
   width: 90%;
   margin: 5vh auto;
-  height: 90%;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  background-color: #ceb2e6;
+  height: 100%;
   display: flex;
   justify-content: space-around;
   align-items: center;
   flex-direction: column;
 }
-.create-room-content .inputs-content {
+.create-room-content .picture-content {
   height: 30%;
+  position: relative;
 }
-.create-room-content .inputs-content img {
+.create-room-content .picture-content img {
   width: 100%;
-  height: 100%;
+  height: 80%;
   border-radius: 90%;
 }
-.create-room-content .friend-list-content {
+.create-room-content .picture-content .upload-picture {
+  cursor: pointer;
+  position: absolute;
+  right: 1%;
+  bottom: 15%;
+}
+.create-room-content .picture-content .upload-picture button {
+  border-radius: 90%;
+  cursor: pointer;
+  height: 60px;
+  width: 60px;
+  box-shadow: 0 0 10px rgba(68, 68, 68, 0.1);
+  border: 2px solid rgba(68, 68, 68, 0.1);
+}
+.create-room-content .picture-content .upload-picture .picture-add {
+  background-color: rgb(237, 244, 255);
+}
+.create-room-content .picture-content .upload-picture .picture-added {
+  background-color: rgb(197, 255, 175);
+}
+.create-room-content .inputs-content {
   height: 30%;
+  width: 40%;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  flex-direction: column;
+}
+.create-room-content .inputs-content mat-form-field {
+  width: 100%;
+}
+.create-room-content .inputs-content .password {
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+  width: 100%;
+}
+.create-room-content .inputs-content .password mat-form-field {
+  width: 100%;
+}
+.create-room-content .friend-list-content {
+  width: 70%;
+  height: 40%;
 }
 
 /*# sourceMappingURL=create-room.component.css.map */
