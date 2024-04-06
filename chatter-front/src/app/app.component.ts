@@ -18,7 +18,7 @@ export class AppComponent implements OnInit {
       this.router.navigate(['/auth/login']) ||
         this.router.navigate(['/auth/register']);
     } else {
-      this.router.navigate(['/home']);
+      //this.router.navigate(['/home']);
     }
   }
 }

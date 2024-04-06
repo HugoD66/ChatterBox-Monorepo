@@ -1,0 +1,19 @@
+@use "../../../assets/scss/colors" as colors;
+@use "../../../assets/scss/global" as global;
+
+
+
+.private-room-content {
+  width: 90%;
+  margin: 5vh auto;
+  height: 90%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  .friend-list {
+    width: 100%;
+  }
+  .discussion {
+    width: 100%;
+  }
+}

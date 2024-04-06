@@ -1,5 +1,8 @@
 <mat-sidenav opened [ngClass]="isExpanded() ? 'expanded' : 'collapsed'">
   <button mat-flat-button (click)="logout()">Logout</button>
+  <button mat-flat-button (click)="goHome()">Accueil</button>
+  <button mat-flat-button (click)="goCreateRoom()">Créer salon</button>
+  <button mat-flat-button (click)="goDiscussion()">Discussion</button>
   <button mat-button (click)="changeSidenavMode()">
     <span>{{ isExpanded() ? "Collapse" : "Expand" }} </span>
   </button>

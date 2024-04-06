@@ -6,6 +6,8 @@ import { AuthGuard } from './pages/security/guard/auth.guard';
 import { RegisterComponent } from './pages/security/register/register.component';
 import { AuthComponent } from './pages/security/auth/auth.component';
 import { LayoutComponent } from './pages/layout/layout.component';
+import { PrivateRoomComponent } from './pages/private-room/private-room.component';
+import { CreateRoomComponent } from './pages/create-room/create-room.component';
 
 export const routes: Routes = [
   {
@@ -22,7 +24,8 @@ export const routes: Routes = [
     canActivate: [AuthGuard],
     children: [
       { path: 'home', component: HomeComponent },
-      //{ path: 'register', component: RegisterComponent },
+      { path: 'room/private', component: PrivateRoomComponent }, //ID
+      { path: 'room/create', component: CreateRoomComponent },
     ],
   },
 

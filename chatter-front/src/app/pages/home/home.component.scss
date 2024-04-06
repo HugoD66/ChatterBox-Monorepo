@@ -4,6 +4,9 @@
 .home-content {
   width: 90%;
   margin: 5vh auto;
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
   .message-friends {
     width: 100%;
     display: flex;

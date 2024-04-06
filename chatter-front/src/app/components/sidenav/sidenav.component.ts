@@ -65,4 +65,15 @@ export class SidenavComponent {
     this.removeGetMe.emit();
     this.router.navigate(['/auth/login']);
   }
+  goHome(): void {
+    this.router.navigate(['/home']);
+  }
+
+  goCreateRoom() {
+    this.router.navigate(['room/create']);
+  }
+
+  goDiscussion() {
+    this.router.navigate(['/room/private']);
+  }
 }

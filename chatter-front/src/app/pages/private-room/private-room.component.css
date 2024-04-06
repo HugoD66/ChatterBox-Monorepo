@@ -1,0 +1,16 @@
+.private-room-content {
+  width: 90%;
+  margin: 5vh auto;
+  height: 90%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.private-room-content .friend-list {
+  width: 100%;
+}
+.private-room-content .discussion {
+  width: 100%;
+}
+
+/*# sourceMappingURL=private-room.component.css.map */
