@@ -20,6 +20,9 @@ const update_user_dto_1 = require("./dto/update-user.dto");
 const public_decorator_1 = require("../security/auth/public.decorator");
 const login_dto_1 = require("./dto/login.dto");
 const auth_guard_1 = require("../security/auth/auth.guard");
+const platform_express_1 = require("@nestjs/platform-express");
+const multer_config_1 = require("../multer.config");
+const FileSizeValidationPipe_1 = require("../pipe/FileSizeValidationPipe");
 let UsersController = class UsersController {
     constructor(usersService) {
         this.usersService = usersService;
@@ -41,6 +44,10 @@ let UsersController = class UsersController {
         console.log('req.user');
         console.log(req.user);
         return this.usersService.findOne(req.user.id);
+    }
+    async uploadFile(userId, file) {
+        await this.usersService.update(userId, { picture: file.path });
+        return { message: `File uploaded successfully`, filePath: file.path };
     }
     async findAll() {
         return this.usersService.findAll();
@@ -89,6 +96,15 @@ __decorate([
     __metadata("design:paramtypes", [Object]),
     __metadata("design:returntype", Promise)
 ], UsersController.prototype, "getMe", null);
+__decorate([
+    (0, common_1.Post)(`upload-file/:userId`),
+    (0, common_1.UseInterceptors)((0, platform_express_1.FileInterceptor)(`file`, multer_config_1.multerConfig)),
+    __param(0, (0, common_1.Param)(`userId`)),
+    __param(1, (0, common_1.UploadedFile)(new FileSizeValidationPipe_1.FileSizeValidationPipe())),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String, Object]),
+    __metadata("design:returntype", Promise)
+], UsersController.prototype, "uploadFile", null);
 __decorate([
     (0, common_1.Get)(),
     __metadata("design:type", Function),

@@ -24,14 +24,6 @@ __decorate([
     __metadata("design:type", String)
 ], User.prototype, "pseudo", void 0);
 __decorate([
-    (0, typeorm_1.Column)({ nullable: true, length: 500 }),
-    __metadata("design:type", String)
-], User.prototype, "firstName", void 0);
-__decorate([
-    (0, typeorm_1.Column)({ nullable: true, length: 500 }),
-    __metadata("design:type", String)
-], User.prototype, "lastName", void 0);
-__decorate([
     (0, typeorm_1.Column)({ nullable: true }),
     __metadata("design:type", String)
 ], User.prototype, "picture", void 0);

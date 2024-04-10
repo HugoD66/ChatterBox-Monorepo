@@ -3,6 +3,6 @@ export declare class ResponseUserDto {
     pseudo: string;
     email: string;
     roleGeneral: string;
-    firstName?: string | null;
-    lastName?: string | null;
+    picture?: string;
+    createdAt: Date;
 }

@@ -6,7 +6,7 @@
   width: 100%;
   height: 25vh;
   @include global.bloc;
-  @include global.flex-center-row;
+  @include global.flex-center-row-center;
 
   @media screen and (max-width: 600px) {
   }

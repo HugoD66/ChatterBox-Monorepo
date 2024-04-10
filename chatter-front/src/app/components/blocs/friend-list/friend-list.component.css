@@ -31,6 +31,19 @@
   flex-direction: column;
   height: 100%;
 }
+.friend-list-content .friend-list .positive-condition-friend-list {
+  height: 90%;
+  width: 90%;
+  margin: auto;
+}
+.friend-list-content .friend-list .positive-condition-friend-list .friends {
+  width: 100%;
+  height: 100%;
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+}
 .friend-list-content .friend-list .negative-condition-friend-list {
   display: flex;
   justify-content: space-around;

@@ -1,0 +1,60 @@
+.friend-unit {
+  width: 95%;
+  margin: 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-direction: row;
+}
+.friend-unit .friend-picture-infos {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+.friend-unit .friend-picture-infos .friend-picture {
+  padding: 10px;
+}
+.friend-unit .friend-picture-infos .friend-picture img {
+  width: 70px;
+  height: 70px;
+  border-radius: 90%;
+}
+.friend-unit .friend-picture-infos .friend-infos {
+  margin-left: 5%;
+}
+.friend-unit .friend-picture-infos .friend-infos .friend-pseudo {
+  font-family: "JostRegular", sans-serif;
+  font-size: 1.05em;
+  margin-bottom: 9%;
+}
+.friend-unit .friend-picture-infos .friend-infos .friend-status {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+.friend-unit .friend-picture-infos .friend-infos .friend-status p {
+  font-size: 0.9em;
+  color: rgb(64, 64, 64);
+  font-family: "JostLight", sans-serif;
+  margin: 0;
+  margin-left: 4px;
+}
+.friend-unit .friend-picture-infos .friend-infos .friend-status .friend-status-icon {
+  width: 80%;
+  color: rgba(0, 154, 64, 0.91);
+}
+.friend-unit .friend-actions .friend-action-icon {
+  padding: 10px;
+  color: rgb(0, 75, 93);
+}
+
+.white-icon {
+  color: white;
+}
+
+/* Note: If you're using an SVG icon, you should make the class target the `<svg>` element */
+.white-icon svg {
+  fill: white;
+}
+
+/*# sourceMappingURL=friend-unit.component.css.map */

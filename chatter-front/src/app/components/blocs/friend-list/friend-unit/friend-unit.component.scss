@@ -1,0 +1,56 @@
+@use "../../../../../assets/scss/colors" as colors;
+@use "../../../../../assets/scss/global" as global;
+
+.friend-unit {
+  width: 95%;
+  margin: 0;
+  @include global.flex-center-row-between;
+  .friend-picture-infos {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    .friend-picture {
+      padding: 10px;
+      img {
+        width: 70px;
+        height: 70px;
+        border-radius: 90%;
+      }
+    }
+    .friend-infos {
+      margin-left: 5%;
+      .friend-pseudo {
+        @include global.p;
+        margin-bottom: 9%;
+
+      }
+      .friend-status {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        p {
+          @include global.subtitle;
+          margin-left: 4px;
+        }
+        .friend-status-icon {
+          width: 80%;
+          color: colors.$online;
+        }
+      }
+    }
+  }
+
+  .friend-actions {
+    .friend-action-icon {
+      padding: 10px;
+      color: colors.$back-b;
+    }
+  }
+}
+.white-icon {
+  color: white;
+}
+/* Note: If you're using an SVG icon, you should make the class target the `<svg>` element */
+.white-icon svg {
+  fill: white;
+}

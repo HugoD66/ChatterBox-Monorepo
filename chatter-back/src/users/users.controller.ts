@@ -10,7 +10,8 @@ import {
   UsePipes,
   UseGuards,
   Req,
-  UnauthorizedException,
+  UseInterceptors,
+  UploadedFile,
 } from '@nestjs/common';
 import { UsersService } from './users.service';
 import { CreateUserDto } from './dto/create-user.dto';
@@ -20,6 +21,9 @@ import { LoginResponseDto } from './dto/login.response.dto';
 import { Public } from '../security/auth/public.decorator';
 import { LoginDto } from './dto/login.dto';
 import { AuthGuard } from '../security/auth/auth.guard';
+import { FileInterceptor } from '@nestjs/platform-express';
+import { multerConfig } from '../multer.config';
+import { FileSizeValidationPipe } from '../pipe/FileSizeValidationPipe';
 
 @Controller('users')
 export class UsersController {
@@ -57,6 +61,16 @@ export class UsersController {
     console.log('req.user');
     console.log(req.user);
     return this.usersService.findOne(req.user.id);
+  }
+
+  @Post(`upload-file/:userId`)
+  @UseInterceptors(FileInterceptor(`file`, multerConfig))
+  async uploadFile(
+    @Param(`userId`) userId: string,
+    @UploadedFile(new FileSizeValidationPipe()) file: Express.Multer.File,
+  ) {
+    await this.usersService.update(userId, { picture: file.path });
+    return { message: `File uploaded successfully`, filePath: file.path };
   }
 
   @Get()

@@ -76,7 +76,7 @@ export class UsersService {
 
   async update(
     id: string,
-    updateUserDto: UpdateUserDto,
+    updateUserDto: Partial<User>,
   ): Promise<ResponseUserDto> {
     const user: User = await this.usersRepository.findOne({ where: { id } });
     if (!user) {
@@ -87,8 +87,14 @@ export class UsersService {
       ...updateUserDto,
     };
     await this.usersRepository.save(updatedUser);
-
-    return updatedUser;
+    return {
+      id: updatedUser.id,
+      pseudo: updatedUser.pseudo,
+      email: updatedUser.email,
+      picture: updatedUser.picture,
+      createdAt: updatedUser.createdAt,
+      roleGeneral: updatedUser.roleGeneral,
+    };
   }
 
   async remove(id: string): Promise<void> {

@@ -15,12 +15,6 @@ export class User {
   @Column({ length: 500, unique: true })
   public pseudo!: string;
 
-  @Column({ nullable: true, length: 500 })
-  public firstName: string;
-
-  @Column({ nullable: true, length: 500 })
-  public lastName: string;
-
   @Column({ nullable: true })
   public picture: string | null;
 

@@ -1,5 +1,4 @@
 import { CreateUserDto } from './dto/create-user.dto';
-import { UpdateUserDto } from './dto/update-user.dto';
 import { ResponseUserDto } from './dto/response-user.dto';
 import { User } from './entities/user.entity';
 import { Repository } from 'typeorm';
@@ -14,6 +13,6 @@ export declare class UsersService {
     login(loginDto: LoginDto): Promise<LoginResponseDto>;
     findOne(id: string): Promise<ResponseUserDto>;
     findAll(): Promise<ResponseUserDto[]>;
-    update(id: string, updateUserDto: UpdateUserDto): Promise<ResponseUserDto>;
+    update(id: string, updateUserDto: Partial<User>): Promise<ResponseUserDto>;
     remove(id: string): Promise<void>;
 }

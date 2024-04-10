@@ -77,7 +77,14 @@ let UsersService = class UsersService {
             ...updateUserDto,
         };
         await this.usersRepository.save(updatedUser);
-        return updatedUser;
+        return {
+            id: updatedUser.id,
+            pseudo: updatedUser.pseudo,
+            email: updatedUser.email,
+            picture: updatedUser.picture,
+            createdAt: updatedUser.createdAt,
+            roleGeneral: updatedUser.roleGeneral,
+        };
     }
     async remove(id) {
         await this.usersRepository.delete(id);

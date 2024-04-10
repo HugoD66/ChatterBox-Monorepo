@@ -4,11 +4,26 @@
     <p>10 amis</p>
   </div>
   <div class="friend-list">
-    <div class="negative-condition-friend-list">
-      <p>Vous n'avez aucuns amis pour l'instant</p>
-      <button mat-raised-button class="button-one">
-        Liste des utilisateurs
-      </button>
-    </div>
+    @if(isLoading()) {
+      <app-loader/>
+    } @else {
+      @if(haveFriends()) {
+        <div class="positive-condition-friend-list">
+          <div class="friends">
+            @for (friend of friendList(); track friend) {   <!--| async-->
+              <app-friend-unit [friend]="friend" /> <!-- [friend]="friend" -->
+            }
+          </div>
+        </div>
+      }
+      @else {
+        <div class="negative-condition-friend-list">
+          <p>Vous n'avez aucuns amis pour l'instant</p>
+          <button mat-raised-button class="button-one">
+            Liste des utilisateurs
+          </button>
+        </div>
+      }
+    }
   </div>
 </div>

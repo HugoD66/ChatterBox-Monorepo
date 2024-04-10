@@ -1,0 +1,9 @@
+.my-spinner {
+  width: 100px !important;
+  height: 100px !important;
+}
+.my-spinner circle {
+  stroke: #ff0000 !important;
+}
+
+/*# sourceMappingURL=loader.component.css.map */
