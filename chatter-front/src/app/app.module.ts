@@ -7,6 +7,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import { HttpClientModule } from '@angular/common/http';
 import { SidenavComponent } from './components/sidenav/sidenav.component';
+import { TruncateLongPipe } from './pipe/TruncateLongPipe';
 @NgModule({
   declarations: [AppComponent],
   imports: [
@@ -16,6 +17,7 @@ import { SidenavComponent } from './components/sidenav/sidenav.component';
     AppRoutingModule,
     HttpClientModule,
     SidenavComponent,
+    TruncateLongPipe,
   ],
   providers: [provideAnimationsAsync()],
   bootstrap: [AppComponent],

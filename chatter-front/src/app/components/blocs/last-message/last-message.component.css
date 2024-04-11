@@ -22,6 +22,19 @@
   font-family: "JostLight", sans-serif;
   top: 0;
 }
+.last-messages-content .last-messages .positive-condition-last-message {
+  height: 75%;
+  width: 90%;
+  margin: auto;
+}
+.last-messages-content .last-messages .positive-condition-last-message .messages {
+  width: 100%;
+  height: 94%;
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+}
 .last-messages-content .last-messages .negative-condition-last-message {
   display: flex;
   justify-content: space-around;

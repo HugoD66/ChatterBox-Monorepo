@@ -73,7 +73,7 @@ export class SidenavComponent {
     this.router.navigate(['room/create']);
   }
 
-  goDiscussion() {
-    this.router.navigate(['/room/private']);
+  goDiscussion(id: number) {
+    this.router.navigate([`/room/private/${id}`]);
   }
 }

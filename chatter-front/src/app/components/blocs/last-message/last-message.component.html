@@ -1,9 +1,25 @@
 <div class="last-messages-content">
   <div class="last-messages">
-    <h3>Vos derniers messages</h3>
-    <div class="negative-condition-last-message">
-      <p>Vous n'avez pas de nouveaux messages</p>
-      <button mat-raised-button class="button-one">Envoyer un message</button>
-    </div>
+    @if (isLoading()) {
+      <app-loader />
+    } @else {
+      <h3>Messages non lu</h3>
+      @if (!haveLastMessage()) {
+        <div class="negative-condition-last-message">
+          <p>Vous n'avez pas de nouveaux messages</p>
+          <button mat-raised-button class="button-one">
+            Envoyer un message
+          </button>
+        </div>
+      } @else {
+        <div class="positive-condition-last-message">
+          <div class="messages">
+            @for (message of messagesUnread(); track message.id) { <!--| async-->
+              <app-last-message-unit [message]="message" />
+            }
+          </div>
+        </div>
+      }
+    }
   </div>
 </div>

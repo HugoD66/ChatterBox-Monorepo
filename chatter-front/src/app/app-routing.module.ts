@@ -24,7 +24,7 @@ export const routes: Routes = [
     canActivate: [AuthGuard],
     children: [
       { path: '', component: HomeComponent },
-      { path: 'room/private', component: PrivateRoomComponent }, //ID
+      { path: 'room/private/:id', component: PrivateRoomComponent }, //ID
       { path: 'room/create', component: CreateRoomComponent },
     ],
   },

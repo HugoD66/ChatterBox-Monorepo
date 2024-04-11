@@ -1,0 +1,50 @@
+@use "../../../../../assets/scss/colors" as colors;
+@use "../../../../../assets/scss/global" as global;
+
+.message-unit {
+  @include global.flex-center-column;
+  @include global.bloc;
+  margin: 10px;
+  .message-unit-senderInfos {
+    margin: 5px;
+    @include global.flex-center-row-between;
+    width: 94%;
+    p {
+      margin: 0;
+      @include global.p;
+    }
+    img {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+    }
+  }
+  .message-unit-content {
+    width: 90%;
+    p {
+      @include global.p;
+    }
+  }
+  .message-unit-footer {
+    @include global.flex-center-row-between;
+    width: 90%;
+    p {
+      @include global.subtitle;
+    }
+    button {
+      border-radius: 90%;
+      margin: 10px;
+      background-color: transparent;
+      border: none;
+      transition: background-color 0.5s ease;
+      &:hover {
+        background-color: rgba(68, 68, 68, 0.1);
+        transition: background-color 0.5s ease;
+      }
+      .message-unit-response {
+        margin-top: 4px;
+        padding: 4px;
+      }
+    }
+  }
+}
