@@ -5,7 +5,6 @@ import { MatIcon } from '@angular/material/icon';
 import { TruncateLongPipe } from '../../../../pipe/TruncateLongPipe';
 import { MessageUnreadModel } from '../last-message.component';
 import { Router } from '@angular/router';
-import { update } from 'jdenticon';
 
 @Component({
   selector: 'app-last-message-unit',

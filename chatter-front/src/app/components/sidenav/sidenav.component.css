@@ -8,6 +8,12 @@ mat-sidenav {
   opacity: 1;
   position: fixed;
 }
+@media screen and (max-width: 600px) {
+  mat-sidenav {
+    width: 100vw !important;
+    height: 100vh !important;
+  }
+}
 mat-sidenav.expanded {
   width: 15em !important;
 }

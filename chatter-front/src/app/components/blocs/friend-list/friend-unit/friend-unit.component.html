@@ -4,7 +4,7 @@
       <img src="./assets/logos/cb-logo-dark-withoutBG.png" alt="" />
     </div>
     <div class="friend-infos">
-      <p class="friend-pseudo">{{ friend() }}</p>
+      <p class="friend-pseudo">{{ friend().id }}</p>
       <div class="friend-status">
         <mat-icon class="friend-status-icon">circle</mat-icon>
         <p>Online</p>
@@ -12,7 +12,7 @@
     </div>
   </div>
   <div class="friend-actions">
-    <mat-icon class="friend-action-icon">settings</mat-icon>
+    <mat-icon class="friend-action-icon" (click)="openDialog(friend())">settings</mat-icon>
     <mat-icon class="friend-action-icon">chat</mat-icon>
   </div>
 </div>

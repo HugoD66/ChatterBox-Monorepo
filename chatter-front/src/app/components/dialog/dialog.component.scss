@@ -1,0 +1,10 @@
+.dialog {
+  @media screen and (max-width: 600px) {
+    width: 150px !important;
+  }
+  background-color: orange;
+  .dialog-content {
+    background-color: red;
+  }
+}
+

@@ -8,6 +8,7 @@ import { provideAnimationsAsync } from '@angular/platform-browser/animations/asy
 import { HttpClientModule } from '@angular/common/http';
 import { SidenavComponent } from './components/sidenav/sidenav.component';
 import { TruncateLongPipe } from './pipe/TruncateLongPipe';
+import { DialogService } from './services/dialog.service';
 @NgModule({
   declarations: [AppComponent],
   imports: [
@@ -19,7 +20,7 @@ import { TruncateLongPipe } from './pipe/TruncateLongPipe';
     SidenavComponent,
     TruncateLongPipe,
   ],
-  providers: [provideAnimationsAsync()],
+  providers: [provideAnimationsAsync(), DialogService],
   bootstrap: [AppComponent],
   exports: [],
 })

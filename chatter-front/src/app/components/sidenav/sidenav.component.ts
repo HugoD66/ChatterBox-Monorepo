@@ -17,7 +17,8 @@ import { MatButton } from '@angular/material/button';
 import { UserModel } from '../../models/user.model';
 import { Router } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
-
+import { DialogComponent } from '../dialog/dialog.component';
+import { MatDialog } from '@angular/material/dialog';
 enum SidebarModeEnum {
   COLLAPSED = 'collapsed',
   EXPANDED = 'expanded',
@@ -60,11 +61,13 @@ export class SidenavComponent {
     }
     this.isExpandedChange.emit(this.isExpanded());
   }
+
   logout(): void {
     this.authService.logout();
     this.removeGetMe.emit();
     this.router.navigate(['/auth/login']);
   }
+
   goHome(): void {
     this.router.navigate(['/home']);
   }

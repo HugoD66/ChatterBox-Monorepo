@@ -1,0 +1,13 @@
+.dialog {
+  background-color: orange;
+}
+@media screen and (max-width: 600px) {
+  .dialog {
+    width: 150px !important;
+  }
+}
+.dialog .dialog-content {
+  background-color: red;
+}
+
+/*# sourceMappingURL=dialog.component.css.map */
