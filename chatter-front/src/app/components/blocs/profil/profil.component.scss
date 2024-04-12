@@ -1,5 +1,6 @@
 @use "../../../../assets/scss/colors" as colors;
 @use "../../../../assets/scss/global" as global;
+@use "../../../../assets/scss/fonts" as fonts;
 
 .profil-content {
   margin: auto;
@@ -25,10 +26,10 @@
       width: 96%;
       height: 30%;
       span {
-        @include global.subtitle;
+        @include fonts.subtitle;
       }
       p {
-        @include global.p;
+        @include fonts.p;
         font-size: 1.1em;
       }
       button {
@@ -49,7 +50,7 @@
       }
     }
     .createdBy {
-      @include global.subtitle;
+      @include fonts.subtitle;
       padding: 0;
       width: 100%;
       text-align: end;

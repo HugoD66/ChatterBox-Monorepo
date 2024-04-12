@@ -1,1 +1,8 @@
-<div class="message-content"></div>
+<div class="message-content">
+  <div class="message">
+    <form [formGroup]="messageSendForm" (ngSubmit)="onSubmit()">
+      <textarea formControlName="message" placeholder="Type your message here..."></textarea>
+      <button type="submit" [disabled]="!messageSendForm.valid">Send</button>
+    </form>
+  </div>
+</div>

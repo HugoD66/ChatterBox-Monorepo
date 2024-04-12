@@ -1,5 +1,6 @@
 @use "../../../../assets/scss/colors" as colors;
 @use "../../../../assets/scss/global" as global;
+@use "../../../../assets/scss/fonts" as fonts;
 
 .last-messages-content {
   //margin: 5% auto auto;
@@ -11,7 +12,7 @@
     height: 100%;
     h3 {
       letter-spacing: 3px;
-      @include global.h3-title;
+      @include fonts.h3-title;
       top: 0;
     }
     .positive-condition-last-message {
@@ -31,7 +32,7 @@
       @include global.flex-around-column;
       height: 50%;
       p {
-        @include global.p;
+        @include fonts.p;
       }
       .button-one {
         @include global.button-one;

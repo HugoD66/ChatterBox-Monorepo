@@ -1,4 +1,9 @@
-import { Component, signal, WritableSignal } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  signal,
+  WritableSignal,
+} from '@angular/core';
 import { MatButton } from '@angular/material/button';
 import { AsyncPipe } from '@angular/common';
 import { MatProgressSpinner } from '@angular/material/progress-spinner';
@@ -8,6 +13,7 @@ import { UserGeneralRoleEnum } from '../../../enum/user.general.role.enum';
 import { UserModel } from '../../../models/user.model';
 
 @Component({
+  changeDetection: ChangeDetectionStrategy.OnPush,
   selector: 'app-friend-list',
   standalone: true,
   imports: [

@@ -1,1 +1,7 @@
-<div class="chat-content"></div>
+<div class="chat-content">
+  <div class="chat-message-list">
+    @for(message of messages(); track message.id) {
+      <app-message-unit [message]="message" />
+    }
+  </div>
+</div>

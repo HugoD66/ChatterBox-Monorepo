@@ -1,5 +1,6 @@
 @use "../../../../../assets/scss/colors" as colors;
 @use "../../../../../assets/scss/global" as global;
+@use "../../../../../assets/scss/fonts" as fonts;
 
 .message-unit {
   @include global.flex-center-column;
@@ -11,7 +12,7 @@
     width: 94%;
     p {
       margin: 0;
-      @include global.p;
+      @include fonts.p;
     }
     img {
       width: 50px;
@@ -22,14 +23,14 @@
   .message-unit-content {
     width: 90%;
     p {
-      @include global.p;
+      @include fonts.p;
     }
   }
   .message-unit-footer {
     @include global.flex-center-row-between;
     width: 90%;
     p {
-      @include global.subtitle;
+      @include fonts.subtitle;
     }
     button {
       border-radius: 90%;

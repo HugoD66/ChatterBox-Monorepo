@@ -5,5 +5,31 @@
   @include global.bloc;
   width: 100%;
   height: 100%;
-  margin-top: 10px;
+  margin: auto;
+  .message {
+    width: 80%;
+    height: 80%;
+    margin: auto;
+    background-color: red;
+    position: relative;
+    form {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: row;
+      textarea {
+        width: 100%;
+        height: 100%;
+        resize: none;
+        overflow: auto;
+      }
+      button {
+        position: absolute;
+        right: 0;
+        bottom: 0;
+      }
+    }
+  }
 }

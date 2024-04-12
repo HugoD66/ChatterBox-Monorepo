@@ -1,5 +1,6 @@
 @use "../../../../../assets/scss/colors" as colors;
 @use "../../../../../assets/scss/global" as global;
+@use "../../../../../assets/scss/fonts" as fonts;
 
 .friend-unit {
   width: 95%;
@@ -20,7 +21,7 @@
     .friend-infos {
       margin-left: 5%;
       .friend-pseudo {
-        @include global.p;
+        @include fonts.p;
         margin-bottom: 9%;
       }
       .friend-status {
@@ -28,7 +29,7 @@
         flex-direction: row;
         align-items: center;
         p {
-          @include global.subtitle;
+          @include fonts.subtitle;
           margin-left: 4px;
         }
         .friend-status-icon {

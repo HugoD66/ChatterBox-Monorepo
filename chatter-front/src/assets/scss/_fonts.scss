@@ -1,0 +1,22 @@
+@use "./colors" as colors;
+
+@mixin h3-title {
+  text-align: center;
+  width: 100%;
+  padding: 5px;
+  color: colors.$gradient-dark-g;
+  font-family: "JostLight", sans-serif;
+  //Add letterSpace(3px)
+}
+
+@mixin p {
+  font-family: "JostRegular", sans-serif;
+  font-size: 1.05em;
+}
+
+@mixin subtitle {
+  font-size: 0.9em;
+  color: colors.$gradient-dark-g;
+  font-family: "JostLight", sans-serif;
+  margin: 0;
+}
