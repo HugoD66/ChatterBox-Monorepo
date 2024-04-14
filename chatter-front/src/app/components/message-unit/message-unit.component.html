@@ -1,11 +1,11 @@
 <div
   class="message-unit-content"
   [ngClass]="message()?.receiverId === '1' ? 'message-unit-content-received' : 'message-unit-content-sent'"
-><!--
- -->
+>
   <p>{{message()?.content}}</p>
   <div class="message-unit-infos">
     <img src="./assets/logos/cb-logo-dark-withoutBG.png" alt="Icon de notre chatter-friend">
     <p class="created-at">{{ message()!.createdAt | date: 'dd/MM/yyyy HH:mm:ss' }}</p>
+
   </div>
 </div>

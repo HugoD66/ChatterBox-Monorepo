@@ -1,4 +1,5 @@
 import { UserGeneralRoleEnum } from './types/user.general.roles.enum';
+import { Message } from '../../message/entities/message.entity';
 export declare class User {
     id: string;
     pseudo: string;
@@ -7,4 +8,6 @@ export declare class User {
     createdAt: Date;
     password: string;
     roleGeneral: UserGeneralRoleEnum;
+    sentMessages: Message[];
+    receivedMessages: Message[];
 }

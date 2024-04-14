@@ -1,0 +1,8 @@
+@use "../../../assets/scss/colors" as colors;
+@use "../../../assets/scss/global" as global;
+
+
+
+.group-room-content {
+  @include global.screenBloc;
+}

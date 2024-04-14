@@ -1,0 +1,12 @@
+<div class="add-friend-search-content">
+  <app-searchbar (searchEvent)="onSearch($event)" />
+  @if(isLoading()) {
+    <app-loader />
+  } @else {
+    @if(!isFriendsFound()) {
+      <div class="negative-condition-friend-found">
+        <p>No friends found</p>
+      </div>
+    }
+  }
+</div>

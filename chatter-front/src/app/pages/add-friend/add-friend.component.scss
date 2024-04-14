@@ -1,0 +1,6 @@
+@use "../../../assets/scss/colors" as colors;
+@use "../../../assets/scss/global" as global;
+
+.add-friend-content {
+  @include global.screenBloc;
+}

@@ -10,10 +10,15 @@ import { JwtModule } from '@nestjs/jwt';
 import { jwtConstants } from './security/auth/constant';
 import { User } from './users/entities/user.entity';
 import { APP_GUARD } from '@nestjs/core';
+import { MessageModule } from './message/message.module';
+import { Message } from './message/entities/message.entity';
+import { FixtureModule } from './fixtures/fixture/fixture.module';
 
 @Module({
   imports: [
     UsersModule,
+    MessageModule,
+    FixtureModule,
     ConfigModule.forRoot({ isGlobal: true }),
     PassportModule.register({ defaultStrategy: `jwt` }),
     JwtModule.register({
@@ -31,7 +36,7 @@ import { APP_GUARD } from '@nestjs/core';
           username: configService.get(`DB_USERNAME`),
           password: configService.get(`DB_PASSWORD`),
           database: configService.get(`DB_NAME`),
-          entities: [User],
+          entities: [User, Message],
           synchronize: true,
         };
         console.log(dbConfig);
@@ -39,6 +44,7 @@ import { APP_GUARD } from '@nestjs/core';
       },
       inject: [ConfigService],
     }),
+    FixtureModule,
   ],
   controllers: [AppController],
   providers: [

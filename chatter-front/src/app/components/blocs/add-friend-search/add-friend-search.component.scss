@@ -1,0 +1,13 @@
+@use "../../../../assets/scss/colors" as colors;
+@use "../../../../assets/scss/global" as global;
+
+
+.add-friend-search-content{
+  @include global.bloc;
+  height: 64vh;
+  margin: auto;
+  @include global.flex-around-column-center;
+  .negative-condition-friend-found {
+    color: colors.$dark-b;
+  }
+}

@@ -19,6 +19,9 @@ const jwt_1 = require("@nestjs/jwt");
 const constant_1 = require("./security/auth/constant");
 const user_entity_1 = require("./users/entities/user.entity");
 const core_1 = require("@nestjs/core");
+const message_module_1 = require("./message/message.module");
+const message_entity_1 = require("./message/entities/message.entity");
+const fixture_module_1 = require("./fixtures/fixture/fixture.module");
 let AppModule = class AppModule {
 };
 exports.AppModule = AppModule;
@@ -26,6 +29,8 @@ exports.AppModule = AppModule = __decorate([
     (0, common_1.Module)({
         imports: [
             users_module_1.UsersModule,
+            message_module_1.MessageModule,
+            fixture_module_1.FixtureModule,
             config_1.ConfigModule.forRoot({ isGlobal: true }),
             passport_1.PassportModule.register({ defaultStrategy: `jwt` }),
             jwt_1.JwtModule.register({
@@ -43,7 +48,7 @@ exports.AppModule = AppModule = __decorate([
                         username: configService.get(`DB_USERNAME`),
                         password: configService.get(`DB_PASSWORD`),
                         database: configService.get(`DB_NAME`),
-                        entities: [user_entity_1.User],
+                        entities: [user_entity_1.User, message_entity_1.Message],
                         synchronize: true,
                     };
                     console.log(dbConfig);
@@ -51,6 +56,7 @@ exports.AppModule = AppModule = __decorate([
                 },
                 inject: [config_1.ConfigService],
             }),
+            fixture_module_1.FixtureModule,
         ],
         controllers: [app_controller_1.AppController],
         providers: [

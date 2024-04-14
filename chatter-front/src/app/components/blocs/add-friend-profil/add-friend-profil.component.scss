@@ -1,0 +1,7 @@
+@use "../../../../assets/scss/colors" as colors;
+@use "../../../../assets/scss/global" as global;
+
+.add-friend-profil-content {
+  @include global.bloc;
+  height: 25vh;
+}

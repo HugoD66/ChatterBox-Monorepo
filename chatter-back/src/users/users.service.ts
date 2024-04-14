@@ -24,6 +24,26 @@ export class UsersService {
     private usersRepository: Repository<User>,
     private readonly jwtService: JwtService,
   ) {}
+  //Fixtures
+  async create(createUserDto: CreateUserDto): Promise<ResponseUserDto> {
+    const existingUser = await this.usersRepository.findOne({
+      where: { email: createUserDto.email },
+    });
+    if (existingUser) {
+      throw new BadRequestException('Email déjà pris.');
+    }
+    const salt = await bcrypt.genSalt();
+    const hashedPassword = await bcrypt.hash(createUserDto.password, salt);
+    const user: User = this.usersRepository.create({
+      pseudo: createUserDto.pseudo,
+      email: createUserDto.email,
+      password: hashedPassword,
+      roleGeneral: createUserDto.roleGeneral ?? UserGeneralRoleEnum.Utilisateur,
+    });
+    const savedUser: User = await this.usersRepository.save(user);
+    return savedUser;
+  }
+
   async register(createUserDto: CreateUserDto): Promise<ResponseUserDto> {
     const existingUser = await this.usersRepository.findOne({
       where: [{ email: createUserDto.email }, { pseudo: createUserDto.pseudo }],

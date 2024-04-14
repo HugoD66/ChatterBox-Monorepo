@@ -1,0 +1,14 @@
+<mat-form-field >
+  <mat-label>Recherchez un utilisateur ...</mat-label>
+  <input
+    matInput
+    type="text"
+    [(ngModel)]="value"
+    (ngModelChange)="onSearchChange(value)"
+  />
+  @if (value) {
+    <button matSuffix mat-icon-button aria-label="Clear" (click)="resetSearch()">
+      <mat-icon>close</mat-icon>
+    </button>
+  }
+</mat-form-field>

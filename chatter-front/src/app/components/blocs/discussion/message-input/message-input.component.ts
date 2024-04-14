@@ -7,11 +7,12 @@ import {
   Validators,
 } from '@angular/forms';
 import { MessageValidationService } from '../../../../services/message-validation.service';
+import { MatIcon } from '@angular/material/icon';
 
 @Component({
   selector: 'app-message-input',
   standalone: true,
-  imports: [FormsModule, ReactiveFormsModule],
+  imports: [FormsModule, ReactiveFormsModule, MatIcon],
   templateUrl: './message-input.component.html',
   styleUrl: './message-input.component.scss',
 })

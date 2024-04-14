@@ -50,6 +50,12 @@ $radius-background: 16px;
   align-items: center;
   flex-direction: column;
 }
+@mixin flex-around-column-center {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  flex-direction: column;
+}
 @mixin flex-between-column {
   display: flex;
   justify-content: space-between;
@@ -74,6 +80,14 @@ $radius-background: 16px;
     white 48%,
     colors.$back-light-b 100%
   );
+}
+@mixin screenBloc {
+  width: 90%;
+  margin: 5vh auto;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 
 //Buttons

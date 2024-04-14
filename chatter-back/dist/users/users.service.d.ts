@@ -9,6 +9,7 @@ export declare class UsersService {
     private usersRepository;
     private readonly jwtService;
     constructor(usersRepository: Repository<User>, jwtService: JwtService);
+    create(createUserDto: CreateUserDto): Promise<ResponseUserDto>;
     register(createUserDto: CreateUserDto): Promise<ResponseUserDto>;
     login(loginDto: LoginDto): Promise<LoginResponseDto>;
     findOne(id: string): Promise<ResponseUserDto>;

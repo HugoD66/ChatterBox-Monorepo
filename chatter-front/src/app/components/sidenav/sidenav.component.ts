@@ -17,8 +17,7 @@ import { MatButton } from '@angular/material/button';
 import { UserModel } from '../../models/user.model';
 import { Router } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
-import { DialogComponent } from '../dialog/dialog.component';
-import { MatDialog } from '@angular/material/dialog';
+
 enum SidebarModeEnum {
   COLLAPSED = 'collapsed',
   EXPANDED = 'expanded',
@@ -78,5 +77,11 @@ export class SidenavComponent {
 
   goDiscussion(id: number) {
     this.router.navigate([`/room/private/${id}`]);
+  }
+  goGroup(id: number) {
+    this.router.navigate([`/room/group/${id}`]);
+  }
+  goAddFriend() {
+    this.router.navigate([`/friend/add`]);
   }
 }

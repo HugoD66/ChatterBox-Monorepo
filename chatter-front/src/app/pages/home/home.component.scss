@@ -2,12 +2,7 @@
 @use "../../../assets/scss/global" as global;
 
 .home-content {
-  width: 90%;
-  margin: 5vh auto;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  height: 100%;
+  @include global.screenBloc;
   .profil {
     height: 50%;
   }

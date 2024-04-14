@@ -3,9 +3,11 @@ import {
   CreateDateColumn,
   Entity,
   Index,
+  OneToMany,
   PrimaryGeneratedColumn,
 } from 'typeorm';
 import { UserGeneralRoleEnum } from './types/user.general.roles.enum';
+import { Message } from '../../message/entities/message.entity';
 
 @Entity()
 export class User {
@@ -34,4 +36,10 @@ export class User {
     default: UserGeneralRoleEnum.Utilisateur,
   })
   public roleGeneral: UserGeneralRoleEnum;
+
+  @OneToMany(() => Message, (message) => message.sender)
+  sentMessages: Message[];
+
+  @OneToMany(() => Message, (message) => message.receiver)
+  receivedMessages: Message[];
 }

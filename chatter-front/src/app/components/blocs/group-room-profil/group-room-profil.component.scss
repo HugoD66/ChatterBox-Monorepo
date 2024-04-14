@@ -1,0 +1,14 @@
+@use "../../../../assets/scss/colors" as colors;
+@use "../../../../assets/scss/global" as global;
+@use "../../../../assets/scss/fonts" as fonts;
+
+
+.group-room-profil-content {
+  @include global.bloc;
+  width: 100%;
+  height: 25vh;
+  overflow-x: auto;
+  display: flex;
+  flex-direction: row;
+  margin: auto;
+}

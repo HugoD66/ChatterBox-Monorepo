@@ -8,30 +8,35 @@
   margin: auto;
 }
 .message-content .message {
-  width: 80%;
-  height: 80%;
+  width: 100%;
+  height: 100%;
   margin: auto;
-  background-color: red;
-  position: relative;
 }
 .message-content .message form {
   width: 100%;
   height: 100%;
+  margin: auto;
   display: flex;
   align-items: center;
   justify-content: center;
   flex-direction: row;
 }
 .message-content .message form textarea {
-  width: 100%;
-  height: 100%;
+  width: 96%;
+  height: 95%;
   resize: none;
   overflow: auto;
+  border: none;
+  background-color: transparent;
 }
 .message-content .message form button {
-  position: absolute;
-  right: 0;
-  bottom: 0;
+  border: none;
+  background-color: transparent;
+  width: 10%;
+}
+.message-content .message form button .send-form {
+  color: rgb(7, 24, 38);
+  height: 100%;
 }
 
 /*# sourceMappingURL=message-input.component.css.map */

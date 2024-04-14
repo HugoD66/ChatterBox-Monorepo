@@ -26,6 +26,24 @@ let UsersService = class UsersService {
         this.usersRepository = usersRepository;
         this.jwtService = jwtService;
     }
+    async create(createUserDto) {
+        const existingUser = await this.usersRepository.findOne({
+            where: { email: createUserDto.email },
+        });
+        if (existingUser) {
+            throw new common_1.BadRequestException('Email déjà pris.');
+        }
+        const salt = await bcrypt.genSalt();
+        const hashedPassword = await bcrypt.hash(createUserDto.password, salt);
+        const user = this.usersRepository.create({
+            pseudo: createUserDto.pseudo,
+            email: createUserDto.email,
+            password: hashedPassword,
+            roleGeneral: createUserDto.roleGeneral ?? user_general_roles_enum_1.UserGeneralRoleEnum.Utilisateur,
+        });
+        const savedUser = await this.usersRepository.save(user);
+        return savedUser;
+    }
     async register(createUserDto) {
         const existingUser = await this.usersRepository.findOne({
             where: [{ email: createUserDto.email }, { pseudo: createUserDto.pseudo }],
