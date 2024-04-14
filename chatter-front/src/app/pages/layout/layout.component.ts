@@ -38,14 +38,13 @@ export class LayoutComponent implements AfterViewInit {
   ) {}
   ngAfterViewInit(): void {
     this.authService.getMe().subscribe((me) => {
-      console.log(me);
       if (!me) {
         this.router.navigate(['/auth/login']);
         return;
       }
       this.getMe.set(me);
+      console.log(this.getMe());
     });
-    console.log(this.getMe());
   }
 
   isExpandedChange(isExpanded: boolean): void {

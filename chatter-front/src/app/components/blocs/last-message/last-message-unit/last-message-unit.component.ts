@@ -1,10 +1,10 @@
-import { Component, effect, Input, input, InputSignal } from '@angular/core';
+import { Component, input, InputSignal } from '@angular/core';
 import { DatePipe } from '@angular/common';
 import { MatButton } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
 import { TruncateLongPipe } from '../../../../pipe/TruncateLongPipe';
-import { MessageUnreadModel } from '../last-message.component';
 import { Router } from '@angular/router';
+import { MessageModel } from '../../../../models/message.model';
 
 @Component({
   selector: 'app-last-message-unit',
@@ -14,12 +14,11 @@ import { Router } from '@angular/router';
   styleUrl: './last-message-unit.component.scss',
 })
 export class LastMessageUnitComponent {
-  public message: InputSignal<MessageUnreadModel> =
-    input.required<MessageUnreadModel>();
+  public message: InputSignal<MessageModel> = input.required<MessageModel>();
 
   constructor(private router: Router) {}
 
-  redirectToChat(chatId: number): void {
+  redirectToChat(chatId: string): void {
     this.router.navigate([`/room/private/${chatId}`]);
   }
 }

@@ -56,7 +56,9 @@ export class AuthService {
   }
 
   getMe(): Observable<UserModel> {
-    const accessToken = localStorage.getItem(`access_token`);
+    const accessToken = localStorage.getItem(`authToken`);
+    console.log(accessToken);
+
     return this.http
       .get<UserModel>(`${this.apiUrl}/users/auth/me`, {
         headers: new HttpHeaders().set(

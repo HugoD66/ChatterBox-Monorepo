@@ -48,9 +48,15 @@ let AuthGuard = class AuthGuard {
         return true;
     }
     extractTokenFromHeader(request) {
-        console.log(`ACCESS TOKEN : ` + request.headers.authorization);
-        const [type, token] = request.headers.authorization?.split(` `) ?? [];
-        return type === `Bearer` ? token : undefined;
+        const authHeader = request.headers.authorization;
+        console.log(`Received Authorization Header: ${authHeader}`);
+        const [type, token] = authHeader?.split(` `) ?? [];
+        if (type === `Bearer` && token) {
+            console.log(`Extracted Token: ${token}`);
+            return token;
+        }
+        console.error('Token not found or incorrect type');
+        return undefined;
     }
 };
 exports.AuthGuard = AuthGuard;

@@ -4,4 +4,5 @@ export class MessageModel {
   public createdAt!: Date;
   public senderId!: string; //TEMP
   public receiverId!: string; //TEMP
+  public isRead!: boolean;
 }

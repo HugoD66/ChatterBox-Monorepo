@@ -19,6 +19,7 @@ export class AppComponent implements OnInit {
       this.router.navigate(['/auth/login']) ||
         this.router.navigate(['/auth/register']);
     } else {
+      console.log('User is logged in (app.component.ts)');
       //this.router.navigate(['/home']);
     }
   }

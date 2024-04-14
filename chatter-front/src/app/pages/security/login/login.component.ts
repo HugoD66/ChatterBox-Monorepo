@@ -72,6 +72,7 @@ export class LoginComponent {
       this.authService.login(credentials).subscribe({
         next: (response) => {
           localStorage.setItem('authToken', response.access_token);
+
           this.router.navigate(['/home']);
         },
         error: (error) => {

@@ -44,6 +44,12 @@ export class MessageService {
     return await this.messageRepository.find();
   }
 
+  async findAllUnreads(): Promise<ResponseMessageDto[]> {
+    return await this.messageRepository.find({
+      where: { isRead: false },
+    });
+  }
+
   async update(
     id: string,
     updateMessageDto: UpdateMessageDto,

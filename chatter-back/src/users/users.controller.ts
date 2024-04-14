@@ -24,6 +24,7 @@ import { AuthGuard } from '../security/auth/auth.guard';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { multerConfig } from '../multer.config';
 import { FileSizeValidationPipe } from '../pipe/FileSizeValidationPipe';
+import { User } from './entities/user.entity';
 
 @Controller('users')
 export class UsersController {
@@ -41,6 +42,15 @@ export class UsersController {
     return user;
   }
 
+  @Get('/auth/me')
+  @UseGuards(AuthGuard)
+  async getMe(@Req() req): Promise<ResponseUserDto> {
+    console.log(req);
+    console.log('req.user');
+    console.log(req.user);
+    return this.usersService.findOne(req.user.id);
+  }
+
   @Public()
   @Post(`/auth/login`)
   async login(@Body() loginDto: LoginDto): Promise<LoginResponseDto> {
@@ -52,15 +62,6 @@ export class UsersController {
   @UseGuards(AuthGuard)
   async logout(): Promise<void> {
     return;
-  }
-
-  @Get('/auth/me')
-  @UseGuards(AuthGuard)
-  async getMe(@Req() req): Promise<ResponseUserDto> {
-    console.log(req);
-    console.log('req.user');
-    console.log(req.user);
-    return this.usersService.findOne(req.user.id);
   }
 
   @Post(`upload-file/:userId`)
@@ -96,17 +97,3 @@ export class UsersController {
     return this.usersService.remove(id);
   }
 }
-
-/*
-TODO : 
-
-   @ApiBearerAuth()
-    @Get('me')
-    @UseGuards(JwtAuthGuard)
-    public getMe(@Req() req: RequestAuth<User>): Promise<Me> {
-        return this.personRepository.findOne({
-            relations: { organization: true, role: { permissions: true } },
-            where: { user: { id: req.user.id } },
-        });
-    }
- */

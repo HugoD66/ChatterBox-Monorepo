@@ -25,14 +25,12 @@ export class AuthGuard implements CanActivate {
     if (isPublic) {
       return true;
     }
-    console.log('AuthGuard');
     const request = context.switchToHttp().getRequest();
     const token = this.extractTokenFromHeader(request);
     if (!token) {
       throw new UnauthorizedException();
     }
-    console.log('AuthGuard token');
-    console.log(token);
+
     try {
       const payload = await this.jwtService.verifyAsync(token, {
         secret: jwtConstants.secret,
@@ -45,8 +43,14 @@ export class AuthGuard implements CanActivate {
   }
 
   private extractTokenFromHeader(request: Request): string | undefined {
-    console.log(`ACCESS TOKEN : ` + request.headers.authorization);
-    const [type, token] = request.headers.authorization?.split(` `) ?? [];
-    return type === `Bearer` ? token : undefined;
+    const authHeader = request.headers.authorization;
+    console.log(`Received Authorization Header: ${authHeader}`);
+    const [type, token] = authHeader?.split(` `) ?? [];
+    if (type === `Bearer` && token) {
+      console.log(`Extracted Token: ${token}`);
+      return token;
+    }
+    console.error('Token not found or incorrect type');
+    return undefined;
   }
 }

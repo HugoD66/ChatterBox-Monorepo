@@ -8,6 +8,8 @@ import { MatButton } from '@angular/material/button';
 import { LoaderComponent } from '../../loader/loader.component';
 import { FriendUnitComponent } from '../friend-list/friend-unit/friend-unit.component';
 import { LastMessageUnitComponent } from './last-message-unit/last-message-unit.component';
+import { MessageService } from '../../../services/message.service';
+import { MessageModel } from '../../../models/message.model';
 
 export interface MessageUnreadModel {
   id: number;
@@ -32,26 +34,17 @@ export interface MessageUnreadModel {
 export class LastMessageComponent {
   public haveLastMessage: WritableSignal<boolean> = signal(true);
   public isLoading: WritableSignal<boolean> = signal(true);
-  public messagesUnread: WritableSignal<MessageUnreadModel[] | null> = signal(
-    [],
-  );
-  public messageUnreadList: MessageUnreadModel[] = [
-    {
-      id: 1,
-      senderName: 'John Doe',
-      body: 'Hello, how are you? I am fine, thank you! And you? How are you doing?  ank you! And you? How are you doing?  I am fine, thank you! And you? How are y ank you! And you? How are you doing?  I am fine, thank you! And you? How are y ank you! And you? How are you doing?  I am fine, thank you! And you? How are yI am fine, thank you! And you? How are you doing? ',
-      sentDate: '2021-01-01 12:00:00',
-    },
-    {
-      id: 2,
-      senderName: 'Jane Doe',
-      body: 'I am fine, thank you! And you? How are you doing? ',
-      sentDate: '2021-01-01 12:01:00',
-    },
-  ];
+  public unreadMessages: WritableSignal<MessageModel[] | null> = signal([]);
 
-  constructor() {
-    this.messagesUnread.set(this.messageUnreadList);
-    this.isLoading.set(false);
+  constructor(public messageService: MessageService) {
+    this.messageService.getUnreadMessages().subscribe((messages) => {
+      this.unreadMessages.set(messages);
+
+      if (messages.length === 0) {
+        this.haveLastMessage.set(false);
+      }
+
+      this.isLoading.set(false);
+    });
   }
 }

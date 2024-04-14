@@ -9,6 +9,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { SidenavComponent } from './components/sidenav/sidenav.component';
 import { TruncateLongPipe } from './pipe/TruncateLongPipe';
 import { DialogService } from './services/dialog.service';
+import { MessageService } from './services/message.service';
 @NgModule({
   declarations: [AppComponent],
   imports: [
@@ -20,7 +21,7 @@ import { DialogService } from './services/dialog.service';
     SidenavComponent,
     TruncateLongPipe,
   ],
-  providers: [provideAnimationsAsync(), DialogService],
+  providers: [provideAnimationsAsync(), DialogService, MessageService],
   bootstrap: [AppComponent],
   exports: [],
 })

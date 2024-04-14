@@ -4,8 +4,12 @@ meta {
   seq: 1
 }
 
-get {
-  url: 
+post {
+  url: http://{{url}}:{{port}}/fixture/users
   body: none
-  auth: none
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{bearerToken}}
 }

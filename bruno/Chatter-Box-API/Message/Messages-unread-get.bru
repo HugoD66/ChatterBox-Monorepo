@@ -1,0 +1,11 @@
+meta {
+  name: Messages-unread-get
+  type: http
+  seq: 1
+}
+
+get {
+  url: http://{{url}}:{{port}}/message/unread/temp
+  body: none
+  auth: none
+}

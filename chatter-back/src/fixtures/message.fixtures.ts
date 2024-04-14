@@ -113,6 +113,86 @@ export class MessageFixtures {
         senderId: userList[Math.floor(Math.random() * userList.length)].id,
         receiverId: userList[Math.floor(Math.random() * userList.length)].id,
       },
+      {
+        content:
+          'Salut, comment tu vas? As-tu essayé le nouveau café du coin?!',
+        createdAt: new Date('2024-01-01T00:00:00'),
+        isRead: false,
+        senderId: userList[Math.floor(Math.random() * userList.length)].id,
+        receiverId: userList[Math.floor(Math.random() * userList.length)].id,
+      },
+      {
+        content:
+          'Ah, ça sonne bien! Je suis curieux de goûter ça. Tu utilises quel type de café pour ta recette? Je suis plutôt latte macchiato, et parfois un bon cappuccino. Tu as une recette à me conseiller? Je suis plutôt latte macchiato, et parfois un bon cappuccino. Tu as une recette à me conseiller? Je suis plutôt latte macchiato, et parfois un bon cappuccino. Tu as une recette à me conseiller? Je suis plutôt latte macchiato, et parfois un bon cappuccino. Tu as une recette à me conseiller?',
+        createdAt: new Date('2024-01-01T08:30:00'),
+        isRead: false,
+        senderId: userList[Math.floor(Math.random() * userList.length)].id,
+        receiverId: userList[Math.floor(Math.random() * userList.length)].id,
+      },
+      {
+        content:
+          "Pas mal. J'ai découvert un super café bio dernièrement, tu devrais tester.",
+        createdAt: new Date('2024-01-03T08:30:00'),
+        isRead: false,
+        senderId: userList[Math.floor(Math.random() * userList.length)].id,
+        receiverId: userList[Math.floor(Math.random() * userList.length)].id,
+      },
+      {
+        content:
+          "J'adore le café, surtout le matin. Ça me réveille vraiment! Tu bois quoi d'habitude?",
+        createdAt: new Date('2024-01-04T08:30:00'),
+        isRead: false,
+        senderId: userList[Math.floor(Math.random() * userList.length)].id,
+        receiverId: userList[Math.floor(Math.random() * userList.length)].id,
+      },
+      {
+        content:
+          'Je suis plutôt latte macchiato, et parfois un bon cappuccino. Tu as une recette à me conseiller?',
+        createdAt: new Date('2024-01-04T08:30:00'),
+        isRead: false,
+        senderId: userList[Math.floor(Math.random() * userList.length)].id,
+        receiverId: userList[Math.floor(Math.random() * userList.length)].id,
+      },
+      {
+        content:
+          "Absolument, j'ai une recette de café glacé incroyable. Idéale pour l'été!",
+        createdAt: new Date('2024-01-02T08:30:00'),
+        isRead: false,
+        senderId: userList[Math.floor(Math.random() * userList.length)].id,
+        receiverId: userList[Math.floor(Math.random() * userList.length)].id,
+      },
+      {
+        content:
+          'Ah, ça sonne bien! Je suis curieux de goûter ça. Tu utilises quel type de café pour ta recette? Je suis plutôt latte macchiato, et parfois un bon cappuccino. Tu as une recette à me conseiller? Je suis plutôt latte macchiato, et parfois un bon cappuccino. Tu as une recette à me conseiller? Je suis plutôt latte macchiato, et parfois un bon cappuccino. Tu as une recette à me conseiller? Je suis plutôt latte macchiato, et parfois un bon cappuccino. Tu as une recette à me conseiller?',
+        createdAt: new Date('2024-01-03T08:30:00'),
+        isRead: false,
+        senderId: userList[Math.floor(Math.random() * userList.length)].id,
+        receiverId: userList[Math.floor(Math.random() * userList.length)].id,
+      },
+      {
+        content:
+          "Dernièrement, j'expérimente avec du café de Colombie. Ça a un goût assez unique, tu connais?",
+        createdAt: new Date('2024-01-04T08:30:00'),
+        isRead: false,
+        senderId: userList[Math.floor(Math.random() * userList.length)].id,
+        receiverId: userList[Math.floor(Math.random() * userList.length)].id,
+      },
+      {
+        content:
+          "Oui, j'aime beaucoup. D'ailleurs, j'organise une dégustation de café ce weekend, ça te dit de venir?",
+        createdAt: new Date('2024-01-04T08:30:00'),
+        isRead: false,
+        senderId: userList[Math.floor(Math.random() * userList.length)].id,
+        receiverId: userList[Math.floor(Math.random() * userList.length)].id,
+      },
+      {
+        content:
+          "C'est vraiment super, je passerai avec plaisir. Tu as une préférence pour le café?",
+        createdAt: new Date('2024-01-04T08:30:00'),
+        isRead: false,
+        senderId: userList[Math.floor(Math.random() * userList.length)].id,
+        receiverId: userList[Math.floor(Math.random() * userList.length)].id,
+      },
     ];
     for (const message of messages) {
       await this.messageService.create(message);
