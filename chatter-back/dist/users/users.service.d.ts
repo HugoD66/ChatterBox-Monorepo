@@ -14,6 +14,8 @@ export declare class UsersService {
     login(loginDto: LoginDto): Promise<LoginResponseDto>;
     findOne(id: string): Promise<ResponseUserDto>;
     findAll(): Promise<ResponseUserDto[]>;
+    findAllUsers(): Promise<User[]>;
     update(id: string, updateUserDto: Partial<User>): Promise<ResponseUserDto>;
     remove(id: string): Promise<void>;
+    addFriend(userId: string, friend: User): Promise<void>;
 }

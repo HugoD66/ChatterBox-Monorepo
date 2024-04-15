@@ -10,4 +10,5 @@ export declare class User {
     roleGeneral: UserGeneralRoleEnum;
     sentMessages: Message[];
     receivedMessages: Message[];
+    friends: User[];
 }

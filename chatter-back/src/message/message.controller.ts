@@ -37,10 +37,22 @@ export class MessageController {
   }
 
   @Public() //TODO TEMP
-  @Get('unread/temp')
-  async findAllUnreads(): Promise<ResponseMessageDto[]> {
+  @Get('unread/:id')
+  async findAllUnreads(
+    @Param('id') receiverId: string,
+  ): Promise<ResponseMessageDto[]> {
     //Ajouter user id
-    return await this.messageService.findAllUnreads();
+    return await this.messageService.findAllUnreads(receiverId);
+  }
+
+  @Public() //TODO TEMP
+  @Get('discussion/:friendId/:userId')
+  async findDiscussion(
+    @Param('friendIdid') friendId: string,
+    @Param('userId') userId: string,
+  ): Promise<ResponseMessageDto[]> {
+    //Ajouter user id
+    return await this.messageService.findDiscussion(friendId, userId);
   }
 
   @Patch(':id')

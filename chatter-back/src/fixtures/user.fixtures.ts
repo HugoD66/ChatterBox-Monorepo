@@ -10,7 +10,7 @@ export class UserFixtures {
   async seedUsers(): Promise<void> {
     const users: CreateUserDto[] = [
       {
-        pseudo: `Administrateur`,
+        pseudo: `Aadministrateur`,
         email: `admin@email.com`,
         password: `Azeaze.66`,
         roleGeneral: UserGeneralRoleEnum.Admin,
@@ -98,5 +98,34 @@ export class UserFixtures {
     for (const user of users) {
       await this.usersService.create(user);
     }
+
+    const createdUsers = await this.usersService.findAllUsers();
+
+    for (const createdUser of createdUsers) {
+      for (let i = 0; i < 10; i++) {
+        const randomUser =
+          createdUsers[Math.floor(Math.random() * createdUsers.length)];
+        if (randomUser.id !== createdUser.id) {
+          await this.usersService.addFriend(createdUser.id, randomUser);
+        }
+      }
+    }
+
+    /*const createdUsers = await this.usersService.findAll();
+
+    // Exemple de logique pour ajouter des amis
+    const userAlice = createdUsers.find(
+      (user: User) => user.pseudo === 'Alice Johnson',
+    );
+    const userHenry = createdUsers.find(
+      (user) => user.pseudo === 'Henry Yellow',
+    );
+
+     if (userAlice && userHenry) {
+      // Simulez une mise à jour pour ajouter un ami
+      await this.usersService.addFriend(userHenry.id, userAlice);
+    }
+
+    */
   }
 }

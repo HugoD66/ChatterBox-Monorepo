@@ -56,7 +56,6 @@ exports.AppModule = AppModule = __decorate([
                 },
                 inject: [config_1.ConfigService],
             }),
-            fixture_module_1.FixtureModule,
         ],
         controllers: [app_controller_1.AppController],
         providers: [

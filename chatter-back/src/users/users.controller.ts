@@ -24,7 +24,6 @@ import { AuthGuard } from '../security/auth/auth.guard';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { multerConfig } from '../multer.config';
 import { FileSizeValidationPipe } from '../pipe/FileSizeValidationPipe';
-import { User } from './entities/user.entity';
 
 @Controller('users')
 export class UsersController {

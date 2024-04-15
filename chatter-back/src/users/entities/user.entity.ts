@@ -3,6 +3,8 @@ import {
   CreateDateColumn,
   Entity,
   Index,
+  JoinTable,
+  ManyToMany,
   OneToMany,
   PrimaryGeneratedColumn,
 } from 'typeorm';
@@ -42,4 +44,18 @@ export class User {
 
   @OneToMany(() => Message, (message) => message.receiver)
   receivedMessages: Message[];
+
+  @ManyToMany(() => User)
+  @JoinTable({
+    name: 'friendlist',
+    joinColumn: {
+      name: 'userId',
+      referencedColumnName: 'id',
+    },
+    inverseJoinColumn: {
+      name: 'friendId',
+      referencedColumnName: 'id',
+    },
+  })
+  friends: User[];
 }

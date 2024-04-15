@@ -57,6 +57,21 @@ __decorate([
     (0, typeorm_1.OneToMany)(() => message_entity_1.Message, (message) => message.receiver),
     __metadata("design:type", Array)
 ], User.prototype, "receivedMessages", void 0);
+__decorate([
+    (0, typeorm_1.ManyToMany)(() => User),
+    (0, typeorm_1.JoinTable)({
+        name: 'friendlist',
+        joinColumn: {
+            name: 'userId',
+            referencedColumnName: 'id',
+        },
+        inverseJoinColumn: {
+            name: 'friendId',
+            referencedColumnName: 'id',
+        },
+    }),
+    __metadata("design:type", Array)
+], User.prototype, "friends", void 0);
 exports.User = User = __decorate([
     (0, typeorm_1.Entity)()
 ], User);

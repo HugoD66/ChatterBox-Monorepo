@@ -44,9 +44,48 @@ export class MessageService {
     return await this.messageRepository.find();
   }
 
-  async findAllUnreads(): Promise<ResponseMessageDto[]> {
+  async findDiscussion(
+    friendId: string,
+    userId: string,
+  ): Promise<ResponseMessageDto[]> {
+    const partOne = await this.messageRepository.find({
+      where: {
+        sender: { id: friendId },
+        receiver: { id: userId },
+      },
+      relations: ['sender', 'receiver'],
+    });
+    const partTwo = await this.messageRepository.find({
+      where: {
+        sender: { id: userId },
+        receiver: { id: friendId },
+      },
+      relations: ['sender', 'receiver'],
+    });
+    return [...partOne, ...partTwo].sort((a, b) => {
+      return a.createdAt.getTime() - b.createdAt.getTime();
+    });
+    /*
     return await this.messageRepository.find({
-      where: { isRead: false },
+      where: [
+        { sender: { id: friendId }, receiver: { id: userId } },
+        { sender: { id: userId }, receiver: { id: friendId } },
+      ],
+      relations: ['sender', 'receiver'],
+      order: {
+        createdAt: 'ASC',
+      },
+    });
+     */
+  }
+
+  async findAllUnreads(receiverId: string): Promise<ResponseMessageDto[]> {
+    return await this.messageRepository.find({
+      where: {
+        receiver: { id: receiverId },
+        isRead: false,
+      },
+      relations: ['sender', 'receiver'],
     });
   }
 

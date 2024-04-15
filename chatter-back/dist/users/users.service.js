@@ -85,6 +85,9 @@ let UsersService = class UsersService {
     async findAll() {
         return this.usersRepository.find();
     }
+    async findAllUsers() {
+        return this.usersRepository.find();
+    }
     async update(id, updateUserDto) {
         const user = await this.usersRepository.findOne({ where: { id } });
         if (!user) {
@@ -106,6 +109,16 @@ let UsersService = class UsersService {
     }
     async remove(id) {
         await this.usersRepository.delete(id);
+    }
+    async addFriend(userId, friend) {
+        const user = await this.usersRepository.findOne({
+            where: { id: userId },
+            relations: ['friends'],
+        });
+        if (user && !user.friends.some((f) => f.id === friend.id)) {
+            user.friends.push(friend);
+            await this.usersRepository.save(user);
+        }
     }
 };
 exports.UsersService = UsersService;

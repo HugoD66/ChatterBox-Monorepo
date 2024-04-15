@@ -20,7 +20,7 @@ let UserFixtures = class UserFixtures {
     async seedUsers() {
         const users = [
             {
-                pseudo: `Administrateur`,
+                pseudo: `Aadministrateur`,
                 email: `admin@email.com`,
                 password: `Azeaze.66`,
                 roleGeneral: user_general_roles_enum_1.UserGeneralRoleEnum.Admin,
@@ -106,6 +106,15 @@ let UserFixtures = class UserFixtures {
         ];
         for (const user of users) {
             await this.usersService.create(user);
+        }
+        const createdUsers = await this.usersService.findAllUsers();
+        for (const createdUser of createdUsers) {
+            for (let i = 0; i < 10; i++) {
+                const randomUser = createdUsers[Math.floor(Math.random() * createdUsers.length)];
+                if (randomUser.id !== createdUser.id) {
+                    await this.usersService.addFriend(createdUser.id, randomUser);
+                }
+            }
         }
     }
 };

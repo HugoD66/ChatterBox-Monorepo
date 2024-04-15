@@ -5,7 +5,6 @@ import {
   UnauthorizedException,
 } from '@nestjs/common';
 import { CreateUserDto } from './dto/create-user.dto';
-import { UpdateUserDto } from './dto/update-user.dto';
 import { ResponseUserDto } from './dto/response-user.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { User } from './entities/user.entity';
@@ -94,6 +93,10 @@ export class UsersService {
     return this.usersRepository.find();
   }
 
+  async findAllUsers(): Promise<User[]> {
+    return this.usersRepository.find();
+  }
+
   async update(
     id: string,
     updateUserDto: Partial<User>,
@@ -119,5 +122,16 @@ export class UsersService {
 
   async remove(id: string): Promise<void> {
     await this.usersRepository.delete(id);
+  }
+
+  async addFriend(userId: string, friend: User): Promise<void> {
+    const user = await this.usersRepository.findOne({
+      where: { id: userId },
+      relations: ['friends'],
+    });
+    if (user && !user.friends.some((f) => f.id === friend.id)) {
+      user.friends.push(friend);
+      await this.usersRepository.save(user);
+    }
   }
 }

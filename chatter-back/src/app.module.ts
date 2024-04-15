@@ -44,7 +44,6 @@ import { FixtureModule } from './fixtures/fixture/fixture.module';
       },
       inject: [ConfigService],
     }),
-    FixtureModule,
   ],
   controllers: [AppController],
   providers: [
