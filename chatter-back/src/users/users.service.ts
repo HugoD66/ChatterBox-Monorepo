@@ -67,6 +67,7 @@ export class UsersService {
   async login(loginDto: LoginDto): Promise<LoginResponseDto> {
     const user: User = await this.usersRepository.findOne({
       where: { email: loginDto.email },
+      relations: ['friends'],
     });
     if (!user) {
       throw new NotFoundException(ValidationErrors.USER_NOT_FOUND);
@@ -86,6 +87,7 @@ export class UsersService {
     return {
       ...user,
       access_token: await this.jwtService.signAsync(payload),
+      friends: user.friends,
     };
   }
 

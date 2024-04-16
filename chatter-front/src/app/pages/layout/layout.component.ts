@@ -1,5 +1,4 @@
 import {
-  AfterViewInit,
   ChangeDetectionStrategy,
   Component,
   signal,
@@ -27,7 +26,7 @@ import { AuthService } from '../../services/auth.service';
   templateUrl: './layout.component.html',
   styleUrl: './layout.component.scss',
 })
-export class LayoutComponent implements AfterViewInit {
+export class LayoutComponent {
   public getMe: WritableSignal<UserModel | null> = signal(null);
   public isSidenavExpanded: boolean = true;
   public sidebarCollapsed = signal(false);
@@ -35,16 +34,8 @@ export class LayoutComponent implements AfterViewInit {
   constructor(
     private router: Router,
     private authService: AuthService,
-  ) {}
-  ngAfterViewInit(): void {
-    this.authService.getMe().subscribe((me) => {
-      if (!me) {
-        this.router.navigate(['/auth/login']);
-        return;
-      }
-      this.getMe.set(me);
-      console.log(this.getMe());
-    });
+  ) {
+    this.getMe.update(() => this.authService.getMeByAuthService());
   }
 
   isExpandedChange(isExpanded: boolean): void {
@@ -53,6 +44,6 @@ export class LayoutComponent implements AfterViewInit {
   }
 
   removeGetMe(): void {
-    this.getMe.update(() => null as unknown as UserModel);
+    this.getMe.update(() => null);
   }
 }

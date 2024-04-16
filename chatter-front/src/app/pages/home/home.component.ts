@@ -1,7 +1,6 @@
 import {
   ChangeDetectionStrategy,
   Component,
-  effect,
   OnInit,
   signal,
   WritableSignal,
@@ -43,14 +42,9 @@ import { AsyncPipe } from '@angular/common';
 export class HomeComponent implements OnInit {
   public getMe: WritableSignal<UserModel | null> = signal(null);
 
-  constructor(private authService: AuthService) {
-    effect(() => {});
-  }
+  constructor(private authService: AuthService) {}
 
   ngOnInit() {
-    this.authService.getMe().subscribe((me) => {
-      this.getMe.update(() => me);
-      console.log(this.getMe());
-    });
+    this.getMe.set(this.authService.getMeByAuthService());
   }
 }

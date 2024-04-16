@@ -1,16 +1,18 @@
 <div class="friend-list-content">
   <div class="friend-infos">
     <p>0 en ligne</p>
-    <p>10 amis</p>
+    <p>{{ getMe()?.friends?.length }} amis</p>
   </div>
   <div class="friend-list">
     @if (isLoading()) {
+      <!-- TODO Garder ca ? -->
       <app-loader />
+      <!-- TODO fin -->
     } @else {
-      @if (haveFriends()) {
+      @if (getMe()?.friends?.length) {
         <div class="positive-condition-friend-list">
           <div class="friends">
-            @for (friend of friendList(); track friend.id) {
+            @for (friend of getMe()?.friends; track friend.id) {
               <app-friend-unit [friend]="friend" />
             }
           </div>

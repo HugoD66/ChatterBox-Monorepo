@@ -10,6 +10,7 @@ import {
 } from 'typeorm';
 import { UserGeneralRoleEnum } from './types/user.general.roles.enum';
 import { Message } from '../../message/entities/message.entity';
+import { Exclude } from 'class-transformer';
 
 @Entity()
 export class User {
@@ -29,6 +30,7 @@ export class User {
   @CreateDateColumn()
   public createdAt!: Date;
 
+  @Exclude()
   @Column()
   public password!: string;
 

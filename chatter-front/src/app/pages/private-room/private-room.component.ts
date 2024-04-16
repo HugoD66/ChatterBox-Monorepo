@@ -27,7 +27,7 @@ export class PrivateRoomComponent implements OnInit {
   public getMe: WritableSignal<UserModel | null> = signal(null);
 
   public friend: WritableSignal<UserModel> = signal({
-    id: 'eec3e35b-996c-433a-834f-8c99a7d200bd',
+    id: '181d1ae7-bcf2-4080-a517-0055fa34b4bd',
     pseudo: 'Alice',
     email: 'alice@example.com',
     picture: 'path/to/alice.jpg',
@@ -38,16 +38,15 @@ export class PrivateRoomComponent implements OnInit {
   constructor(
     private messageService: MessageService,
     private authService: AuthService,
-  ) {}
+  ) {
+    this.getMe.update(() => this.authService.getMeByAuthService());
+  }
 
   ngOnInit() {
-    this.authService.getMe().subscribe((me) => {
-      this.getMe.update(() => me);
-      this.messageService
-        .getDiscussion(this.friend().id, this.getMe()!.id)
-        .subscribe((messages) => {
-          this.messages.update(() => messages);
-        });
-    });
+    this.messageService
+      .getDiscussion(this.friend().id, this.getMe()!.id)
+      .subscribe((messages) => {
+        this.messages.update(() => messages);
+      });
   }
 }
