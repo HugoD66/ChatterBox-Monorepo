@@ -18,9 +18,25 @@ export class MessageService {
     );
   }
 
-  getUnreadMessages(): Observable<MessageModel[]> {
+  //TODO Faire une entité discussion ManyMany ?
+  getDiscussion(
+    receiverId: string,
+    userId: string,
+  ): Observable<MessageModel[]> {
+    console.log(receiverId, userId);
     return this.http
-      .get<MessageModel[]>(`${this.apiUrl}/message/unread/temp`)
+      .get<
+        MessageModel[]
+      >(`${this.apiUrl}/message/discussion/${receiverId}/${userId}`)
+      .pipe(
+        catchError((error) => {
+          return throwError(() => error);
+        }),
+      );
+  }
+  getUnreadMessages(userId: string): Observable<MessageModel[]> {
+    return this.http
+      .get<MessageModel[]>(`${this.apiUrl}/message/unread/${userId}`)
       .pipe(
         catchError((error) => {
           return throwError(() => error);

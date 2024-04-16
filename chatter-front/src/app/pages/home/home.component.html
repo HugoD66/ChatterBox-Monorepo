@@ -1,7 +1,9 @@
 <div class="home-content">
-  <app-profil [getMe]="getMe" class="profil" />
-  <div class="message-friends">
-    <app-last-message class="last-messages-content" />
-    <app-friend-list class="friend-list-content" />
-  </div>
+  @if(getMe()) {
+    <app-profil [getMe]="getMe()" class="profil" />
+    <div class="message-friends">
+      <app-last-message [getMe]="getMe()" class="last-messages-content" />
+      <app-friend-list [getMe]="getMe()" class="friend-list-content" />
+    </div>
+  }
 </div>

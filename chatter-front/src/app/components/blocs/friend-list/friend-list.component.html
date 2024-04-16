@@ -11,9 +11,7 @@
         <div class="positive-condition-friend-list">
           <div class="friends">
             @for (friend of friendList(); track friend.id) {
-              <!--| async-->
               <app-friend-unit [friend]="friend" />
-              <!-- [friend]="friend" -->
             }
           </div>
         </div>

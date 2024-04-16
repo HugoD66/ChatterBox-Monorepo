@@ -47,6 +47,8 @@ export class UsersController {
     console.log(req);
     console.log('req.user');
     console.log(req.user);
+    console.log('req.user.id');
+    console.log(req.user.id);
     return this.usersService.findOne(req.user.id);
   }
 
@@ -94,5 +96,18 @@ export class UsersController {
   @Delete(':id')
   async remove(@Param('id') id: string): Promise<void> {
     return this.usersService.remove(id);
+  }
+
+  // FRIENDS
+
+  @Public()
+  @Get(`/friends/:userId`)
+  async getFriends(@Param('userId') userId: string) {
+    return this.usersService.getFriends(userId);
+  }
+
+  @Post(`/add-friend/:userId/:friendId`)
+  async addFriend(@Body() body: { userId: string; friendId: string }) {
+    return this.usersService.addFriend(body.userId, body.friendId);
   }
 }

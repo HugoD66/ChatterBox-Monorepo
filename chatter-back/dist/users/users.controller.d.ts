@@ -20,4 +20,9 @@ export declare class UsersController {
     findOne(id: string): Promise<ResponseUserDto>;
     update(id: string, updateUserDto: UpdateUserDto): Promise<ResponseUserDto>;
     remove(id: string): Promise<void>;
+    getFriends(userId: string): Promise<ResponseUserDto[]>;
+    addFriend(body: {
+        userId: string;
+        friendId: string;
+    }): Promise<void>;
 }

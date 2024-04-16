@@ -1,13 +1,11 @@
 import {
-  AfterViewInit,
   ChangeDetectionStrategy,
   Component,
-  input,
+  effect,
   OnInit,
   signal,
   WritableSignal,
 } from '@angular/core';
-import { Router } from '@angular/router';
 import { SidenavComponent } from '../../components/sidenav/sidenav.component';
 import {
   MatDrawer,
@@ -16,12 +14,12 @@ import {
   MatSidenavContainer,
 } from '@angular/material/sidenav';
 import { MatButton } from '@angular/material/button';
-import { AuthService } from '../../services/auth.service';
 import { UserModel } from '../../models/user.model';
 import { ProfilComponent } from '../../components/blocs/profil/profil.component';
 import { LastMessageComponent } from '../../components/blocs/last-message/last-message.component';
 import { FriendListComponent } from '../../components/blocs/friend-list/friend-list.component';
-import { BehaviorSubject } from 'rxjs';
+import { AuthService } from '../../services/auth.service';
+import { AsyncPipe } from '@angular/common';
 
 @Component({
   selector: 'app-home',
@@ -36,25 +34,23 @@ import { BehaviorSubject } from 'rxjs';
     ProfilComponent,
     LastMessageComponent,
     FriendListComponent,
+    AsyncPipe,
   ],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class HomeComponent implements OnInit {
-  public getMe: BehaviorSubject<UserModel | null> =
-    new BehaviorSubject<UserModel | null>(null);
-  constructor() {}
+  public getMe: WritableSignal<UserModel | null> = signal(null);
+
+  constructor(private authService: AuthService) {
+    effect(() => {});
+  }
 
   ngOnInit() {
-    //this.authService.getMe().subscribe((me) => {
-    //  console.log(me);
-    //
-    //  if (!me) {
-    //    this.router.navigate(['/auth/login']);
-    //  }
-    //  this.getMe.set(me);
-    //});
-    //console.log(this.getMe());
+    this.authService.getMe().subscribe((me) => {
+      this.getMe.update(() => me);
+      console.log(this.getMe());
+    });
   }
 }

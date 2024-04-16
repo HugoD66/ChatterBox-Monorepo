@@ -37,6 +37,8 @@ let UsersController = class UsersController {
         console.log(req);
         console.log('req.user');
         console.log(req.user);
+        console.log('req.user.id');
+        console.log(req.user.id);
         return this.usersService.findOne(req.user.id);
     }
     async login(loginDto) {
@@ -60,6 +62,12 @@ let UsersController = class UsersController {
     }
     async remove(id) {
         return this.usersService.remove(id);
+    }
+    async getFriends(userId) {
+        return this.usersService.getFriends(userId);
+    }
+    async addFriend(body) {
+        return this.usersService.addFriend(body.userId, body.friendId);
     }
 };
 exports.UsersController = UsersController;
@@ -133,6 +141,21 @@ __decorate([
     __metadata("design:paramtypes", [String]),
     __metadata("design:returntype", Promise)
 ], UsersController.prototype, "remove", null);
+__decorate([
+    (0, public_decorator_1.Public)(),
+    (0, common_1.Get)(`/friends/:userId`),
+    __param(0, (0, common_1.Param)('userId')),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String]),
+    __metadata("design:returntype", Promise)
+], UsersController.prototype, "getFriends", null);
+__decorate([
+    (0, common_1.Post)(`/add-friend/:userId/:friendId`),
+    __param(0, (0, common_1.Body)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Object]),
+    __metadata("design:returntype", Promise)
+], UsersController.prototype, "addFriend", null);
 exports.UsersController = UsersController = __decorate([
     (0, common_1.Controller)('users'),
     __metadata("design:paramtypes", [users_service_1.UsersService])

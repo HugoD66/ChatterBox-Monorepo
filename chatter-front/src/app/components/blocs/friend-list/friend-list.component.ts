@@ -1,6 +1,10 @@
 import {
   ChangeDetectionStrategy,
   Component,
+  effect,
+  input,
+  InputSignal,
+  OnInit,
   signal,
   WritableSignal,
 } from '@angular/core';
@@ -9,8 +13,8 @@ import { AsyncPipe } from '@angular/common';
 import { MatProgressSpinner } from '@angular/material/progress-spinner';
 import { LoaderComponent } from '../../loader/loader.component';
 import { FriendUnitComponent } from './friend-unit/friend-unit.component';
-import { UserGeneralRoleEnum } from '../../../enum/user.general.role.enum';
 import { UserModel } from '../../../models/user.model';
+import { FriendService } from '../../../services/friend.service';
 
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -28,7 +32,27 @@ import { UserModel } from '../../../models/user.model';
 })
 export class FriendListComponent {
   public haveFriends: WritableSignal<boolean> = signal(true);
-  public isLoading: WritableSignal<boolean> = signal(false);
+  public isLoading: WritableSignal<boolean> = signal(true);
+  public friendList: WritableSignal<UserModel[]> = signal([]);
+  public getMe: InputSignal<UserModel | null> =
+    input.required<UserModel | null>();
+
+  constructor(private friendService: FriendService) {
+    if (!this.getMe()!.friends.length) {
+      this.haveFriends.set(false);
+    }
+  }
+
+  /*
+
+    ngOnInit() {
+    if (this.getMe() === null) {
+      return;
+    }
+    console.warn(this.getMe()!.friends);
+    this.friendList.set(this.getMe()!.friends!);
+  }
+
   public friendList: WritableSignal<UserModel[]> = signal([
     {
       id: '1',
@@ -36,7 +60,7 @@ export class FriendListComponent {
       email: 'alice@example.com',
       picture: 'path/to/alice.jpg',
       createdAt: new Date('2024-01-01'),
-      generalRoleEnum: UserGeneralRoleEnum.User,
+      roleGeneral: UserGeneralRoleEnum.User,
     },
     {
       id: '2',
@@ -44,7 +68,7 @@ export class FriendListComponent {
       email: 'bob@example.com',
       picture: 'path/to/bob.jpg',
       createdAt: new Date('2024-01-02'),
-      generalRoleEnum: UserGeneralRoleEnum.Admin,
+      roleGeneral: UserGeneralRoleEnum.Admin,
     },
     {
       id: '3',
@@ -52,8 +76,8 @@ export class FriendListComponent {
       email: 'charlie@example.com',
       picture: 'path/to/charlie.jpg',
       createdAt: new Date('2024-01-03'),
-      generalRoleEnum: UserGeneralRoleEnum.User,
+      roleGeneral: UserGeneralRoleEnum.User,
     },
-  ]);
+  ]);*/
   //public friendList: WritableSignal<UserModel[]> = signal([]);
 }

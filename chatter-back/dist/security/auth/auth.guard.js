@@ -37,7 +37,7 @@ let AuthGuard = class AuthGuard {
             const payload = await this.jwtService.verifyAsync(token, {
                 secret: constant_1.jwtConstants.secret,
             });
-            request[`user`] = payload;
+            request.user = { id: payload.sub, email: payload.email };
         }
         catch {
             throw new common_1.UnauthorizedException();

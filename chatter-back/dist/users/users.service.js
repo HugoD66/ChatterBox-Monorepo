@@ -74,13 +74,25 @@ let UsersService = class UsersService {
             throw new common_1.UnauthorizedException(ValidationErrors_1.ValidationErrors.CREDENTIALS_INVALID);
         }
         const payload = { sub: user.id, email: user.email };
+        console.log({
+            ...user,
+            access_token: await this.jwtService.signAsync(payload),
+        });
         return {
             ...user,
             access_token: await this.jwtService.signAsync(payload),
         };
     }
     async findOne(id) {
-        return this.usersRepository.findOne({ where: { id } });
+        console.log('CONSOLE LOG DE ID');
+        console.log(id);
+        const test = await this.usersRepository.findOne({
+            where: { id },
+            relations: ['friends'],
+        });
+        console.log('CONSOLE LOG DE TEST');
+        console.log(test);
+        return test;
     }
     async findAll() {
         return this.usersRepository.find();
@@ -110,14 +122,34 @@ let UsersService = class UsersService {
     async remove(id) {
         await this.usersRepository.delete(id);
     }
+    async getFriends(userId) {
+        const userFriends = await this.usersRepository.find({
+            where: { id: userId },
+            relations: ['friends'],
+        });
+        return userFriends;
+    }
     async addFriend(userId, friend) {
         const user = await this.usersRepository.findOne({
             where: { id: userId },
             relations: ['friends'],
         });
-        if (user && !user.friends.some((f) => f.id === friend.id)) {
-            user.friends.push(friend);
-            await this.usersRepository.save(user);
+        if (friend instanceof user_entity_1.User) {
+            if (user && !user.friends.some((f) => f.id === friend.id)) {
+                user.friends.push(friend);
+                await this.usersRepository.save(user);
+            }
+        }
+        else {
+            const friendUser = await this.usersRepository.findOne({
+                where: { id: friend },
+            });
+            if (user &&
+                friendUser &&
+                !user.friends.some((f) => f.id === friendUser.id)) {
+                user.friends.push(friendUser);
+                await this.usersRepository.save(user);
+            }
         }
     }
 };

@@ -17,5 +17,6 @@ export declare class UsersService {
     findAllUsers(): Promise<User[]>;
     update(id: string, updateUserDto: Partial<User>): Promise<ResponseUserDto>;
     remove(id: string): Promise<void>;
-    addFriend(userId: string, friend: User): Promise<void>;
+    getFriends(userId: string): Promise<ResponseUserDto[]>;
+    addFriend(userId: string, friend: User | string): Promise<void>;
 }

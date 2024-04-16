@@ -6,5 +6,6 @@ export class UserModel {
   public email!: string;
   public picture?: string;
   public createdAt!: Date;
-  public generalRoleEnum!: UserGeneralRoleEnum;
+  public roleGeneral!: UserGeneralRoleEnum;
+  public friends?: UserModel[];
 }

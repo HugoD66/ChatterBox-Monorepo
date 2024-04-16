@@ -23,6 +23,6 @@ export class AddFriendComponent {
     email: 'alice@example.com',
     picture: 'path/to/alice.jpg',
     createdAt: new Date('2024-01-01'),
-    generalRoleEnum: UserGeneralRoleEnum.User,
+    roleGeneral: UserGeneralRoleEnum.User,
   });
 }
