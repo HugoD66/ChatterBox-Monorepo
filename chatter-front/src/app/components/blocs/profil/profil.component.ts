@@ -23,6 +23,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatFormField, MatLabel } from '@angular/material/form-field';
 import { MatInput } from '@angular/material/input';
 import { UserUpdateService } from '../../../services/user.update.service';
+import { AuthService } from '../../../services/auth.service';
+import { ChangePasswordModel } from '../../../models/change-password.model';
 
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -54,10 +56,12 @@ export class ProfilComponent implements OnInit {
   public isLoading: WritableSignal<boolean> = signal(true);
   public isPseudoEditing: WritableSignal<boolean> = signal(false);
   public isEmailEditing: WritableSignal<boolean> = signal(false);
+  public isPasswordEditing: WritableSignal<boolean> = signal(false);
 
   constructor(
     private userService: UserService,
     public userFormService: UserUpdateService,
+    public authService: AuthService,
   ) {}
 
   ngOnInit(): void {
@@ -105,6 +109,27 @@ export class ProfilComponent implements OnInit {
       this.userService.updateUser(this.getMe()!.id, newUser).subscribe({
         next: () => {
           this.isEmailEditing.set(!this.isEmailEditing());
+          this.userUpdated.emit();
+        },
+        error: (error) => console.error('Update error:', error),
+      });
+    }
+  }
+
+  public updatePassword(): void {
+    this.isPasswordEditing.set(!this.isPasswordEditing());
+  }
+  public onSubmitPassword() {
+    if (
+      this.userFormService.updateFormPassword.valid &&
+      this.userFormService.updateFormPassword.value.password != null
+    ) {
+      const password: ChangePasswordModel = {
+        password: this.userFormService.updateFormPassword.value.password,
+      };
+      this.authService.changePassword(password).subscribe({
+        next: () => {
+          this.isPasswordEditing.set(!this.isPasswordEditing());
           this.userUpdated.emit();
         },
         error: (error) => console.error('Update error:', error),

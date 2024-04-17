@@ -20,6 +20,6 @@ export class MessageUnitComponent implements AfterViewInit {
     //TODO EMOJIS !
    */
   ngAfterViewInit(): void {
-    console.log(this.message());
+    //console.log(this.message());
   }
 }

@@ -68,11 +68,9 @@ export class LoginComponent {
     const password = this.loginForm.value.password;
     if (this.loginForm.valid && email != null && password != null) {
       const credentials: LoginCredentials = { email, password };
-      console.log(credentials);
       this.authService.login(credentials).subscribe({
         next: (response) => {
           localStorage.setItem('authToken', response.access_token);
-
           this.router.navigate(['/home']);
         },
         error: (error) => {

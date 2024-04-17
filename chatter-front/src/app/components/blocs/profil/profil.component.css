@@ -22,6 +22,7 @@
   width: 60%;
   margin: 5%;
   height: 72%;
+  max-height: 72%;
 }
 .profil-content .bloc-profile .pseudo-content,
 .profil-content .bloc-profile .email-content,
@@ -35,7 +36,9 @@
   width: 96%;
   height: 30%;
 }
-.profil-content .bloc-profile .pseudo-content .pseudo, .profil-content .bloc-profile .pseudo-content .email, .profil-content .bloc-profile .pseudo-content .password,
+.profil-content .bloc-profile .pseudo-content .pseudo,
+.profil-content .bloc-profile .pseudo-content .email,
+.profil-content .bloc-profile .pseudo-content .password,
 .profil-content .bloc-profile .email-content .pseudo,
 .profil-content .bloc-profile .email-content .email,
 .profil-content .bloc-profile .email-content .password,
@@ -46,6 +49,7 @@
   justify-content: center;
   align-items: start;
   flex-direction: column;
+  margin: 2px;
 }
 .profil-content .bloc-profile .pseudo-content span,
 .profil-content .bloc-profile .email-content span,
@@ -61,6 +65,7 @@
   font-family: "JostRegular", sans-serif;
   font-size: 1.05em;
   font-size: 1.1em;
+  margin: 3px;
 }
 .profil-content .bloc-profile .pseudo-content button,
 .profil-content .bloc-profile .email-content button,
@@ -81,6 +86,11 @@
   justify-content: space-between;
   width: 100%;
   margin-bottom: 0;
+}
+.profil-content .bloc-profile form mat-form-field {
+  max-height: 50%;
+  font-size: 0.9em;
+  background-color: transparent;
 }
 .profil-content .bloc-profile form .removeUpdate {
   left: 15%;

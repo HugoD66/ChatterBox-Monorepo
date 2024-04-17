@@ -39,7 +39,6 @@ import { FixtureModule } from './fixtures/fixture/fixture.module';
           entities: [User, Message],
           synchronize: true,
         };
-        console.log(dbConfig);
         return dbConfig;
       },
       inject: [ConfigService],

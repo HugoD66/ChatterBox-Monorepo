@@ -17,6 +17,7 @@
     width: 60%;
     margin: 5%;
     height: 72%;
+    max-height: 72%;
     .pseudo-content,
     .email-content,
     .password-content {
@@ -25,8 +26,11 @@
       justify-content: space-between;
       width: 96%;
       height: 30%;
-      .pseudo, .email, .password {
+      .pseudo,
+      .email,
+      .password {
         @include global.flex-start-column;
+        margin: 2px;
       }
       span {
         @include fonts.subtitle;
@@ -34,6 +38,7 @@
       p {
         @include fonts.p;
         font-size: 1.1em;
+        margin: 3px;
       }
       button {
         @include global.button-one;
@@ -46,6 +51,11 @@
       justify-content: space-between;
       width: 100%;
       margin-bottom: 0;
+      mat-form-field {
+        max-height: 50%;
+        font-size: 0.9em;
+        background-color: transparent;
+      }
       .removeUpdate {
         left: 15%;
         position: relative;

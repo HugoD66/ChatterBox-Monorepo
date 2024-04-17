@@ -39,7 +39,6 @@ export class PrivateRoomComponent {
     private messageService: MessageService,
     private authService: AuthService,
   ) {
-    console.log(this.authService.getMeByAuthService());
     //TODO change to this.getMe.set(this.authService.getMeByAuthService());
     this.authService.getMe().subscribe((me: UserModel) => {
       this.getMe.update(() => me);

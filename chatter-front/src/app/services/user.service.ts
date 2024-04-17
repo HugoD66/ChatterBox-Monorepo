@@ -12,9 +12,7 @@ export class UserService {
 
   getUserList(): Observable<UserModel[]> {
     return this.http.get<UserModel[]>(`${this.apiUrl}/users`).pipe(
-      tap((response) => {
-        console.log(response);
-      }),
+      tap((response) => {}),
       catchError((error) => {
         return throwError(() => error);
       }),

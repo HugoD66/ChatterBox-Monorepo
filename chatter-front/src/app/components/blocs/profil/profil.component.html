@@ -1,82 +1,112 @@
 <div class="profil-content">
-   <div class="bloc-profile">
-     <div class="pseudo-content">
-
-         @if(!isPseudoEditing()) {
-           <div class="pseudo">
-             <span>Pseudo</span>
-             <p>{{getMe()?.pseudo}}</p>
-           </div>
-           <button mat-raised-button (click)="updatePseudo()">Modifier</button>
-         } @else {
-           <form [formGroup]="userFormService.updateFormPseudo" (ngSubmit)="onSubmitPseudo()">
-             <div class="pseudo">
-              <span>Pseudo</span>
-               <mat-form-field class="form-field" appearance="fill">
-                 <input class="form-control" matInput formControlName="pseudo" />
-               </mat-form-field>
-              </div>
-             <span class="removeUpdate" (click)="updatePseudo()">Annuler</span>
-             <button mat-raised-button type="submit">Valider</button>
-           </form>
-         }
-
-   </div>
-     <mat-divider />
-     <div class="email-content">
-       @if(!isEmailEditing()) {
-         <div class="email">
-           <span>Email</span>
-           <p>{{getMe()?.email}}</p>
-         </div>
-         <button mat-raised-button (click)="updateEmail()">Modifier</button>
-       } @else {
-         <form [formGroup]="userFormService.updateFormEmail" (ngSubmit)="onSubmitEmail()">
-           <div class="email">
-             <span>Email</span>
-             <mat-form-field class="form-field" appearance="outline" >
-               <input class="form-control" matInput formControlName="email" />
-             </mat-form-field>
-           </div>
-           <span class="removeUpdate" (click)="updateEmail()">Annuler</span>
-           <button mat-raised-button type="submit">Valider</button>
-         </form>
-       }
-     </div>
-     <mat-divider />
-     <div class="password-content">
-       <div class="password">
-         <span>Mot de passe</span>
-         <p>************</p>
-       </div>
-       <button mat-raised-button>Modifier</button>
-     </div>
-     <mat-divider />
-     <div class="createdBy">Membre chatter-box depuis le: {{ getMe()!.createdAt | date:"dd/MM/yyyy" }}</div>
-   </div>
-   <div class="picture-profile">
-     @if(isLoading()) {
-        <app-loader />
-     } @else {
-      @if(getMe()?.picture) {
-        <img src="{{getMeAvatar()}}" alt="img-profil-picture" />
+  <div class="bloc-profile">
+    <div class="pseudo-content">
+      @if (!isPseudoEditing()) {
+        <div class="pseudo">
+          <span>Pseudo</span>
+          <p>{{ getMe()?.pseudo }}</p>
+        </div>
+        <button mat-raised-button (click)="updatePseudo()">Modifier</button>
       } @else {
-        <img src="./assets/pictures/avatar-withoutBG.png" alt="img-profil-picture" />
+        <form
+          [formGroup]="userFormService.updateFormPseudo"
+          (ngSubmit)="onSubmitPseudo()"
+        >
+          <div class="pseudo">
+            <span>Pseudo</span>
+            <mat-form-field
+              class="form-field custom-form-field"
+              appearance="fill"
+            >
+              <input class="form-control" matInput formControlName="pseudo" />
+            </mat-form-field>
+          </div>
+          <span class="removeUpdate" (click)="updatePseudo()">Annuler</span>
+          <button mat-raised-button type="submit">Valider</button>
+        </form>
       }
-     }
-     <span class="add-picture">
-       <form>
-         <label for="avatar">
-            <mat-icon class="icon-add-picture">photo_camera</mat-icon>
-         </label>
-         <input type="file"
-                id="avatar"
-                name="avatar"
-                accept="image/png, image/jpeg"
-                (change)="onFileSelect($event)"
-                style="display: none"
-         />
-       </form>
-     </span>
-   </div>
+    </div>
+    <mat-divider />
+    <div class="email-content">
+      @if (!isEmailEditing()) {
+        <div class="email">
+          <span>Email</span>
+          <p>{{ getMe()?.email }}</p>
+        </div>
+        <button mat-raised-button (click)="updateEmail()">Modifier</button>
+      } @else {
+        <form
+          [formGroup]="userFormService.updateFormEmail"
+          (ngSubmit)="onSubmitEmail()"
+        >
+          <div class="email">
+            <span>Email</span>
+            <mat-form-field class="form-field" appearance="fill">
+              <input class="form-control" matInput formControlName="email" />
+            </mat-form-field>
+          </div>
+          <span class="removeUpdate" (click)="updateEmail()">Annuler</span>
+          <button mat-raised-button type="submit">Valider</button>
+        </form>
+      }
+    </div>
+    <mat-divider />
+    <div class="password-content">
+      @if (!isPasswordEditing()) {
+        <div class="password">
+          <span>Mot de passe</span>
+          <!-- <p>{{ passwordInformations() }}</p>-->
+        </div>
+        <button mat-raised-button (click)="updatePassword()">Modifier</button>
+      } @else {
+        <form
+          [formGroup]="userFormService.updateFormPassword"
+          (ngSubmit)="onSubmitPassword()"
+        >
+          <div class="password">
+            <span>Mot de passe</span>
+            <mat-form-field class="form-field" appearance="fill">
+              <input class="form-control" matInput formControlName="password" />
+            </mat-form-field>
+          </div>
+          <span class="removeUpdate" (click)="updatePassword()">Annuler</span>
+          <button mat-raised-button type="submit">Valider</button>
+        </form>
+      }
+    </div>
+    <mat-divider />
+    <div class="createdBy">
+      Membre chatter-box depuis le:
+      {{ getMe()!.createdAt | date: "dd/MM/yyyy" }}
+    </div>
+  </div>
+  <div class="picture-profile">
+    @if (isLoading()) {
+      <app-loader />
+    } @else {
+      @if (getMe()?.picture) {
+        <img src="{{ getMeAvatar() }}" alt="img-profil-picture" />
+      } @else {
+        <img
+          src="./assets/pictures/avatar-withoutBG.png"
+          alt="img-profil-picture"
+        />
+      }
+    }
+    <span class="add-picture">
+      <form>
+        <label for="avatar">
+          <mat-icon class="icon-add-picture">photo_camera</mat-icon>
+        </label>
+        <input
+          type="file"
+          id="avatar"
+          name="avatar"
+          accept="image/png, image/jpeg"
+          (change)="onFileSelect($event)"
+          style="display: none"
+        />
+      </form>
+    </span>
+  </div>
 </div>

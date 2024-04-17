@@ -18,12 +18,10 @@ export class MessageService {
     );
   }
 
-  //TODO Faire une entité discussion ManyMany ?
   getDiscussion(
     receiverId: string,
     userId: string,
   ): Observable<MessageModel[]> {
-    console.log(receiverId, userId);
     return this.http
       .get<
         MessageModel[]

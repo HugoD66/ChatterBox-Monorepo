@@ -25,6 +25,7 @@ import { AuthGuard } from '../security/auth/auth.guard';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { multerConfig } from '../multer.config';
 import { FileSizeValidationPipe } from '../pipe/FileSizeValidationPipe';
+import { ChangePasswordDto } from './dto/ChangePasswordDto';
 
 @Controller('users')
 export class UsersController {
@@ -36,9 +37,8 @@ export class UsersController {
   async register(
     @Body() createUserDto: CreateUserDto,
   ): Promise<ResponseUserDto> {
-    console.log(createUserDto);
-    const user = await this.usersService.register(createUserDto);
-    console.log(user);
+    const user: ResponseUserDto =
+      await this.usersService.register(createUserDto);
     return user;
   }
 
@@ -46,6 +46,19 @@ export class UsersController {
   @UseGuards(AuthGuard)
   async getMe(@Req() req): Promise<ResponseUserDto> {
     return this.usersService.findOne(req.user.id);
+  }
+
+  @UseGuards(AuthGuard)
+  @Patch(`/auth/password-change`)
+  async changePassword(
+    @Req() req,
+    @Body() changePasswordDto: ChangePasswordDto,
+  ): Promise<boolean> {
+    const isSuccess = await this.usersService.changePassword(
+      changePasswordDto,
+      req.user.id,
+    );
+    return isSuccess;
   }
 
   @Public()

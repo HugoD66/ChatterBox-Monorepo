@@ -1,6 +1,10 @@
 <div class="home-content">
   @if (getMe()) {
-    <app-profil [getMe]="getMe()" (userUpdated)="onUserUpdated()" class="profil" />
+    <app-profil
+      [getMe]="getMe()"
+      (userUpdated)="onUserUpdated()"
+      class="profil"
+    />
     <div class="message-friends">
       <app-last-message [getMe]="getMe()" class="last-messages-content" />
       <app-friend-list [getMe]="getMe()" class="friend-list-content" />

@@ -6,6 +6,7 @@ import { catchError, Observable, tap, throwError } from 'rxjs';
 import { UserModel } from '../models/user.model';
 import { RegisterModel } from '../models/register.model';
 import { UserGeneralRoleEnum } from '../enum/user.general.role.enum';
+import { ChangePasswordModel } from '../models/change-password.model';
 
 export interface LoginResponse {
   access_token: string;
@@ -37,7 +38,6 @@ export class AuthService {
   ) {}
 
   isLoggedIn(): boolean {
-    console.log(localStorage.getItem('authToken'));
     return !!localStorage.getItem('authToken');
   }
 
@@ -74,6 +74,29 @@ export class AuthService {
       );
   }
 
+  changePassword(changePasswordModel: ChangePasswordModel): Observable<string> {
+    const accessToken = localStorage.getItem(`authToken`);
+    return this.http
+      .patch<string>(
+        `${this.apiUrl}/users/auth/password-change`,
+        changePasswordModel,
+        {
+          headers: new HttpHeaders().set(
+            'Authorization',
+            'Bearer ' + accessToken,
+          ),
+        },
+      )
+      .pipe(
+        tap((response) => {
+          console.warn(response);
+        }),
+        catchError((error) => {
+          return throwError(() => error);
+        }),
+      );
+  }
+
   getMe(): Observable<UserModel> {
     const accessToken = localStorage.getItem(`authToken`);
     return this.http
@@ -86,8 +109,6 @@ export class AuthService {
       .pipe(
         tap((response) => {
           this.getMeByAuthService.update(() => response as LoginReturnUser);
-          console.info('Rafraichissemnt du getMe() de authService');
-          console.log(this.getMeByAuthService());
         }),
         catchError((error) => {
           return throwError(() => error);

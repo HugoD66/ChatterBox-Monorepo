@@ -44,12 +44,10 @@ export class LastMessageComponent {
 
   constructor(public messageService: MessageService) {
     effect(() => {
-      console.log(this.getMe());
       this.messageService
         .getUnreadMessages(this.getMe()!.id!)
         .subscribe((messages) => {
           this.unreadMessages.update(() => messages);
-          console.log(messages);
           if (messages.length === 0) {
             this.haveLastMessage.set(false);
           }

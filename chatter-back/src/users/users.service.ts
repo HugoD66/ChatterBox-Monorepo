@@ -15,6 +15,7 @@ import * as bcrypt from 'bcrypt';
 import { JwtService } from '@nestjs/jwt';
 import { UserGeneralRoleEnum } from './entities/types/user.general.roles.enum';
 import { ValidationErrors } from '../exceptions/ValidationErrors';
+import { ChangePasswordDto } from './dto/ChangePasswordDto';
 
 @Injectable()
 export class UsersService {
@@ -65,6 +66,20 @@ export class UsersService {
     return savedUser;
   }
 
+  async changePassword(
+    changePasswordDto: ChangePasswordDto,
+    userId: string,
+  ): Promise<boolean> {
+    const user = await this.usersRepository.findOne({
+      where: { id: userId },
+    });
+    const salt = await bcrypt.genSalt();
+    const hashedPassword = await bcrypt.hash(changePasswordDto.password, salt);
+    return !!(await this.usersRepository.update(user.id, {
+      password: hashedPassword,
+    }));
+  }
+
   async login(loginDto: LoginDto): Promise<LoginResponseDto> {
     const user: User = await this.usersRepository.findOne({
       where: { email: loginDto.email },
@@ -81,10 +96,6 @@ export class UsersService {
       throw new UnauthorizedException(ValidationErrors.CREDENTIALS_INVALID);
     }
     const payload = { sub: user.id, email: user.email };
-    console.log({
-      ...user,
-      access_token: await this.jwtService.signAsync(payload),
-    });
     return {
       ...user,
       access_token: await this.jwtService.signAsync(payload),
@@ -93,14 +104,10 @@ export class UsersService {
   }
 
   async findOne(id: string): Promise<ResponseUserDto> {
-    console.log('CONSOLE LOG DE ID');
-    console.log(id);
     const test = await this.usersRepository.findOne({
       where: { id },
       relations: ['friends'],
     });
-    console.log('CONSOLE LOG DE TEST');
-    console.log(test);
     return test;
   }
 
@@ -179,5 +186,20 @@ export class UsersService {
         await this.usersRepository.save(user);
       }
     }
+  }
+
+  async getPasswordInformation(userId: string) {
+    const user = await this.usersRepository.findOne({
+      where: { id: userId },
+      select: ['password'],
+    });
+    if (!user) {
+      throw new NotFoundException(`User with ID ${userId} not found`);
+    }
+
+    const examplePassword = user.password;
+    const passwordForDisplay = `${examplePassword.charAt(0)}${'*'.repeat(examplePassword.length - 1)}`;
+
+    return passwordForDisplay;
   }
 }

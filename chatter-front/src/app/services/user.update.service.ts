@@ -15,4 +15,11 @@ export class UserUpdateService {
       updateOn: 'blur',
     }),
   });
+
+  updateFormPassword = new FormGroup({
+    password: new FormControl('', [
+      Validators.required,
+      Validators.minLength(6),
+    ]),
+  });
 }

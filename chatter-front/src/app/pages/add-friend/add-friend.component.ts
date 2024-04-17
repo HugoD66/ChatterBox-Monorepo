@@ -37,8 +37,5 @@ export class AddFriendComponent {
     this.authService.getMe().subscribe((me: UserModel) => {
       this.getMe.update(() => me);
     });
-
-    //this.getMe.set(this.authService.getMeByAuthService());
-    //console.log(this.getMe());
   }
 }

@@ -3,7 +3,6 @@ import {
   Component,
   input,
   InputSignal,
-  OnInit,
 } from '@angular/core';
 import { ChatComponent } from './chat/chat.component';
 import { MessageInputComponent } from './message-input/message-input.component';
@@ -17,12 +16,8 @@ import { MessageModel } from '../../../models/message.model';
   templateUrl: './discussion.component.html',
   styleUrl: './discussion.component.scss',
 })
-export class DiscussionComponent implements OnInit {
+export class DiscussionComponent {
   public messages: InputSignal<MessageModel[] | null> = input.required<
     MessageModel[] | null
   >();
-
-  ngOnInit(): void {
-    console.log(this.messages());
-  }
 }

@@ -73,7 +73,6 @@ export class RegisterComponent {
       const user: RegisterModel = { email, pseudo, password };
       this.authService.register(user).subscribe({
         next: () => {
-          console.log('Inscription réussie.');
           this.errorMessage.set('');
           this.goLogin();
         },
