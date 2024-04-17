@@ -12,6 +12,7 @@ import {
   Req,
   UseInterceptors,
   UploadedFile,
+  Put,
 } from '@nestjs/common';
 import { UsersService } from './users.service';
 import { CreateUserDto } from './dto/create-user.dto';
@@ -88,12 +89,16 @@ export class UsersController {
     return this.usersService.findOne(id);
   }
 
-  @Patch(':id')
+  @UseGuards(AuthGuard)
+  @Put(':id')
   async update(
-    @Param('id') id: string,
+    @Param('id') userId: string,
+    @Req() req,
     @Body() updateUserDto: UpdateUserDto,
   ): Promise<ResponseUserDto> {
-    return this.usersService.update(id, updateUserDto);
+    if (req.user.id === userId) {
+      return this.usersService.update(userId, updateUserDto);
+    }
   }
 
   @Delete(':id')
@@ -102,7 +107,6 @@ export class UsersController {
   }
 
   // FRIENDS
-
   @Public()
   @Get(`/friends/:userId`)
   async getFriends(@Param('userId') userId: string) {

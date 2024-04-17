@@ -46,4 +46,11 @@ export class UserService {
       responseType: 'text' as 'json',
     });
   }
+
+  updateUser(userId: string, user: any): Observable<UserModel> {
+    const accessToken = localStorage.getItem(`authToken`);
+    return this.http.put<UserModel>(`${this.apiUrl}/users/${userId}`, user, {
+      headers: new HttpHeaders().set('Authorization', 'Bearer ' + accessToken),
+    });
+  }
 }

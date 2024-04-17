@@ -1,23 +1,51 @@
 <div class="profil-content">
    <div class="bloc-profile">
      <div class="pseudo-content">
-       <div class="pseudo">
-         <span>Pseudo</span>
-         <p>{{getMe()?.pseudo}}</p>
-       </div>
-       <button mat-raised-button>Modifier</button>
-     </div>
+
+         @if(!isPseudoEditing()) {
+           <div class="pseudo">
+             <span>Pseudo</span>
+             <p>{{getMe()?.pseudo}}</p>
+           </div>
+           <button mat-raised-button (click)="updatePseudo()">Modifier</button>
+         } @else {
+           <form [formGroup]="userFormService.updateFormPseudo" (ngSubmit)="onSubmitPseudo()">
+             <div class="pseudo">
+              <span>Pseudo</span>
+               <mat-form-field class="form-field" appearance="fill">
+                 <input class="form-control" matInput formControlName="pseudo" />
+               </mat-form-field>
+              </div>
+             <span class="removeUpdate" (click)="updatePseudo()">Annuler</span>
+             <button mat-raised-button type="submit">Valider</button>
+           </form>
+         }
+
+   </div>
      <mat-divider />
      <div class="email-content">
-       <div class="email">
-         <span>Email</span>
-         <p>{{getMe()?.email}}</p>
-       </div>
-       <button mat-raised-button>Modifier</button>
+       @if(!isEmailEditing()) {
+         <div class="email">
+           <span>Email</span>
+           <p>{{getMe()?.email}}</p>
+         </div>
+         <button mat-raised-button (click)="updateEmail()">Modifier</button>
+       } @else {
+         <form [formGroup]="userFormService.updateFormEmail" (ngSubmit)="onSubmitEmail()">
+           <div class="email">
+             <span>Email</span>
+             <mat-form-field class="form-field" appearance="outline" >
+               <input class="form-control" matInput formControlName="email" />
+             </mat-form-field>
+           </div>
+           <span class="removeUpdate" (click)="updateEmail()">Annuler</span>
+           <button mat-raised-button type="submit">Valider</button>
+         </form>
+       }
      </div>
      <mat-divider />
-     <div class="phone-content">
-       <div class="phone">
+     <div class="password-content">
+       <div class="password">
          <span>Mot de passe</span>
          <p>************</p>
        </div>

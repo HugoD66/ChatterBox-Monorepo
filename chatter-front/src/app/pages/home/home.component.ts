@@ -50,4 +50,10 @@ export class HomeComponent implements OnInit {
       this.getMe.update(() => me);
     });
   }
+
+  onUserUpdated() {
+    this.authService.getMe().subscribe((me: UserModel) => {
+      this.getMe.update(() => me);
+    });
+  }
 }
