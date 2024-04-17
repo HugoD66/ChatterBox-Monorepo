@@ -1,6 +1,15 @@
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  input,
+  InputSignal,
+  OnInit,
+  signal,
+  WritableSignal,
+} from '@angular/core';
 import { AuthService } from './services/auth.service';
 import { Router } from '@angular/router';
+import { UserModel } from './models/user.model';
 
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -9,6 +18,8 @@ import { Router } from '@angular/router';
   styleUrl: './app.component.scss',
 })
 export class AppComponent implements OnInit {
+  public user: WritableSignal<UserModel | null> = signal(null);
+
   constructor(
     private authService: AuthService,
     private router: Router,
@@ -19,8 +30,12 @@ export class AppComponent implements OnInit {
       this.router.navigate(['/auth/login']) ||
         this.router.navigate(['/auth/register']);
     } else {
-      console.log('User is logged in (app.component.ts)');
-      //this.router.navigate(['/home']);
+      this.authService.getMe().subscribe((me: UserModel) => {
+        this.user.update(() => me);
+        if (this.user()) {
+          this.router.navigate(['']);
+        }
+      });
     }
   }
 }

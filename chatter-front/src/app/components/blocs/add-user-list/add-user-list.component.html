@@ -1,0 +1,5 @@
+<div class="add-user-list-content">
+  @for (user of users(); track user.id) {
+    <app-add-user-list-unit [user]="user" />
+  }
+</div>

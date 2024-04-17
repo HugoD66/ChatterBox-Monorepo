@@ -20,7 +20,7 @@ import { AuthService } from '../../services/auth.service';
   templateUrl: './private-room.component.html',
   styleUrl: './private-room.component.scss',
 })
-export class PrivateRoomComponent implements OnInit {
+export class PrivateRoomComponent {
   //TODO AJOUTER LOADCOMPONENT, et cas ou array de messages() vide
   //TODO !!! Erreur sur le messageServiceGetDiscussion
   public messages: WritableSignal<MessageModel[]> = signal([]);
@@ -39,14 +39,15 @@ export class PrivateRoomComponent implements OnInit {
     private messageService: MessageService,
     private authService: AuthService,
   ) {
-    this.getMe.update(() => this.authService.getMeByAuthService());
-  }
-
-  ngOnInit() {
-    this.messageService
-      .getDiscussion(this.friend().id, this.getMe()!.id)
-      .subscribe((messages) => {
-        this.messages.update(() => messages);
-      });
+    console.log(this.authService.getMeByAuthService());
+    //TODO change to this.getMe.set(this.authService.getMeByAuthService());
+    this.authService.getMe().subscribe((me: UserModel) => {
+      this.getMe.update(() => me);
+      this.messageService
+        .getDiscussion(this.friend().id, this.getMe()!.id)
+        .subscribe((messages) => {
+          this.messages.update(() => messages);
+        });
+    });
   }
 }

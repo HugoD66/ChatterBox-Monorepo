@@ -34,7 +34,6 @@ export class CreateUserDto {
   @IsNotEmpty({ message: ValidationErrors.REQUIRED_FIELD })
   public password!: string;
 
-  picture?: string;
-
+  public picture?: string;
   public friends?: User[];
 }

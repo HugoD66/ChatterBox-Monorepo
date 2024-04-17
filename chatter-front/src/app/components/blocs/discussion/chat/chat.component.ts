@@ -1,9 +1,16 @@
-import { Component, input, InputSignal } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  input,
+  InputSignal,
+} from '@angular/core';
 import { MessageModel } from '../../../../models/message.model';
 import { MessageUnitComponent } from '../../../message-unit/message-unit.component';
 
 @Component({
   selector: 'app-chat',
+  changeDetection: ChangeDetectionStrategy.OnPush,
+
   standalone: true,
   imports: [MessageUnitComponent],
   templateUrl: './chat.component.html',

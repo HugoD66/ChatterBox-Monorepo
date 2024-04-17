@@ -8,10 +8,9 @@ describe('GroupRoomProfilComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [GroupRoomProfilComponent]
-    })
-    .compileComponents();
-    
+      imports: [GroupRoomProfilComponent],
+    }).compileComponents();
+
     fixture = TestBed.createComponent(GroupRoomProfilComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();

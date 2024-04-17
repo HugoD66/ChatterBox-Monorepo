@@ -14,7 +14,6 @@ export class FriendProfilComponent {
   public friend: InputSignal<UserModel> = input.required<UserModel>();
   constructor(public dialogService: DialogService) {}
   public openDialog(user: UserModel): void {
-    console.log(user);
     this.dialogService.openDialog(this.friend());
   }
 }

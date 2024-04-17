@@ -8,10 +8,9 @@ describe('AddFriendSearchComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [AddFriendSearchComponent]
-    })
-    .compileComponents();
-    
+      imports: [AddFriendSearchComponent],
+    }).compileComponents();
+
     fixture = TestBed.createComponent(AddFriendSearchComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();

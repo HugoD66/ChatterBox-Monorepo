@@ -1,8 +1,7 @@
 @use "../../../../assets/scss/colors" as colors;
 @use "../../../../assets/scss/global" as global;
 
-
-.add-friend-search-content{
+.add-friend-search-content {
   @include global.bloc;
   height: 64vh;
   margin: auto;

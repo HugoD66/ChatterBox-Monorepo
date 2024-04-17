@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { environment } from '../../env';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { catchError, Observable, throwError } from 'rxjs';
+import { catchError, Observable, tap, throwError } from 'rxjs';
 import { UserModel } from '../models/user.model';
 
 @Injectable()
@@ -12,28 +12,38 @@ export class UserService {
 
   getUserList(): Observable<UserModel[]> {
     return this.http.get<UserModel[]>(`${this.apiUrl}/users`).pipe(
+      tap((response) => {
+        console.log(response);
+      }),
       catchError((error) => {
         return throwError(() => error);
       }),
     );
   }
 
-  uploadUserPicture(userId: string, file: File): Observable<any> {
+  uploadUserPicture(userId: string, file: File) {
     const formData = new FormData();
     formData.append(`file`, file, file.name);
-
-    const accessToken = localStorage.getItem(`access_token`);
-    const headers = new HttpHeaders({
-      Authorization: `Bearer ${accessToken}`,
-    });
-    const options = { headers: headers };
-
+    const accessToken = localStorage.getItem(`authToken`);
     return this.http
-      .post(`${this.apiUrl}/users/upload-file/${userId}`, formData, options)
+      .post(`${this.apiUrl}/users/upload-file/${userId}`, formData, {
+        headers: new HttpHeaders().set(
+          'Authorization',
+          'Bearer ' + accessToken,
+        ),
+      })
       .pipe(
         catchError((error) => {
           return throwError(() => error);
         }),
       );
+  }
+
+  getPicture(): Observable<any> {
+    const accessToken = localStorage.getItem(`authToken`);
+    return this.http.get(`${this.apiUrl}/users/get-picture`, {
+      headers: new HttpHeaders().set('Authorization', 'Bearer ' + accessToken),
+      responseType: 'text' as 'json',
+    });
   }
 }

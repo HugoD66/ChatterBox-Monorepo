@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import {
   FormControl,
   FormGroup,
@@ -11,6 +11,8 @@ import { MatIcon } from '@angular/material/icon';
 
 @Component({
   selector: 'app-message-input',
+  changeDetection: ChangeDetectionStrategy.OnPush,
+
   standalone: true,
   imports: [FormsModule, ReactiveFormsModule, MatIcon],
   templateUrl: './message-input.component.html',

@@ -1,7 +1,10 @@
 <div class="message-content">
   <div class="message">
     <form [formGroup]="messageSendForm" (ngSubmit)="onSubmit()">
-      <textarea formControlName="message" placeholder="Type your message here..."></textarea>
+      <textarea
+        formControlName="message"
+        placeholder="Type your message here..."
+      ></textarea>
       <button type="submit" [disabled]="!messageSendForm.valid">
         <mat-icon class="send-form">arrow_right</mat-icon>
       </button>

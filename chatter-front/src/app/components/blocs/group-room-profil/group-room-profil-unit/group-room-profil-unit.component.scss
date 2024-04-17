@@ -12,6 +12,6 @@
   }
   p {
     height: 10%;
-    @include fonts.subtitle
+    @include fonts.subtitle;
   }
 }

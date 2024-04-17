@@ -26,7 +26,6 @@
       height: 100%;
       border-radius: 50%;
       @media screen and (max-width: 600px) {
-
         height: 50%;
       }
     }
@@ -37,7 +36,7 @@
         width: 100%;
         height: 90%;
       }
-        .friend-profil-infos-pseudo {
+      .friend-profil-infos-pseudo {
         @include fonts.h3-title;
         text-align: start;
         @media screen and (max-width: 600px) {
@@ -47,7 +46,6 @@
       }
       .friend-profil-infos-email {
         @include fonts.subtitle;
-
       }
     }
   }

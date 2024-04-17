@@ -1,5 +1,8 @@
 <div class="add-friend-content">
-  <app-friend-profil [friend]="friend()"/>
-  <!-- <app-add-friend-profil /> --> <!--TODO NOUVEAU TEMPALTE ?-->
-  <app-add-friend-search />
+  <app-friend-profil [friend]="friend()" />
+  <!-- <app-add-friend-profil /> -->
+  <!--TODO NOUVEAU TEMPALTE ?-->
+  @if(getMe()) {
+    <app-add-friend-search [getMe]="this.getMe()!" />
+  }
 </div>

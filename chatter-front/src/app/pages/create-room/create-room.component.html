@@ -66,11 +66,8 @@
       </button>
     </div>
     <button type="submit" (click)="onSubmit()">Set preset</button>
-
     <!--
       (click)="setPreset()"
-
-
       <mat-form-field appearance="fill">
       <mat-label>Mot de passe </mat-label>
       <input
@@ -84,10 +81,9 @@
           <mat-error>Adresse obligatoire.</mat-error>
         }
       </mat-form-field>
-
     -->
   </div>
   <div class="friend-list-content">
-    <app-friend-list [getMe]="null" />
+    <app-friend-list [getMe]="getMe()" />
   </div>
 </div>

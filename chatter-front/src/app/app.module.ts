@@ -11,6 +11,7 @@ import { TruncateLongPipe } from './pipe/TruncateLongPipe';
 import { DialogService } from './services/dialog.service';
 import { MessageService } from './services/message.service';
 import { FriendService } from './services/friend.service';
+import { UserService } from './services/user.service';
 @NgModule({
   declarations: [AppComponent],
   imports: [
@@ -27,6 +28,7 @@ import { FriendService } from './services/friend.service';
     DialogService,
     MessageService,
     FriendService,
+    UserService,
   ],
   bootstrap: [AppComponent],
   exports: [],

@@ -13,7 +13,6 @@ import {
 } from '@angular/material/form-field';
 import { MatInput } from '@angular/material/input';
 import {
-  FormBuilder,
   FormControl,
   FormGroup,
   ReactiveFormsModule,
@@ -21,6 +20,8 @@ import {
 } from '@angular/forms';
 import { MatIcon, MatIconModule } from '@angular/material/icon';
 import { MatIconButton } from '@angular/material/button';
+import { AuthService } from '../../services/auth.service';
+import { UserModel } from '../../models/user.model';
 
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -41,6 +42,7 @@ import { MatIconButton } from '@angular/material/button';
   styleUrl: './create-room.component.scss',
 })
 export class CreateRoomComponent implements OnDestroy {
+  public getMe: WritableSignal<UserModel | null> = signal(null);
   hide = true;
   selectedFile: File | null = null;
   public isSelectedFile: WritableSignal<boolean> = signal(false);
@@ -57,7 +59,11 @@ export class CreateRoomComponent implements OnDestroy {
     ]),
   });
 
-  constructor() {}
+  constructor(private authService: AuthService) {
+    this.authService.getMe().subscribe((me) => {
+      this.getMe.update(() => me);
+    });
+  }
 
   onNameChange(): void {
     console.log('Name changed');

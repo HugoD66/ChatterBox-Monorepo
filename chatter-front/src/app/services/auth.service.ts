@@ -37,6 +37,7 @@ export class AuthService {
   ) {}
 
   isLoggedIn(): boolean {
+    console.log(localStorage.getItem('authToken'));
     return !!localStorage.getItem('authToken');
   }
 
@@ -75,7 +76,6 @@ export class AuthService {
 
   getMe(): Observable<UserModel> {
     const accessToken = localStorage.getItem(`authToken`);
-
     return this.http
       .get<UserModel>(`${this.apiUrl}/users/auth/me`, {
         headers: new HttpHeaders().set(
@@ -86,6 +86,7 @@ export class AuthService {
       .pipe(
         tap((response) => {
           this.getMeByAuthService.update(() => response as LoginReturnUser);
+          console.info('Rafraichissemnt du getMe() de authService');
           console.log(this.getMeByAuthService());
         }),
         catchError((error) => {

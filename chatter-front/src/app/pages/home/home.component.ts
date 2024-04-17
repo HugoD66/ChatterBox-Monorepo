@@ -45,6 +45,9 @@ export class HomeComponent implements OnInit {
   constructor(private authService: AuthService) {}
 
   ngOnInit() {
-    this.getMe.set(this.authService.getMeByAuthService());
+    //TODO change to this.getMe.set(this.authService.getMeByAuthService());
+    this.authService.getMe().subscribe((me: UserModel) => {
+      this.getMe.update(() => me);
+    });
   }
 }

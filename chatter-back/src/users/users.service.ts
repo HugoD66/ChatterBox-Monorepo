@@ -37,6 +37,7 @@ export class UsersService {
       pseudo: createUserDto.pseudo,
       email: createUserDto.email,
       password: hashedPassword,
+      picture: createUserDto.picture ?? null,
       roleGeneral: createUserDto.roleGeneral ?? UserGeneralRoleEnum.Utilisateur,
     });
     const savedUser: User = await this.usersRepository.save(user);
@@ -134,6 +135,15 @@ export class UsersService {
     };
   }
 
+  async getPicture(userId: string): Promise<string> {
+    const user = await this.usersRepository.findOne({
+      where: { id: userId },
+    });
+    if (!user) {
+      throw new NotFoundException(`User with ID ${userId} not found`);
+    }
+    return user.picture;
+  }
   async remove(id: string): Promise<void> {
     await this.usersRepository.delete(id);
   }

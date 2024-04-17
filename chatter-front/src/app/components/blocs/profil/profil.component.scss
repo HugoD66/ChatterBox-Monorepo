@@ -63,8 +63,23 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    img {
+      position: relative;
+      width: 15vw;
+      object-fit: cover;
+      @include global.profil-bloc;
+    }
     .add-picture {
+      position: absolute;
+      right: 8%;
       align-self: end;
+      padding: 15px;
+      background-color: colors.$back-light-b;
+      @include global.profil-bloc;
+      .icon-add-picture {
+        cursor: pointer;
+        transform: scale(1.5);
+      }
     }
   }
 }

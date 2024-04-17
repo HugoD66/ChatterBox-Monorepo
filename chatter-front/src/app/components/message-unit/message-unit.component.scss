@@ -8,10 +8,14 @@
   @include global.flex-center-row-between;
   border-radius: 15px;
   box-shadow: 0 0 10px rgba(57, 57, 57, 0.1);
-  transition: box-shadow 0.3s, background-color 0.3s;
+  transition:
+    box-shadow 0.3s,
+    background-color 0.3s;
   padding: 5px;
   &:hover {
-    transition: box-shadow 0.8s, background-color 0.8s;
+    transition:
+      box-shadow 0.8s,
+      background-color 0.8s;
     box-shadow: 0 0 10px rgba(57, 57, 57, 0.2);
     background-color: #e3e3e3;
   }
@@ -38,7 +42,6 @@
   }
 }
 
-
 .message-unit-content-received {
   flex-direction: row-reverse;
   .message-unit-infos {
@@ -47,9 +50,7 @@
 }
 
 .message-unit-content-sent {
-
   .message-unit-infos {
     align-items: flex-end;
   }
 }
-

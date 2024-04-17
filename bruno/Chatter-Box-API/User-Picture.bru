@@ -1,0 +1,15 @@
+meta {
+  name: User-Picture
+  type: http
+  seq: 2
+}
+
+get {
+  url: http://{{url}}:{{port}}/users/get-picture
+  body: multipartForm
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{bearerToken}}
+}

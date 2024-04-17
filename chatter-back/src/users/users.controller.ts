@@ -44,11 +44,6 @@ export class UsersController {
   @Get('/auth/me')
   @UseGuards(AuthGuard)
   async getMe(@Req() req): Promise<ResponseUserDto> {
-    console.log(req);
-    console.log('req.user');
-    console.log(req.user);
-    console.log('req.user.id');
-    console.log(req.user.id);
     return this.usersService.findOne(req.user.id);
   }
 
@@ -65,6 +60,7 @@ export class UsersController {
     return;
   }
 
+  @UseGuards(AuthGuard)
   @Post(`upload-file/:userId`)
   @UseInterceptors(FileInterceptor(`file`, multerConfig))
   async uploadFile(
@@ -75,6 +71,13 @@ export class UsersController {
     return { message: `File uploaded successfully`, filePath: file.path };
   }
 
+  @Get(`get-picture`)
+  @UseGuards(AuthGuard)
+  async getPicture(@Req() req) {
+    return this.usersService.getPicture(req.user.id);
+  }
+
+  @Public()
   @Get()
   async findAll(): Promise<ResponseUserDto[]> {
     return this.usersService.findAll();
