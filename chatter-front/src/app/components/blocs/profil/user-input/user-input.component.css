@@ -1,0 +1,64 @@
+form {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  margin-bottom: 0;
+}
+form mat-form-field {
+  max-height: 50%;
+  font-size: 0.9em;
+  background-color: transparent;
+  cursor: pointer;
+}
+form .removeUpdate {
+  left: 15%;
+  position: relative;
+  cursor: pointer;
+  transition: font-size 0.3s;
+}
+form .removeUpdate:hover {
+  font-size: 1.05em;
+  transition: font-size 0.3s;
+}
+@media screen and (max-width: 1100px) {
+  form .removeUpdate {
+    left: 5%;
+  }
+}
+
+.info-content-me {
+  display: flex;
+  justify-content: center;
+  align-items: start;
+  flex-direction: column;
+  margin: 2px;
+}
+
+span {
+  font-size: 0.9em;
+  color: rgb(39, 39, 39);
+  font-family: "JostLight", sans-serif;
+  margin: 0;
+}
+
+p {
+  font-family: "JostRegular", sans-serif;
+  font-size: 1.05em;
+  font-size: 1.1em;
+  margin: 3px;
+}
+
+button {
+  background-color: rgb(246, 246, 246);
+  color: rgb(7, 24, 38);
+  font-size: 1.05rem;
+  height: 3rem;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  transition: 0.3s;
+  padding-bottom: 1px;
+  font-size: 0.9em;
+}
+
+/*# sourceMappingURL=user-input.component.css.map */

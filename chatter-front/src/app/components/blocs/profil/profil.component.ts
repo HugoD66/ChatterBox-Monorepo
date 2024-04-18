@@ -3,6 +3,7 @@ import {
   Component,
   computed,
   EventEmitter,
+  inject,
   input,
   InputSignal,
   OnInit,
@@ -25,6 +26,10 @@ import { MatInput } from '@angular/material/input';
 import { UserUpdateService } from '../../../services/user.update.service';
 import { AuthService } from '../../../services/auth.service';
 import { ChangePasswordModel } from '../../../models/change-password.model';
+import { switchMap } from 'rxjs';
+import { UserInfoComponent } from './user-info/user-info.component';
+import { UserInputComponent } from './user-input/user-input.component';
+import { MatSnackBarRef } from '@angular/material/snack-bar';
 
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -42,6 +47,8 @@ import { ChangePasswordModel } from '../../../models/change-password.model';
     MatInput,
     MatLabel,
     ReactiveFormsModule,
+    UserInfoComponent,
+    UserInputComponent,
   ],
   templateUrl: './profil.component.html',
   styleUrl: './profil.component.scss',
@@ -55,12 +62,11 @@ export class ProfilComponent implements OnInit {
   protected apiUrl = environment.apiUrl;
   public isLoading: WritableSignal<boolean> = signal(true);
   public isPseudoEditing: WritableSignal<boolean> = signal(false);
-  public isEmailEditing: WritableSignal<boolean> = signal(false);
+  public isEmailEditing = signal(false);
   public isPasswordEditing: WritableSignal<boolean> = signal(false);
 
   constructor(
     private userService: UserService,
-    public userFormService: UserUpdateService,
     public authService: AuthService,
   ) {}
 
@@ -75,66 +81,11 @@ export class ProfilComponent implements OnInit {
   public updatePseudo(): void {
     this.isPseudoEditing.set(!this.isPseudoEditing());
   }
-  public onSubmitPseudo() {
-    if (
-      this.userFormService.updateFormPseudo.valid &&
-      this.userFormService.updateFormPseudo.value.pseudo != null
-    ) {
-      const updatedData = {
-        pseudo: this.userFormService.updateFormPseudo.value.pseudo,
-      };
-      const newUser = { ...this.getMe(), ...updatedData };
-      this.userService.updateUser(this.getMe()!.id, newUser).subscribe({
-        next: () => {
-          this.isPseudoEditing.set(!this.isPseudoEditing());
-          this.userUpdated.emit();
-        },
-        error: (error) => console.error('Update error:', error),
-      });
-    }
-  }
-
   public updateEmail(): void {
     this.isEmailEditing.set(!this.isEmailEditing());
   }
-  public onSubmitEmail() {
-    if (
-      this.userFormService.updateFormEmail.valid &&
-      this.userFormService.updateFormEmail.value.email != null
-    ) {
-      const updatedData = {
-        email: this.userFormService.updateFormEmail.value.email,
-      };
-      const newUser = { ...this.getMe(), ...updatedData };
-      this.userService.updateUser(this.getMe()!.id, newUser).subscribe({
-        next: () => {
-          this.isEmailEditing.set(!this.isEmailEditing());
-          this.userUpdated.emit();
-        },
-        error: (error) => console.error('Update error:', error),
-      });
-    }
-  }
-
   public updatePassword(): void {
     this.isPasswordEditing.set(!this.isPasswordEditing());
-  }
-  public onSubmitPassword() {
-    if (
-      this.userFormService.updateFormPassword.valid &&
-      this.userFormService.updateFormPassword.value.password != null
-    ) {
-      const password: ChangePasswordModel = {
-        password: this.userFormService.updateFormPassword.value.password,
-      };
-      this.authService.changePassword(password).subscribe({
-        next: () => {
-          this.isPasswordEditing.set(!this.isPasswordEditing());
-          this.userUpdated.emit();
-        },
-        error: (error) => console.error('Update error:', error),
-      });
-    }
   }
 
   protected onFileSelect(event: Event): void {
@@ -143,11 +94,11 @@ export class ProfilComponent implements OnInit {
       const file = element.files[0];
       this.userService
         .uploadUserPicture(this.getMe()!.id, file)
-        .subscribe(() => {
-          this.userService.getPicture().subscribe((picture) => {
-            const pictureUrl = `${this.apiUrl}/./${picture}`;
-            this.getMeAvatar.update(() => `${pictureUrl}`);
-          });
+        .pipe(switchMap(() => this.userService.getPicture()))
+        .subscribe((picture) => {
+          const pictureUrl = `${this.apiUrl}/./${picture}`;
+          this.getMeAvatar.update(() => `${pictureUrl}`);
+          this.userUpdated.emit();
         });
     }
   }

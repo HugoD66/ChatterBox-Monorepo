@@ -1,0 +1,48 @@
+@use "../../../../../assets/scss/colors" as colors;
+@use "../../../../../assets/scss/global" as global;
+@use "../../../../../assets/scss/fonts" as fonts;
+
+
+form {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  margin-bottom: 0;
+  mat-form-field {
+    max-height: 50%;
+    font-size: 0.9em;
+    background-color: transparent;
+    cursor: pointer;
+
+  }
+  .removeUpdate {
+    left: 15%;
+    position: relative;
+    cursor: pointer;
+    transition: font-size 0.3s;
+    &:hover {
+      font-size: 1.05em;
+      transition: font-size 0.3s;
+    }
+    @media screen and (max-width: 1100px) {
+      left: 5%;
+    }
+  }
+}
+.info-content-me {
+  @include global.flex-start-column;
+  margin: 2px;
+}
+span {
+  @include fonts.subtitle;
+}
+p {
+  @include fonts.p;
+  font-size: 1.1em;
+  margin: 3px;
+}
+button {
+  @include global.button-one;
+  font-size: 0.9em;
+}

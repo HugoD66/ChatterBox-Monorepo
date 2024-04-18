@@ -18,63 +18,13 @@
     margin: 5%;
     height: 72%;
     max-height: 72%;
-    .pseudo-content,
-    .email-content,
-    .password-content {
+    .info-content {
       @include global.flex-center-row-center;
       margin: auto;
       justify-content: space-between;
       width: 96%;
       height: 30%;
-      .pseudo,
-      .email,
-      .password {
-        @include global.flex-start-column;
-        margin: 2px;
-      }
-      span {
-        @include fonts.subtitle;
-      }
-      p {
-        @include fonts.p;
-        font-size: 1.1em;
-        margin: 3px;
-      }
-      button {
-        @include global.button-one;
-        font-size: 0.9em;
-      }
-    }
-    form {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      width: 100%;
-      margin-bottom: 0;
-      mat-form-field {
-        max-height: 50%;
-        font-size: 0.9em;
-        background-color: transparent;
-      }
-      .removeUpdate {
-        left: 15%;
-        position: relative;
-        @media screen and (max-width: 1100px) {
-          left: 5%;
-        }
-      }
-    }
-    .pseudo-content {
-      .pseudo {
-      }
-    }
-    .email-content {
-      .email {
-      }
-    }
-    .password-content {
-      .password {
-      }
+
     }
     .createdBy {
       @include fonts.subtitle;
@@ -94,6 +44,8 @@
       position: relative;
       width: 15vw;
       object-fit: cover;
+      pointer-events: none;
+      user-select: none;
       @include global.profil-bloc;
     }
     .add-picture {

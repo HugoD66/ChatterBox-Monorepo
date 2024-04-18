@@ -1,0 +1,16 @@
+<form
+  [formGroup]="formControlKey()"
+  (ngSubmit)="onSubmit()"
+>
+  <div class="pseudo">
+    <span>Pseudo</span>
+    <mat-form-field
+      class="form-field custom-form-field"
+      appearance="fill"
+    >
+      <input class="form-control" matInput [formControlName]="formControlName()" />
+    </mat-form-field>
+  </div>
+  <span class="removeUpdate" (click)="updateView.emit()">Annuler</span>
+  <button mat-raised-button type="submit">Valider</button>
+</form>
