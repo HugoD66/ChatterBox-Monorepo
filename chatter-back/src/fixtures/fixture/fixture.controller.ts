@@ -1,41 +1,24 @@
-import { Controller, Post } from '@nestjs/common';
+import { Controller, Delete, Post } from '@nestjs/common';
 import { FixtureService } from './fixture.service';
+import { Public } from '../../security/auth/public.decorator';
 
 @Controller('fixture')
 export class FixtureController {
   constructor(private readonly fixtureService: FixtureService) {}
 
   @Post(`users`)
-  createUsers() {
+  createUsers(): Promise<string> {
     return this.fixtureService.seedUsers();
   }
 
-  @Post(`messages`)
-  createMessages() {
+  @Post(`messages-fixtures`)
+  createMessagesFixtures(): Promise<string> {
     return this.fixtureService.seedMessages();
   }
-  /*@Post()
-  create(@Body() createFixtureDto: CreateFixtureDto) {
-    return this.fixtureService.create(createFixtureDto);
-  }
 
-  @Get()
-  findAll() {
-    return this.fixtureService.findAll();
+  @Public()
+  @Delete()
+  deleteAllFixtures(): Promise<string> {
+    return this.fixtureService.deleteAll();
   }
-
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.fixtureService.findOne(+id);
-  }
-
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updateFixtureDto: UpdateFixtureDto) {
-    return this.fixtureService.update(+id, updateFixtureDto);
-  }
-
-  @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.fixtureService.remove(+id);
-  }*/
 }

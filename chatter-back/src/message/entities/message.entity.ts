@@ -19,10 +19,14 @@ export class Message {
   @CreateDateColumn()
   public createdAt!: Date;
 
-  @ManyToOne(() => User, (user) => user.sentMessages)
+  @ManyToOne(() => User, (user) => user.sentMessages, {
+    onDelete: 'CASCADE',
+  })
   sender: ResponseUserDto;
 
-  @ManyToOne(() => User, (user) => user.receivedMessages)
+  @ManyToOne(() => User, (user) => user.receivedMessages, {
+    onDelete: 'CASCADE',
+  })
   receiver: ResponseUserDto;
 
   @Column()

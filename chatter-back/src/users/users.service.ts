@@ -154,6 +154,9 @@ export class UsersService {
   async remove(id: string): Promise<void> {
     await this.usersRepository.delete(id);
   }
+  async removeAll(): Promise<void> {
+    await this.usersRepository.delete({});
+  }
 
   async getFriends(userId: string): Promise<ResponseUserDto[]> {
     const userFriends: ResponseUserDto[] = await this.usersRepository.find({

@@ -41,10 +41,14 @@ export class User {
   })
   public roleGeneral: UserGeneralRoleEnum;
 
-  @OneToMany(() => Message, (message) => message.sender)
+  @OneToMany(() => Message, (message) => message.sender, {
+    cascade: true,
+  })
   sentMessages: Message[];
 
-  @OneToMany(() => Message, (message) => message.receiver)
+  @OneToMany(() => Message, (message) => message.receiver, {
+    cascade: true,
+  })
   receivedMessages: Message[];
 
   @ManyToMany(() => User)

@@ -90,4 +90,8 @@ export class MessageService {
   async remove(id: string): Promise<void> {
     await this.messageRepository.delete(id);
   }
+
+  async removeAll(): Promise<void> {
+    await this.messageRepository.delete({});
+  }
 }

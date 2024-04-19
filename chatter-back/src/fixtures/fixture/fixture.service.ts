@@ -1,11 +1,16 @@
 import { Injectable } from '@nestjs/common';
 import { UserFixtures } from '../user.fixtures';
 import { MessageFixtures } from '../message.fixtures';
+import { UsersService } from '../../users/users.service';
+import { MessageService } from '../../message/message.service';
+
 @Injectable()
 export class FixtureService {
   constructor(
     private readonly userFixtures: UserFixtures,
     private readonly messageFixtures: MessageFixtures,
+    private usersService: UsersService,
+    private messageService: MessageService,
   ) {}
 
   async seedUsers(): Promise<string> {
@@ -17,23 +22,10 @@ export class FixtureService {
     await this.messageFixtures.seedMessages();
     return 'Messages fixtures generated';
   }
-  /* create(createFixtureDto: CreateFixtureDto) {
-    return 'This action adds a new fixture';
-  }
 
-  findAll() {
-    return `This action returns all fixture`;
+  async deleteAll(): Promise<string> {
+    await this.usersService.removeAll();
+    console.log('All users and user relations deleted');
+    return 'All fixtures deleted';
   }
-
-  findOne(id: number) {
-    return `This action returns a #${id} fixture`;
-  }
-
-  update(id: number, updateFixtureDto: UpdateFixtureDto) {
-    return `This action updates a #${id} fixture`;
-  }
-
-  remove(id: number) {
-    return `This action removes a #${id} fixture`;
-  }*/
 }
