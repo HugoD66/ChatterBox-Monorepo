@@ -97,7 +97,7 @@ $radius-background: 16px;
 }
 @mixin profil-bloc {
   border-radius: 90%;
-  box-shadow: 0px 0px 10px 0px rgba(156, 156, 156, 0.75);
+  @include shadow-bloc;
 }
 //Buttons
 
@@ -117,3 +117,13 @@ $radius-background: 16px;
 }
 
 //Box shadows
+@mixin shadow-bloc {
+  box-shadow: 0px 0px 10px 0px rgba(156, 156, 156, 0.75);
+}
+
+@mixin input-bloc {
+  box-shadow: 0px 0px 4px 0px rgba(156, 156, 156, 0.75);
+}
+@mixin input-warning {
+  box-shadow: 0px 0px 4px 0px rgba(232, 0, 0, 0.75);
+}

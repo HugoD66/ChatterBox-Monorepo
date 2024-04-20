@@ -2,21 +2,25 @@
 @use "../../../../../assets/scss/global" as global;
 @use "../../../../../assets/scss/fonts" as fonts;
 
-
 form {
   display: flex;
   align-items: center;
   justify-content: space-between;
   width: 100%;
   margin-bottom: 0;
-  mat-form-field {
-    max-height: 50%;
-    font-size: 0.9em;
-    background-color: transparent;
-    cursor: pointer;
-
+  .input-content {
+    height: 100%;
+    input {
+      height: 30px;
+      margin: auto;
+      border: none;
+      background-color: colors.$back-light-b;
+      border-radius: 4px;
+      @include global.input-bloc;
+    }
   }
-  .removeUpdate {
+
+  span {
     left: 15%;
     position: relative;
     cursor: pointer;
@@ -29,20 +33,9 @@ form {
       left: 5%;
     }
   }
-}
-.info-content-me {
-  @include global.flex-start-column;
-  margin: 2px;
-}
-span {
-  @include fonts.subtitle;
-}
-p {
-  @include fonts.p;
-  font-size: 1.1em;
-  margin: 3px;
-}
-button {
-  @include global.button-one;
-  font-size: 0.9em;
+  button {
+    @include global.button-one;
+    font-size: 0.9em;
+  }
+
 }

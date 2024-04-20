@@ -12,6 +12,8 @@ import { DialogService } from './services/dialog.service';
 import { MessageService } from './services/message.service';
 import { FriendService } from './services/friend.service';
 import { UserService } from './services/user.service';
+import { PopupService } from './services/popup.service';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 @NgModule({
   declarations: [AppComponent],
   imports: [
@@ -22,6 +24,7 @@ import { UserService } from './services/user.service';
     HttpClientModule,
     SidenavComponent,
     TruncateLongPipe,
+    BrowserAnimationsModule,
   ],
   providers: [
     provideAnimationsAsync(),
@@ -29,6 +32,7 @@ import { UserService } from './services/user.service';
     MessageService,
     FriendService,
     UserService,
+    PopupService,
   ],
   bootstrap: [AppComponent],
   exports: [],

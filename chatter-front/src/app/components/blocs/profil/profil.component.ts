@@ -1,9 +1,7 @@
 import {
   ChangeDetectionStrategy,
   Component,
-  computed,
   EventEmitter,
-  inject,
   input,
   InputSignal,
   OnInit,
@@ -11,7 +9,6 @@ import {
   signal,
   WritableSignal,
 } from '@angular/core';
-
 import { UserModel } from '../../../models/user.model';
 import { MatButton } from '@angular/material/button';
 import { MatDivider } from '@angular/material/divider';
@@ -23,13 +20,11 @@ import { environment } from '../../../../env';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatFormField, MatLabel } from '@angular/material/form-field';
 import { MatInput } from '@angular/material/input';
-import { UserUpdateService } from '../../../services/user.update.service';
 import { AuthService } from '../../../services/auth.service';
-import { ChangePasswordModel } from '../../../models/change-password.model';
 import { switchMap } from 'rxjs';
 import { UserInfoComponent } from './user-info/user-info.component';
 import { UserInputComponent } from './user-input/user-input.component';
-import { MatSnackBarRef } from '@angular/material/snack-bar';
+import { PopupService } from '../../../services/popup.service';
 
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -52,6 +47,40 @@ import { MatSnackBarRef } from '@angular/material/snack-bar';
   ],
   templateUrl: './profil.component.html',
   styleUrl: './profil.component.scss',
+  /*animations: [
+    trigger('blurAnimation', [
+      transition(':enter', [
+        style({
+          width: '100%', // Assurez-vous que le largeur est correcte
+          top: 0, // Alignez le haut
+          filter: 'blur(10px)',
+          zIndex: 2, // Plus haut z-index pour s'assurer qu'il est au-dessus
+        }),
+        animate('0.5s ease-out', style({ filter: 'blur(0)' })),
+      ]),
+      transition(':leave', [
+        style({
+          width: '100%',
+          top: 0,
+          zIndex: 1, // Inférieur z-index pour que cela reste en dessous
+        }),
+        animate('0.5s ease-in', style({ filter: 'blur(10px)' })),
+      ]),
+    ]),
+  ],*/
+  /*
+  animations: [
+  trigger('blurAnimation', [
+    transition(':enter', [
+      style({ opacity: 0, filter: 'blur(10px)' }),
+      animate('0.5s ease-out', style({ opacity: 1, filter: 'blur(0)' })),
+    ]),
+    transition(':leave', [
+      animate('0.5s ease-in', style({ opacity: 0, filter: 'blur(10px)' })),
+    ]),
+  ]),
+]
+   */
 })
 export class ProfilComponent implements OnInit {
   @Output() userUpdated = new EventEmitter<void>();
@@ -68,6 +97,7 @@ export class ProfilComponent implements OnInit {
   constructor(
     private userService: UserService,
     public authService: AuthService,
+    private popupService: PopupService,
   ) {}
 
   ngOnInit(): void {
@@ -99,7 +129,10 @@ export class ProfilComponent implements OnInit {
           const pictureUrl = `${this.apiUrl}/./${picture}`;
           this.getMeAvatar.update(() => `${pictureUrl}`);
           this.userUpdated.emit();
+          this.popupService.openSnackBar('Photo changée', 'lawngreen');
         });
+    } else {
+      this.popupService.openSnackBar('Format invalide', 'red');
     }
   }
 }

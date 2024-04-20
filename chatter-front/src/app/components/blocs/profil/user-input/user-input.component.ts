@@ -1,4 +1,5 @@
 import {
+  ChangeDetectionStrategy,
   Component,
   EventEmitter,
   input,
@@ -11,17 +12,27 @@ import {
 import { AuthService } from '../../../../services/auth.service';
 import { UserModel } from '../../../../models/user.model';
 import { FormGroup, ReactiveFormsModule } from '@angular/forms';
-import { MatFormField } from '@angular/material/form-field';
+import { MatFormField, MatLabel } from '@angular/material/form-field';
 import { MatButton } from '@angular/material/button';
 import { MatInput } from '@angular/material/input';
 import { UserService } from '../../../../services/user.service';
 import { UserUpdateService } from '../../../../services/user.update.service';
 import { ChangePasswordModel } from '../../../../models/change-password.model';
+import { PopupService } from '../../../../services/popup.service';
+import { PopUpComponent } from '../../../pop-up/pop-up.component';
 
 @Component({
+  changeDetection: ChangeDetectionStrategy.OnPush,
   selector: 'app-user-input',
   standalone: true,
-  imports: [ReactiveFormsModule, MatFormField, MatButton, MatInput],
+  imports: [
+    ReactiveFormsModule,
+    MatFormField,
+    MatButton,
+    MatInput,
+    MatLabel,
+    PopUpComponent,
+  ],
   templateUrl: './user-input.component.html',
   styleUrl: './user-input.component.scss',
 })
@@ -32,6 +43,7 @@ export class UserInputComponent implements OnInit {
   public formControlKey: WritableSignal<FormGroup> = signal(
     null as unknown as FormGroup,
   );
+
   public formControlName: WritableSignal<string> = signal('');
   @Output() updateView: EventEmitter<void> = new EventEmitter<void>();
   @Output() userFormGroup = new EventEmitter<void>();
@@ -41,6 +53,7 @@ export class UserInputComponent implements OnInit {
     private userService: UserService,
     public userFormService: UserUpdateService,
     public authService: AuthService,
+    private popupService: PopupService,
   ) {}
 
   ngOnInit() {
@@ -75,6 +88,12 @@ export class UserInputComponent implements OnInit {
 
   async onSubmitPseudo() {
     if (
+      !this.userFormService.updateFormPseudo.valid ||
+      this.userFormService.updateFormPseudo.value.pseudo == null
+    ) {
+      this.popupService.openSnackBar('Champ requis', 'tomato');
+    }
+    if (
       this.userFormService.updateFormPseudo.valid &&
       this.userFormService.updateFormPseudo.value.pseudo != null
     ) {
@@ -86,8 +105,11 @@ export class UserInputComponent implements OnInit {
         next: () => {
           this.updateView.emit();
           this.userUpdated.emit();
+          this.popupService.openSnackBar('Pseudo changé', 'lawngreen');
         },
-        error: (error) => console.error('Update error:', error),
+        error: () => {
+          this.popupService.openSnackBar("Erreur lors de l'envoi", 'tomato');
+        },
       });
     }
   }
@@ -104,9 +126,15 @@ export class UserInputComponent implements OnInit {
       this.userService.updateUser(this.getMe()!.id, newUser).subscribe({
         next: () => {
           this.updateView.emit();
+          this.userUpdated.emit();
+          this.popupService.openSnackBar('Email changé', 'lawngreen');
         },
-        error: (error) => console.error('Update error:', error),
+        error: () => {
+          this.popupService.openSnackBar("Erreur lors de l'envoi", 'tomato');
+        },
       });
+    } else {
+      this.popupService.openSnackBar('Format invalide', 'tomato');
     }
   }
 
@@ -121,9 +149,15 @@ export class UserInputComponent implements OnInit {
       this.authService.changePassword(password).subscribe({
         next: () => {
           this.updateView.emit();
+          this.userUpdated.emit();
+          this.popupService.openSnackBar('Mot de passe changé', 'lawngreen');
         },
-        error: (error) => console.error('Update error:', error),
+        error: () => {
+          this.popupService.openSnackBar("Erreur lors de l'envoi", 'tomato');
+        },
       });
+    } else {
+      this.popupService.openSnackBar('Format invalide', 'tomato');
     }
   }
 }

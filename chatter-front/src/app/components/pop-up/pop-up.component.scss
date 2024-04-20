@@ -1,0 +1,14 @@
+@use "../../../assets/scss/colors" as colors;
+@use "../../../assets/scss/global" as global;
+@use "../../../assets/scss/fonts" as fonts;
+
+p {
+  margin: 0;
+  padding: 0;
+  @include fonts.p;
+}
+:host {
+  display: flex;
+}
+
+

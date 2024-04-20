@@ -1,0 +1,8 @@
+<span class="example-pizza-party" matSnackBarLabel >
+  <p [ngStyle]="{'color': color || 'grey'}">
+    {{ message }}
+  </p>
+</span>
+<span matSnackBarActions>
+  <button mat-button matSnackBarAction (click)="snackBarRef.dismissWithAction()"><mat-icon [ngStyle]="{'color': color || 'grey'}">close</mat-icon></button>
+</span>
