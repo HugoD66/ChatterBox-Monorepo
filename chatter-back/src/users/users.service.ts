@@ -8,7 +8,7 @@ import { CreateUserDto } from './dto/create-user.dto';
 import { ResponseUserDto } from './dto/response-user.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { User } from './entities/user.entity';
-import { ILike, Repository } from 'typeorm';
+import { Repository } from 'typeorm';
 import { LoginDto } from './dto/login.dto';
 import { LoginResponseDto } from './dto/login.response.dto';
 import * as bcrypt from 'bcrypt';
@@ -83,7 +83,6 @@ export class UsersService {
   async login(loginDto: LoginDto): Promise<LoginResponseDto> {
     const user: User = await this.usersRepository.findOne({
       where: { email: loginDto.email },
-      relations: ['friends'],
     });
     if (!user) {
       throw new NotFoundException(ValidationErrors.USER_NOT_FOUND);
@@ -99,24 +98,22 @@ export class UsersService {
     return {
       ...user,
       access_token: await this.jwtService.signAsync(payload),
-      friends: user.friends,
+      friends: await this.getFriends(user.id),
     };
   }
 
   async findOne(id: string): Promise<ResponseUserDto> {
-    const test = await this.usersRepository.findOne({
+    return await this.usersRepository.findOne({
       where: { id },
-      relations: ['friends'],
     });
-    return test;
   }
 
   async findAll(): Promise<ResponseUserDto[]> {
-    return this.usersRepository.find();
+    return await this.usersRepository.find();
   }
 
   async findAllUsers(): Promise<User[]> {
-    return this.usersRepository.find();
+    return await this.usersRepository.find();
   }
 
   async update(
@@ -139,6 +136,7 @@ export class UsersService {
       picture: updatedUser.picture,
       createdAt: updatedUser.createdAt,
       roleGeneral: updatedUser.roleGeneral,
+      friendships: updatedUser.friendships,
     };
   }
 
@@ -159,38 +157,25 @@ export class UsersService {
   }
 
   async getFriends(userId: string): Promise<ResponseUserDto[]> {
-    const userFriends: ResponseUserDto[] = await this.usersRepository.find({
-      where: { id: userId },
-      relations: ['friends'],
-    });
+    const userWithFriends: ResponseUserDto = await this.usersRepository
+      .createQueryBuilder('user')
+      .leftJoinAndSelect('user.friendships', 'friendship')
+      .leftJoinAndSelect('friendship.friend', 'friend')
+      .where('user.id = :userId', { userId })
+      .getOne();
+
+    return userWithFriends
+      ? userWithFriends.friendships.map((f) => f.friend)
+      : [];
+  }
+
+  /*
+   async getFriends(findAllByUser: User) {
+    const userFriends =
+      await this.friendUsersService.findAllByUser(findAllByUser);
     return userFriends;
   }
-
-  async addFriend(userId: string, friend: User | string): Promise<void> {
-    const user = await this.usersRepository.findOne({
-      where: { id: userId },
-      relations: ['friends'],
-    });
-    if (friend instanceof User) {
-      if (user && !user.friends.some((f) => f.id === friend.id)) {
-        user.friends.push(friend);
-        await this.usersRepository.save(user);
-      }
-    } else {
-      const friendUser = await this.usersRepository.findOne({
-        where: { id: friend },
-      });
-      if (
-        user &&
-        friendUser &&
-        !user.friends.some((f) => f.id === friendUser.id)
-      ) {
-        user.friends.push(friendUser);
-        await this.usersRepository.save(user);
-      }
-    }
-  }
-
+   */
   async getPasswordInformation(userId: string) {
     const user = await this.usersRepository.findOne({
       where: { id: userId },

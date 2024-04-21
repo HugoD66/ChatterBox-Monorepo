@@ -36,5 +36,5 @@ export class CreateUserDto {
 
   public picture?: string;
 
-  public friends?: User[];
+  //public friends?: User[];
 }

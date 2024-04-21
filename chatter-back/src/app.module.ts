@@ -9,16 +9,19 @@ import { AuthGuard } from './security/auth/auth.guard';
 import { JwtModule } from '@nestjs/jwt';
 import { jwtConstants } from './security/auth/constant';
 import { User } from './users/entities/user.entity';
+import { FriendUser } from './friend-users/entities/friend-user.entity';
 import { APP_GUARD } from '@nestjs/core';
 import { MessageModule } from './message/message.module';
 import { Message } from './message/entities/message.entity';
 import { FixtureModule } from './fixtures/fixture/fixture.module';
+import { FriendUsersModule } from './friend-users/friend-users.module';
 
 @Module({
   imports: [
     UsersModule,
     MessageModule,
     FixtureModule,
+    FriendUsersModule,
     ConfigModule.forRoot({ isGlobal: true }),
     PassportModule.register({ defaultStrategy: `jwt` }),
     JwtModule.register({
@@ -36,7 +39,7 @@ import { FixtureModule } from './fixtures/fixture/fixture.module';
           username: configService.get(`DB_USERNAME`),
           password: configService.get(`DB_PASSWORD`),
           database: configService.get(`DB_NAME`),
-          entities: [User, Message],
+          entities: [User, Message, FriendUser],
           synchronize: true,
         };
         return dbConfig;

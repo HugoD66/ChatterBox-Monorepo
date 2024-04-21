@@ -1,4 +1,4 @@
-import { Component, input, InputSignal } from '@angular/core';
+import { Component, effect, input, InputSignal } from '@angular/core';
 import { MatDivider } from '@angular/material/divider';
 import { MatIcon } from '@angular/material/icon';
 import { DialogService } from '../../../../services/dialog.service';
@@ -12,12 +12,17 @@ import { UserModel } from '../../../../models/user.model';
   styleUrl: './friend-unit.component.scss',
 })
 export class FriendUnitComponent {
-  public friend: InputSignal<UserModel> = input.required<UserModel>();
+  public friend: InputSignal<UserModel | null> =
+    input.required<UserModel | null>();
 
-  constructor(private dialogService: DialogService) {}
+  constructor(private dialogService: DialogService) {
+    effect(() => {
+      //console.log(this.friend());
+    });
+  }
 
   public openDialog(user: UserModel): void {
     console.log(user);
-    this.dialogService.openDialog(this.friend());
+    //this.dialogService.openDialog(this.friend());
   }
 }

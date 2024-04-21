@@ -1,28 +1,28 @@
 <div class="friend-list-content">
   <div class="friend-infos">
     <p>0 en ligne</p>
-    <p>{{ getMe()?.friends?.length }} amis</p>
+    {{ friends()  ?  friends()?.length + ' amis' : 'Aucun amis pour l\'instant'}}
   </div>
   <div class="friend-list">
     @if (isLoading()) {
       <app-loader />
     } @else {
-      @if (getMe()?.friends?.length) {
-        <div class="positive-condition-friend-list">
-          <div class="friends">
-            @for (friend of getMe()?.friends; track friend.id) {
-              <app-friend-unit [friend]="friend" />
-            }
-          </div>
+      <div class="friend-list-loop">
+        <div class="friends">
+          @for (friend of friends(); track friend.id) {
+            <app-friend-unit [friend]="friend" />
+          } @empty {
+            <div class="negative-condition">
+              <p>Vous n'avez aucuns amis pour l'instant</p>
+              <button mat-raised-button class="button-one">
+                Liste des utilisateurs
+              </button>
+            </div>
+          }
         </div>
-      } @else {
-        <div class="negative-condition-friend-list">
-          <p>Vous n'avez aucuns amis pour l'instant</p>
-          <button mat-raised-button class="button-one">
-            Liste des utilisateurs
-          </button>
-        </div>
-      }
+      </div>
+
     }
   </div>
 </div>
+

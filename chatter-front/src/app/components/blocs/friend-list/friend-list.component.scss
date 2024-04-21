@@ -24,7 +24,7 @@
     @include global.bloc;
     @include global.flex-center-column;
     height: 100%;
-    .positive-condition-friend-list {
+    .friend-list-loop {
       height: 90%;
       width: 90%;
       margin: auto;
@@ -35,17 +35,18 @@
         display: flex;
         flex-direction: column;
         overflow-y: auto;
+        .negative-condition {
+          @include global.flex-around-column;
+          height: 100%;
+          p {
+            @include fonts.p;
+          }
+          .button-one {
+            @include global.button-one;
+          }
+        }
       }
     }
-    .negative-condition-friend-list {
-      @include global.flex-around-column;
-      height: 50%;
-      p {
-        @include fonts.p;
-      }
-      .button-one {
-        @include global.button-one;
-      }
-    }
+
   }
 }

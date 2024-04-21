@@ -1,5 +1,4 @@
 import {
-  AfterViewInit,
   ChangeDetectionStrategy,
   Component,
   signal,
@@ -9,7 +8,6 @@ import { AddFriendProfilComponent } from '../../components/blocs/add-friend-prof
 import { AddFriendSearchComponent } from '../../components/blocs/add-friend-search/add-friend-search.component';
 import { FriendProfilComponent } from '../../components/blocs/friend-profil/friend-profil.component';
 import { UserModel } from '../../models/user.model';
-import { UserGeneralRoleEnum } from '../../enum/user.general.role.enum';
 import { AuthService } from '../../services/auth.service';
 import { LoaderComponent } from '../../components/loader/loader.component';
 

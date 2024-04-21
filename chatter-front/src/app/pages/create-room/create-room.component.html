@@ -84,6 +84,11 @@
     -->
   </div>
   <div class="friend-list-content">
-    <app-friend-list [getMe]="getMe()" />
+    @if(isLoading()) {
+      <app-loader />
+    } @else {
+      <app-friend-list [getMe]="getMe()"  />
+
+    }
   </div>
 </div>

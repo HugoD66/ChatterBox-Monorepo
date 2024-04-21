@@ -1,6 +1,8 @@
 import {
   ChangeDetectionStrategy,
   Component,
+  computed,
+  effect,
   input,
   InputSignal,
   signal,
@@ -29,12 +31,19 @@ import { FriendService } from '../../../services/friend.service';
   styleUrl: './friend-list.component.scss',
 })
 export class FriendListComponent {
-  public haveFriends: WritableSignal<boolean> = signal(true);
   public isLoading: WritableSignal<boolean> = signal(true);
-  public getMe: InputSignal<UserModel | null> =
-    input.required<UserModel | null>();
+  public friends: WritableSignal<UserModel[]> = signal([]);
+  public getMe: InputSignal<UserModel> = input.required<UserModel>();
 
   constructor(private friendService: FriendService) {
-    this.isLoading.set(false);
+    effect(() => {
+      if (this.getMe().id) {
+        this.friendService.getFriends(this.getMe().id).subscribe((friends) => {
+          //console.log(friends);
+          this.friends.update(() => friends);
+          this.isLoading.set(false);
+        });
+      }
+    });
   }
 }

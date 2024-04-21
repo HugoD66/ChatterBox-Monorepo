@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { environment } from '../../env';
 import { catchError, Observable, throwError } from 'rxjs';
 
@@ -10,10 +10,19 @@ export class FriendService {
   constructor(private http: HttpClient) {}
 
   getFriends(userId: string): Observable<any> {
-    return this.http.get(`${this.apiUrl}/users/friends/${userId}`).pipe(
-      catchError((error) => {
-        return throwError(() => error);
-      }),
-    );
+    const accessToken = localStorage.getItem(`authToken`);
+
+    return this.http
+      .get(`${this.apiUrl}/friend-users/friends/${userId}`, {
+        headers: new HttpHeaders().set(
+          'Authorization',
+          'Bearer ' + accessToken,
+        ),
+      })
+      .pipe(
+        catchError((error) => {
+          return throwError(() => error);
+        }),
+      );
   }
 }

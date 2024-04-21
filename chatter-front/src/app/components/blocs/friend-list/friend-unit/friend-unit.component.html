@@ -1,21 +1,23 @@
-<div class="friend-unit">
-  <div class="friend-picture-infos">
-    <div class="friend-picture">
-      <img src="./assets/logos/cb-logo-dark-withoutBG.png" alt="" />
-    </div>
-    <div class="friend-infos">
-      <p class="friend-pseudo">{{ friend().pseudo }}</p>
-      <div class="friend-status">
-        <mat-icon class="friend-status-icon">circle</mat-icon>
-        <p>Online</p>
+@if (friend()) {
+  <div class="friend-unit">
+    <div class="friend-picture-infos">
+      <div class="friend-picture">
+        <img src="./assets/logos/cb-logo-dark-withoutBG.png" alt="" />
+      </div>
+      <div class="friend-infos">
+        <p class="friend-pseudo">{{ friend()?.pseudo }}</p>
+        <div class="friend-status">
+          <mat-icon class="friend-status-icon">circle</mat-icon>
+          <p>Online</p>
+        </div>
       </div>
     </div>
+    <div class="friend-actions">
+      <mat-icon class="friend-action-icon"
+      >settings</mat-icon> <!--(click)="openDialog(friend())"-->
+
+      <mat-icon class="friend-action-icon">chat</mat-icon>
+    </div>
   </div>
-  <div class="friend-actions">
-    <mat-icon class="friend-action-icon" (click)="openDialog(friend())"
-      >settings</mat-icon
-    >
-    <mat-icon class="friend-action-icon">chat</mat-icon>
-  </div>
-</div>
-<mat-divider />
+  <mat-divider />
+}

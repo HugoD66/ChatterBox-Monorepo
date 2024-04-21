@@ -2,6 +2,7 @@ import {
   ChangeDetectionStrategy,
   Component,
   OnDestroy,
+  Signal,
   signal,
   WritableSignal,
 } from '@angular/core';
@@ -22,6 +23,9 @@ import { MatIcon, MatIconModule } from '@angular/material/icon';
 import { MatIconButton } from '@angular/material/button';
 import { AuthService } from '../../services/auth.service';
 import { UserModel } from '../../models/user.model';
+import { LoaderComponent } from '../../components/loader/loader.component';
+import { toSignal } from '@angular/core/rxjs-interop';
+import { Observable } from 'rxjs';
 
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -37,22 +41,29 @@ import { UserModel } from '../../models/user.model';
     MatIconButton,
     MatIconModule,
     MatSuffix,
+    LoaderComponent,
   ],
   templateUrl: './create-room.component.html',
   styleUrl: './create-room.component.scss',
 })
 export class CreateRoomComponent implements OnDestroy {
-  public getMe: WritableSignal<UserModel | null> = signal(null);
+  public isLoading: WritableSignal<boolean> = signal(false);
   hide = true;
   selectedFile: File | null = null;
-  public isSelectedFile: WritableSignal<boolean> = signal(false);
 
+  public callGetMe: Observable<UserModel> = this.authService.getMe();
+  public getMe: Signal<UserModel> = toSignal(this.callGetMe, {
+    initialValue: {} as unknown as UserModel,
+  });
+
+  public isSelectedFile: WritableSignal<boolean> = signal(false);
   createRoomForm: FormGroup = new FormGroup({
     nameRoom: new FormControl('', [
       Validators.required,
       Validators.maxLength(15),
       Validators.minLength(3),
     ]),
+
     passwordRoom: new FormControl('', [
       Validators.required,
       Validators.minLength(6),
@@ -60,8 +71,9 @@ export class CreateRoomComponent implements OnDestroy {
   });
 
   constructor(private authService: AuthService) {
-    this.authService.getMe().subscribe((me) => {
-      this.getMe.update(() => me);
+    this.callGetMe.subscribe(() => {
+      console.log(this.getMe());
+      this.isLoading.set(false);
     });
   }
 

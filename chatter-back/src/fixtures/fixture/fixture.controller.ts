@@ -17,6 +17,12 @@ export class FixtureController {
   }
 
   @Public()
+  @Post(`friend-fixtures`)
+  createFriendsFixtures(): Promise<string> {
+    return this.fixtureService.seedFriends();
+  }
+
+  @Public()
   @Delete()
   deleteAllFixtures(): Promise<string> {
     return this.fixtureService.deleteAll();

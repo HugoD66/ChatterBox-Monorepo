@@ -11,6 +11,7 @@ import {
 import { UserGeneralRoleEnum } from './types/user.general.roles.enum';
 import { Message } from '../../message/entities/message.entity';
 import { Exclude } from 'class-transformer';
+import { FriendUser } from '../../friend-users/entities/friend-user.entity';
 
 @Entity()
 export class User {
@@ -51,7 +52,7 @@ export class User {
   })
   receivedMessages: Message[];
 
-  @ManyToMany(() => User)
+  /*@ManyToMany(() => User)
   @JoinTable({
     name: 'friendlist',
     joinColumn: {
@@ -63,5 +64,7 @@ export class User {
       referencedColumnName: 'id',
     },
   })
-  friends: User[];
+  friends: User[];*/
+  @OneToMany(() => FriendUser, (friendship) => friendship.user)
+  friendships: FriendUser[];
 }

@@ -2,6 +2,7 @@ import {
   ChangeDetectionStrategy,
   Component,
   OnInit,
+  Signal,
   signal,
   WritableSignal,
 } from '@angular/core';
@@ -19,6 +20,8 @@ import { LastMessageComponent } from '../../components/blocs/last-message/last-m
 import { FriendListComponent } from '../../components/blocs/friend-list/friend-list.component';
 import { AuthService } from '../../services/auth.service';
 import { AsyncPipe } from '@angular/common';
+import { Observable } from 'rxjs';
+import { toSignal } from '@angular/core/rxjs-interop';
 
 @Component({
   selector: 'app-home',
@@ -40,20 +43,22 @@ import { AsyncPipe } from '@angular/common';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class HomeComponent implements OnInit {
-  public getMe: WritableSignal<UserModel | null> = signal(null);
+  public friends: WritableSignal<UserModel[]> = signal([]);
+  public callGetMe: Observable<UserModel> = this.authService.getMe();
+  public getMe: Signal<UserModel> = toSignal(this.callGetMe, {
+    initialValue: {} as unknown as UserModel,
+  });
 
   constructor(private authService: AuthService) {}
 
   ngOnInit() {
-    //TODO change to this.getMe.set(this.authService.getMeByAuthService());
-    this.authService.getMe().subscribe((me: UserModel) => {
-      this.getMe.update(() => me);
-    });
+    this.callGetMe.subscribe(() => {});
   }
 
   onUserUpdated() {
-    this.authService.getMe().subscribe((me: UserModel) => {
-      this.getMe.update(() => me);
+    //TODO REFRESH NE SE FAIT PAS A L'UPDATE D'UN INPUT
+    this.callGetMe.subscribe(() => {
+      console.log(this.getMe());
     });
   }
 }

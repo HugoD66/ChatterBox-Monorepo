@@ -26,7 +26,7 @@
         </div>
     } @else {
       <div class="add-user-search-result">
-        @for(friend of getMe().friends; track friend.id) {
+        @for(friend of []; track []) {
           <app-add-user-list
             [user]="friend"
             [isFriendPanel]="isPanelFriend()"

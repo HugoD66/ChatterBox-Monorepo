@@ -36,23 +36,24 @@ export interface MessageUnreadModel {
   styleUrl: './last-message.component.scss',
 })
 export class LastMessageComponent {
-  public getMe: InputSignal<UserModel | null> =
-    input.required<UserModel | null>();
+  public getMe: InputSignal<UserModel> = input.required<UserModel>();
   public haveLastMessage: WritableSignal<boolean> = signal(true);
   public isLoading: WritableSignal<boolean> = signal(true);
   public unreadMessages: WritableSignal<MessageModel[] | null> = signal([]);
 
   constructor(public messageService: MessageService) {
     effect(() => {
-      this.messageService
-        .getUnreadMessages(this.getMe()!.id!)
-        .subscribe((messages) => {
-          this.unreadMessages.update(() => messages);
-          if (messages.length === 0) {
-            this.haveLastMessage.set(false);
-          }
-          this.isLoading.set(false);
-        });
+      if (this.getMe().id) {
+        this.messageService
+          .getUnreadMessages(this.getMe().id)
+          .subscribe((messages) => {
+            this.unreadMessages.update(() => messages);
+            if (messages.length === 0) {
+              this.haveLastMessage.set(false);
+            }
+            this.isLoading.set(false);
+          });
+      }
     });
   }
 }
