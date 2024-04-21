@@ -1,0 +1,57 @@
+@use "../../../../assets/scss/colors" as colors;
+@use "../../../../assets/scss/global" as global;
+@use "../../../../assets/scss/fonts" as fonts;
+
+.add-user-list-unit {
+  box-shadow: 0 0 10px rgba(68, 68, 68, 0.1);
+  border: 2px solid rgba(68, 68, 68, 0.1);
+  @include global.flex-center-row-between;
+  width: 100%;
+  position: relative;
+  border-radius: 50px 10px 10px 50px;
+  transition:
+    box-shadow 0.3s,
+    background-color 0.3s;
+  cursor: pointer;
+  &:hover {
+    transition:
+      box-shadow 0.8s,
+      background-color 0.8s;
+    box-shadow: 0 0 10px rgba(57, 57, 57, 0.2);
+    background-color: #e3e3e3;
+  }
+  .picture-pseudo {
+    @include global.flex-center-row-center;
+    img {
+      border-radius: 90%;
+      width: 100px;
+      height: 100px;
+      @include global.input-bloc;
+    }
+    p {
+      margin-left: 30px;
+      margin-bottom: 30px;
+      @include fonts.p;
+      font-size: 1.2em;
+      color: colors.$gradient-dark-g;
+      text-wrap: nowrap;
+    }
+  }
+  .bloc-information {
+    margin-bottom: 55px;
+    margin-right: 10px;
+    text-align: end;
+    p {
+      margin: 0;
+      @include fonts.p;
+      font-size: 0.8em;
+    }
+  }
+  .created-or-friend-since {
+    position: absolute;
+    right: 5px;
+    bottom: 5px;
+    @include fonts.subtitle;
+    font-size: 0.8em;
+  }
+}

@@ -1,8 +1,10 @@
 <div class="add-friend-content">
-  <app-friend-profil [friend]="friend()" />
-  <!-- <app-add-friend-profil /> -->
-  <!--TODO NOUVEAU TEMPALTE ?-->
+  <app-friend-profil [friend]="profilSelected()!" />
+
   @if (getMe()) {
-    <app-add-friend-search [getMe]="this.getMe()!" />
+    <app-add-friend-search
+      [getMe]="this.getMe()!"
+      (onUserclick)="this.onUserclick($event)"
+    />
   }
 </div>

@@ -2,8 +2,11 @@ import {
   AfterViewInit,
   ChangeDetectionStrategy,
   Component,
+  effect,
+  EventEmitter,
   input,
   InputSignal,
+  Output,
   signal,
   WritableSignal,
 } from '@angular/core';
@@ -15,7 +18,6 @@ import { UserService } from '../../../services/user.service';
 
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,
-
   selector: 'app-add-friend-search',
   standalone: true,
   imports: [SearchbarComponent, LoaderComponent, AddUserListComponent],
@@ -25,17 +27,36 @@ import { UserService } from '../../../services/user.service';
 export class AddFriendSearchComponent {
   public isLoading: WritableSignal<boolean> = signal(true);
   public userList: WritableSignal<UserModel[]> = signal([]);
-  public isFriendsFound: WritableSignal<boolean> = signal(false);
+  public searchResult: WritableSignal<UserModel[]> = signal([]);
   public getMe: InputSignal<UserModel> = input.required<UserModel>();
+  public isPanelFriend: WritableSignal<boolean> = signal(true);
+  public userProfil: WritableSignal<UserModel | null> = signal(null);
+  @Output() public onUserclick = new EventEmitter<UserModel>();
 
   constructor(private userService: UserService) {
     this.userService.getUserList().subscribe((users: UserModel[]) => {
       this.userList.set(users);
+      this.searchResult.set(users);
       this.isLoading.set(false);
+      console.log(this.getMe());
+      console.log(this.userList());
     });
   }
 
   onSearch($event: string) {
-    console.log($event, 'search');
+    const searchResult: UserModel[] = this.userList().filter(
+      (user: UserModel) =>
+        user.pseudo.toLowerCase().includes($event.toLowerCase()),
+    );
+    this.searchResult.set(searchResult);
+  }
+
+  public async changePanel() {
+    this.isPanelFriend.set(!this.isPanelFriend());
+  }
+
+  setUserInformation($event: UserModel) {
+    this.userProfil.set($event);
+    this.onUserclick.emit($event);
   }
 }

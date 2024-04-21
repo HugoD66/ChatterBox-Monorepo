@@ -13,6 +13,7 @@ import {
   UseInterceptors,
   UploadedFile,
   Put,
+  Query,
 } from '@nestjs/common';
 import { UsersService } from './users.service';
 import { CreateUserDto } from './dto/create-user.dto';
@@ -119,7 +120,6 @@ export class UsersController {
     return this.usersService.remove(id);
   }
 
-  // FRIENDS
   @Public()
   @Get(`/friends/:userId`)
   async getFriends(@Param('userId') userId: string) {

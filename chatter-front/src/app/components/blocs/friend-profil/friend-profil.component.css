@@ -101,5 +101,9 @@
     font-size: 0.8em;
   }
 }
+.friend-profil-content .loading-profil {
+  width: 100%;
+  margin: auto;
+}
 
 /*# sourceMappingURL=friend-profil.component.css.map */

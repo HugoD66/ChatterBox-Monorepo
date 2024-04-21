@@ -1,8 +1,6 @@
 import {
   ChangeDetectionStrategy,
   Component,
-  input,
-  InputSignal,
   OnInit,
   signal,
   WritableSignal,
@@ -33,7 +31,7 @@ export class AppComponent implements OnInit {
       this.authService.getMe().subscribe((me: UserModel) => {
         this.user.update(() => me);
         if (this.user()) {
-          this.router.navigate(['']);
+          //this.router.navigate(['']);
         }
       });
     }

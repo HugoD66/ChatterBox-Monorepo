@@ -1,23 +1,30 @@
 import {
   ChangeDetectionStrategy,
   Component,
+  EventEmitter,
   input,
   InputSignal,
+  Output,
 } from '@angular/core';
 import { UserModel } from '../../../models/user.model';
-import { AddUserListUnitComponent } from './add-user-list-unit/add-user-list-unit.component';
+import { environment } from '../../../../env';
+import { DatePipe } from '@angular/common';
 
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,
-
   selector: 'app-add-user-list',
   standalone: true,
-  imports: [AddUserListUnitComponent],
+  imports: [DatePipe],
   templateUrl: './add-user-list.component.html',
   styleUrl: './add-user-list.component.scss',
 })
 export class AddUserListComponent {
-  public users: InputSignal<UserModel[]> = input.required<UserModel[]>();
+  @Output() public onUserclick = new EventEmitter<UserModel>();
+  protected apiUrl = environment.apiUrl;
 
+  public user: InputSignal<UserModel> = input.required<UserModel>();
+  public isFriendPanel: InputSignal<boolean> = input.required<boolean>();
   constructor() {}
+
+  protected readonly console = console;
 }

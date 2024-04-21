@@ -5,9 +5,7 @@
   </div>
   <div class="friend-list">
     @if (isLoading()) {
-      <!-- TODO Garder ca ? -->
       <app-loader />
-      <!-- TODO fin -->
     } @else {
       @if (getMe()?.friends?.length) {
         <div class="positive-condition-friend-list">

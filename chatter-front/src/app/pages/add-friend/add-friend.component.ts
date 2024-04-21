@@ -1,4 +1,5 @@
 import {
+  AfterViewInit,
   ChangeDetectionStrategy,
   Component,
   signal,
@@ -10,6 +11,7 @@ import { FriendProfilComponent } from '../../components/blocs/friend-profil/frie
 import { UserModel } from '../../models/user.model';
 import { UserGeneralRoleEnum } from '../../enum/user.general.role.enum';
 import { AuthService } from '../../services/auth.service';
+import { LoaderComponent } from '../../components/loader/loader.component';
 
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -19,23 +21,23 @@ import { AuthService } from '../../services/auth.service';
     AddFriendProfilComponent,
     AddFriendSearchComponent,
     FriendProfilComponent,
+    LoaderComponent,
   ],
   templateUrl: './add-friend.component.html',
   styleUrl: './add-friend.component.scss',
 })
 export class AddFriendComponent {
   public getMe: WritableSignal<UserModel | null> = signal(null);
-  public friend: WritableSignal<UserModel> = signal({
-    id: '1',
-    pseudo: 'Alice',
-    email: 'alice@example.com',
-    picture: 'path/to/alice.jpg',
-    createdAt: new Date('2024-01-01'),
-    roleGeneral: UserGeneralRoleEnum.User,
-  });
+  public profilSelected: WritableSignal<UserModel | null> = signal(null);
+
   constructor(private authService: AuthService) {
     this.authService.getMe().subscribe((me: UserModel) => {
       this.getMe.update(() => me);
+      this.profilSelected.update(() => me);
     });
+  }
+
+  onUserclick($event: UserModel) {
+    this.profilSelected.set($event);
   }
 }

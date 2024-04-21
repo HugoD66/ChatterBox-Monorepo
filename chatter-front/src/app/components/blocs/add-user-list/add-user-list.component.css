@@ -1,1 +1,62 @@
+.add-user-list-unit {
+  box-shadow: 0 0 10px rgba(68, 68, 68, 0.1);
+  border: 2px solid rgba(68, 68, 68, 0.1);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-direction: row;
+  width: 100%;
+  position: relative;
+  border-radius: 50px 10px 10px 50px;
+  transition: box-shadow 0.3s, background-color 0.3s;
+  cursor: pointer;
+}
+.add-user-list-unit:hover {
+  transition: box-shadow 0.8s, background-color 0.8s;
+  box-shadow: 0 0 10px rgba(57, 57, 57, 0.2);
+  background-color: #e3e3e3;
+}
+.add-user-list-unit .picture-pseudo {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
+}
+.add-user-list-unit .picture-pseudo img {
+  border-radius: 90%;
+  width: 100px;
+  height: 100px;
+  box-shadow: 0px 0px 4px 0px rgba(156, 156, 156, 0.75);
+}
+.add-user-list-unit .picture-pseudo p {
+  margin-left: 30px;
+  margin-bottom: 30px;
+  font-family: "JostRegular", sans-serif;
+  font-size: 1.05em;
+  font-size: 1.2em;
+  color: rgb(39, 39, 39);
+  text-wrap: nowrap;
+}
+.add-user-list-unit .bloc-information {
+  margin-bottom: 55px;
+  margin-right: 10px;
+  text-align: end;
+}
+.add-user-list-unit .bloc-information p {
+  margin: 0;
+  font-family: "JostRegular", sans-serif;
+  font-size: 1.05em;
+  font-size: 0.8em;
+}
+.add-user-list-unit .created-or-friend-since {
+  position: absolute;
+  right: 5px;
+  bottom: 5px;
+  font-size: 0.9em;
+  color: rgb(39, 39, 39);
+  font-family: "JostLight", sans-serif;
+  margin: 0;
+  font-size: 0.8em;
+}
+
 /*# sourceMappingURL=add-user-list.component.css.map */

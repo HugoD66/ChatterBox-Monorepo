@@ -1,8 +1,9 @@
-.my-spinner {
+mat-spinner {
+  margin: auto !important;
   width: 100px !important;
   height: 100px !important;
 }
-.my-spinner circle {
+mat-spinner circle {
   stroke: #ff0000 !important;
 }
 

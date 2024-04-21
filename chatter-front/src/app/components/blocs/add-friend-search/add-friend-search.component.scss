@@ -1,12 +1,50 @@
 @use "../../../../assets/scss/colors" as colors;
 @use "../../../../assets/scss/global" as global;
+@use "../../../../assets/scss/fonts" as fonts;
 
 .add-friend-search-content {
-  @include global.bloc;
   height: 64vh;
   margin: auto;
+  top: 0;
+  @include global.bloc;
   @include global.flex-around-column-center;
-  .negative-condition-friend-found {
+  .title-search {
+    margin: 2%;
+    width: 96%;
+    height: 15%;
+    @include global.flex-center-row-between;
+    .title-selection-panel {
+      @include global.flex-center-row-between;
+      margin-left: 15px;
+      span {
+        @include fonts.subtitle;
+        margin-left: 40px;
+        margin-top: 5px;
+        cursor: pointer;
+      }
+    }
+  }
+  .negative-condition-found {
     color: colors.$dark-b;
+    height: 75%;
+    margin: auto;
+    @include global.flex-around-column-center;
+  }
+  .add-user-search-result {
+    overflow-y: auto;
+    width: 98%;
+    height: 75%;
+    margin: auto;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: start;
+    flex-direction: row;
+    .content-unit-user {
+      width: 45%;
+      margin: 15px;
+      @media screen and (max-width: 600px) {
+        width: 96%;
+      }
+    }
   }
 }

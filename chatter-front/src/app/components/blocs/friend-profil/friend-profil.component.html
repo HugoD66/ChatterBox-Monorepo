@@ -1,18 +1,22 @@
 <div class="friend-profil-content">
-  <div class="friend-profil-info-picture">
-    <img
-      src="./assets/logos/cb-logo-dark-withoutBG.png"
-      alt="Photo de profil de l'utilisateur"
-    />
-    <div class="friend-profil-infos">
-      <h3 class="friend-profil-infos-pseudo">{{ friend().pseudo }}</h3>
-      <p class="friend-profil-infos-email">{{ friend().email }}</p>
+  @if(!friend()) {
+    <app-loader class="loading-profil"/>
+  } @else {
+    <div class="friend-profil-info-picture">
+      <img
+        src="./assets/logos/cb-logo-dark-withoutBG.png"
+        alt="Photo de profil de l'utilisateur"
+      />
+      <div class="friend-profil-infos">
+        <h3 class="friend-profil-infos-pseudo">{{ friend().pseudo }}</h3>
+        <p class="friend-profil-infos-email">{{ friend().email }}</p>
+      </div>
     </div>
-  </div>
-  <div class="friend-profil-footer">
-    <mat-icon class="friend-footer-setting-icon" (click)="openDialog(friend())"
+    <div class="friend-profil-footer">
+      <mat-icon class="friend-footer-setting-icon" (click)="openDialog(friend())"
       >settings</mat-icon
-    >
-    <p>Amis depuis le 04/08/2012</p>
-  </div>
+      >
+      <p>Amis depuis le 04/08/2012</p>
+    </div>
+  }
 </div>
