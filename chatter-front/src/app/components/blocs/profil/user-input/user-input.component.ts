@@ -86,7 +86,7 @@ export class UserInputComponent implements OnInit {
     }
   }
 
-  async onSubmitPseudo() {
+  public async onSubmitPseudo() {
     if (
       !this.userFormService.updateFormPseudo.valid ||
       this.userFormService.updateFormPseudo.value.pseudo == null
@@ -114,7 +114,7 @@ export class UserInputComponent implements OnInit {
     }
   }
 
-  async onSubmitEmail() {
+  public async onSubmitEmail() {
     if (
       this.userFormService.updateFormEmail.valid &&
       this.userFormService.updateFormEmail.value.email != null
@@ -138,7 +138,7 @@ export class UserInputComponent implements OnInit {
     }
   }
 
-  async onSubmitPassword() {
+  public async onSubmitPassword() {
     if (
       this.userFormService.updateFormPassword.valid &&
       this.userFormService.updateFormPassword.value.password != null
@@ -158,6 +158,20 @@ export class UserInputComponent implements OnInit {
       });
     } else {
       this.popupService.openSnackBar('Format invalide', 'tomato');
+    }
+  }
+
+  public async resetInput() {
+    switch (this.key()) {
+      case 'Pseudo':
+        this.userFormService.updateFormPseudo.reset();
+        break;
+      case 'Email':
+        this.userFormService.updateFormEmail.reset();
+        break;
+      case 'Password':
+        this.userFormService.updateFormPassword.reset();
+        break;
     }
   }
 }
