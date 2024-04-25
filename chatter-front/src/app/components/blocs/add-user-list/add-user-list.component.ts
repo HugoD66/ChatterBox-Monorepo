@@ -1,6 +1,7 @@
 import {
   ChangeDetectionStrategy,
   Component,
+  effect,
   EventEmitter,
   input,
   InputSignal,
@@ -19,12 +20,15 @@ import { DatePipe } from '@angular/common';
   styleUrl: './add-user-list.component.scss',
 })
 export class AddUserListComponent {
-  @Output() public onUserclick = new EventEmitter<UserModel>();
+  @Output() public onUserclick: EventEmitter<UserModel> =
+    new EventEmitter<UserModel>();
   protected apiUrl = environment.apiUrl;
 
   public user: InputSignal<UserModel> = input.required<UserModel>();
   public isFriendPanel: InputSignal<boolean> = input.required<boolean>();
-  constructor() {}
-
-  protected readonly console = console;
+  constructor() {
+    effect(() => {
+      console.log(this.user());
+    });
+  }
 }

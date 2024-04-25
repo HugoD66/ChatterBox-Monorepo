@@ -105,6 +105,7 @@ export class UsersService {
   async findOne(id: string): Promise<ResponseUserDto> {
     return await this.usersRepository.findOne({
       where: { id },
+      relations: ['friendships', 'friendships.friend'],
     });
   }
 

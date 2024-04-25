@@ -11,7 +11,6 @@ export class FriendService {
 
   getFriends(userId: string): Observable<any> {
     const accessToken = localStorage.getItem(`authToken`);
-
     return this.http
       .get(`${this.apiUrl}/friend-users/friends/${userId}`, {
         headers: new HttpHeaders().set(

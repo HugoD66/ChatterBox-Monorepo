@@ -1,4 +1,9 @@
-<div class="add-friend-search-content">
+
+
+  <div class="add-friend-search-content">
+    @if (isLoading()) {
+      <app-loader />
+    } @else {
   <div class="title-search">
     <div class="title-selection-panel">
       <h2>{{isPanelFriend() ? 'Les utilisateurs' : 'Vos amis'}}</h2>
@@ -6,9 +11,7 @@
     </div>
     <app-searchbar (searchEvent)="onSearch($event)" />
   </div>
-  @if (isLoading()) {
-    <app-loader />
-  } @else {
+
     @if(isPanelFriend()) {
         <div class="add-user-search-result">
           @for(user of searchResult(); track user.id) {
@@ -26,7 +29,7 @@
         </div>
     } @else {
       <div class="add-user-search-result">
-        @for(friend of []; track []) {
+        @for(friend of getMe().friendships; track friend.id) {
           <app-add-user-list
             [user]="friend"
             [isFriendPanel]="isPanelFriend()"
@@ -40,5 +43,6 @@
         }
       </div>
     }
-  }
+    }
+
 </div>

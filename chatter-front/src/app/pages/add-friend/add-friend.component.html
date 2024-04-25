@@ -1,9 +1,7 @@
 <div class="add-friend-content">
   <app-friend-profil [friend]="profilSelected()!" />
-  @if (getMe()) {
-    <app-add-friend-search
-      [getMe]="this.getMe()!"
-      (onUserclick)="this.onUserclick($event)"
-    />
-  }
+  <app-add-friend-search
+    [getMe]="this.getMe()!"
+    (onUserclick)="this.onUserclick($event)"
+  />
 </div>

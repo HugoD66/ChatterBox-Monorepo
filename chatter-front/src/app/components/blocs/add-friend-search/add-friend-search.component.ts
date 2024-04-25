@@ -1,5 +1,4 @@
 import {
-  AfterViewInit,
   ChangeDetectionStrategy,
   Component,
   effect,
@@ -7,7 +6,6 @@ import {
   input,
   InputSignal,
   Output,
-  Signal,
   signal,
   WritableSignal,
 } from '@angular/core';
@@ -16,9 +14,6 @@ import { LoaderComponent } from '../../loader/loader.component';
 import { UserModel } from '../../../models/user.model';
 import { AddUserListComponent } from '../add-user-list/add-user-list.component';
 import { UserService } from '../../../services/user.service';
-import { Observable } from 'rxjs';
-import { toSignal } from '@angular/core/rxjs-interop';
-import { FriendService } from '../../../services/friend.service';
 
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -36,12 +31,10 @@ export class AddFriendSearchComponent {
   public isPanelFriend: WritableSignal<boolean> = signal(true);
   public userProfil: WritableSignal<UserModel | null> = signal(null);
 
-  @Output() public onUserclick = new EventEmitter<UserModel>();
+  @Output() public onUserclick: EventEmitter<UserModel> =
+    new EventEmitter<UserModel>();
 
-  constructor(
-    private userService: UserService,
-    private friendService: FriendService,
-  ) {
+  constructor(private userService: UserService) {
     this.userService.getUserList().subscribe((users: UserModel[]) => {
       this.userList.set(users);
       this.searchResult.set(users);
