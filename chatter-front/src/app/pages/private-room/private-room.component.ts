@@ -1,19 +1,24 @@
 import {
-  AfterViewInit,
+  ChangeDetectionStrategy,
   Component,
-  OnInit,
+  computed,
+  effect,
+  input,
+  InputSignal,
+  Signal,
   signal,
   WritableSignal,
 } from '@angular/core';
 import { FriendProfilComponent } from '../../components/blocs/friend-profil/friend-profil.component';
 import { DiscussionComponent } from '../../components/blocs/discussion/discussion.component';
 import { UserModel } from '../../models/user.model';
-import { UserGeneralRoleEnum } from '../../enum/user.general.role.enum';
 import { MessageModel } from '../../models/message.model';
 import { MessageService } from '../../services/message.service';
 import { AuthService } from '../../services/auth.service';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
+  changeDetection: ChangeDetectionStrategy.OnPush,
   selector: 'app-private-room',
   standalone: true,
   imports: [FriendProfilComponent, DiscussionComponent],
@@ -25,28 +30,34 @@ export class PrivateRoomComponent {
   //TODO !!! Erreur sur le messageServiceGetDiscussion
   public messages: WritableSignal<MessageModel[]> = signal([]);
   public getMe: WritableSignal<UserModel | null> = signal(null);
+  public friendSelectedId: WritableSignal<string> = signal('');
 
-  public friend: WritableSignal<UserModel> = signal({
-    id: '181d1ae7-bcf2-4080-a517-0055fa34b4bd',
-    pseudo: 'Alice',
-    email: 'alice@example.com',
-    picture: 'path/to/alice.jpg',
-    createdAt: new Date('2024-01-01'),
-    roleGeneral: UserGeneralRoleEnum.User,
-  });
+  public friend: WritableSignal<UserModel> = signal({} as UserModel);
 
   constructor(
     private messageService: MessageService,
     private authService: AuthService,
+    private route: ActivatedRoute,
   ) {
-    //TODO change to this.getMe.set(this.authService.getMeByAuthService());
+    this.route.params.subscribe((params) => {
+      this.friendSelectedId.set(params['friendId']);
+    });
+
     this.authService.getMe().subscribe((me: UserModel) => {
       this.getMe.update(() => me);
       this.messageService
-        .getDiscussion(this.friend().id, this.getMe()!.id)
+        .getDiscussion(this.friendSelectedId(), this.getMe()!.id)
         .subscribe((messages) => {
           this.messages.update(() => messages);
         });
     });
+
+    this.getMe()?.friendships?.forEach((friend) => {
+      console.log(friend.friend);
+      if (this.friendSelectedId() === friend.friend.id) {
+        this.friend.update(() => friend.friend);
+      }
+    });
+    effect(() => {}, { allowSignalWrites: true });
   }
 }

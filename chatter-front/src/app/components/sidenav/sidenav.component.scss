@@ -2,7 +2,6 @@
 @use "../../../assets/scss/global" as global;
 
 mat-sidenav {
-  display: flex;
   top: 0;
   left: 0;
   bottom: 0;
@@ -11,6 +10,12 @@ mat-sidenav {
   opacity: 1;
   position: fixed;
   //position: absolute;
+  //@include global.flex-around-column;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  height: 100%;
   @media screen and (max-width: 600px) {
     width: 100vw !important;
     height: 100vh !important;
@@ -23,5 +28,30 @@ mat-sidenav {
   }
   &.collapsed {
     width: 5em !important; //5
+  }
+  .logo-title-content {
+    height: 10vh;
+    .logo-chatter-box {
+      width: 50px;
+    }
+  }
+  .count-buttons-actions {
+    @include global.flex-center-row-center;
+    height: 10vh;
+    .action-friend, .action-room-list {
+      @include global.flex-center;
+      .icon-friend {
+        width: 30px;
+      }
+    }
+  }
+  .contact-content {
+    height: 35vh;
+  }
+  .room-content {
+    height: 35vh;
+  }
+  .icons-actions-content {
+    height: 10vh;
   }
 }

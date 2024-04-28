@@ -29,7 +29,7 @@ import { AuthService } from '../../services/auth.service';
 export class LayoutComponent {
   public getMe: WritableSignal<UserModel | null> = signal(null);
   public isSidenavExpanded: boolean = true;
-  public sidebarCollapsed = signal(false);
+  public sidebarCollapsed = signal(true);
 
   constructor(
     private router: Router,

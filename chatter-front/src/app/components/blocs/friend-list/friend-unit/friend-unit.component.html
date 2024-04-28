@@ -2,7 +2,17 @@
   <div class="friend-unit">
     <div class="friend-picture-infos">
       <div class="friend-picture">
-        <img src="./assets/logos/cb-logo-dark-withoutBG.png" alt="" />
+        @if (friend()?.picture) {
+          <img
+            src="{{ apiUrl }}/./{{ friend()?.picture }}"
+            alt="image de profil de l'utilisateur"
+          />
+        } @else {
+          <img
+            src="./assets/pictures/avatar-withoutBG.png"
+            alt="image de profil par defaut"
+          />
+        }
       </div>
       <div class="friend-infos">
         <p class="friend-pseudo">{{ friend()?.pseudo }}</p>
@@ -13,10 +23,22 @@
       </div>
     </div>
     <div class="friend-actions">
-      <mat-icon class="friend-action-icon"
-      >settings</mat-icon> <!--(click)="openDialog(friend())"-->
-
-      <mat-icon class="friend-action-icon">chat</mat-icon>
+      <mat-icon class="friend-action-icon">settings</mat-icon>
+      <!--(click)="openDialog(friend())"-->
+      @if (isPanelAddFriendToRoom()) {
+        @if (isAdded()) {
+          <mat-icon (click)="removeFriend(friend()!)" class="friend-action-icon"
+            >remove</mat-icon
+          >
+        } @else {
+          <mat-icon (click)="addFriend(friend()!)" class="friend-action-icon"
+            >add</mat-icon
+          >
+        }
+      }
+      <mat-icon (click)="onPrivateChat(friend()!)" class="friend-action-icon"
+        >chat</mat-icon
+      >
     </div>
   </div>
   <mat-divider />

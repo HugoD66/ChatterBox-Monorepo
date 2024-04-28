@@ -3,7 +3,7 @@
 @use "../../../../assets/scss/fonts" as fonts;
 
 .add-friend-search-content {
-  height: 64vh;
+  //max-height: 64vh;
   margin: auto;
   top: 0;
   @include global.bloc;

@@ -19,10 +19,13 @@
       }
     }
     .friend-infos {
+      height: 100%;
       margin-left: 5%;
+      @include global.flex-center-column;
+      margin-bottom: 5%;
       .friend-pseudo {
         @include fonts.p;
-        margin-bottom: 9%;
+        margin-bottom: 10%;
       }
       .friend-status {
         display: flex;
@@ -43,14 +46,18 @@
   .friend-actions {
     .friend-action-icon {
       padding: 10px;
+      margin: 5px;
+      //background-color: red;
       color: colors.$back-b;
+      border-radius: 90%;
+      @include global.input-bloc;
+
     }
   }
 }
 .white-icon {
   color: white;
 }
-/* Note: If you're using an SVG icon, you should make the class target the `<svg>` element */
 .white-icon svg {
   fill: white;
 }

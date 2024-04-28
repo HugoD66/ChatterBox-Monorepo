@@ -1,5 +1,4 @@
 mat-sidenav {
-  display: flex;
   top: 0;
   left: 0;
   bottom: 0;
@@ -7,6 +6,11 @@ mat-sidenav {
   transition: width 0.3s ease;
   opacity: 1;
   position: fixed;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  height: 100%;
 }
 @media screen and (max-width: 600px) {
   mat-sidenav {
@@ -24,6 +28,36 @@ mat-sidenav.expanded {
 }
 mat-sidenav.collapsed {
   width: 5em !important;
+}
+mat-sidenav .logo-title-content {
+  height: 10vh;
+}
+mat-sidenav .logo-title-content .logo-chatter-box {
+  width: 50px;
+}
+mat-sidenav .count-buttons-actions {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
+  height: 10vh;
+}
+mat-sidenav .count-buttons-actions .action-friend, mat-sidenav .count-buttons-actions .action-room-list {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+mat-sidenav .count-buttons-actions .action-friend .icon-friend, mat-sidenav .count-buttons-actions .action-room-list .icon-friend {
+  width: 30px;
+}
+mat-sidenav .contact-content {
+  height: 35vh;
+}
+mat-sidenav .room-content {
+  height: 35vh;
+}
+mat-sidenav .icons-actions-content {
+  height: 10vh;
 }
 
 /*# sourceMappingURL=sidenav.component.css.map */

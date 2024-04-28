@@ -1,7 +1,11 @@
 <div class="friend-list-content">
   <div class="friend-infos">
     <p>0 en ligne</p>
-    {{ friends()  ?  friends()?.length + ' amis' : 'Aucun amis pour l\'instant'}}
+    <p>
+      {{
+        friends() ? friends()?.length + " amis" : "Aucun amis pour l'instant"
+      }}
+    </p>
   </div>
   <div class="friend-list">
     @if (isLoading()) {
@@ -10,7 +14,10 @@
       <div class="friend-list-loop">
         <div class="friends">
           @for (friend of friends(); track friend.id) {
-            <app-friend-unit [friend]="friend" />
+            <app-friend-unit
+              [friend]="friend"
+              [isPanelAddFriendToRoom]="isPanelAddFriendToRoom()"
+            />
           } @empty {
             <div class="negative-condition">
               <p>Vous n'avez aucuns amis pour l'instant</p>
@@ -21,8 +28,6 @@
           }
         </div>
       </div>
-
     }
   </div>
 </div>
-

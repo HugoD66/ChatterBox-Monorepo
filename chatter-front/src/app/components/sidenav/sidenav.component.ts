@@ -17,6 +17,8 @@ import { MatButton } from '@angular/material/button';
 import { UserModel } from '../../models/user.model';
 import { Router } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
+import { MatDivider } from '@angular/material/divider';
+import { MatIcon } from '@angular/material/icon';
 
 enum SidebarModeEnum {
   COLLAPSED = 'collapsed',
@@ -33,6 +35,8 @@ enum SidebarModeEnum {
     MatDrawer,
     MatDrawerContainer,
     MatButton,
+    MatDivider,
+    MatIcon,
   ],
   templateUrl: './sidenav.component.html',
   styleUrl: './sidenav.component.scss',
@@ -41,7 +45,7 @@ export class SidenavComponent {
   public getMe: InputSignal<UserModel | null> =
     input.required<UserModel | null>();
   public sidebarActivatedMode = signal(SidebarModeEnum.EXPANDED);
-  public isExpanded = signal(true);
+  public isExpanded = signal(false);
   @Output() isExpandedChange = new EventEmitter<boolean>();
   @Output() removeGetMe = new EventEmitter<UserModel>();
 

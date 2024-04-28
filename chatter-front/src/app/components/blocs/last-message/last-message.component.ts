@@ -26,12 +26,7 @@ export interface MessageUnreadModel {
   changeDetection: ChangeDetectionStrategy.OnPush,
   selector: 'app-last-message',
   standalone: true,
-  imports: [
-    MatButton,
-    LoaderComponent,
-    FriendUnitComponent,
-    LastMessageUnitComponent,
-  ],
+  imports: [MatButton, LoaderComponent, LastMessageUnitComponent],
   templateUrl: './last-message.component.html',
   styleUrl: './last-message.component.scss',
 })

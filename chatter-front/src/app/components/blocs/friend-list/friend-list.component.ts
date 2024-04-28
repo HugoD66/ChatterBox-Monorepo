@@ -5,6 +5,7 @@ import {
   effect,
   input,
   InputSignal,
+  model,
   signal,
   WritableSignal,
 } from '@angular/core';
@@ -34,6 +35,7 @@ export class FriendListComponent {
   public isLoading: WritableSignal<boolean> = signal(true);
   public friends: WritableSignal<UserModel[]> = signal([]);
   public getMe: InputSignal<UserModel> = input.required<UserModel>();
+  public isPanelAddFriendToRoom: InputSignal<boolean> = input.required();
 
   constructor(private friendService: FriendService) {
     effect(() => {

@@ -1,11 +1,15 @@
 .add-friend-search-content {
-  height: 64vh;
   margin: auto;
   top: 0;
   border-radius: 16px;
   box-shadow: 0 0 10px rgba(68, 68, 68, 0.1);
   border: 2px solid rgba(68, 68, 68, 0.1);
-  background: linear-gradient(110deg, rgb(237, 244, 255) 0%, white 48%, rgb(237, 244, 255) 100%);
+  background: linear-gradient(
+    110deg,
+    rgb(237, 244, 255) 0%,
+    white 48%,
+    rgb(237, 244, 255) 100%
+  );
   display: flex;
   justify-content: space-around;
   align-items: center;

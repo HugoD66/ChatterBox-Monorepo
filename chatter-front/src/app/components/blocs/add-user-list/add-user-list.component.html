@@ -1,7 +1,10 @@
 <div class="add-user-list-unit" (click)="onUserclick.emit(user())">
   <div class="picture-pseudo">
     @if (user().picture) {
-      <img src="{{apiUrl}}/./{{user().picture}}" alt="image de profil de l'utilisateur" />
+      <img
+        src="{{ apiUrl }}/./{{ user().picture }}"
+        alt="image de profil de l'utilisateur"
+      />
     } @else {
       <img
         src="./assets/pictures/avatar-withoutBG.png"
@@ -10,13 +13,17 @@
     }
     <p>{{ user().pseudo }}</p>
   </div>
-  <div class="bloc-information" >
+  <div class="bloc-information">
     <p>10 serveurs en commun</p>
     <p>8 amis en commun</p>
   </div>
   <span class="created-or-friend-since">
     <i>
-      {{isFriendPanel() ? "Compte créé le:" + (user().createdAt | date: "dd/MM/yyyy") :  '' }}
+      {{
+        isFriendPanel()
+          ? "Compte créé le:" + (user().createdAt | date: "dd/MM/yyyy")
+          : "Amis depuis le:"
+      }}
       <!--user().friendSince | date: "dd/MM/yyyy"    ......     ("Amis depuis le:" + '' | date: "dd/MM/yyyy")-->
     </i>
   </span>

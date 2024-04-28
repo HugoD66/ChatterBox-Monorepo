@@ -24,11 +24,11 @@ export class AddUserListComponent {
     new EventEmitter<UserModel>();
   protected apiUrl = environment.apiUrl;
 
-  public user: InputSignal<UserModel> = input.required<UserModel>();
+  public user: InputSignal<any> = input.required<UserModel>();
   public isFriendPanel: InputSignal<boolean> = input.required<boolean>();
   constructor() {
     effect(() => {
-      console.log(this.user());
+      //console.log(this.user());
     });
   }
 }

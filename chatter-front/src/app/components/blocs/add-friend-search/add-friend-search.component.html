@@ -1,35 +1,34 @@
-
-
-  <div class="add-friend-search-content">
-    @if (isLoading()) {
-      <app-loader />
-    } @else {
-  <div class="title-search">
-    <div class="title-selection-panel">
-      <h2>{{isPanelFriend() ? 'Les utilisateurs' : 'Vos amis'}}</h2>
-      <span (click)="changePanel()">{{isPanelFriend() ? 'Vos amis' : 'Les utilisateurs' }}</span>
+<div class="add-friend-search-content">
+  @if (isLoading()) {
+    <app-loader />
+  } @else {
+    <div class="title-search">
+      <div class="title-selection-panel">
+        <h2>{{ isPanelFriend() ? "Les utilisateurs" : "Vos amis" }}</h2>
+        <span (click)="changePanel()">{{
+          isPanelFriend() ? "Vos amis" : "Les utilisateurs"
+        }}</span>
+      </div>
+      <app-searchbar (searchEvent)="onSearch($event)" />
     </div>
-    <app-searchbar (searchEvent)="onSearch($event)" />
-  </div>
-
-    @if(isPanelFriend()) {
-        <div class="add-user-search-result">
-          @for(user of searchResult(); track user.id) {
-            <app-add-user-list
-              [user]="user"
-              [isFriendPanel]="isPanelFriend()"
-              (onUserclick)="setUserInformation($event)"
-              class="content-unit-user"
-            />
-          } @empty {
-            <div class="negative-condition-found">
-              <p>Aucun utilisateur trouvé.</p>
-            </div>
-          }
-        </div>
+    @if (isPanelFriend()) {
+      <div class="add-user-search-result">
+        @for (user of searchResult(); track user.id) {
+          <app-add-user-list
+            [user]="user"
+            [isFriendPanel]="isPanelFriend()"
+            (onUserclick)="setUserInformation($event)"
+            class="content-unit-user"
+          />
+        } @empty {
+          <div class="negative-condition-found">
+            <p>Aucun utilisateur trouvé.</p>
+          </div>
+        }
+      </div>
     } @else {
       <div class="add-user-search-result">
-        @for(friend of getMe().friendships; track friend.id) {
+        @for (friend of getMe().friendships; track friend.id) {
           <app-add-user-list
             [user]="friend"
             [isFriendPanel]="isPanelFriend()"
@@ -43,6 +42,5 @@
         }
       </div>
     }
-    }
-
+  }
 </div>

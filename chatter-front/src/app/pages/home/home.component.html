@@ -7,7 +7,11 @@
     />
     <div class="message-friends">
       <app-last-message [getMe]="getMe()" class="last-messages-content" />
-      <app-friend-list [getMe]="getMe()" class="friend-list-content" />
+      <app-friend-list
+        [isPanelAddFriendToRoom]="false"
+        [getMe]="getMe()"
+        class="friend-list-content"
+      />
     </div>
   }
 </div>

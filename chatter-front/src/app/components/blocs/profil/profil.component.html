@@ -1,53 +1,53 @@
 <div class="profil-content">
   <div class="bloc-profile">
-      @if (!isPseudoEditing()) {
-        <app-user-info
-          [title]="'Pseudo'"
-          [value]="getMe()!.pseudo"
-          (updateView)="updatePseudo()"
-          class="info-content"
-        />
-      } @else {
-        <app-user-input
-          [getMe]="getMe()"
-          [key]="'Pseudo'"
-          (updateView)="updatePseudo()"
-          (userUpdated)="userUpdated.emit()"
-          class="info-content"
-        />
-      }
+    @if (!isPseudoEditing()) {
+      <app-user-info
+        [title]="'Pseudo'"
+        [value]="getMe()!.pseudo"
+        (updateView)="updatePseudo()"
+        class="info-content"
+      />
+    } @else {
+      <app-user-input
+        [getMe]="getMe()"
+        [key]="'Pseudo'"
+        (updateView)="updatePseudo()"
+        (userUpdated)="userUpdated.emit()"
+        class="info-content"
+      />
+    }
     <mat-divider />
-      @if (!isEmailEditing()) {
-        <app-user-info
-          [title]="'Email'"
-          [value]="getMe()!.email"
-          (updateView)="updateEmail()"
-          class="info-content"
-        />
-      } @else {
-        <app-user-input
-          [getMe]="getMe()"
-          [key]="'Email'"
-          (updateView)="updateEmail()"
-          class="info-content"
-        />
-      }
+    @if (!isEmailEditing()) {
+      <app-user-info
+        [title]="'Email'"
+        [value]="getMe()!.email"
+        (updateView)="updateEmail()"
+        class="info-content"
+      />
+    } @else {
+      <app-user-input
+        [getMe]="getMe()"
+        [key]="'Email'"
+        (updateView)="updateEmail()"
+        class="info-content"
+      />
+    }
     <mat-divider />
-      @if (!isPasswordEditing()) {
-        <app-user-info
-          [title]="'Mot de passe'"
-          [value]="'************'"
-          (updateView)="updatePassword()"
-          class="info-content"
-        />
-      } @else {
-        <app-user-input
-          [getMe]="getMe()"
-          [key]="'Password'"
-          (updateView)="updatePassword()"
-          class="info-content"
-        />
-      }
+    @if (!isPasswordEditing()) {
+      <app-user-info
+        [title]="'Mot de passe'"
+        [value]="'************'"
+        (updateView)="updatePassword()"
+        class="info-content"
+      />
+    } @else {
+      <app-user-input
+        [getMe]="getMe()"
+        [key]="'Password'"
+        (updateView)="updatePassword()"
+        class="info-content"
+      />
+    }
     <mat-divider />
     <div class="createdBy">
       Membre chatter-box depuis le:

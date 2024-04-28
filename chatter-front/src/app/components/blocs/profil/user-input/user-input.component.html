@@ -1,12 +1,12 @@
-<form
-  [formGroup]="formControlKey()"
-  (ngSubmit)="onSubmit()"
->
+<form [formGroup]="formControlKey()" (ngSubmit)="onSubmit()">
   <div class="input-content">
-    <input class="form-control" matInput [formControlName]="formControlName()" />
+    <input
+      class="form-control"
+      matInput
+      [formControlName]="formControlName()"
+    />
   </div>
-  <span (click)="resetInput(); updateView.emit()">Annuler</span> <!--(click)="updateView.emit()"-->
+  <span (click)="resetInput(); updateView.emit()">Annuler</span>
+  <!--(click)="updateView.emit()"-->
   <button mat-raised-button type="submit">Valider</button>
-
 </form>
-

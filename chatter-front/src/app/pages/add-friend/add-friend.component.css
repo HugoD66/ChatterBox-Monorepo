@@ -7,4 +7,21 @@
   justify-content: space-between;
 }
 
+.profile-active {
+  height: 25vh;
+}
+
+.profile-inactive {
+  height: 0;
+  overflow: hidden;
+}
+
+.search-expanded {
+  height: 85vh;
+}
+
+.search-collapsed {
+  height: 64vh;
+}
+
 /*# sourceMappingURL=add-friend.component.css.map */

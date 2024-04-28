@@ -4,22 +4,23 @@ import {
   signal,
   WritableSignal,
 } from '@angular/core';
-import { AddFriendProfilComponent } from '../../components/blocs/add-friend-profil/add-friend-profil.component';
 import { AddFriendSearchComponent } from '../../components/blocs/add-friend-search/add-friend-search.component';
 import { FriendProfilComponent } from '../../components/blocs/friend-profil/friend-profil.component';
 import { UserModel } from '../../models/user.model';
 import { AuthService } from '../../services/auth.service';
 import { LoaderComponent } from '../../components/loader/loader.component';
+import { NgClass, NgStyle } from '@angular/common';
 
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,
   selector: 'app-add-friend',
   standalone: true,
   imports: [
-    AddFriendProfilComponent,
     AddFriendSearchComponent,
     FriendProfilComponent,
     LoaderComponent,
+    NgStyle,
+    NgClass,
   ],
   templateUrl: './add-friend.component.html',
   styleUrl: './add-friend.component.scss',
@@ -31,7 +32,7 @@ export class AddFriendComponent {
   constructor(private authService: AuthService) {
     this.authService.getMe().subscribe((me: UserModel) => {
       this.getMe.update(() => me);
-      this.profilSelected.update(() => me);
+      this.profilSelected.update(() => null);
     });
   }
 

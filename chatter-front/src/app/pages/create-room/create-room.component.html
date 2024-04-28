@@ -84,11 +84,10 @@
     -->
   </div>
   <div class="friend-list-content">
-    @if(isLoading()) {
+    @if (isLoading()) {
       <app-loader />
     } @else {
-      <app-friend-list [getMe]="getMe()"  />
-
+      <app-friend-list [isPanelAddFriendToRoom]="true" [getMe]="getMe()" />
     }
   </div>
 </div>
