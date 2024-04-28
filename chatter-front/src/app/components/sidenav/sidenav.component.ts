@@ -19,6 +19,9 @@ import { Router } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
 import { MatDivider } from '@angular/material/divider';
 import { MatIcon } from '@angular/material/icon';
+import { ContactSidenavComponent } from './contact-sidenav/contact-sidenav.component';
+import { RoomSidenavComponent } from './room-sidenav/room-sidenav.component';
+import { IconsSidenavComponent } from './icons-sidenav/icons-sidenav.component';
 
 enum SidebarModeEnum {
   COLLAPSED = 'collapsed',
@@ -37,6 +40,9 @@ enum SidebarModeEnum {
     MatButton,
     MatDivider,
     MatIcon,
+    ContactSidenavComponent,
+    RoomSidenavComponent,
+    IconsSidenavComponent,
   ],
   templateUrl: './sidenav.component.html',
   styleUrl: './sidenav.component.scss',

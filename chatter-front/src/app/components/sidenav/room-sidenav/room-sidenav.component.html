@@ -1,0 +1,9 @@
+<h3>Salons</h3>
+
+@for(room of roomList(); track room.id) {
+  <app-section-detail-unit
+    [detailUnit]="room"
+  />
+} @empty {
+  <p>No Rooms</p>
+}

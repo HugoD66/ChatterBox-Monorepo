@@ -22,11 +22,14 @@
   </div>
   <mat-divider />
   <div class="contact-content">
-
+    <app-contact-sidenav
+    [getMe]="getMe()"/>
   </div>
   <mat-divider />
   <div class="room-content">
-
+    <app-room-sidenav
+      [getMe]="getMe()"
+    />
   </div>
   <mat-divider />
   <div class="icons-actions-content">
@@ -42,7 +45,8 @@
     <mat-icon>
       add
     </mat-icon>
-
+<!--
+   <app-icons-sidenav/>
+-->
   </div>
-
 </mat-sidenav>
