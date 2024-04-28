@@ -1,3 +1,21 @@
+h3 {
+  margin-left: 17px;
+}
 
+.negative-condition-room {
+  height: 80%;
+  margin: auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+.negative-condition-room p {
+  width: 80%;
+  text-align: center;
+}
+.negative-condition-room mat-icon {
+  margin-right: 15px;
+}
 
 /*# sourceMappingURL=room-sidenav.component.css.map */

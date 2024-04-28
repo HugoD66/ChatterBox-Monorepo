@@ -1,3 +1,19 @@
+h3 {
+  margin-left: 15px;
+}
 
+.content-list {
+  height: 85%;
+  overflow-y: auto;
+}
+.content-list::-webkit-scrollbar {
+  display: none;
+}
+.content-list.expanded {
+  width: 15em !important;
+}
+.content-list.collapsed {
+  width: 5em !important;
+}
 
 /*# sourceMappingURL=contact-sidenav.component.css.map */

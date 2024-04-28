@@ -18,22 +18,24 @@ mat-sidenav {
     height: 100vh !important;
   }
 }
-mat-sidenav.expanded {
-  width: 15em !important;
-}
-@media screen and (max-width: 600px) {
-  mat-sidenav.expanded {
-    width: 100vw !important;
-  }
-}
-mat-sidenav.collapsed {
-  width: 5em !important;
-}
 mat-sidenav .logo-title-content {
   height: 10vh;
+  width: 100%;
+  margin: auto;
 }
 mat-sidenav .logo-title-content .logo-chatter-box {
+  margin-left: 20px;
   width: 50px;
+  position: relative;
+  top: 50%;
+}
+mat-sidenav .logo-title-content span {
+  position: relative;
+  height: 100%;
+  top: 32%;
+  margin: auto auto auto 5px;
+  font-family: "Title", serif;
+  font-size: 1.7em;
 }
 mat-sidenav .count-buttons-actions {
   display: flex;
@@ -41,14 +43,6 @@ mat-sidenav .count-buttons-actions {
   align-items: center;
   flex-direction: row;
   height: 10vh;
-}
-mat-sidenav .count-buttons-actions .action-friend, mat-sidenav .count-buttons-actions .action-room-list {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-mat-sidenav .count-buttons-actions .action-friend .icon-friend, mat-sidenav .count-buttons-actions .action-room-list .icon-friend {
-  width: 30px;
 }
 mat-sidenav .contact-content {
   height: 35vh;
@@ -58,6 +52,51 @@ mat-sidenav .room-content {
 }
 mat-sidenav .icons-actions-content {
   height: 10vh;
+}
+mat-sidenav .icons-actions-content mat-icon {
+  width: 40px;
+}
+mat-sidenav.expanded {
+  width: 15em !important;
+}
+mat-sidenav.expanded .logo-title-content span {
+  opacity: 1;
+  visibility: visible;
+  transition: opacity 0.3s ease, visibility 0.3s ease 0.3s;
+}
+@media screen and (max-width: 600px) {
+  mat-sidenav.expanded {
+    width: 100vw !important;
+  }
+}
+mat-sidenav.expanded .hide-on-collapse {
+  opacity: 1;
+  visibility: visible;
+  transition: opacity 0.3s ease, visibility 0.3s ease 0.3s, width 0.3s ease 0.3s, height 0.3s ease 0.3s;
+  margin: 0;
+  padding: 0;
+  width: 40px;
+  height: 20px;
+}
+mat-sidenav.collapsed {
+  width: 5em !important;
+}
+mat-sidenav.collapsed .logo-title-content .logo-chatter-box {
+  width: 50px;
+}
+mat-sidenav.collapsed .logo-title-content span {
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease, visibility 0.3s ease 0.3s;
+}
+mat-sidenav .hide-on-collapse {
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease, visibility 0.3s ease 0.3s, width 0.3s ease 0.3s, height 0.3s ease 0.3s;
+  margin: 0;
+  padding: 0;
+  width: 0;
+  height: 0;
 }
 
 /*# sourceMappingURL=sidenav.component.css.map */

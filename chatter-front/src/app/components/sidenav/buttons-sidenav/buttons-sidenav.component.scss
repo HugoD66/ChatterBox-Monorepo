@@ -1,0 +1,41 @@
+@use "../../../../assets/scss/colors" as colors;
+@use "../../../../assets/scss/global" as global;
+@use "../../../../assets/scss/fonts" as fonts;
+
+.button-action-list-count {
+  @include global.flex-center;
+  .action-friend, .action-room-list {
+    @include global.flex-center;
+    .icon-friend {
+      width: 20px;
+    }
+  }
+  &.expanded {
+    .action-friend, .action-room-list {
+      .icon-friend {
+      }
+      p {
+        opacity: 1;
+        visibility: visible;
+        transition: opacity 0.3s ease, visibility 0.3s ease 0.3s, height 0.3s ease 0.3s;
+        margin: 0;
+        padding: 0;
+      }
+    }
+  }
+  &.collapsed {
+    .action-friend, .action-room-list {
+      .icon-friend {
+      }
+      p {
+        opacity: 0;
+        visibility: hidden;
+        transition: opacity 0.3s ease, visibility 0.3s ease 0.3s, width 0.3s ease 0.3s, height 0.3s ease 0.3s;
+        margin: 0;
+        padding: 0;
+        width: 0;
+        height: 0;
+      }
+    }
+  }
+}

@@ -1,4 +1,33 @@
-.picture-detail {
-  width: 40px;
-  height: 40px;
+@use "../../../../assets/scss/colors" as colors;
+@use "../../../../assets/scss/global" as global;
+@use "../../../../assets/scss/fonts" as fonts;
+
+.section-detail-unit-content {
+  height: 50px;
+  margin: 18px;
+  display: flex;
+  flex-direction: row;
+  .picture-detail {
+    width: 50px;
+    height: 50px;
+    border-radius: 90%;
+  }
+
+  &.expanded {
+    p {
+      @include global.sidebar-show-p;
+
+    }
+
+  }
+
+  /////////
+  &.collapsed {
+    p {
+      @include global.sidebar-hidden-p;
+
+    }
+
+  }
 }
+

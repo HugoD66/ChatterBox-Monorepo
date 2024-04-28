@@ -1,0 +1,22 @@
+@use "../../../../assets/scss/colors" as colors;
+@use "../../../../assets/scss/global" as global;
+@use "../../../../assets/scss/fonts" as fonts;
+
+h3 {
+  margin-left: 17px;
+}
+.room-list-content {
+
+}
+.negative-condition-room {
+  height: 80%;
+  margin: auto;
+  @include global.flex-center-column-center;
+  p {
+    width: 80%;
+    text-align: center;
+  }
+  mat-icon {
+    margin-right: 15px;
+  }
+}

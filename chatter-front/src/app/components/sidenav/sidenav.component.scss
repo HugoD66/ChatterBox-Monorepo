@@ -1,5 +1,6 @@
 @use "../../../assets/scss/colors" as colors;
 @use "../../../assets/scss/global" as global;
+@use "../../../assets/scss/fonts" as fonts;
 
 mat-sidenav {
   top: 0;
@@ -20,30 +21,28 @@ mat-sidenav {
     width: 100vw !important;
     height: 100vh !important;
   }
-  &.expanded {
-    width: 15em !important;
-    @media screen and (max-width: 600px) {
-      width: 100vw !important;
-    }
-  }
-  &.collapsed {
-    width: 5em !important; //5
-  }
   .logo-title-content {
     height: 10vh;
+    width: 100%;
+    margin: auto;
     .logo-chatter-box {
+      margin-left: 20px;
       width: 50px;
+      position: relative;
+      top: 50%;
+    }
+    span {
+      position: relative;
+      height: 100%;
+      top: 32%;
+      margin: auto auto auto 5px;
+      font-family: "Title", serif;
+      font-size: 1.7em;
     }
   }
   .count-buttons-actions {
     @include global.flex-center-row-center;
     height: 10vh;
-    .action-friend, .action-room-list {
-      @include global.flex-center;
-      .icon-friend {
-        width: 30px;
-      }
-    }
   }
   .contact-content {
     height: 35vh;
@@ -53,5 +52,57 @@ mat-sidenav {
   }
   .icons-actions-content {
     height: 10vh;
+    mat-icon {
+      width: 40px;
+    }
+
+  }
+/////////
+  &.expanded {
+    width: 15em !important;
+    .logo-title-content {
+      .logo-chatter-box {
+      }
+      span {
+        opacity: 1;
+        visibility: visible;
+        transition: opacity 0.3s ease, visibility 0.3s ease 0.3s;
+      }
+    }
+    @media screen and (max-width: 600px) {
+      width: 100vw !important;
+    }
+    .hide-on-collapse {
+      opacity: 1;
+      visibility: visible;
+      transition: opacity 0.3s ease, visibility 0.3s ease 0.3s, width 0.3s ease 0.3s, height 0.3s ease 0.3s;
+      margin: 0;
+      padding: 0;
+      width: 40px;
+      height: 20px;
+    }
+  }
+/////////
+  &.collapsed {
+    width: 5em !important; //5
+    .logo-title-content {
+      .logo-chatter-box {
+        width: 50px;
+      }
+      span {
+        opacity: 0;
+        visibility: hidden;
+        transition: opacity 0.3s ease, visibility 0.3s ease 0.3s;
+      }
+    }
+  }
+  .hide-on-collapse {
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease 0.3s, width 0.3s ease 0.3s, height 0.3s ease 0.3s;
+    margin: 0;
+    padding: 0;
+    width: 0;
+    height: 0;
   }
 }

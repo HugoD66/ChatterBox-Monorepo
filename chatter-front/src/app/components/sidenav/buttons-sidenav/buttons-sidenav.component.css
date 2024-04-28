@@ -1,0 +1,31 @@
+.button-action-list-count {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.button-action-list-count .action-friend, .button-action-list-count .action-room-list {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.button-action-list-count .action-friend .icon-friend, .button-action-list-count .action-room-list .icon-friend {
+  width: 20px;
+}
+.button-action-list-count.expanded .action-friend p, .button-action-list-count.expanded .action-room-list p {
+  opacity: 1;
+  visibility: visible;
+  transition: opacity 0.3s ease, visibility 0.3s ease 0.3s, height 0.3s ease 0.3s;
+  margin: 0;
+  padding: 0;
+}
+.button-action-list-count.collapsed .action-friend p, .button-action-list-count.collapsed .action-room-list p {
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease, visibility 0.3s ease 0.3s, width 0.3s ease 0.3s, height 0.3s ease 0.3s;
+  margin: 0;
+  padding: 0;
+  width: 0;
+  height: 0;
+}
+
+/*# sourceMappingURL=buttons-sidenav.component.css.map */

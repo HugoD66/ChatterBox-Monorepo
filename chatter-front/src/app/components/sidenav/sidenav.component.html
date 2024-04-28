@@ -1,52 +1,41 @@
 <mat-sidenav opened [ngClass]="isExpanded() ? 'expanded' : 'collapsed'">
- <!-- <button mat-flat-button (click)="logout()">Logout</button>
-  <button mat-flat-button (click)="goHome()">Accueil</button>
-  <button mat-flat-button (click)="goCreateRoom()">Créer salon</button>
-  <button mat-flat-button (click)="goDiscussion(1)">Discussion</button>
-  <button mat-flat-button (click)="goGroup(1)">Group</button>
-  <button mat-flat-button (click)="goAddFriend()">Add friend</button>
-  -->
-  <div class="logo-title-content">
+  <div class="logo-title-content" (click)="goHome()">
     <img class="logo-chatter-box" src="./assets/logos/cb-logo-dark-withoutBG.png" alt="logo chatter box">
-    <span>{{ isExpanded() ? "Chatter-Box" : "" }}</span>
+    <span>{{ isExpanded() ? "Chatter-Box" : "Chatter-Box" }}</span>
   </div>
+
   <div class="count-buttons-actions">
-    <button class="action-friend">
-      <img class="icon-friend" src="./assets/icons/icon-farmer-light.png" alt="icon friends">
-      {{ isExpanded() ? "3 Amis" : "" }}
-    </button>
-    <button class="action-room-list">
-      <img class="icon-friend" src="./assets/icons/icon-group-dark.png" alt="icon friends">
-      {{ isExpanded() ? "2 Groupes" : "" }}
-    </button>
+    <app-buttons-sidenav [isExpanded]="isExpanded()" />
   </div>
   <mat-divider />
   <div class="contact-content">
     <app-contact-sidenav
+    [isExpanded]="isExpanded()"
     [getMe]="getMe()"/>
   </div>
   <mat-divider />
   <div class="room-content">
     <app-room-sidenav
       [getMe]="getMe()"
+      [isExpanded]="isExpanded()"
     />
   </div>
   <mat-divider />
   <div class="icons-actions-content">
-    <mat-icon (click)="changeSidenavMode()">
-      {{ isExpanded() ? "arrow_right_alt" : "arrow_left_alt" }}
-    </mat-icon>
-    <mat-icon>
-      add
-    </mat-icon>
-    <mat-icon>
-      add
-    </mat-icon>
-    <mat-icon>
-      add
-    </mat-icon>
-<!--
-   <app-icons-sidenav/>
--->
+
+   <app-icons-sidenav
+     [getMe]="getMe()"
+     [isExpanded]="isExpanded()"
+     (removeGetMe)="removeGetChildMe()"
+     (changeSidenavMode)="changeSidenavMode()"
+    />
+
   </div>
 </mat-sidenav>
+<!-- <button mat-flat-button (click)="logout()">Logout</button>
+ <button mat-flat-button (click)="goHome()">Accueil</button>
+ <button mat-flat-button (click)="goCreateRoom()">Créer salon</button>
+ <button mat-flat-button (click)="goDiscussion(1)">Discussion</button>
+ <button mat-flat-button (click)="goGroup(1)">Group</button>
+ <button mat-flat-button (click)="goAddFriend()">Add friend</button>
+ -->

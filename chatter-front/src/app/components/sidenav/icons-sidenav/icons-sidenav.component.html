@@ -1,1 +1,12 @@
-<p>icons-sidenav works!</p>
+<mat-icon (click)="changeSidenavMode.emit()">
+  {{ isExpanded() ? "arrow_left_alt" : "arrow_right_alt" }}
+</mat-icon>
+<mat-icon class="hide-on-collapse" (click)="logout()">
+  logout
+</mat-icon>
+<mat-icon class="hide-on-collapse">
+  add
+</mat-icon>
+<mat-icon class="hide-on-collapse">
+  palette
+</mat-icon>

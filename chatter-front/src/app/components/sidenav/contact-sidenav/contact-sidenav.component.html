@@ -1,9 +1,11 @@
-<h3>Contacts</h3>
-
-@for(friend of friendList(); track friend.id) {
-  <app-section-detail-unit
-    [detailUser]="friend"
-  />
-} @empty {
-  <p>No contacts</p>
-}
+<h3 (click)="goAddFriend()" >Contacts</h3>
+<div class="content-list" [ngClass]="isExpanded() ? 'expanded' : 'collapsed'">
+  @for(friend of friendList(); track friend.id) {
+    <app-section-detail-unit
+      [detailUser]="friend"
+      [isExpanded]="isExpanded()"
+    />
+  } @empty {
+    <p>No contacts</p>
+  }
+</div>

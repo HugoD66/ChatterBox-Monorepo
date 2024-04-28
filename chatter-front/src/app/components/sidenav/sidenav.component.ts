@@ -22,6 +22,7 @@ import { MatIcon } from '@angular/material/icon';
 import { ContactSidenavComponent } from './contact-sidenav/contact-sidenav.component';
 import { RoomSidenavComponent } from './room-sidenav/room-sidenav.component';
 import { IconsSidenavComponent } from './icons-sidenav/icons-sidenav.component';
+import { ButtonsSidenavComponent } from './buttons-sidenav/buttons-sidenav.component';
 
 enum SidebarModeEnum {
   COLLAPSED = 'collapsed',
@@ -43,6 +44,7 @@ enum SidebarModeEnum {
     ContactSidenavComponent,
     RoomSidenavComponent,
     IconsSidenavComponent,
+    ButtonsSidenavComponent,
   ],
   templateUrl: './sidenav.component.html',
   styleUrl: './sidenav.component.scss',
@@ -55,10 +57,7 @@ export class SidenavComponent {
   @Output() isExpandedChange = new EventEmitter<boolean>();
   @Output() removeGetMe = new EventEmitter<UserModel>();
 
-  constructor(
-    private router: Router,
-    private authService: AuthService,
-  ) {}
+  constructor(private router: Router) {}
 
   changeSidenavMode(): void {
     if (this.isExpanded()) {
@@ -71,27 +70,11 @@ export class SidenavComponent {
     this.isExpandedChange.emit(this.isExpanded());
   }
 
-  logout(): void {
-    this.authService.logout();
+  removeGetChildMe() {
     this.removeGetMe.emit();
-    this.router.navigate(['/auth/login']);
   }
 
   goHome(): void {
     this.router.navigate(['/home']);
-  }
-
-  goCreateRoom() {
-    this.router.navigate(['room/create']);
-  }
-
-  goDiscussion(id: number) {
-    this.router.navigate([`/room/private/${id}`]);
-  }
-  goGroup(id: number) {
-    this.router.navigate([`/room/group/${id}`]);
-  }
-  goAddFriend() {
-    this.router.navigate([`/friend/add`]);
   }
 }

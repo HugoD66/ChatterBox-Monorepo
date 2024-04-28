@@ -1,1 +1,1 @@
-{"version":3,"sourceRoot":"","sources":[],"names":[],"mappings":"","file":"room-sidenav.component.css"}
+{"version":3,"sourceRoot":"","sources":["room-sidenav.component.scss","../../../../assets/scss/_global.scss"],"names":[],"mappings":"AAIA;EACE;;;AAKF;EACE;EACA;ECqDA;EACA;EACA;EACA;;ADtDA;EACE;EACA;;AAEF;EACE","file":"room-sidenav.component.css"}

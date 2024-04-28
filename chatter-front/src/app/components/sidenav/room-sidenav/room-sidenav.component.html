@@ -1,9 +1,18 @@
 <h3>Salons</h3>
-
 @for(room of roomList(); track room.id) {
-  <app-section-detail-unit
-    [detailUnit]="room"
-  />
+  <div class="room-list-content">
+    <app-section-detail-unit
+      [detailUnit]="room"
+      [isExpanded]="isExpanded()"
+    />
+  </div>
 } @empty {
-  <p>No Rooms</p>
+  <div class="negative-condition-room">
+  @if(isExpanded()) {
+    <p>Vous n'avez pas encore de salon</p>
+    <button (click)="goCreateRoom()">Créer un salon</button>
+  } @else {
+      <mat-icon>sentiment_dissatisfied</mat-icon>
+  }
+  </div>
 }

@@ -1,4 +1,5 @@
-<!-- @if(detailUser()){
+@if(detailUser()){
+<div class="section-detail-unit-content" [ngClass]="isExpanded() ? 'expanded' : 'collapsed'">
   @if (detailUser()?.picture) {
     <img
       class="picture-detail"
@@ -11,7 +12,9 @@
       alt="image de profil par defaut"
     />
   }
-  <p>{{detailUser()?.pseudo}}</p>
-  <p>{{detailUser()?.email}}</p>
+  @if(isExpanded()) {
+    <p>{{detailUser()?.pseudo}}</p>
+  }
+
+</div>
 }
- -->

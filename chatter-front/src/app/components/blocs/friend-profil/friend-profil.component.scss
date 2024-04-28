@@ -31,7 +31,7 @@
     }
     .friend-profil-infos {
       margin-left: 5%;
-      @include global.flex-center-column-start;
+      @include global.flex-center-column-center;
       @media screen and (max-width: 600px) {
         width: 100%;
         height: 90%;
