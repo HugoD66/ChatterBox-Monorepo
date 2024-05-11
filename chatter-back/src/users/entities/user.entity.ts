@@ -12,6 +12,7 @@ import { UserGeneralRoleEnum } from './types/user.general.roles.enum';
 import { Message } from '../../message/entities/message.entity';
 import { Exclude } from 'class-transformer';
 import { FriendUser } from '../../friend-users/entities/friend-user.entity';
+import { Room } from '../../room/entities/room.entity';
 
 @Entity()
 export class User {
@@ -42,6 +43,21 @@ export class User {
   })
   public roleGeneral: UserGeneralRoleEnum;
 
+  @OneToMany(() => Room, (room) => room.owner, {
+    cascade: true,
+  })
+  roomsOwner: Room[];
+
+  @OneToMany(() => FriendUser, (friendship: FriendUser) => friendship.user)
+  friendships: FriendUser[];
+
+  @ManyToMany(() => Room)
+  @JoinTable()
+  public roomsParticipant: Room[];
+
+  @OneToMany(() => Message, (message) => message.sender)
+  public sentMessages!: Message[];
+  /*
   @OneToMany(() => Message, (message) => message.sender, {
     cascade: true,
   })
@@ -51,20 +67,5 @@ export class User {
     cascade: true,
   })
   receivedMessages: Message[];
-
-  /*@ManyToMany(() => User)
-  @JoinTable({
-    name: 'friendlist',
-    joinColumn: {
-      name: 'userId',
-      referencedColumnName: 'id',
-    },
-    inverseJoinColumn: {
-      name: 'friendId',
-      referencedColumnName: 'id',
-    },
-  })
-  friends: User[];*/
-  @OneToMany(() => FriendUser, (friendship) => friendship.user)
-  friendships: FriendUser[];
+  */
 }

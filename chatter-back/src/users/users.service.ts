@@ -109,6 +109,13 @@ export class UsersService {
     });
   }
 
+  async findOneByOptions(options: Partial<User>): Promise<User> {
+    return await this.usersRepository.findOne({
+      where: options,
+      relations: ['friendships', 'friendships.friend'],
+    });
+  }
+
   async findAll(): Promise<ResponseUserDto[]> {
     return await this.usersRepository.find();
   }

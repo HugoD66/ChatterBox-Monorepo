@@ -65,12 +65,11 @@ export class FriendProfilComponent {
     effect(
       () => {
         // console.log('userSelected');
-        // console.log(this.userSelected());
-        //console.log(this.getMe());
+        console.log(this.userSelected());
         this.getMe().friendships!.forEach((friend: FriendRelationModel) => {
-          //console.log(friend);
           if (this.userSelected().id === friend.friend.id) {
             //console.log('FRIEND');
+            console.log(friend);
             this.isFriend.update(() => true);
           } else {
             //console.log('NOT FRIEND');

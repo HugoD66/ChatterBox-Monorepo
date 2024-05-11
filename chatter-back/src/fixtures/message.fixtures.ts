@@ -2,20 +2,104 @@ import { Injectable } from '@nestjs/common';
 import { MessageService } from '../message/message.service';
 import { CreateMessageDto } from '../message/dto/create-message.dto';
 import { UsersService } from '../users/users.service';
-import { ResponseUserDto } from '../users/dto/response-user.dto';
+import { RoomService } from '../room/room.service';
+import { Room } from '../room/entities/room.entity';
 
 @Injectable()
 export class MessageFixtures {
   constructor(
     private messageService: MessageService,
+    private roomService: RoomService,
     private readonly usersService: UsersService,
   ) {}
 
   async seedMessages(): Promise<void> {
-    const userList: ResponseUserDto[] = await this.usersService.findAll();
+    const userOwnerTest = await this.usersService.findOneByOptions({
+      email: `dessauw.hugo@gmail.com`,
+    });
+    const privateParticipant = await this.usersService.findOneByOptions({
+      email: `alice@example.com`,
+    });
+    const privateRoom: Room = await this.roomService.findOneByOptions({
+      title: `Room private test 2`,
+    });
 
     const messages: CreateMessageDto[] = [
       {
+        content: `Hey Alice, as-tu déjà essayé de parler aux plantes ? Paraît que ça les fait pousser plus vite !`,
+        createdAt: new Date(),
+        sender: userOwnerTest,
+        room: privateRoom,
+        isRead: false,
+      },
+      {
+        content: `Salut Hugo ! J'ai essayé, mais elles ne me répondent jamais. Peut-être que je devrais essayer en anglais ?`,
+        createdAt: new Date(),
+        sender: privateParticipant,
+        room: privateRoom,
+        isRead: false,
+      },
+      {
+        content: `C'est une idée ! Et si ça ne marche pas, essaie avec l'allemand, elles trouveront peut-être le ton plus autoritaire.`,
+        createdAt: new Date(),
+        sender: userOwnerTest,
+        room: privateRoom,
+        isRead: false,
+      },
+      {
+        content: `Bonne stratégie ! D'ailleurs, est-ce que tu penses qu'une plante pourrait apprendre le JavaScript ?`,
+        createdAt: new Date(),
+        sender: privateParticipant,
+        room: privateRoom,
+        isRead: false,
+      },
+      {
+        content: `Pourquoi pas ? Après tout, avec Node.js, elles seraient déjà habituées à l'environnement !`,
+        createdAt: new Date(),
+        sender: userOwnerTest,
+        room: privateRoom,
+        isRead: false,
+      },
+      {
+        content: `Imagine une plante codant mieux que nous... ce serait le comble !`,
+        createdAt: new Date(),
+        sender: privateParticipant,
+        room: privateRoom,
+        isRead: false,
+      },
+      {
+        content: `Ça pourrait révolutionner le développement. Fini les bugs, bonjour les bugs de jardin !`,
+        createdAt: new Date(),
+        sender: userOwnerTest,
+        room: privateRoom,
+        isRead: false,
+      },
+      {
+        content: `Exactement ! Elles pourraient même corriger nos erreurs de syntaxe en photosynthèse.`,
+        createdAt: new Date(),
+        sender: privateParticipant,
+        room: privateRoom,
+        isRead: false,
+      },
+      {
+        content: `On ferait bien de leur laisser la main alors, peut-être qu'elles finiront par développer leur propre framework. Le PlantStrap !`,
+        createdAt: new Date(),
+        sender: userOwnerTest,
+        room: privateRoom,
+        isRead: false,
+      },
+      {
+        content: `J'adore l'idée ! Je propose qu'on commence le brainstorming dès demain. Prêt pour une session de jardinage informatique ?`,
+        createdAt: new Date(),
+        sender: privateParticipant,
+        room: privateRoom,
+        isRead: false,
+      },
+    ];
+    for (const message of messages) {
+      await this.messageService.create(message);
+    }
+    /*{
         content: `Hello, how are you?`,
         createdAt: new Date(),
         isRead: false,
@@ -193,9 +277,7 @@ export class MessageFixtures {
         senderId: userList[Math.floor(Math.random() * userList.length)].id,
         receiverId: userList[Math.floor(Math.random() * userList.length)].id,
       },
-    ];
-    for (const message of messages) {
-      await this.messageService.create(message);
-    }
+
+  */
   }
 }

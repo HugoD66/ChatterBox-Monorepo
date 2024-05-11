@@ -3,6 +3,7 @@ import { UserFixtures } from '../user.fixtures';
 import { MessageFixtures } from '../message.fixtures';
 import { UsersService } from '../../users/users.service';
 import { FriendFixtures } from '../friend.fixtures';
+import { RoomFixtures } from '../room.fixtures';
 
 @Injectable()
 export class FixtureService {
@@ -10,12 +11,18 @@ export class FixtureService {
     private readonly userFixtures: UserFixtures,
     private readonly messageFixtures: MessageFixtures,
     private readonly friendFixtures: FriendFixtures,
+    private readonly roomFixtures: RoomFixtures,
     private usersService: UsersService,
   ) {}
 
   async seedUsers(): Promise<string> {
     await this.userFixtures.seedUsers();
     return 'Users fixtures generated';
+  }
+
+  async seedRoom(): Promise<string> {
+    await this.roomFixtures.seedRooms();
+    return 'Room fixtures generated';
   }
 
   async seedMessages(): Promise<string> {

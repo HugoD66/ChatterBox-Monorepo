@@ -8,7 +8,7 @@ import { FriendListComponent } from '../../components/blocs/friend-list/friend-l
 import { LastMessageComponent } from '../../components/blocs/last-message/last-message.component';
 import { ProfilComponent } from '../../components/blocs/profil/profil.component';
 import { SidenavComponent } from '../../components/sidenav/sidenav.component';
-import { Router, RouterOutlet } from '@angular/router';
+import { RouterOutlet } from '@angular/router';
 import { UserModel } from '../../models/user.model';
 import { AuthService } from '../../services/auth.service';
 
@@ -27,18 +27,15 @@ import { AuthService } from '../../services/auth.service';
   styleUrl: './layout.component.scss',
 })
 export class LayoutComponent {
-  public getMe: WritableSignal<UserModel | null> = signal(null);
+  public getMe: WritableSignal<UserModel> = signal({} as unknown as UserModel);
   public isSidenavExpanded: boolean = true;
   public sidebarCollapsed = signal(true);
 
-  constructor(
-    private router: Router,
-    private authService: AuthService,
-  ) {
-    //TODO change to this.getMe.set(this.authService.getMeByAuthService());
-    this.authService.getMe().subscribe((me: UserModel) => {
-      this.getMe.update(() => me);
-    });
+  constructor(private authService: AuthService) {
+    const userJson = localStorage.getItem('currentUser');
+    if (userJson) {
+      this.getMe.update(() => JSON.parse(userJson));
+    }
   }
 
   isExpandedChange(isExpanded: boolean): void {
@@ -47,6 +44,9 @@ export class LayoutComponent {
   }
 
   removeGetMe(): void {
-    this.getMe.update(() => null);
+    this.authService.logout();
+    this.getMe.update(() => {
+      return {} as UserModel;
+    });
   }
 }

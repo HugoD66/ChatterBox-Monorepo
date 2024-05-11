@@ -2,11 +2,9 @@ import {
   ChangeDetectionStrategy,
   Component,
   OnInit,
-  Signal,
   signal,
   WritableSignal,
 } from '@angular/core';
-import { SidenavComponent } from '../../components/sidenav/sidenav.component';
 import {
   MatDrawer,
   MatDrawerContainer,
@@ -20,14 +18,11 @@ import { LastMessageComponent } from '../../components/blocs/last-message/last-m
 import { FriendListComponent } from '../../components/blocs/friend-list/friend-list.component';
 import { AuthService } from '../../services/auth.service';
 import { AsyncPipe } from '@angular/common';
-import { Observable } from 'rxjs';
-import { toSignal } from '@angular/core/rxjs-interop';
 
 @Component({
   selector: 'app-home',
   standalone: true,
   imports: [
-    SidenavComponent,
     MatDrawer,
     MatDrawerContainer,
     MatButton,
@@ -44,21 +39,21 @@ import { toSignal } from '@angular/core/rxjs-interop';
 })
 export class HomeComponent implements OnInit {
   public friends: WritableSignal<UserModel[]> = signal([]);
-  public callGetMe: Observable<UserModel> = this.authService.getMe();
-  public getMe: Signal<UserModel> = toSignal(this.callGetMe, {
-    initialValue: {} as unknown as UserModel,
-  });
+  public getMe: WritableSignal<UserModel> = signal({} as unknown as UserModel);
 
-  constructor(private authService: AuthService) {}
-
-  ngOnInit() {
-    this.callGetMe.subscribe(() => {});
+  constructor(private authService: AuthService) {
+    const userJson = localStorage.getItem('currentUser');
+    if (userJson) {
+      this.getMe.update(() => JSON.parse(userJson));
+    }
   }
 
+  ngOnInit() {}
+
   onUserUpdated() {
-    //TODO REFRESH NE SE FAIT PAS A L'UPDATE D'UN INPUT
-    this.callGetMe.subscribe(() => {
-      console.log(this.getMe());
+    this.authService.getMe().subscribe((me: UserModel) => {
+      this.getMe.update(() => me);
+      localStorage.setItem('currentUser', JSON.stringify(me));
     });
   }
 }

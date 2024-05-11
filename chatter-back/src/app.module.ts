@@ -15,6 +15,8 @@ import { MessageModule } from './message/message.module';
 import { Message } from './message/entities/message.entity';
 import { FixtureModule } from './fixtures/fixture/fixture.module';
 import { FriendUsersModule } from './friend-users/friend-users.module';
+import { RoomModule } from './room/room.module';
+import { Room } from './room/entities/room.entity';
 
 @Module({
   imports: [
@@ -22,6 +24,7 @@ import { FriendUsersModule } from './friend-users/friend-users.module';
     MessageModule,
     FixtureModule,
     FriendUsersModule,
+    RoomModule,
     ConfigModule.forRoot({ isGlobal: true }),
     PassportModule.register({ defaultStrategy: `jwt` }),
     JwtModule.register({
@@ -39,7 +42,7 @@ import { FriendUsersModule } from './friend-users/friend-users.module';
           username: configService.get(`DB_USERNAME`),
           password: configService.get(`DB_PASSWORD`),
           database: configService.get(`DB_NAME`),
-          entities: [User, Message, FriendUser],
+          entities: [User, Message, FriendUser, Room],
           synchronize: true,
         };
         return dbConfig;

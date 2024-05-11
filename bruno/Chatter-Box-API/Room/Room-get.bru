@@ -1,11 +1,11 @@
 meta {
-  name: Messages
+  name: Room-get
   type: http
-  seq: 3
+  seq: 1
 }
 
-post {
-  url: http://{{url}}:{{port}}/fixture/messages-fixtures
+get {
+  url: http://{{url}}:{{port}}/room/
   body: none
   auth: bearer
 }

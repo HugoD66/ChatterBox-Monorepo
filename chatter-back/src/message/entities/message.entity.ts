@@ -6,7 +6,7 @@ import {
   PrimaryGeneratedColumn,
 } from 'typeorm';
 import { User } from '../../users/entities/user.entity';
-import { ResponseUserDto } from '../../users/dto/response-user.dto';
+import { Room } from '../../room/entities/room.entity';
 
 @Entity()
 export class Message {
@@ -19,16 +19,12 @@ export class Message {
   @CreateDateColumn()
   public createdAt!: Date;
 
-  @ManyToOne(() => User, (user) => user.sentMessages, {
-    onDelete: 'CASCADE',
-  })
-  sender: ResponseUserDto;
+  @ManyToOne(() => User, (user: User) => user.sentMessages)
+  public sender!: User;
 
-  @ManyToOne(() => User, (user) => user.receivedMessages, {
-    onDelete: 'CASCADE',
-  })
-  receiver: ResponseUserDto;
+  @ManyToOne(() => Room, (room: Room) => room.messages)
+  public room!: Room;
 
-  @Column()
+  @Column({ default: false })
   public isRead!: boolean;
 }

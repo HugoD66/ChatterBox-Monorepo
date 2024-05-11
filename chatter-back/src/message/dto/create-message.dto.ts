@@ -1,4 +1,6 @@
 import { IsNotEmpty, IsOptional, MinLength } from 'class-validator';
+import { Room } from '../../room/entities/room.entity';
+import { User } from '../../users/entities/user.entity';
 
 export class CreateMessageDto {
   @IsNotEmpty()
@@ -8,11 +10,11 @@ export class CreateMessageDto {
   @IsOptional()
   createdAt: Date;
 
-  @IsOptional()
-  senderId: string;
+  @IsNotEmpty()
+  sender: User;
 
-  @IsOptional()
-  receiverId: string;
+  @IsNotEmpty()
+  room: Room;
 
   @IsOptional()
   isRead: boolean = false;

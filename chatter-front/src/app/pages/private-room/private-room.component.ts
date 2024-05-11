@@ -16,6 +16,7 @@ import { MessageModel } from '../../models/message.model';
 import { MessageService } from '../../services/message.service';
 import { AuthService } from '../../services/auth.service';
 import { ActivatedRoute } from '@angular/router';
+import { FriendRelationModel } from '../../models/friend-relation.model';
 
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -40,6 +41,7 @@ export class PrivateRoomComponent {
     private route: ActivatedRoute,
   ) {
     this.route.params.subscribe((params) => {
+      //ICI ON RECUPERE L'ID DE L'ID DU MESSAGE. NON PAS DE L'UTILISATEUR
       this.friendSelectedId.set(params['friendId']);
     });
 
@@ -52,12 +54,19 @@ export class PrivateRoomComponent {
         });
     });
 
-    this.getMe()?.friendships?.forEach((friend) => {
-      console.log(friend.friend);
-      if (this.friendSelectedId() === friend.friend.id) {
-        this.friend.update(() => friend.friend);
-      }
-    });
-    effect(() => {}, { allowSignalWrites: true });
+    effect(
+      () => {
+        this.getMe()!.friendships!.forEach((friend: FriendRelationModel) => {
+          console.log(friend);
+          console.log(this.friendSelectedId());
+          if (this.friendSelectedId() === friend.id) {
+            console.log('FRIEND');
+            console.log(friend.id);
+            this.friend.update(() => friend.friend);
+          }
+        });
+      },
+      { allowSignalWrites: true },
+    );
   }
 }

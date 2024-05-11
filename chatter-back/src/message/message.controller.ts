@@ -35,12 +35,11 @@ export class MessageController {
     return await this.messageService.findAll();
   }
 
-  @Public() //TODO TEMP
+  /* @Public() //TODO TEMP
   @Get('unread/:id')
   async findAllUnreads(
     @Param('id') receiverId: string,
   ): Promise<ResponseMessageDto[]> {
-    //Ajouter user id
     return await this.messageService.findAllUnreads(receiverId);
   }
 
@@ -52,7 +51,7 @@ export class MessageController {
   ): Promise<ResponseMessageDto[]> {
     //Ajouter user id
     return await this.messageService.findDiscussion(friendId, userId);
-  }
+  }*/
 
   @Patch(':id')
   async update(

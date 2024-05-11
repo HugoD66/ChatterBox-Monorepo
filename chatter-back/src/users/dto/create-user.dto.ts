@@ -6,7 +6,6 @@ import {
 } from 'class-validator';
 import { UserGeneralRoleEnum } from '../entities/types/user.general.roles.enum';
 import { ValidationErrors } from '../../exceptions/ValidationErrors';
-import { User } from '../entities/user.entity';
 export class CreateUserDto {
   @IsNotEmpty({ message: ValidationErrors.REQUIRED_FIELD })
   @MinLength(3, { message: ValidationErrors.PSEUDO_LENGTH })
@@ -35,6 +34,4 @@ export class CreateUserDto {
   public password!: string;
 
   public picture?: string;
-
-  //public friends?: User[];
 }

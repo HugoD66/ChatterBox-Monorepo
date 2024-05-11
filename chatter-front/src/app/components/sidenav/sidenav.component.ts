@@ -16,7 +16,6 @@ import { NgClass } from '@angular/common';
 import { MatButton } from '@angular/material/button';
 import { UserModel } from '../../models/user.model';
 import { Router } from '@angular/router';
-import { AuthService } from '../../services/auth.service';
 import { MatDivider } from '@angular/material/divider';
 import { MatIcon } from '@angular/material/icon';
 import { ContactSidenavComponent } from './contact-sidenav/contact-sidenav.component';

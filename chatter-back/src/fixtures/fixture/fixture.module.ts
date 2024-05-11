@@ -7,11 +7,19 @@ import { MessageFixtures } from '../message.fixtures';
 import { UserFixtures } from '../user.fixtures';
 import { FriendFixtures } from '../friend.fixtures';
 import { FriendUsersModule } from '../../friend-users/friend-users.module';
+import { RoomFixtures } from '../room.fixtures';
+import { RoomModule } from '../../room/room.module';
 
 @Module({
-  imports: [UsersModule, MessageModule, FriendUsersModule],
+  imports: [UsersModule, MessageModule, FriendUsersModule, RoomModule],
   controllers: [FixtureController],
-  providers: [FixtureService, UserFixtures, MessageFixtures, FriendFixtures],
+  providers: [
+    FixtureService,
+    UserFixtures,
+    MessageFixtures,
+    FriendFixtures,
+    RoomFixtures,
+  ],
   exports: [FixtureService],
 })
 export class FixtureModule {}

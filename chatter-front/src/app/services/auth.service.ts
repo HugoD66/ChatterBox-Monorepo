@@ -58,6 +58,7 @@ export class AuthService {
 
   logout(): void {
     localStorage.removeItem('authToken');
+    localStorage.removeItem('currentUser');
     this.getMeByAuthService.update(() => null);
     this.router.navigate(['/auth/login']);
   }
@@ -109,6 +110,10 @@ export class AuthService {
       .pipe(
         tap((response) => {
           this.getMeByAuthService.update(() => response as LoginReturnUser);
+          localStorage.setItem(
+            'currentUser',
+            JSON.stringify(this.getMeByAuthService()),
+          );
         }),
         catchError((error) => {
           return throwError(() => error);

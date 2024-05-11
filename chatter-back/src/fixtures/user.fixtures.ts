@@ -5,10 +5,7 @@ import { UserGeneralRoleEnum } from '../users/entities/types/user.general.roles.
 
 @Injectable()
 export class UserFixtures {
-  constructor(
-    private usersService: UsersService,
-    //private friendUsersService: FriendUsersService,
-  ) {}
+  constructor(private usersService: UsersService) {}
 
   async seedUsers(): Promise<void> {
     const users: CreateUserDto[] = [

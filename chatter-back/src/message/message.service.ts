@@ -18,6 +18,10 @@ export class MessageService {
   ) {}
 
   async create(createMessageDto: CreateMessageDto): Promise<Message> {
+    console.log(createMessageDto);
+    return await this.messageRepository.save(createMessageDto);
+  }
+  /*async create(createMessageDto: CreateMessageDto): Promise<Message> {
     const sender: ResponseUserDto = await this.usersSerivce.findOne(
       createMessageDto.senderId,
     );
@@ -34,7 +38,7 @@ export class MessageService {
     });
 
     return await this.messageRepository.save(message);
-  }
+  }*/
 
   async findOne(id: string): Promise<ResponseMessageDto> {
     return await this.messageRepository.findOne({ where: { id } });
@@ -44,7 +48,7 @@ export class MessageService {
     return await this.messageRepository.find();
   }
 
-  async findDiscussion(
+  /*async findDiscussion(
     friendId: string,
     userId: string,
   ): Promise<ResponseMessageDto[]> {
@@ -75,7 +79,7 @@ export class MessageService {
       },
       relations: ['sender', 'receiver'],
     });
-  }
+  }*/
 
   async update(
     id: string,

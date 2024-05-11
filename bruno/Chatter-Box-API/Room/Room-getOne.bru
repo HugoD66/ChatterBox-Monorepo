@@ -1,0 +1,15 @@
+meta {
+  name: Room-getOne
+  type: http
+  seq: 2
+}
+
+get {
+  url: http://{{url}}:{{port}}/room/00e9a675-8cd6-43e9-99ff-d02c86270f1a
+  body: none
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{bearerToken}}
+}

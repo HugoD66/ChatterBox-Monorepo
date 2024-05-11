@@ -23,6 +23,12 @@ export class FixtureController {
   }
 
   @Public()
+  @Post(`room-fixtures`)
+  createRoomFixtures(): Promise<string> {
+    return this.fixtureService.seedRoom();
+  }
+
+  @Public()
   @Delete()
   deleteAllFixtures(): Promise<string> {
     return this.fixtureService.deleteAll();
