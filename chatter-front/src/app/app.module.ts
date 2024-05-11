@@ -1,7 +1,7 @@
 import { AppComponent } from './app.component';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RouterOutlet } from '@angular/router';
+import { RouterModule, RouterOutlet } from '@angular/router';
 import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
@@ -22,12 +22,13 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    SidenavComponent,
-    TruncateLongPipe,
+    RouterModule,
     BrowserAnimationsModule,
+    TruncateLongPipe,
+    SidenavComponent,
   ],
   providers: [
-    provideAnimationsAsync(),
+    //provideAnimationsAsync(),
     DialogService,
     MessageService,
     FriendService,

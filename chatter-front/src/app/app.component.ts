@@ -15,7 +15,7 @@ import { UserModel } from './models/user.model';
   styleUrl: './app.component.scss',
 })
 export class AppComponent {
-  public user: WritableSignal<UserModel | null> = signal(null);
+  /* public user: WritableSignal<UserModel | null> = signal(null);
 
   constructor(
     private authService: AuthService,
@@ -32,5 +32,5 @@ export class AppComponent {
         }
       });
     }
-  }
+  }*/
 }
