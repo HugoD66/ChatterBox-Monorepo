@@ -10,6 +10,7 @@ import { RoomModel } from '../../../models/room.model';
 import { environment } from '../../../../env';
 import { MatSidenav } from '@angular/material/sidenav';
 import { NgClass } from '@angular/common';
+import { Router } from '@angular/router';
 
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -26,12 +27,17 @@ export class SectionDetailUnitComponent {
 
   protected apiUrl = environment.apiUrl;
 
-  constructor() {
+  constructor(private router: Router) {
     effect(
       () => {
         console.log(this.detailUnit());
       },
       { allowSignalWrites: true },
     );
+  }
+
+  public async goToUserConversation(userId?: string, roomId?: string) {
+    console.log(userId);
+    this.router.navigate([`/room/private/${userId || roomId}`]);
   }
 }

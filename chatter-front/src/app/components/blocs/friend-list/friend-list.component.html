@@ -3,7 +3,7 @@
     <p>0 en ligne</p>
     <p>
       {{
-        friends() ? friends()?.length + " amis" : "Aucun amis pour l'instant"
+        friendList() ? friendList()?.length + " amis" : "Aucun amis pour l'instant"
       }}
     </p>
   </div>
@@ -13,7 +13,7 @@
     } @else {
       <div class="friend-list-loop">
         <div class="friends">
-          @for (friend of friends(); track friend.id) {
+          @for (friend of friendList(); track friend.id) {
             <app-friend-unit
               [friend]="friend"
               [isPanelAddFriendToRoom]="isPanelAddFriendToRoom()"

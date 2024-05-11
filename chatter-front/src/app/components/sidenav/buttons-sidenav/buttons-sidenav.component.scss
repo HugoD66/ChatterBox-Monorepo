@@ -5,26 +5,38 @@
 .button-action-list-count {
   @include global.flex-center;
   .action-friend, .action-room-list {
+    border: none;
     @include global.flex-center;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, margin 0.3s ease;
+    background-color: colors.$back-light-b;
     .icon-friend {
       width: 20px;
+    }
+    p {
+      @include fonts.p;
     }
   }
   &.expanded {
     .action-friend, .action-room-list {
+      margin: 5px;
+      transition: margin 0.3s ease;
       .icon-friend {
       }
       p {
         opacity: 1;
         visibility: visible;
         transition: opacity 0.3s ease, visibility 0.3s ease 0.3s, height 0.3s ease 0.3s;
-        margin: 0;
-        padding: 0;
+        padding: 0 0 0 5px;
+        margin: 4px;
       }
     }
   }
   &.collapsed {
     .action-friend, .action-room-list {
+      margin: 2px;
+      transition: margin 0.3s ease;
       .icon-friend {
       }
       p {
@@ -39,3 +51,4 @@
     }
   }
 }
+

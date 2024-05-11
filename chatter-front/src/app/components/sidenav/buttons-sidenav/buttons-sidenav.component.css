@@ -4,19 +4,36 @@
   align-items: center;
 }
 .button-action-list-count .action-friend, .button-action-list-count .action-room-list {
+  border: none;
   display: flex;
   justify-content: center;
   align-items: center;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, margin 0.3s ease;
+  background-color: rgb(237, 244, 255);
 }
 .button-action-list-count .action-friend .icon-friend, .button-action-list-count .action-room-list .icon-friend {
   width: 20px;
+}
+.button-action-list-count .action-friend p, .button-action-list-count .action-room-list p {
+  font-family: "JostRegular", sans-serif;
+  font-size: 1.05em;
+}
+.button-action-list-count.expanded .action-friend, .button-action-list-count.expanded .action-room-list {
+  margin: 5px;
+  transition: margin 0.3s ease;
 }
 .button-action-list-count.expanded .action-friend p, .button-action-list-count.expanded .action-room-list p {
   opacity: 1;
   visibility: visible;
   transition: opacity 0.3s ease, visibility 0.3s ease 0.3s, height 0.3s ease 0.3s;
-  margin: 0;
-  padding: 0;
+  padding: 0 0 0 5px;
+  margin: 4px;
+}
+.button-action-list-count.collapsed .action-friend, .button-action-list-count.collapsed .action-room-list {
+  margin: 2px;
+  transition: margin 0.3s ease;
 }
 .button-action-list-count.collapsed .action-friend p, .button-action-list-count.collapsed .action-room-list p {
   opacity: 0;

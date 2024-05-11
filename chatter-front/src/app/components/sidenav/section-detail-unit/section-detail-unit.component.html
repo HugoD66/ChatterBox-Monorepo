@@ -1,5 +1,12 @@
-@if(detailUser()){
-<div class="section-detail-unit-content" [ngClass]="isExpanded() ? 'expanded' : 'collapsed'">
+@if(!detailUser()){
+  <div>
+
+  </div>
+} @else {
+<div class="section-detail-unit-content"
+     [ngClass]="isExpanded() ? 'expanded' : 'collapsed'"
+     (click)="goToUserConversation(detailUser()!.id)"
+>
   @if (detailUser()?.picture) {
     <img
       class="picture-detail"
@@ -14,6 +21,9 @@
   }
   @if(isExpanded()) {
     <p>{{detailUser()?.pseudo}}</p>
+    <div class="user-status">
+
+    </div>
   }
 
 </div>

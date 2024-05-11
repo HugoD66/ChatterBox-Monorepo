@@ -1,11 +1,12 @@
 import { Component, input, InputSignal } from '@angular/core';
 import { Router } from '@angular/router';
 import { NgClass } from '@angular/common';
+import { MatButton } from '@angular/material/button';
 
 @Component({
   selector: 'app-buttons-sidenav',
   standalone: true,
-  imports: [NgClass],
+  imports: [NgClass, MatButton],
   templateUrl: './buttons-sidenav.component.html',
   styleUrl: './buttons-sidenav.component.scss',
 })

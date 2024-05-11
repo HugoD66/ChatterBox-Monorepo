@@ -4,8 +4,39 @@
 
 
 .icons-sidenav-content {
+  height: 64%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  margin: auto;
   mat-icon {
-    width: 25%;
+    margin: auto;
+    transform: scale(1.6);
   }
+  &.expanded {
+    .button-action-collapse {
+      transition: transform 0.3s ease;
+      transform: rotate(180deg);
+    }
+    .hide-on-collapse {
+      opacity: 1;
+      visibility: visible;
+      transition: opacity 0.3s ease, visibility 0.3s ease 0.3s, height 0.3s ease 0.3s;
+    }
+  }
+  &.collapsed {
+    .button-action-collapse {
+      margin-left: 25%;
+      transition: transform 0.3s ease;
+      transform: rotate(0deg);
+    }
+    .hide-on-collapse {
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.3s ease, visibility 0.3s ease 0.3s, width 0.3s ease 0.3s, height 0.3s ease 0.3s;
 
+    }
+  }
 }

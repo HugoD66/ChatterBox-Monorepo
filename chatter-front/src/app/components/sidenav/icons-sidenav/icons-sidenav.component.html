@@ -1,6 +1,6 @@
-<div class="icons-sidenav-content">
-  <mat-icon (click)="changeSidenavMode.emit()">
-    {{ isExpanded() ? "arrow_left_alt" : "arrow_right_alt" }}
+<div class="icons-sidenav-content" [ngClass]="isExpanded() ? 'expanded' : 'collapsed'">
+  <mat-icon class="button-action-collapse" (click)="changeSidenavMode.emit()">
+    keyboard_backspace
   </mat-icon>
   <mat-icon class="hide-on-collapse" (click)="logout()">
     logout

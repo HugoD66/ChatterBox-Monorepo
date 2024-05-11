@@ -1,6 +1,10 @@
 @if (friend()) {
   <div class="private-room-content">
-    <app-friend-profil [getMe]="this.getMe()!" [userSelected]="friend()" />
+    <app-friend-profil
+      [getMe]="this.getMe()!"
+      [userSelected]="friend()"
+      [isProfilSelected]="true"
+    />
     <app-discussion [messages]="messages()" />
   </div>
 }

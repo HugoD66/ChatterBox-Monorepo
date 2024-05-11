@@ -10,12 +10,13 @@ import { MatIcon } from '@angular/material/icon';
 import { UserModel } from '../../../models/user.model';
 import { AuthService } from '../../../services/auth.service';
 import { Router } from '@angular/router';
+import { NgClass } from '@angular/common';
 
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,
   selector: 'app-icons-sidenav',
   standalone: true,
-  imports: [MatIcon],
+  imports: [MatIcon, NgClass],
   templateUrl: './icons-sidenav.component.html',
   styleUrl: './icons-sidenav.component.scss',
 })

@@ -2,18 +2,15 @@
   <app-friend-profil
     [getMe]="this.getMe()!"
     [userSelected]="profilSelected()!"
-    [ngClass]="{
-      'profile-active': profilSelected(),
-      'profile-inactive': !profilSelected()
-    }"
-  /><!-- [ngStyle]="profilSelected() ? {'height': '25vh'} : {'height': '0vh'}"-->
+    [isProfilSelected]="false"
+    [ngStyle]="{'height': profilSelected() ? '20vh' : 'auto'}"
+  />
   <app-add-friend-search
     [getMe]="this.getMe()!"
     (onUserclick)="this.onUserclick($event)"
-    style="height: 100vh"
     [ngClass]="{
       'search-expanded': !profilSelected(),
       'search-collapsed': profilSelected()
     }"
-  /><!--[ngStyle]="profilSelected() ? {'height': '64vh'} : {'height': '85vh'}"-->
+  />
 </div>

@@ -16,6 +16,8 @@ import { LoaderComponent } from '../../loader/loader.component';
 import { FriendUnitComponent } from './friend-unit/friend-unit.component';
 import { UserModel } from '../../../models/user.model';
 import { FriendService } from '../../../services/friend.service';
+import { FriendRelationModel } from '../../../models/friend-relation.model';
+import { Router } from '@angular/router';
 
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -33,19 +35,24 @@ import { FriendService } from '../../../services/friend.service';
 })
 export class FriendListComponent {
   public isLoading: WritableSignal<boolean> = signal(true);
-  public friends: WritableSignal<UserModel[]> = signal([]);
+  public friendList: WritableSignal<UserModel[] | null> = signal([]);
   public getMe: InputSignal<UserModel> = input.required<UserModel>();
   public isPanelAddFriendToRoom: InputSignal<boolean> = input.required();
 
-  constructor(private friendService: FriendService) {
-    effect(() => {
-      if (this.getMe().id) {
-        this.friendService.getFriends(this.getMe().id).subscribe((friends) => {
-          //console.log(friends);
-          this.friends.update(() => friends);
-          this.isLoading.set(false);
-        });
-      }
-    });
+  constructor() {
+    effect(
+      () => {
+        this.friendList.update(
+          () =>
+            this.getMe()?.friendships?.map(
+              (f: FriendRelationModel) => f.friend,
+            ) ?? null,
+        );
+        if (this.friendList() !== null) {
+          this.isLoading.update(() => false);
+        }
+      },
+      { allowSignalWrites: true },
+    );
   }
 }

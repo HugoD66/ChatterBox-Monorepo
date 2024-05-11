@@ -2,7 +2,6 @@ import { CreateUserDto } from '../users/dto/create-user.dto';
 import { Injectable } from '@nestjs/common';
 import { UsersService } from '../users/users.service';
 import { UserGeneralRoleEnum } from '../users/entities/types/user.general.roles.enum';
-import { FriendUsersService } from '../friend-users/friend-users.service';
 
 @Injectable()
 export class UserFixtures {

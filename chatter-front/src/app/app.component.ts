@@ -1,7 +1,6 @@
 import {
   ChangeDetectionStrategy,
   Component,
-  OnInit,
   signal,
   WritableSignal,
 } from '@angular/core';
@@ -15,15 +14,13 @@ import { UserModel } from './models/user.model';
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',
 })
-export class AppComponent implements OnInit {
+export class AppComponent {
   public user: WritableSignal<UserModel | null> = signal(null);
 
   constructor(
     private authService: AuthService,
     private router: Router,
-  ) {}
-
-  ngOnInit() {
+  ) {
     if (!this.authService.isLoggedIn()) {
       this.router.navigate(['/auth/login']) ||
         this.router.navigate(['/auth/register']);

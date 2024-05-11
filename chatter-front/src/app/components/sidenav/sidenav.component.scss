@@ -16,10 +16,15 @@ mat-sidenav {
   flex-direction: column;
   align-items: center;
   justify-content: space-between;
-  height: 100%;
+  height: 100vh;
+  cursor: pointer;
   @media screen and (max-width: 600px) {
     width: 100vw !important;
     height: 100vh !important;
+  }
+  mat-divider {
+    width: 80%;
+    margin: auto;
   }
   .logo-title-content {
     height: 10vh;
@@ -52,11 +57,7 @@ mat-sidenav {
   }
   .icons-actions-content {
     height: 10vh;
-    mat-icon {
-      width: 40px;
-    }
-
-  }
+     }
 /////////
   &.expanded {
     width: 15em !important;
@@ -81,6 +82,9 @@ mat-sidenav {
       width: 40px;
       height: 20px;
     }
+    mat-divider {
+      transition:  width 0.3s ease 0.3s;
+    }
   }
 /////////
   &.collapsed {
@@ -95,14 +99,17 @@ mat-sidenav {
         transition: opacity 0.3s ease, visibility 0.3s ease 0.3s;
       }
     }
-  }
-  .hide-on-collapse {
-    opacity: 0;
-    visibility: hidden;
-    transition: opacity 0.3s ease, visibility 0.3s ease 0.3s, width 0.3s ease 0.3s, height 0.3s ease 0.3s;
-    margin: 0;
-    padding: 0;
-    width: 0;
-    height: 0;
+    .hide-on-collapse {
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.3s ease, visibility 0.3s ease 0.3s, width 0.3s ease 0.3s, height 0.3s ease 0.3s;
+      margin: 0;
+      padding: 0;
+      width: 0;
+      height: 0;
+    }
+    mat-divider {
+      transition:  width 0.3s ease 0.3s;
+    }
   }
 }

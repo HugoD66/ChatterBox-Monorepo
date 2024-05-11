@@ -1,6 +1,7 @@
 @if (!userSelected()) {
 } @else {
-  <div class="friend-profil-content">
+
+  <div class="friend-profil-content"  [@openClose]="onOpenComponent() ? 'open' : 'closed'">
     <div class="friend-profil-info-picture">
       @if (userSelected().picture) {
         <img
