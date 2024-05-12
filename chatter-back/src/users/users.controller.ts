@@ -13,7 +13,6 @@ import {
   UseInterceptors,
   UploadedFile,
   Put,
-  Query,
 } from '@nestjs/common';
 import { UsersService } from './users.service';
 import { CreateUserDto } from './dto/create-user.dto';
@@ -27,6 +26,7 @@ import { FileInterceptor } from '@nestjs/platform-express';
 import { multerConfig } from '../multer.config';
 import { FileSizeValidationPipe } from '../pipe/FileSizeValidationPipe';
 import { ChangePasswordDto } from './dto/ChangePasswordDto';
+import { GetMeResponseDto } from './dto/get-me-response.dto';
 
 @Controller('users')
 export class UsersController {
@@ -45,8 +45,8 @@ export class UsersController {
 
   @Get('/auth/me')
   @UseGuards(AuthGuard)
-  async getMe(@Req() req): Promise<ResponseUserDto> {
-    return this.usersService.findOne(req.user.id);
+  async getMe(@Req() req): Promise<GetMeResponseDto> {
+    return this.usersService.getMe(req.user.id);
   }
 
   @UseGuards(AuthGuard)

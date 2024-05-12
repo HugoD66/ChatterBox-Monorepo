@@ -1,17 +1,13 @@
 import {
   ChangeDetectionStrategy,
   Component,
-  computed,
   effect,
-  input,
-  InputSignal,
-  Signal,
   signal,
   WritableSignal,
 } from '@angular/core';
 import { FriendProfilComponent } from '../../components/blocs/friend-profil/friend-profil.component';
 import { DiscussionComponent } from '../../components/blocs/discussion/discussion.component';
-import { UserModel } from '../../models/user.model';
+import { GetMeModel, UserModel } from '../../models/user.model';
 import { MessageModel } from '../../models/message.model';
 import { MessageService } from '../../services/message.service';
 import { AuthService } from '../../services/auth.service';
@@ -30,7 +26,7 @@ export class PrivateRoomComponent {
   //TODO AJOUTER LOADCOMPONENT, et cas ou array de messages() vide
   //TODO !!! Erreur sur le messageServiceGetDiscussion
   public messages: WritableSignal<MessageModel[]> = signal([]);
-  public getMe: WritableSignal<UserModel | null> = signal(null);
+  public getMe: WritableSignal<GetMeModel | null> = signal(null);
   public friendSelectedId: WritableSignal<string> = signal('');
 
   public friend: WritableSignal<UserModel> = signal({} as UserModel);
@@ -45,7 +41,7 @@ export class PrivateRoomComponent {
       this.friendSelectedId.set(params['friendId']);
     });
 
-    this.authService.getMe().subscribe((me: UserModel) => {
+    this.authService.getMe().subscribe((me: GetMeModel) => {
       this.getMe.update(() => me);
       this.messageService
         .getDiscussion(this.friendSelectedId(), this.getMe()!.id)

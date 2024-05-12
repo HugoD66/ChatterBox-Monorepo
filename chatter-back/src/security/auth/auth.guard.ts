@@ -36,7 +36,6 @@ export class AuthGuard implements CanActivate {
         secret: jwtConstants.secret,
       });
 
-      //TO DELETE !!!! request[`user`] = payload; !!!! YGOBordeaux
       request.user = { id: payload.sub, email: payload.email };
     } catch {
       throw new UnauthorizedException();

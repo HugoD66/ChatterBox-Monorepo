@@ -7,7 +7,7 @@ import {
   Output,
 } from '@angular/core';
 import { MatIcon } from '@angular/material/icon';
-import { UserModel } from '../../../models/user.model';
+import { GetMeModel, UserModel } from '../../../models/user.model';
 import { AuthService } from '../../../services/auth.service';
 import { Router } from '@angular/router';
 import { NgClass } from '@angular/common';
@@ -21,7 +21,7 @@ import { NgClass } from '@angular/common';
   styleUrl: './icons-sidenav.component.scss',
 })
 export class IconsSidenavComponent {
-  public getMe: InputSignal<UserModel | null> = input.required();
+  public getMe: InputSignal<GetMeModel | null> = input.required();
   public isExpanded: InputSignal<boolean> = input.required<boolean>();
   @Output() changeSidenavMode: EventEmitter<void> = new EventEmitter<void>();
   @Output() removeGetMe = new EventEmitter<UserModel>();

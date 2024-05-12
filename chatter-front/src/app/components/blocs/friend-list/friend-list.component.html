@@ -8,12 +8,9 @@
     </p>
   </div>
   <div class="friend-list">
-    @if (isLoading()) {
-      <app-loader />
-    } @else {
       <div class="friend-list-loop">
         <div class="friends">
-          @for (friend of friendList(); track friend.id) {
+          @for (friend of getMe().friends; track friend.id) {
             <app-friend-unit
               [friend]="friend"
               [isPanelAddFriendToRoom]="isPanelAddFriendToRoom()"
@@ -28,6 +25,5 @@
           }
         </div>
       </div>
-    }
   </div>
 </div>

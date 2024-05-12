@@ -14,6 +14,7 @@ import { FriendService } from './services/friend.service';
 import { UserService } from './services/user.service';
 import { PopupService } from './services/popup.service';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { RoomService } from './services/room.service';
 @NgModule({
   declarations: [AppComponent],
   imports: [
@@ -33,6 +34,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     MessageService,
     FriendService,
     UserService,
+    RoomService,
     PopupService,
   ],
   bootstrap: [AppComponent],

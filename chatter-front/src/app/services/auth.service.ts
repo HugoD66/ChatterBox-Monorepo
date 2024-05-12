@@ -3,26 +3,17 @@ import { environment } from '../../env';
 import { Router } from '@angular/router';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { catchError, Observable, tap, throwError } from 'rxjs';
-import { UserModel } from '../models/user.model';
+import { GetMeModel, UserModel } from '../models/user.model';
 import { RegisterModel } from '../models/register.model';
-import { UserGeneralRoleEnum } from '../enum/user.general.role.enum';
 import { ChangePasswordModel } from '../models/change-password.model';
 
 export interface LoginResponse {
   access_token: string;
 }
+
 export interface LoginCredentials {
   email: string;
   password: string;
-}
-export interface LoginReturnUser {
-  id: string;
-  pseudo: string;
-  email: string;
-  picture: string;
-  createdAt: Date;
-  roleGeneral: UserGeneralRoleEnum;
-  friends: UserModel[];
 }
 
 @Injectable({
@@ -30,7 +21,7 @@ export interface LoginReturnUser {
 })
 export class AuthService {
   private apiUrl = environment.apiUrl;
-  public getMeByAuthService: WritableSignal<UserModel | null> = signal(null);
+  public getMeByAuthService: WritableSignal<GetMeModel | null> = signal(null);
 
   constructor(
     private router: Router,
@@ -43,13 +34,24 @@ export class AuthService {
 
   login(values: LoginCredentials): Observable<LoginResponse> {
     return this.http
-      .post<LoginResponse>(`${this.apiUrl}/users/auth/login`, values)
+      .post<GetMeModel>(`${this.apiUrl}/users/auth/login`, values)
       .pipe(
         tap((response) => {
-          // eslint-disable-next-line @typescript-eslint/no-unused-vars
-          const { access_token, ...userDetails } = response;
-          this.getMeByAuthService.update(() => userDetails as LoginReturnUser);
+          localStorage.setItem('authToken', response.access_token);
+          const auth = localStorage.getItem('authToken');
+
+          const getMeModel = {
+            ...response,
+            auth,
+          };
+
+          this.getMeByAuthService.update(() => getMeModel as GetMeModel);
+          localStorage.setItem(
+            'currentUser',
+            JSON.stringify(this.getMeByAuthService()),
+          );
         }),
+
         catchError((error) => {
           return throwError(() => error);
         }),
@@ -98,10 +100,10 @@ export class AuthService {
       );
   }
 
-  getMe(): Observable<UserModel> {
+  getMe(): Observable<GetMeModel> {
     const accessToken = localStorage.getItem(`authToken`);
     return this.http
-      .get<UserModel>(`${this.apiUrl}/users/auth/me`, {
+      .get<GetMeModel>(`${this.apiUrl}/users/auth/me`, {
         headers: new HttpHeaders().set(
           'Authorization',
           'Bearer ' + accessToken,
@@ -109,7 +111,12 @@ export class AuthService {
       })
       .pipe(
         tap((response) => {
-          this.getMeByAuthService.update(() => response as LoginReturnUser);
+          const getMeModel = {
+            ...response,
+            accessToken,
+          };
+
+          this.getMeByAuthService.update(() => getMeModel as GetMeModel);
           localStorage.setItem(
             'currentUser',
             JSON.stringify(this.getMeByAuthService()),

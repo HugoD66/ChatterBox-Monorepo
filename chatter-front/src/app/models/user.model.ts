@@ -10,3 +10,8 @@ export class UserModel {
   public roleGeneral!: UserGeneralRoleEnum;
   public friendships?: FriendRelationModel[];
 }
+
+export interface GetMeModel extends UserModel {
+  access_token: string;
+  friends: UserModel[];
+}

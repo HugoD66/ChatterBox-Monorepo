@@ -32,6 +32,7 @@ export class MessageService {
         }),
       );
   }
+  //TODO DELETE
   getUnreadMessages(userId: string): Observable<MessageModel[]> {
     return this.http
       .get<MessageModel[]>(`${this.apiUrl}/message/unread/${userId}`)

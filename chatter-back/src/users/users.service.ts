@@ -16,6 +16,7 @@ import { JwtService } from '@nestjs/jwt';
 import { UserGeneralRoleEnum } from './entities/types/user.general.roles.enum';
 import { ValidationErrors } from '../exceptions/ValidationErrors';
 import { ChangePasswordDto } from './dto/ChangePasswordDto';
+import { GetMeResponseDto } from './dto/get-me-response.dto';
 
 @Injectable()
 export class UsersService {
@@ -83,6 +84,7 @@ export class UsersService {
   async login(loginDto: LoginDto): Promise<LoginResponseDto> {
     const user: User = await this.usersRepository.findOne({
       where: { email: loginDto.email },
+      relations: ['friendships', 'friendships.friend'],
     });
     if (!user) {
       throw new NotFoundException(ValidationErrors.USER_NOT_FOUND);
@@ -102,10 +104,21 @@ export class UsersService {
     };
   }
 
+  async getMe(userId: string): Promise<GetMeResponseDto> {
+    const user: User = await this.usersRepository.findOne({
+      where: { id: userId },
+      relations: ['friendships', 'friendships.friend'],
+    });
+    return {
+      ...user,
+      friends: await this.getFriends(user.id),
+    };
+  }
+
   async findOne(id: string): Promise<ResponseUserDto> {
     return await this.usersRepository.findOne({
       where: { id },
-      relations: ['friendships', 'friendships.friend'],
+      relations: ['friendships'],
     });
   }
 
@@ -128,7 +141,9 @@ export class UsersService {
     id: string,
     updateUserDto: Partial<User>,
   ): Promise<ResponseUserDto> {
-    const user: User = await this.usersRepository.findOne({ where: { id } });
+    const user: User = await this.usersRepository.findOne({
+      where: { id },
+    });
     if (!user) {
       throw new NotFoundException(`User with ID ${id} not found`);
     }
@@ -175,27 +190,5 @@ export class UsersService {
     return userWithFriends
       ? userWithFriends.friendships.map((f) => f.friend)
       : [];
-  }
-
-  /*
-   async getFriends(findAllByUser: User) {
-    const userFriends =
-      await this.friendUsersService.findAllByUser(findAllByUser);
-    return userFriends;
-  }
-   */
-  async getPasswordInformation(userId: string) {
-    const user = await this.usersRepository.findOne({
-      where: { id: userId },
-      select: ['password'],
-    });
-    if (!user) {
-      throw new NotFoundException(`User with ID ${userId} not found`);
-    }
-
-    const examplePassword = user.password;
-    const passwordForDisplay = `${examplePassword.charAt(0)}${'*'.repeat(examplePassword.length - 1)}`;
-
-    return passwordForDisplay;
   }
 }

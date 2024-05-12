@@ -29,6 +29,7 @@
         [getMe]="getMe()"
         [key]="'Email'"
         (updateView)="updateEmail()"
+        (userUpdated)="userUpdated.emit()"
         class="info-content"
       />
     }

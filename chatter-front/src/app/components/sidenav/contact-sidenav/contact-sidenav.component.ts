@@ -7,8 +7,7 @@ import {
   effect,
   ChangeDetectionStrategy,
 } from '@angular/core';
-import { UserModel } from '../../../models/user.model';
-import { FriendRelationModel } from '../../../models/friend-relation.model';
+import { GetMeModel, UserModel } from '../../../models/user.model';
 import { SectionDetailUnitComponent } from '../section-detail-unit/section-detail-unit.component';
 import { Router } from '@angular/router';
 import { ButtonsSidenavComponent } from '../buttons-sidenav/buttons-sidenav.component';
@@ -29,25 +28,10 @@ import { NgClass } from '@angular/common';
   styleUrl: './contact-sidenav.component.scss',
 })
 export class ContactSidenavComponent {
-  public getMe: InputSignal<UserModel | null> = input.required();
-  public friendList: WritableSignal<UserModel[]> = signal([]);
+  public getMe: InputSignal<GetMeModel | null> = input.required();
   public isExpanded: InputSignal<boolean> = input.required<boolean>();
 
-  constructor(private router: Router) {
-    effect(
-      () => {
-        console.log(this.getMe());
-        this.friendList.update(
-          () =>
-            this.getMe()?.friendships?.map(
-              (f: FriendRelationModel) => f.friend,
-            ) ?? [],
-        );
-        console.log(this.friendList());
-      },
-      { allowSignalWrites: true },
-    );
-  }
+  constructor(private router: Router) {}
 
   goAddFriend() {
     this.router.navigate([`/friend/add`]);

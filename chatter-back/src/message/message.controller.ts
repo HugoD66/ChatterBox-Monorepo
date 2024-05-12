@@ -35,7 +35,7 @@ export class MessageController {
     return await this.messageService.findAll();
   }
 
-  /* @Public() //TODO TEMP
+  @Public() //TODO TEMP
   @Get('unread/:id')
   async findAllUnreads(
     @Param('id') receiverId: string,
@@ -43,7 +43,7 @@ export class MessageController {
     return await this.messageService.findAllUnreads(receiverId);
   }
 
-  @Public() //TODO TEMP
+  /*@Public() //TODO TEMP
   @Get('discussion/:friendId/:userId')
   async findDiscussion(
     @Param('friendIdid') friendId: string,

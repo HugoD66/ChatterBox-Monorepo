@@ -9,8 +9,8 @@ import { LastMessageComponent } from '../../components/blocs/last-message/last-m
 import { ProfilComponent } from '../../components/blocs/profil/profil.component';
 import { SidenavComponent } from '../../components/sidenav/sidenav.component';
 import { RouterOutlet } from '@angular/router';
-import { UserModel } from '../../models/user.model';
 import { AuthService } from '../../services/auth.service';
+import { GetMeModel } from '../../models/user.model';
 
 @Component({
   selector: 'app-layout',
@@ -27,7 +27,9 @@ import { AuthService } from '../../services/auth.service';
   styleUrl: './layout.component.scss',
 })
 export class LayoutComponent {
-  public getMe: WritableSignal<UserModel> = signal({} as unknown as UserModel);
+  public getMe: WritableSignal<GetMeModel> = signal(
+    {} as unknown as GetMeModel,
+  );
   public isSidenavExpanded: boolean = true;
   public sidebarCollapsed = signal(true);
 
@@ -35,6 +37,7 @@ export class LayoutComponent {
     const userJson = localStorage.getItem('currentUser');
     if (userJson) {
       this.getMe.update(() => JSON.parse(userJson));
+      console.log(this.getMe());
     }
   }
 
@@ -46,7 +49,7 @@ export class LayoutComponent {
   removeGetMe(): void {
     this.authService.logout();
     this.getMe.update(() => {
-      return {} as UserModel;
+      return {} as GetMeModel;
     });
   }
 }

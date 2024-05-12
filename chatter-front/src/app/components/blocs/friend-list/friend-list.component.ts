@@ -1,11 +1,8 @@
 import {
   ChangeDetectionStrategy,
   Component,
-  computed,
-  effect,
   input,
   InputSignal,
-  model,
   signal,
   WritableSignal,
 } from '@angular/core';
@@ -14,10 +11,7 @@ import { AsyncPipe } from '@angular/common';
 import { MatProgressSpinner } from '@angular/material/progress-spinner';
 import { LoaderComponent } from '../../loader/loader.component';
 import { FriendUnitComponent } from './friend-unit/friend-unit.component';
-import { UserModel } from '../../../models/user.model';
-import { FriendService } from '../../../services/friend.service';
-import { FriendRelationModel } from '../../../models/friend-relation.model';
-import { Router } from '@angular/router';
+import { GetMeModel, UserModel } from '../../../models/user.model';
 
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -34,14 +28,14 @@ import { Router } from '@angular/router';
   styleUrl: './friend-list.component.scss',
 })
 export class FriendListComponent {
-  public isLoading: WritableSignal<boolean> = signal(true);
   public friendList: WritableSignal<UserModel[] | null> = signal([]);
-  public getMe: InputSignal<UserModel> = input.required<UserModel>();
+  public getMe: InputSignal<GetMeModel> = input.required<GetMeModel>();
   public isPanelAddFriendToRoom: InputSignal<boolean> = input.required();
 
   constructor() {
-    effect(
+    /* effect(
       () => {
+        console.log(this.getMe());
         this.friendList.update(
           () =>
             this.getMe()?.friendships?.map(
@@ -53,6 +47,6 @@ export class FriendListComponent {
         }
       },
       { allowSignalWrites: true },
-    );
+    );*/
   }
 }

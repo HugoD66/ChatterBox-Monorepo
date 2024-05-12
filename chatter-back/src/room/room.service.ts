@@ -5,6 +5,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Room } from './entities/room.entity';
 import { Repository } from 'typeorm';
 import { ResponseRoomDto } from './dto/response-room.dto';
+import { ResponseMessageDto } from '../message/dto/response-message.dto';
 
 @Injectable()
 export class RoomService {
@@ -29,6 +30,15 @@ export class RoomService {
     return await this.roomRepository.find({
       relations: ['messages', 'messages.sender', 'owner', 'participants'],
     });
+  }
+
+  async findAllUnreadMessages(userId: string): Promise<ResponseMessageDto[]> {
+    const rooms = await this.roomRepository.find({
+      where: { participants: { id: userId }, owner: { id: userId } },
+      relations: ['messages'],
+    });
+    const messages = rooms.map((room) => room.messages).flat();
+    return messages.filter((message) => !message.isRead);
   }
 
   async update(

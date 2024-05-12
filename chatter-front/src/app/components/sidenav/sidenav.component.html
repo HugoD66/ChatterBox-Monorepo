@@ -4,7 +4,7 @@
     <span>{{ isExpanded() ? "Chatter-Box" : "Chatter-Box" }}</span>
   </div>
   <div class="count-buttons-actions">
-    <app-buttons-sidenav [isExpanded]="isExpanded()" />
+    <app-buttons-sidenav [isExpanded]="isExpanded()" [getMe]="getMe()" />
   </div>
   <mat-divider />
   <div class="contact-content">

@@ -12,7 +12,7 @@ import {
   MatSidenavContainer,
 } from '@angular/material/sidenav';
 import { MatButton } from '@angular/material/button';
-import { UserModel } from '../../models/user.model';
+import { GetMeModel, UserModel } from '../../models/user.model';
 import { ProfilComponent } from '../../components/blocs/profil/profil.component';
 import { LastMessageComponent } from '../../components/blocs/last-message/last-message.component';
 import { FriendListComponent } from '../../components/blocs/friend-list/friend-list.component';
@@ -39,7 +39,9 @@ import { AsyncPipe } from '@angular/common';
 })
 export class HomeComponent implements OnInit {
   public friends: WritableSignal<UserModel[]> = signal([]);
-  public getMe: WritableSignal<UserModel> = signal({} as unknown as UserModel);
+  public getMe: WritableSignal<GetMeModel> = signal(
+    {} as unknown as GetMeModel,
+  );
 
   constructor(private authService: AuthService) {
     const userJson = localStorage.getItem('currentUser');
@@ -51,7 +53,7 @@ export class HomeComponent implements OnInit {
   ngOnInit() {}
 
   onUserUpdated() {
-    this.authService.getMe().subscribe((me: UserModel) => {
+    this.authService.getMe().subscribe((me: GetMeModel) => {
       this.getMe.update(() => me);
       localStorage.setItem('currentUser', JSON.stringify(me));
     });

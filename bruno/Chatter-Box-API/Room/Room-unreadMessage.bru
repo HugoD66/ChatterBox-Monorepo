@@ -1,0 +1,15 @@
+meta {
+  name: Room-unreadMessage
+  type: http
+  seq: 3
+}
+
+get {
+  url: http://{{url}}:{{port}}/room/unreads-messages/2e49af64-1153-49b0-a902-aff9e6b671a3
+  body: none
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{bearerToken}}
+}

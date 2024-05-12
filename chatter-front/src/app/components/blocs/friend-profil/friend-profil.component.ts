@@ -66,6 +66,7 @@ export class FriendProfilComponent {
       () => {
         // console.log('userSelected');
         console.log(this.userSelected());
+        console.log(this.getMe());
         this.getMe().friendships!.forEach((friend: FriendRelationModel) => {
           if (this.userSelected().id === friend.friend.id) {
             //console.log('FRIEND');

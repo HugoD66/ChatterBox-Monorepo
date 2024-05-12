@@ -22,10 +22,8 @@ import {
 import { MatIcon, MatIconModule } from '@angular/material/icon';
 import { MatIconButton } from '@angular/material/button';
 import { AuthService } from '../../services/auth.service';
-import { UserModel } from '../../models/user.model';
 import { LoaderComponent } from '../../components/loader/loader.component';
-import { toSignal } from '@angular/core/rxjs-interop';
-import { Observable } from 'rxjs';
+import { GetMeModel } from '../../models/user.model';
 
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -52,10 +50,9 @@ export class CreateRoomComponent implements OnDestroy {
   hide = true;
   selectedFile: File | null = null;
 
-  public callGetMe: Observable<UserModel> = this.authService.getMe();
-  public getMe: Signal<UserModel> = toSignal(this.callGetMe, {
-    initialValue: {} as unknown as UserModel,
-  });
+  public getMe: WritableSignal<GetMeModel> = signal(
+    {} as unknown as GetMeModel,
+  );
 
   public isSelectedFile: WritableSignal<boolean> = signal(false);
   createRoomForm: FormGroup = new FormGroup({
@@ -71,11 +68,12 @@ export class CreateRoomComponent implements OnDestroy {
     ]),
   });
 
-  constructor(private authService: AuthService) {
-    this.callGetMe.subscribe(() => {
+  constructor() {
+    const userJson = localStorage.getItem('currentUser');
+    if (userJson) {
+      this.getMe.update(() => JSON.parse(userJson));
       console.log(this.getMe());
-      this.isLoading.set(false);
-    });
+    }
   }
 
   onNameChange(): void {

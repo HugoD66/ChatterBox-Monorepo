@@ -14,6 +14,7 @@ import { LastMessageUnitComponent } from './last-message-unit/last-message-unit.
 import { MessageService } from '../../../services/message.service';
 import { MessageModel } from '../../../models/message.model';
 import { UserModel } from '../../../models/user.model';
+import { RoomService } from '../../../services/room.service';
 
 export interface MessageUnreadModel {
   id: number;
@@ -36,10 +37,20 @@ export class LastMessageComponent {
   public isLoading: WritableSignal<boolean> = signal(true);
   public unreadMessages: WritableSignal<MessageModel[] | null> = signal([]);
 
-  constructor(public messageService: MessageService) {
+  constructor(public roomService: RoomService) {
     effect(() => {
       if (this.getMe().id) {
-        this.messageService
+        this.roomService
+          .getUnreadsMessagesByUser(this.getMe().id)
+          .subscribe((messages: MessageModel[]) => {
+            this.unreadMessages.update(() => messages);
+            console.log('unreadMessages', messages);
+            if (messages.length === 0) {
+              this.haveLastMessage.set(false);
+            }
+            this.isLoading.set(false);
+          });
+        /*this.messageService
           .getUnreadMessages(this.getMe().id)
           .subscribe((messages) => {
             this.unreadMessages.update(() => messages);
@@ -47,7 +58,7 @@ export class LastMessageComponent {
               this.haveLastMessage.set(false);
             }
             this.isLoading.set(false);
-          });
+          });*/
       }
     });
   }

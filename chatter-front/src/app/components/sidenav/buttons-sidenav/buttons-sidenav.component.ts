@@ -2,6 +2,7 @@ import { Component, input, InputSignal } from '@angular/core';
 import { Router } from '@angular/router';
 import { NgClass } from '@angular/common';
 import { MatButton } from '@angular/material/button';
+import { GetMeModel } from '../../../models/user.model';
 
 @Component({
   selector: 'app-buttons-sidenav',
@@ -12,6 +13,7 @@ import { MatButton } from '@angular/material/button';
 })
 export class ButtonsSidenavComponent {
   public isExpanded: InputSignal<boolean> = input.required<boolean>();
+  public getMe: InputSignal<GetMeModel | null> = input.required();
 
   constructor(private router: Router) {}
 

@@ -14,7 +14,7 @@ import {
 } from '@angular/material/sidenav';
 import { NgClass } from '@angular/common';
 import { MatButton } from '@angular/material/button';
-import { UserModel } from '../../models/user.model';
+import { GetMeModel, UserModel } from '../../models/user.model';
 import { Router } from '@angular/router';
 import { MatDivider } from '@angular/material/divider';
 import { MatIcon } from '@angular/material/icon';
@@ -49,8 +49,8 @@ enum SidebarModeEnum {
   styleUrl: './sidenav.component.scss',
 })
 export class SidenavComponent {
-  public getMe: InputSignal<UserModel | null> =
-    input.required<UserModel | null>();
+  public getMe: InputSignal<GetMeModel | null> =
+    input.required<GetMeModel | null>();
   public sidebarActivatedMode = signal(SidebarModeEnum.EXPANDED);
   public isExpanded = signal(false);
   @Output() isExpandedChange = new EventEmitter<boolean>();
