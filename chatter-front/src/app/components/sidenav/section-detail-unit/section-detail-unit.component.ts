@@ -28,12 +28,7 @@ export class SectionDetailUnitComponent {
   protected apiUrl = environment.apiUrl;
 
   constructor(private router: Router) {
-    effect(
-      () => {
-        console.log(this.detailUnit());
-      },
-      { allowSignalWrites: true },
-    );
+    effect(() => {}, { allowSignalWrites: true });
   }
 
   public async goToUserConversation(userId?: string, roomId?: string) {

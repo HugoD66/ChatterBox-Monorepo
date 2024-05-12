@@ -17,6 +17,13 @@ export class UserFixtures {
         picture: `./uploads/user/admin.png`,
       },
       {
+        pseudo: `Sender Test`,
+        email: `sender-test@email.com`,
+        password: `Azeaze.66`,
+        roleGeneral: UserGeneralRoleEnum.Utilisateur,
+        picture: `./uploads/user/userFFixture1.png`,
+      },
+      {
         pseudo: `Hugo Dessauw`,
         email: `dessauw.hugo@gmail.com`,
         password: `Azeaze.66`,

@@ -33,10 +33,8 @@ export class RoomController {
     return this.roomService.findAll();
   }
 
-  @Get('unreads-messages/:id')
-  findAllUnreadsMessages(
-    @Param('id') id: string,
-  ): Promise<ResponseMessageDto[]> {
+  @Get('/unreads-messages/:id')
+  findAllUnreadsMessages(@Param('id') id: string) {
     return this.roomService.findAllUnreadMessages(id);
   }
 

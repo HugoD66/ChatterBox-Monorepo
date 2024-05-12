@@ -9,7 +9,7 @@ import {
   signal,
   WritableSignal,
 } from '@angular/core';
-import { UserModel } from '../../../models/user.model';
+import { GetMeModel, UserModel } from '../../../models/user.model';
 import { MatButton } from '@angular/material/button';
 import { MatDivider } from '@angular/material/divider';
 import { LoaderComponent } from '../../loader/loader.component';
@@ -85,8 +85,8 @@ import { PopupService } from '../../../services/popup.service';
 export class ProfilComponent implements OnInit {
   @Output() userUpdated = new EventEmitter<void>();
 
-  public getMe: InputSignal<UserModel | null> =
-    input.required<UserModel | null>();
+  public getMe: InputSignal<GetMeModel | null> =
+    input.required<GetMeModel | null>();
   public getMeAvatar: WritableSignal<string> = signal('');
   protected apiUrl = environment.apiUrl;
   public isLoading: WritableSignal<boolean> = signal(true);

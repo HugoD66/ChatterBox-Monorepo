@@ -33,5 +33,6 @@ export class Room {
   public participants!: ResponseUserDto[];
 
   @OneToMany(() => Message, (message: Message) => message.room)
+  @JoinTable()
   public messages!: Message[];
 }

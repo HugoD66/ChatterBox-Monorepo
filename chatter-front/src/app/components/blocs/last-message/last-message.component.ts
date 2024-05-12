@@ -9,19 +9,10 @@ import {
 } from '@angular/core';
 import { MatButton } from '@angular/material/button';
 import { LoaderComponent } from '../../loader/loader.component';
-import { FriendUnitComponent } from '../friend-list/friend-unit/friend-unit.component';
 import { LastMessageUnitComponent } from './last-message-unit/last-message-unit.component';
-import { MessageService } from '../../../services/message.service';
 import { MessageModel } from '../../../models/message.model';
-import { UserModel } from '../../../models/user.model';
+import { GetMeModel } from '../../../models/user.model';
 import { RoomService } from '../../../services/room.service';
-
-export interface MessageUnreadModel {
-  id: number;
-  senderName: string;
-  body: string;
-  sentDate: string;
-}
 
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -32,7 +23,7 @@ export interface MessageUnreadModel {
   styleUrl: './last-message.component.scss',
 })
 export class LastMessageComponent {
-  public getMe: InputSignal<UserModel> = input.required<UserModel>();
+  public getMe: InputSignal<GetMeModel> = input.required<GetMeModel>();
   public haveLastMessage: WritableSignal<boolean> = signal(true);
   public isLoading: WritableSignal<boolean> = signal(true);
   public unreadMessages: WritableSignal<MessageModel[] | null> = signal([]);

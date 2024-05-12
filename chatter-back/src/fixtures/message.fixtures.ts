@@ -18,7 +18,7 @@ export class MessageFixtures {
       email: `dessauw.hugo@gmail.com`,
     });
     const privateParticipant = await this.usersService.findOneByOptions({
-      email: `alice@example.com`,
+      email: `sender-test@email.com`,
     });
     const privateRoom: Room = await this.roomService.findOneByOptions({
       title: `Room private test 2`,

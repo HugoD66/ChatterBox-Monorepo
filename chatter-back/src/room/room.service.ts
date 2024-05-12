@@ -32,15 +32,29 @@ export class RoomService {
     });
   }
 
-  async findAllUnreadMessages(userId: string): Promise<ResponseMessageDto[]> {
-    const rooms = await this.roomRepository.find({
-      where: { participants: { id: userId }, owner: { id: userId } },
-      relations: ['messages'],
+  async findAllUnreadMessages(userId: string) {
+    const roomList = await this.roomRepository.find({
+      relations: ['messages', 'messages.sender', 'owner', 'participants'],
     });
+    const unreadMessages = roomList
+      .map((room) => room.messages)
+      .flat()
+      .filter((message) => !message.isRead && message.sender.id !== userId);
+    return unreadMessages;
+  } /* 
+  async findAllUnreadMessages(userId: string): Promise<ResponseMessageDto[]> {
+    const rooms = await this.roomRepository
+      .createQueryBuilder('room')
+      .leftJoinAndSelect('room.messages', 'message')
+      .where('room.ownerId = :userId OR :userId = ANY(room.participantsId)', {
+        userId,
+      })
+      .getMany();
+
     const messages = rooms.map((room) => room.messages).flat();
     return messages.filter((message) => !message.isRead);
   }
-
+*/
   async update(
     id: string,
     updateRoomDto: UpdateRoomDto,
