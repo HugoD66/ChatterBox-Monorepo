@@ -10,6 +10,7 @@ import {
 import { UserModel } from '../../../models/user.model';
 import { environment } from '../../../../env';
 import { DatePipe } from '@angular/common';
+import { FriendRelationModel } from '../../../models/friend-relation.model';
 
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -23,9 +24,14 @@ export class AddUserListComponent {
   @Output() public onUserclick: EventEmitter<UserModel> =
     new EventEmitter<UserModel>();
   protected apiUrl = environment.apiUrl;
+  public user: InputSignal<UserModel | undefined> = input<
+    UserModel | undefined
+  >();
+  public friendRelation: InputSignal<FriendRelationModel | undefined> = input<
+    FriendRelationModel | undefined
+  >();
 
-  public user: InputSignal<any> = input.required<UserModel>();
-  public isFriendPanel: InputSignal<boolean> = input.required<boolean>();
+  public isUserPanel: InputSignal<boolean> = input.required<boolean>();
   constructor() {
     effect(() => {
       //console.log(this.user());

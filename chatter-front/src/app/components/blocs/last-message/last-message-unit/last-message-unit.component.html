@@ -1,8 +1,18 @@
 @if (message()) {
   <div class="message-unit">
     <div class="message-unit-senderInfos">
-      <p>{{ message().senderId }}</p>
-      <img src="./assets/logos/cb-logo-dark-withoutBG.png" alt="" />
+      <p>{{ message().sender.pseudo }}</p>
+      @if (message().sender.picture) {
+        <img
+          src="{{ apiUrl }}/./{{ message().sender.picture }}"
+          alt="image de profil de l'utilisateur"
+        />
+      } @else {
+        <img
+          src="./assets/pictures/avatar-withoutBG.png"
+          alt="image de profil par defaut"
+        />
+      }
     </div>
     <div class="message-unit-content">
       <p>{{ message().content | truncate }}</p>
@@ -11,7 +21,7 @@
       <p>
         <i>{{ message().createdAt }}</i>
       </p>
-      <button (click)="redirectToChat(message().id)">
+      <button (click)="redirectToRoom(message().roomId)">
         <mat-icon class="message-unit-response"> chat_bubble_outline</mat-icon>
       </button>
     </div>

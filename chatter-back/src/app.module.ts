@@ -1,4 +1,4 @@
-import { Module } from '@nestjs/common';
+import { forwardRef, Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
@@ -23,8 +23,8 @@ import { Room } from './room/entities/room.entity';
     UsersModule,
     MessageModule,
     FixtureModule,
-    FriendUsersModule,
-    RoomModule,
+    forwardRef(() => FriendUsersModule),
+    forwardRef(() => RoomModule),
     ConfigModule.forRoot({ isGlobal: true }),
     PassportModule.register({ defaultStrategy: `jwt` }),
     JwtModule.register({

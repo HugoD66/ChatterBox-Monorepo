@@ -6,8 +6,7 @@ import {
 } from '@angular/core';
 import { AddFriendSearchComponent } from '../../components/blocs/add-friend-search/add-friend-search.component';
 import { FriendProfilComponent } from '../../components/blocs/friend-profil/friend-profil.component';
-import { UserModel } from '../../models/user.model';
-import { AuthService } from '../../services/auth.service';
+import { GetMeModel, UserModel } from '../../models/user.model';
 import { LoaderComponent } from '../../components/loader/loader.component';
 import { NgClass, NgStyle } from '@angular/common';
 
@@ -26,14 +25,14 @@ import { NgClass, NgStyle } from '@angular/common';
   styleUrl: './add-friend.component.scss',
 })
 export class AddFriendComponent {
-  public getMe: WritableSignal<UserModel | null> = signal(null);
+  public getMe: WritableSignal<GetMeModel | null> = signal(null);
   public profilSelected: WritableSignal<UserModel | null> = signal(null);
 
-  constructor(private authService: AuthService) {
-    this.authService.getMe().subscribe((me: UserModel) => {
-      this.getMe.update(() => me);
-      this.profilSelected.update(() => null);
-    });
+  constructor() {
+    const userJson = localStorage.getItem('currentUser');
+    if (userJson) {
+      this.getMe.update(() => JSON.parse(userJson));
+    }
   }
 
   onUserclick($event: UserModel) {

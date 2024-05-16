@@ -1,18 +1,16 @@
 import {
   Component,
   InputSignal,
-  signal,
-  WritableSignal,
   input,
-  effect,
   ChangeDetectionStrategy,
 } from '@angular/core';
-import { GetMeModel, UserModel } from '../../../models/user.model';
+import { GetMeModel } from '../../../models/user.model';
 import { SectionDetailUnitComponent } from '../section-detail-unit/section-detail-unit.component';
 import { Router } from '@angular/router';
 import { ButtonsSidenavComponent } from '../buttons-sidenav/buttons-sidenav.component';
 import { MatSidenav } from '@angular/material/sidenav';
 import { NgClass } from '@angular/common';
+import { FriendStatusInvitation } from '../../../models/enums/friend-status-invitation.enum';
 
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -30,6 +28,8 @@ import { NgClass } from '@angular/common';
 export class ContactSidenavComponent {
   public getMe: InputSignal<GetMeModel | null> = input.required();
   public isExpanded: InputSignal<boolean> = input.required<boolean>();
+
+  protected readonly FriendStatusInvitation = FriendStatusInvitation;
 
   constructor(private router: Router) {}
 

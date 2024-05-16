@@ -1,6 +1,7 @@
 import {
   ChangeDetectionStrategy,
   Component,
+  effect,
   input,
   InputSignal,
   signal,
@@ -11,7 +12,9 @@ import { AsyncPipe } from '@angular/common';
 import { MatProgressSpinner } from '@angular/material/progress-spinner';
 import { LoaderComponent } from '../../loader/loader.component';
 import { FriendUnitComponent } from './friend-unit/friend-unit.component';
-import { GetMeModel, UserModel } from '../../../models/user.model';
+import { GetMeModel } from '../../../models/user.model';
+import { FriendStatusInvitation } from '../../../models/enums/friend-status-invitation.enum';
+import { FriendRelationModel } from '../../../models/friend-relation.model';
 
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -28,25 +31,23 @@ import { GetMeModel, UserModel } from '../../../models/user.model';
   styleUrl: './friend-list.component.scss',
 })
 export class FriendListComponent {
-  public friendList: WritableSignal<UserModel[] | null> = signal([]);
   public getMe: InputSignal<GetMeModel> = input.required<GetMeModel>();
   public isPanelAddFriendToRoom: InputSignal<boolean> = input.required();
+  public countFriends: WritableSignal<number> = signal(0);
 
   constructor() {
-    /* effect(
+    effect(
       () => {
-        console.log(this.getMe());
-        this.friendList.update(
-          () =>
-            this.getMe()?.friendships?.map(
-              (f: FriendRelationModel) => f.friend,
-            ) ?? null,
-        );
-        if (this.friendList() !== null) {
-          this.isLoading.update(() => false);
-        }
+        const acceptedFriendsCount =
+          this.getMe().friendships?.filter(
+            (friendship: FriendRelationModel): boolean =>
+              friendship.status === FriendStatusInvitation.ACCEPTED,
+          ).length || 0;
+        this.countFriends.update(() => acceptedFriendsCount);
       },
       { allowSignalWrites: true },
-    );*/
+    );
   }
+
+  protected readonly FriendStatusInvitation = FriendStatusInvitation;
 }

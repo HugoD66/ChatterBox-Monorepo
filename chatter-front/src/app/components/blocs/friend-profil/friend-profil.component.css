@@ -85,14 +85,28 @@
   align-items: center;
   flex-direction: column;
 }
-.friend-profil-content .friend-profil-footer .friend-footer-setting-icon {
-  align-self: flex-end;
+.friend-profil-content .friend-profil-footer .button-list-footer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
+  height: 80%;
+  margin: auto;
+}
+.friend-profil-content .friend-profil-footer .button-list-footer mat-icon {
+  font-size: 36px;
+  color: rgb(39, 39, 39);
+  padding: 30px;
+  margin: 10px;
+  cursor: pointer;
 }
 .friend-profil-content .friend-profil-footer p {
   font-size: 0.9em;
   color: rgb(39, 39, 39);
   font-family: "JostLight", sans-serif;
   margin: 0;
+  margin: 4px;
+  align-self: end;
 }
 @media screen and (max-width: 600px) {
   .friend-profil-content .friend-profil-footer p {

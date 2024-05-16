@@ -33,11 +33,6 @@ export class RoomController {
     return this.roomService.findAll();
   }
 
-  @Get('/unreads-messages/:id')
-  findAllUnreadsMessages(@Param('id') id: string) {
-    return this.roomService.findAllUnreadMessages(id);
-  }
-
   @Patch(':id')
   update(
     @Param('id') id: string,
@@ -49,5 +44,20 @@ export class RoomController {
   @Delete(':id')
   remove(@Param('id') id: string) {
     return this.roomService.remove(id);
+  }
+
+  @Get('/unreads-messages/:id')
+  findAllUnreadsMessages(
+    @Param('id') id: string,
+  ): Promise<ResponseMessageDto[]> {
+    return this.roomService.findAllUnreadMessages(id);
+  }
+
+  @Get('/:userId/:participantId')
+  getRoomByUser(
+    @Param('userId') userId: string,
+    @Param('participantId') participantId: string,
+  ): Promise<Room> {
+    return this.roomService.getRoomByUser({ userId, participantId });
   }
 }

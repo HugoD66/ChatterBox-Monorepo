@@ -1,10 +1,10 @@
 <div
-  class="message-unit-content">
- <!-- [ngClass]="
-    message()?.receiverId === '1'
+  class="message-unit-content"
+  [ngClass]="
+    message()?.sender!.id === getMe()!.id
       ? 'message-unit-content-received'
       : 'message-unit-content-sent'
-  "-->
+  ">
 
   <p>{{ message()?.content }}</p>
   <div class="message-unit-infos">

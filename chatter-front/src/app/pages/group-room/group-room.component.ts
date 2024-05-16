@@ -2,7 +2,7 @@ import { Component, signal, WritableSignal } from '@angular/core';
 import { DiscussionComponent } from '../../components/blocs/discussion/discussion.component';
 import { MessageModel } from '../../models/message.model';
 import { GroupRoomProfilComponent } from '../../components/blocs/group-room-profil/group-room-profil.component';
-import { UserModel } from '../../models/user.model';
+import { GetMeModel, UserModel } from '../../models/user.model';
 import { UserGeneralRoleEnum } from '../../enum/user.general.role.enum';
 
 @Component({
@@ -14,6 +14,7 @@ import { UserGeneralRoleEnum } from '../../enum/user.general.role.enum';
 })
 export class GroupRoomComponent {
   public messages: WritableSignal<MessageModel[]> = signal([]);
+  public getMe: WritableSignal<GetMeModel | null> = signal(null);
 
   public friendList: WritableSignal<UserModel[]> = signal([
     {
@@ -115,4 +116,11 @@ export class GroupRoomComponent {
       roleGeneral: UserGeneralRoleEnum.User,
     },
   ]);
+  constructor() {
+    const userJson = localStorage.getItem('currentUser');
+    if (userJson) {
+      this.getMe.update(() => JSON.parse(userJson));
+      console.log(this.getMe());
+    }
+  }
 }

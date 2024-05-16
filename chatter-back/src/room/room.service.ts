@@ -19,11 +19,24 @@ export class RoomService {
     return await this.roomRepository.save(roomCreated);
   }
 
-  async findOne(id: string): Promise<ResponseRoomDto> {
+  /*async findOne(id: string): Promise<ResponseRoomDto> {
     return await this.roomRepository.findOne({
       where: { id },
       relations: ['messages', 'messages.sender', 'owner', 'participants'],
+      order: { createdAt: 'DESC' },
     });
+  }*/
+
+  async findOne(id: string): Promise<Room> {
+    return await this.roomRepository
+      .createQueryBuilder('room')
+      .leftJoinAndSelect('room.messages', 'message')
+      .leftJoinAndSelect('message.sender', 'sender')
+      .leftJoinAndSelect('room.owner', 'owner')
+      .leftJoinAndSelect('room.participants', 'participant')
+      .where('room.id = :id', { id })
+      .orderBy('message.createdAt', 'DESC')
+      .getOne();
   }
 
   async findAll(): Promise<ResponseRoomDto[]> {
@@ -32,29 +45,19 @@ export class RoomService {
     });
   }
 
-  async findAllUnreadMessages(userId: string) {
+  async findAllUnreadMessages(userId: string): Promise<ResponseMessageDto[]> {
     const roomList = await this.roomRepository.find({
       relations: ['messages', 'messages.sender', 'owner', 'participants'],
     });
-    const unreadMessages = roomList
-      .map((room) => room.messages)
+
+    return roomList
+      .map((room) =>
+        room.messages.map((message) => ({ ...message, roomId: room.id })),
+      )
       .flat()
       .filter((message) => !message.isRead && message.sender.id !== userId);
-    return unreadMessages;
-  } /* 
-  async findAllUnreadMessages(userId: string): Promise<ResponseMessageDto[]> {
-    const rooms = await this.roomRepository
-      .createQueryBuilder('room')
-      .leftJoinAndSelect('room.messages', 'message')
-      .where('room.ownerId = :userId OR :userId = ANY(room.participantsId)', {
-        userId,
-      })
-      .getMany();
-
-    const messages = rooms.map((room) => room.messages).flat();
-    return messages.filter((message) => !message.isRead);
   }
-*/
+
   async update(
     id: string,
     updateRoomDto: UpdateRoomDto,
@@ -73,7 +76,20 @@ export class RoomService {
       where: options,
     });
   }
+
   async remove(id: string) {
     return `This action removes a #${id} room`;
+  }
+
+  async getRoomByUser({ userId, participantId }): Promise<Room> {
+    return await this.roomRepository
+      .createQueryBuilder('room')
+      .leftJoinAndSelect('room.participants', 'participant')
+      .leftJoinAndSelect('room.owner', 'owner')
+      .where('room.ownerId = :userId', { userId })
+      .andWhere('participant.id = :participantId', { participantId })
+      .groupBy('room.id, participant.id, owner.id')
+      .having('COUNT(participant.id) = 1')
+      .getOne();
   }
 }

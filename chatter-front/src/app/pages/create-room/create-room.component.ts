@@ -21,7 +21,6 @@ import {
 } from '@angular/forms';
 import { MatIcon, MatIconModule } from '@angular/material/icon';
 import { MatIconButton } from '@angular/material/button';
-import { AuthService } from '../../services/auth.service';
 import { LoaderComponent } from '../../components/loader/loader.component';
 import { GetMeModel } from '../../models/user.model';
 
@@ -72,7 +71,6 @@ export class CreateRoomComponent implements OnDestroy {
     const userJson = localStorage.getItem('currentUser');
     if (userJson) {
       this.getMe.update(() => JSON.parse(userJson));
-      console.log(this.getMe());
     }
   }
 

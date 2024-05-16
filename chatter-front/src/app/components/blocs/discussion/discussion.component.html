@@ -1,4 +1,6 @@
 <div class="discussion-content">
-  <app-chat [messages]="messages()" class="chat-content" />
+  <app-chat
+    [getMe]="getMe()!"
+    [messages]="messages()" class="chat-content" />
   <app-message-input class="message-input-content" />
 </div>

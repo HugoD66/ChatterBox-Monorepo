@@ -1,6 +1,5 @@
 @if (!userSelected()) {
 } @else {
-
   <div class="friend-profil-content"  [@openClose]="onOpenComponent() ? 'open' : 'closed'">
     <div class="friend-profil-info-picture">
       @if (userSelected().picture) {
@@ -20,16 +19,25 @@
       </div>
     </div>
     <div class="friend-profil-footer">
-      <mat-icon
-        class="friend-footer-setting-icon"
-        (click)="openDialog(userSelected())"
+      <div class="button-list-footer">
+        <mat-icon
+          (click)="openDialog(userSelected())"
         >settings</mat-icon
-      >
-      {{
-        isFriend()
-          ? "Amis depuis le:" + (userSelected().createdAt | date: "dd/MM/yyyy")
-          : "Compte créé le:" + (userSelected().createdAt | date: "dd/MM/yyyy")
-      }}
+        >
+        <mat-icon (click)="invitationFriend(userSelected())">person_add</mat-icon>
+        <mat-icon
+          class="friend-footer-setting-icon"
+          (click)="deleteFriend(userSelected())"
+        >delete</mat-icon
+        >
+      </div>
+
+      <p>  {{
+          isFriend()
+            ? "Amis depuis le:" + (userSelected().createdAt | date: "dd/MM/yyyy")
+            : "Compte créé le:" + (userSelected().createdAt | date: "dd/MM/yyyy")
+        }}
+      </p>
     </div>
   </div>
 }

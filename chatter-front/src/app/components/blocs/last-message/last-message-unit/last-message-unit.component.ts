@@ -5,6 +5,7 @@ import { MatIcon } from '@angular/material/icon';
 import { TruncateLongPipe } from '../../../../pipe/TruncateLongPipe';
 import { Router } from '@angular/router';
 import { MessageModel } from '../../../../models/message.model';
+import { environment } from '../../../../../env';
 
 @Component({
   selector: 'app-last-message-unit',
@@ -15,10 +16,11 @@ import { MessageModel } from '../../../../models/message.model';
 })
 export class LastMessageUnitComponent {
   public message: InputSignal<MessageModel> = input.required<MessageModel>();
+  protected apiUrl = environment.apiUrl;
 
   constructor(private router: Router) {}
 
-  redirectToChat(chatId: string): void {
+  redirectToRoom(chatId: string): void {
     this.router.navigate([`/room/private/${chatId}`]);
   }
 }

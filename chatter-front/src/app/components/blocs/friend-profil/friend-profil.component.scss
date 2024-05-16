@@ -52,11 +52,23 @@
   .friend-profil-footer {
     height: 100%;
     @include global.flex-between-column;
-    .friend-footer-setting-icon {
-      align-self: flex-end;
+
+    .button-list-footer {
+      @include global.flex-center-row-center;
+      height: 80%;
+      margin: auto;
+      mat-icon {
+        font-size: 36px;
+        color: colors.$gradient-dark-g;
+        padding: 30px;
+        margin: 10px;
+        cursor: pointer;
+      }
     }
     p {
       @include fonts.subtitle;
+      margin: 4px;
+      align-self: end;
       @media screen and (max-width: 600px) {
         width: 90%;
         text-align: end;

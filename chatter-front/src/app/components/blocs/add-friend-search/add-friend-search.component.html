@@ -4,19 +4,19 @@
   } @else {
     <div class="title-search">
       <div class="title-selection-panel">
-        <h2>{{ isPanelFriend() ? "Les utilisateurs" : "Vos amis" }}</h2>
+        <h2>{{ isUserPanel() ? "Les utilisateurs" : "Vos amis" }}</h2>
         <span (click)="changePanel()">{{
-            isPanelFriend() ? "Vos amis" : "Les utilisateurs"
+            isUserPanel() ? "Vos amis" : "Les utilisateurs"
           }}</span>
       </div>
-      <app-searchbar (searchEvent)="onSearch($event)" />
+      <app-searchbar #searchBar (searchEvent)="onSearch($event)" />
     </div>
-    @if (isPanelFriend()) {
+    @if (isUserPanel()) {
       <div class="add-user-search-result">
-        @for (user of searchResult(); track user.id) {
+        @for (user of searchUserResult(); track user.id) {
           <app-add-user-list
             [user]="user"
-            [isFriendPanel]="isPanelFriend()"
+            [isUserPanel]="isUserPanel()"
             (onUserclick)="setUserInformation($event)"
             class="content-unit-user"
           />
@@ -28,10 +28,10 @@
       </div>
     } @else {
       <div class="add-user-search-result">
-        @for (friend of getMe().friendships; track friend.id) {
+        @for (friend of searchFriendResult(); track friend.friend.id) {
           <app-add-user-list
-            [user]="friend"
-            [isFriendPanel]="isPanelFriend()"
+            [friendRelation]="friend"
+            [isUserPanel]="isUserPanel()"
             (onUserclick)="setUserInformation($event)"
             class="content-unit-user"
           />

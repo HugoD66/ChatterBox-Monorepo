@@ -2,6 +2,7 @@ import { AfterViewInit, Component, input, InputSignal } from '@angular/core';
 import { MessageModel } from '../../models/message.model';
 import { DatePipe, NgClass } from '@angular/common';
 import { PickerModule } from '@ctrl/ngx-emoji-mart';
+import { UserModel } from '../../models/user.model';
 
 @Component({
   selector: 'app-message-unit',
@@ -11,6 +12,8 @@ import { PickerModule } from '@ctrl/ngx-emoji-mart';
   styleUrl: './message-unit.component.scss',
 })
 export class MessageUnitComponent implements AfterViewInit {
+  public getMe: InputSignal<UserModel> = input.required<UserModel>();
+
   public message: InputSignal<MessageModel | null> =
     input.required<MessageModel | null>();
   /*

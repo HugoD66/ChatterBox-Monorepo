@@ -13,6 +13,18 @@ export class MessageFixtures {
     private readonly usersService: UsersService,
   ) {}
 
+  public getRandomDate(): Date {
+    const today = new Date();
+    const yesterday = new Date(today);
+    yesterday.setDate(yesterday.getDate() - 1);
+
+    const randomDate = new Date(
+      yesterday.getTime() +
+        Math.random() * (today.getTime() - yesterday.getTime()),
+    );
+    return randomDate;
+  }
+
   async seedMessages(): Promise<void> {
     const userOwnerTest = await this.usersService.findOneByOptions({
       email: `dessauw.hugo@gmail.com`,
@@ -27,70 +39,70 @@ export class MessageFixtures {
     const messages: CreateMessageDto[] = [
       {
         content: `Hey Alice, as-tu déjà essayé de parler aux plantes ? Paraît que ça les fait pousser plus vite !`,
-        createdAt: new Date(),
+        createdAt: this.getRandomDate(),
         sender: userOwnerTest,
         room: privateRoom,
         isRead: false,
       },
       {
         content: `Salut Hugo ! J'ai essayé, mais elles ne me répondent jamais. Peut-être que je devrais essayer en anglais ?`,
-        createdAt: new Date(),
+        createdAt: this.getRandomDate(),
         sender: privateParticipant,
         room: privateRoom,
         isRead: false,
       },
       {
         content: `C'est une idée ! Et si ça ne marche pas, essaie avec l'allemand, elles trouveront peut-être le ton plus autoritaire.`,
-        createdAt: new Date(),
+        createdAt: this.getRandomDate(),
         sender: userOwnerTest,
         room: privateRoom,
         isRead: false,
       },
       {
         content: `Bonne stratégie ! D'ailleurs, est-ce que tu penses qu'une plante pourrait apprendre le JavaScript ?`,
-        createdAt: new Date(),
+        createdAt: this.getRandomDate(),
         sender: privateParticipant,
         room: privateRoom,
         isRead: false,
       },
       {
         content: `Pourquoi pas ? Après tout, avec Node.js, elles seraient déjà habituées à l'environnement !`,
-        createdAt: new Date(),
+        createdAt: this.getRandomDate(),
         sender: userOwnerTest,
         room: privateRoom,
         isRead: false,
       },
       {
         content: `Imagine une plante codant mieux que nous... ce serait le comble !`,
-        createdAt: new Date(),
+        createdAt: this.getRandomDate(),
         sender: privateParticipant,
         room: privateRoom,
         isRead: false,
       },
       {
         content: `Ça pourrait révolutionner le développement. Fini les bugs, bonjour les bugs de jardin !`,
-        createdAt: new Date(),
+        createdAt: this.getRandomDate(),
         sender: userOwnerTest,
         room: privateRoom,
         isRead: false,
       },
       {
         content: `Exactement ! Elles pourraient même corriger nos erreurs de syntaxe en photosynthèse.`,
-        createdAt: new Date(),
+        createdAt: this.getRandomDate(),
         sender: privateParticipant,
         room: privateRoom,
         isRead: false,
       },
       {
         content: `On ferait bien de leur laisser la main alors, peut-être qu'elles finiront par développer leur propre framework. Le PlantStrap !`,
-        createdAt: new Date(),
+        createdAt: this.getRandomDate(),
         sender: userOwnerTest,
         room: privateRoom,
         isRead: false,
       },
       {
         content: `J'adore l'idée ! Je propose qu'on commence le brainstorming dès demain. Prêt pour une session de jardinage informatique ?`,
-        createdAt: new Date(),
+        createdAt: this.getRandomDate(),
         sender: privateParticipant,
         room: privateRoom,
         isRead: false,
@@ -101,98 +113,98 @@ export class MessageFixtures {
     }
     /*{
         content: `Hello, how are you?`,
-        createdAt: new Date(),
+        createdAt: this.getRandomDate(),
         isRead: false,
         senderId: userList[Math.floor(Math.random() * userList.length)].id,
         receiverId: userList[Math.floor(Math.random() * userList.length)].id,
       },
       {
         content: `Hi, I'm fine, and you?`,
-        createdAt: new Date(),
+        createdAt: this.getRandomDate(),
         isRead: false,
         senderId: userList[Math.floor(Math.random() * userList.length)].id,
         receiverId: userList[Math.floor(Math.random() * userList.length)].id,
       },
       {
         content: `Hello, I'm fine too, thanks!`,
-        createdAt: new Date(),
+        createdAt: this.getRandomDate(),
         isRead: false,
         senderId: userList[Math.floor(Math.random() * userList.length)].id,
         receiverId: userList[Math.floor(Math.random() * userList.length)].id,
       },
       {
         content: `Wishing you a wonderful birthday filled with joy and laughter!`,
-        createdAt: new Date(),
+        createdAt: this.getRandomDate(),
         isRead: false,
         senderId: userList[Math.floor(Math.random() * userList.length)].id,
         receiverId: userList[Math.floor(Math.random() * userList.length)].id,
       },
       {
         content: `Could you please send me the file by tonight?`,
-        createdAt: new Date(),
+        createdAt: this.getRandomDate(),
         isRead: false,
         senderId: userList[Math.floor(Math.random() * userList.length)].id,
         receiverId: userList[Math.floor(Math.random() * userList.length)].id,
       },
       {
         content: `It was great seeing you at the event last night! Let’s plan to meet soon and discuss our collaboration further. Have a great day!`,
-        createdAt: new Date(),
+        createdAt: this.getRandomDate(),
         isRead: false,
         senderId: userList[Math.floor(Math.random() * userList.length)].id,
         receiverId: userList[Math.floor(Math.random() * userList.length)].id,
       },
       {
         content: `Hey, just wanted to tell you I really appreciated your help today.`,
-        createdAt: new Date(),
+        createdAt: this.getRandomDate(),
         isRead: false,
         senderId: userList[Math.floor(Math.random() * userList.length)].id,
         receiverId: userList[Math.floor(Math.random() * userList.length)].id,
       },
       {
         content: `Looking forward to our strategy session next week. Please prepare all the necessary documents and be ready to discuss the yearly targets.`,
-        createdAt: new Date(),
+        createdAt: this.getRandomDate(),
         isRead: false,
         senderId: userList[Math.floor(Math.random() * userList.length)].id,
         receiverId: userList[Math.floor(Math.random() * userList.length)].id,
       },
       {
         content: `Can we schedule a call to go over your feedback on my draft? Your critiques are always helpful, and I want to make sure this piece is perfect.`,
-        createdAt: new Date(),
+        createdAt: this.getRandomDate(),
         isRead: false,
         senderId: userList[Math.floor(Math.random() * userList.length)].id,
         receiverId: userList[Math.floor(Math.random() * userList.length)].id,
       },
       {
         content: `I appreciate your efforts in taking the lead on this project. Your leadership has been a driving force behind our recent successes.`,
-        createdAt: new Date(),
+        createdAt: this.getRandomDate(),
         isRead: false,
         senderId: userList[Math.floor(Math.random() * userList.length)].id,
         receiverId: userList[Math.floor(Math.random() * userList.length)].id,
       },
       {
         content: `As we approach the deadline, please ensure all team members have submitted their parts of the project. We cannot afford any delays at this stage.`,
-        createdAt: new Date(),
+        createdAt: this.getRandomDate(),
         isRead: false,
         senderId: userList[Math.floor(Math.random() * userList.length)].id,
         receiverId: userList[Math.floor(Math.random() * userList.length)].id,
       },
       {
         content: `Thank you for your help at the workshop yesterday. Your insights were invaluable, and I believe they will greatly enhance our strategy.`,
-        createdAt: new Date(),
+        createdAt: this.getRandomDate(),
         isRead: false,
         senderId: userList[Math.floor(Math.random() * userList.length)].id,
         receiverId: userList[Math.floor(Math.random() * userList.length)].id,
       },
       {
         content: `I finished reviewing the document you sent last week, and I have some ideas on how we can improve the project's efficiency. Let’s discuss.`,
-        createdAt: new Date(),
+        createdAt: this.getRandomDate(),
         isRead: false,
         senderId: userList[Math.floor(Math.random() * userList.length)].id,
         receiverId: userList[Math.floor(Math.random() * userList.length)].id,
       },
       {
         content: `Hey there! Just wanted to check in and see how you're doing. If you have some time this week, maybe we can grab a coffee and catch up.`,
-        createdAt: new Date(),
+        createdAt: this.getRandomDate(),
         isRead: false,
         senderId: userList[Math.floor(Math.random() * userList.length)].id,
         receiverId: userList[Math.floor(Math.random() * userList.length)].id,

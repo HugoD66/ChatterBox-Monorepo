@@ -35,25 +35,12 @@ export class LastMessageComponent {
           .getUnreadsMessagesByUser(this.getMe().id)
           .subscribe((messages: MessageModel[]) => {
             this.unreadMessages.update(() => messages);
-            console.log('unreadMessages', messages);
             if (messages.length === 0) {
               this.haveLastMessage.set(false);
             }
             this.isLoading.set(false);
           });
-        /*this.messageService
-          .getUnreadMessages(this.getMe().id)
-          .subscribe((messages) => {
-            this.unreadMessages.update(() => messages);
-            if (messages.length === 0) {
-              this.haveLastMessage.set(false);
-            }
-            this.isLoading.set(false);
-          });*/
       }
     });
   }
 }
-/*
-
-*/

@@ -7,7 +7,7 @@ import {
   signal,
   WritableSignal,
 } from '@angular/core';
-import { UserModel } from '../../../models/user.model';
+import { GetMeModel, UserModel } from '../../../models/user.model';
 import { MatIcon } from '@angular/material/icon';
 import { DialogService } from '../../../services/dialog.service';
 import { LoaderComponent } from '../../loader/loader.component';
@@ -21,6 +21,8 @@ import {
   transition,
   animate,
 } from '@angular/animations';
+import { FriendService } from '../../../services/friend.service';
+import { PopupService } from '../../../services/popup.service';
 
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -49,14 +51,18 @@ import {
   ],
 })
 export class FriendProfilComponent {
-  public getMe: InputSignal<UserModel> = input.required<UserModel>();
+  public getMe: InputSignal<GetMeModel> = input.required<GetMeModel>();
   public userSelected: InputSignal<UserModel> = input.required<UserModel>();
   public isFriend: WritableSignal<boolean> = signal(false);
   public isProfilSelected: InputSignal<boolean> = input.required<boolean>();
   public onOpenComponent: WritableSignal<boolean> = signal(true);
   protected apiUrl = environment.apiUrl;
 
-  constructor(public dialogService: DialogService) {
+  constructor(
+    public dialogService: DialogService,
+    private friendService: FriendService,
+    private popupService: PopupService,
+  ) {
     // Liste de mes amis //
     //const friendShipList: Signal<FriendRelationModel[]> = computed(() =>
     //  this.getMe().friendships!.map((friend) => friend),
@@ -64,17 +70,12 @@ export class FriendProfilComponent {
 
     effect(
       () => {
-        // console.log('userSelected');
-        console.log(this.userSelected());
-        console.log(this.getMe());
-        this.getMe().friendships!.forEach((friend: FriendRelationModel) => {
-          if (this.userSelected().id === friend.friend.id) {
-            //console.log('FRIEND');
-            console.log(friend);
-            this.isFriend.update(() => true);
+        this.getMe().friends!.forEach((friend: UserModel) => {
+          if (this.userSelected().id === friend.id) {
+            console.log(this.userSelected().id);
+            this.isFriend.set(true);
           } else {
-            //console.log('NOT FRIEND');
-            this.isFriend.update(() => false);
+            this.isFriend.set(false);
           }
         });
       },
@@ -89,4 +90,20 @@ export class FriendProfilComponent {
   toggle() {
     this.onOpenComponent.update((value) => !value);
   }
+
+  invitationFriend(userModel: UserModel) {
+    const currentUserId = this.getMe().id;
+    this.friendService.sendFriendRequest(currentUserId, userModel.id).subscribe(
+      (response) => {
+        console.log('Invitation envoyée avec succès:', response);
+        this.popupService.openSnackBar('Invitation envoyée', 'lawngreen');
+      },
+      (error) => {
+        console.error("Erreur lors de l'envoi de l'invitation:", error);
+        this.popupService.openSnackBar("Echec de l'invitation", 'red');
+      },
+    );
+  }
+
+  deleteFriend(userModel: UserModel) {}
 }

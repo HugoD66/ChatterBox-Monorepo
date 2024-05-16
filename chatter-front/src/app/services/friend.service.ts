@@ -24,4 +24,24 @@ export class FriendService {
         }),
       );
   }
+
+  sendFriendRequest(userId: string, friendId: string): Observable<any> {
+    const accessToken = localStorage.getItem(`authToken`);
+    return this.http
+      .post(
+        `${this.apiUrl}/friend-users/send-invitation`,
+        { userId, friendId },
+        {
+          headers: new HttpHeaders().set(
+            'Authorization',
+            'Bearer ' + accessToken,
+          ),
+        },
+      )
+      .pipe(
+        catchError((error) => {
+          return throwError(() => error);
+        }),
+      );
+  }
 }

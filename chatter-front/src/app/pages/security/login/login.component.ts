@@ -89,6 +89,28 @@ export class LoginComponent {
     }
   }
 
+  loginAsAdmin() {
+    const credentials: LoginCredentials = {
+      email: 'dessauw.hugo@gmail.com',
+      password: 'Password.11',
+    };
+    this.authService.login(credentials).subscribe({
+      next: (response) => {
+        localStorage.setItem('authToken', response.access_token);
+        console.log(response);
+        localStorage.setItem('currentUser', JSON.stringify(response));
+        this.router.navigate(['/home']);
+      },
+      error: (error) => {
+        console.error('Erreur lors de la connexion', error);
+        this.errorMessage.set(
+          error.error.message ||
+            'Une erreur est survenue lors de la connexion.',
+        );
+      },
+    });
+  }
+
   goRegister() {
     this.loginClicked.emit();
   }

@@ -1,12 +1,12 @@
-import { Get, Injectable, Param } from '@nestjs/common';
+import { forwardRef, Inject, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { FriendUser } from './entities/friend-user.entity';
 import { Repository } from 'typeorm';
 import { UsersService } from '../users/users.service';
 import { ResponseUserDto } from '../users/dto/response-user.dto';
 import { CreateFriendUserDto } from './dto/create-friend-user.dto';
-import { User } from '../users/entities/user.entity';
-import { Public } from '../security/auth/public.decorator';
+import { FriendStatusInvitation } from './entities/enum/friend-status-invitation.enum';
+import { RoomService } from '../room/room.service';
 
 @Injectable()
 export class FriendUsersService {
@@ -15,6 +15,9 @@ export class FriendUsersService {
 
     @InjectRepository(FriendUser)
     private friendUserRepository: Repository<FriendUser>,
+
+    @Inject(forwardRef(() => RoomService))
+    private roomService: RoomService,
   ) {}
 
   async addFriend(userId: string, friendId: string): Promise<FriendUser> {
@@ -23,23 +26,20 @@ export class FriendUsersService {
     if (!user || !friend) {
       throw new Error('User or friend not found');
     }
+    const existingRelation = await this.friendUserRepository.findOne({
+      where: { user: user, friend: friend },
+    });
+
+    if (existingRelation) {
+      throw new Error('Invitation already sent');
+    }
+
     const friendUser: FriendUser = this.friendUserRepository.create({
       user,
       friend,
     });
 
     return await this.friendUserRepository.save(friendUser);
-  }
-
-  @Get(`/:userId`)
-  async getFriends(
-    @Param('userId') userId: string,
-  ): Promise<ResponseUserDto[]> {
-    return this.usersService.getFriends(userId);
-  }
-
-  async findAllByUser(user: User): Promise<FriendUser[]> {
-    return await this.friendUserRepository.find({ where: { user: user } });
   }
 
   async fixturesGeneration(
@@ -59,8 +59,70 @@ export class FriendUsersService {
     const friendRelation: FriendUser = this.friendUserRepository.create({
       user: user,
       friend: friend,
+      status: createFriendsRealtionDto.status,
     });
 
     return await this.friendUserRepository.save(friendRelation);
+  }
+
+  async sendFriendInvitation(
+    userId: string,
+    friendId: string,
+  ): Promise<FriendUser> {
+    const user = await this.usersService.findOne(userId);
+    const friend = await this.usersService.findOne(friendId);
+
+    if (!user || !friend) {
+      throw new Error('User or friend not found');
+    }
+
+    const existingRelation = await this.friendUserRepository.findOne({
+      where: { user: user, friend: friend },
+    });
+
+    if (existingRelation) {
+      throw new Error('Invitation already sent');
+    }
+
+    const friendUser = this.friendUserRepository.create({
+      user,
+      friend,
+      status: FriendStatusInvitation.PENDING,
+    });
+
+    return await this.friendUserRepository.save(friendUser);
+  }
+
+  async acceptFriendInvitation(invitationId: string): Promise<FriendUser> {
+    const invitation = await this.friendUserRepository.findOne({
+      where: { id: invitationId },
+    });
+    if (!invitation) {
+      throw new Error('Invitation not found');
+    }
+
+    invitation.status = FriendStatusInvitation.ACCEPTED;
+
+    //Create room ici
+    await this.roomService.create({
+      title: `Private room`,
+      owner: invitation.user,
+      participants: [invitation.friend],
+      createdAt: new Date(),
+    });
+
+    return await this.friendUserRepository.save(invitation);
+  }
+
+  async rejectFriendInvitation(invitationId: string): Promise<FriendUser> {
+    const invitation = await this.friendUserRepository.findOne({
+      where: { id: invitationId },
+    });
+    if (!invitation) {
+      throw new Error('Invitation not found');
+    }
+
+    invitation.status = FriendStatusInvitation.REJECTED;
+    return await this.friendUserRepository.save(invitation);
   }
 }

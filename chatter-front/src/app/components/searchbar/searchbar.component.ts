@@ -27,10 +27,8 @@ export class SearchbarComponent {
     this.searchEvent.emit(searchValue);
   }
 
-  /*
-  TODO pour trade panel
-  resetSearch() {
+  reset() {
     this.value = ``;
     this.onSearchChange(this.value);
-  }*/
+  }
 }

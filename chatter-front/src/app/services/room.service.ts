@@ -3,6 +3,12 @@ import { environment } from '../../env';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { catchError, Observable, throwError } from 'rxjs';
 import { MessageModel } from '../models/message.model';
+import { RoomModel } from '../models/room.model';
+
+export interface PrivateRoomSearch {
+  userId: string;
+  participantId: string;
+}
 
 @Injectable()
 export class RoomService {
@@ -10,6 +16,39 @@ export class RoomService {
   protected accessToken = localStorage.getItem(`authToken`);
 
   constructor(private http: HttpClient) {}
+
+  getRoom(roomId: string): Observable<RoomModel> {
+    return this.http
+      .get<RoomModel>(`${this.apiUrl}/room/${roomId}`, {
+        headers: new HttpHeaders().set(
+          'Authorization',
+          'Bearer ' + this.accessToken,
+        ),
+      })
+      .pipe(
+        catchError((error) => {
+          return throwError(() => error);
+        }),
+      );
+  }
+
+  getRoomByUser(search: PrivateRoomSearch): Observable<RoomModel> {
+    return this.http
+      .get<RoomModel>(
+        `${this.apiUrl}/room/${search.userId}/${search.participantId}`,
+        {
+          headers: new HttpHeaders().set(
+            'Authorization',
+            `Bearer ${this.accessToken}`,
+          ),
+        },
+      )
+      .pipe(
+        catchError((error) => {
+          return throwError(() => error);
+        }),
+      );
+  }
 
   getUnreadsMessagesByUser(userId: string): Observable<MessageModel[]> {
     return this.http

@@ -5,6 +5,8 @@
       [userSelected]="friend()"
       [isProfilSelected]="true"
     />
-    <app-discussion [messages]="messages()" />
+    <app-discussion
+      [getMe]="getMe()!"
+      [messages]="messages()" />
   </div>
 }

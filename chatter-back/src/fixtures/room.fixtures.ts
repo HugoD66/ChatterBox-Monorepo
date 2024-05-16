@@ -19,7 +19,7 @@ export class RoomFixtures {
     const participants: ResponseUserDto[] = await this.usersService.findAll();
     const privateParticipant: ResponseUserDto =
       await this.usersService.findOneByOptions({
-        email: `alice@example.com`,
+        email: `sender-test@email.com`,
       });
     const rooms: CreateRoomDto[] = [
       {
