@@ -17,12 +17,14 @@ import { FixtureModule } from './fixtures/fixture/fixture.module';
 import { FriendUsersModule } from './friend-users/friend-users.module';
 import { RoomModule } from './room/room.module';
 import { Room } from './room/entities/room.entity';
+import { NotificationsModule } from './socket/notification.module';
 
 @Module({
   imports: [
     UsersModule,
     MessageModule,
     FixtureModule,
+    NotificationsModule,
     forwardRef(() => FriendUsersModule),
     forwardRef(() => RoomModule),
     ConfigModule.forRoot({ isGlobal: true }),

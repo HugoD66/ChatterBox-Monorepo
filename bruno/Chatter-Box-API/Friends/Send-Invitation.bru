@@ -1,0 +1,22 @@
+meta {
+  name: Send-Invitation
+  type: http
+  seq: 2
+}
+
+post {
+  url: http://{{url}}:{{port}}/friend-users/send-invitation
+  body: json
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{bearerToken}}
+}
+
+body:json {
+  {
+    "userId" : "eb2b35f5-488e-46f5-a7f3-c8657922397c",
+    "friendId" : "573fbf7c-97b4-4578-ad09-707be54aa3d4"
+  }
+}

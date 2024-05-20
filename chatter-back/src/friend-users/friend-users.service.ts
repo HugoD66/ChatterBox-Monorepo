@@ -7,11 +7,14 @@ import { ResponseUserDto } from '../users/dto/response-user.dto';
 import { CreateFriendUserDto } from './dto/create-friend-user.dto';
 import { FriendStatusInvitation } from './entities/enum/friend-status-invitation.enum';
 import { RoomService } from '../room/room.service';
+import { NotificationsService } from '../socket/notifications.service';
 
 @Injectable()
 export class FriendUsersService {
   constructor(
     private usersService: UsersService,
+
+    private notificationsService: NotificationsService,
 
     @InjectRepository(FriendUser)
     private friendUserRepository: Repository<FriendUser>,
@@ -89,6 +92,10 @@ export class FriendUsersService {
       friend,
       status: FriendStatusInvitation.PENDING,
     });
+
+    this.notificationsService.sendInvitationNotification(
+      `You have a new friend request from ${user.pseudo}`,
+    );
 
     return await this.friendUserRepository.save(friendUser);
   }

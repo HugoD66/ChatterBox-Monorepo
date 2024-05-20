@@ -49,6 +49,12 @@ export class UsersController {
     return this.usersService.getMe(req.user.id);
   }
 
+  @Public()
+  @Post(`/auth/login`)
+  async login(@Body() loginDto: LoginDto): Promise<LoginResponseDto> {
+    return await this.usersService.login(loginDto);
+  }
+
   @UseGuards(AuthGuard)
   @Patch(`/auth/password-change`)
   async changePassword(
@@ -60,12 +66,6 @@ export class UsersController {
       req.user.id,
     );
     return isSuccess;
-  }
-
-  @Public()
-  @Post(`/auth/login`)
-  async login(@Body() loginDto: LoginDto): Promise<LoginResponseDto> {
-    return await this.usersService.login(loginDto);
   }
 
   @Public()

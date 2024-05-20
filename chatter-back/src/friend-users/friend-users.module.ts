@@ -5,12 +5,14 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { UsersModule } from '../users/users.module';
 import { FriendUser } from './entities/friend-user.entity';
 import { RoomModule } from '../room/room.module';
+import { NotificationsModule } from '../socket/notification.module';
 
 @Module({
   imports: [
     TypeOrmModule.forFeature([FriendUser]),
     forwardRef(() => UsersModule),
     forwardRef(() => RoomModule),
+    NotificationsModule,
   ],
   controllers: [FriendUsersController],
   providers: [FriendUsersService],

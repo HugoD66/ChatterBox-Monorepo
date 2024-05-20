@@ -109,8 +109,10 @@ export class UsersService {
       where: { id: userId },
       relations: ['friendships', 'friendships.friend'],
     });
+    const payload = { sub: user.id, email: user.email };
     return {
       ...user,
+      access_token: await this.jwtService.signAsync(payload),
       friends: await this.getFriends(user.id),
     };
   }
