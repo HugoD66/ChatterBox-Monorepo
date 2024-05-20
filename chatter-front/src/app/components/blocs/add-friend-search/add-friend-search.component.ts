@@ -41,8 +41,10 @@ export class AddFriendSearchComponent {
 
   constructor(private userService: UserService) {
     this.userService.getUserList().subscribe((users: UserModel[]) => {
-      this.userList.set(users);
-      this.searchUserResult.set(users);
+      const filteredUsers = users.filter((user) => user.id !== this.getMe().id);
+
+      this.userList.set(filteredUsers);
+      this.searchUserResult.set(filteredUsers);
       this.isLoading.set(false);
     });
 

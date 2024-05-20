@@ -1,9 +1,9 @@
 @if(isUserPanel()) {
-  <div class="add-user-list-unit" (click)="onUserclick.emit(user())">
+  <div class="add-user-list-unit" (click)="onUserclick.emit(userClicked())">
     <div class="picture-pseudo">
-      @if (user()!.picture) {
+      @if (userClicked()!.picture) {
         <img
-          src="{{ apiUrl }}/./{{ user()!.picture }}"
+          src="{{ apiUrl }}/./{{ userClicked()!.picture }}"
           alt="image de profil de l'utilisateur"
         />
       } @else {
@@ -12,26 +12,28 @@
           alt="image de profil par defaut"
         />
       }
-      <p>{{ user()!.pseudo }}</p>
+      <p>{{ userClicked()!.pseudo }}</p>
     </div>
     <div class="bloc-information">
       <p>10 serveurs en commun</p>
       <p>8 amis en commun</p>
     </div>
     <span class="created-or-friend-since">
-    <i>Compte créé le {{(user()!.createdAt | date: "dd/MM/yyyy")}}
-      <!--user().friendSince | date: "dd/MM/yyyy"    ......     ("Amis depuis le:" + '' | date: "dd/MM/yyyy")-->
-    </i>
+    <p>
+      <i>
+        Compte créé le {{(userClicked()!.createdAt | date: "dd/MM/yyyy")}}
+      </i>
+    </p>
   </span>
   </div>
 }
 
-@if(friendRelation()) {
-  <div class="add-user-list-unit" (click)="onUserclick.emit(user())">
+@if(friendClicked()) {
+  <div class="add-user-list-unit" (click)="onUserclick.emit(friendClicked()?.friend)">
     <div class="picture-pseudo">
-      @if (friendRelation()!.friend.picture) {
+      @if (friendClicked()!.friend.picture) {
         <img
-          src="{{ apiUrl }}/./{{ friendRelation()!.friend.picture }}"
+          src="{{ apiUrl }}/./{{ friendClicked()!.friend.picture }}"
           alt="image de profil de l'utilisateur"
         />
       } @else {
@@ -40,16 +42,24 @@
           alt="image de profil par defaut"
         />
       }
-      <p>{{ friendRelation()!.friend.pseudo }}</p>
+      <p>{{ friendClicked()!.friend.pseudo }}</p>
     </div>
     <div class="bloc-information">
       <p>10 serveurs en commun</p>
       <p>8 amis en commun</p>
     </div>
     <span class="created-or-friend-since">
-    <i>
-          Amis depuis le {{ friendRelation()!.createdAt | date: "dd/MM/yyyy" }}
-    </i>
+    <p><i>
+      @if(friendClicked()?.status === FriendStatusInvitation.PENDING) {
+        En attente de confirmation
+      }
+      @if(friendClicked()?.status === FriendStatusInvitation.ACCEPTED) {
+        Amis depuis le {{(friendClicked()!.createdAt | date: "dd/MM/yyyy")}}
+      }
+      @if(friendClicked()?.status === FriendStatusInvitation.REJECTED) {
+        Invitation refusée
+      }
+    </i></p>
   </span>
   </div>
 }

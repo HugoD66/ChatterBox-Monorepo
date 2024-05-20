@@ -15,7 +15,7 @@
       <div class="add-user-search-result">
         @for (user of searchUserResult(); track user.id) {
           <app-add-user-list
-            [user]="user"
+            [userClicked]="user"
             [isUserPanel]="isUserPanel()"
             (onUserclick)="setUserInformation($event)"
             class="content-unit-user"
@@ -30,7 +30,7 @@
       <div class="add-user-search-result">
         @for (friend of searchFriendResult(); track friend.friend.id) {
           <app-add-user-list
-            [friendRelation]="friend"
+            [friendClicked]="friend"
             [isUserPanel]="isUserPanel()"
             (onUserclick)="setUserInformation($event)"
             class="content-unit-user"

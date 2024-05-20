@@ -11,6 +11,7 @@ import { UserModel } from '../../../models/user.model';
 import { environment } from '../../../../env';
 import { DatePipe } from '@angular/common';
 import { FriendRelationModel } from '../../../models/friend-relation.model';
+import { FriendStatusInvitation } from '../../../models/enums/friend-status-invitation.enum';
 
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -24,10 +25,10 @@ export class AddUserListComponent {
   @Output() public onUserclick: EventEmitter<UserModel> =
     new EventEmitter<UserModel>();
   protected apiUrl = environment.apiUrl;
-  public user: InputSignal<UserModel | undefined> = input<
+  public userClicked: InputSignal<UserModel | undefined> = input<
     UserModel | undefined
   >();
-  public friendRelation: InputSignal<FriendRelationModel | undefined> = input<
+  public friendClicked: InputSignal<FriendRelationModel | undefined> = input<
     FriendRelationModel | undefined
   >();
 
@@ -37,4 +38,6 @@ export class AddUserListComponent {
       //console.log(this.user());
     });
   }
+
+  protected readonly FriendStatusInvitation = FriendStatusInvitation;
 }
