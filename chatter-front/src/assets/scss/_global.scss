@@ -32,6 +32,12 @@ $radius-background: 16px;
   align-items: center;
   flex-direction: row;
 }
+@mixin flex-start-row-center {
+  display: flex;
+  justify-content: center;
+  align-items: start;
+  flex-direction: row;
+}
 @mixin flex-center-row-between {
   display: flex;
   justify-content: space-between;
@@ -114,6 +120,19 @@ $radius-background: 16px;
 }
 
 @mixin button-two {
+}
+
+@mixin sidebar-buttons {
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  background-color: colors.$back-light-b;
+  transition: background-color 0.3s ease, margin 0.3s ease;
+  &:hover {
+    font-weight: 600;
+    transition: background-color 0.3s ease, margin 0.3s ease, 0.3s font-weight ease-in;
+
+  }
 }
 
 //Box shadows

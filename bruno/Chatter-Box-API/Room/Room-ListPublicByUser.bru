@@ -1,0 +1,15 @@
+meta {
+  name: Room-ListPublicByUser
+  type: http
+  seq: 6
+}
+
+get {
+  url: http://{{url}}:{{port}}/room/group/eb2b35f5-488e-46f5-a7f3-c8657922397c
+  body: none
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{bearerToken}}
+}

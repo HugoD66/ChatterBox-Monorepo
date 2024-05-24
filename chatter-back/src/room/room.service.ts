@@ -39,6 +39,19 @@ export class RoomService {
       .getOne();
   }
 
+  async findAllGroupRoom(userId: string): Promise<ResponseRoomDto[]> {
+    return await this.roomRepository
+      .createQueryBuilder('room')
+      .leftJoinAndSelect('room.participants', 'participant')
+      .leftJoinAndSelect('room.owner', 'owner')
+      .leftJoinAndSelect('room.messages', 'message')
+      .leftJoinAndSelect('message.sender', 'sender')
+      .where('owner.id = :userId OR participant.id = :userId', { userId })
+      .groupBy('room.id, owner.id, participant.id, message.id, sender.id')
+      .having('COUNT(participant.id) > 1')
+      .getMany();
+  }
+
   async findAll(): Promise<ResponseRoomDto[]> {
     return await this.roomRepository.find({
       relations: ['messages', 'messages.sender', 'owner', 'participants'],

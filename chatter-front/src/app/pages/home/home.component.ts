@@ -1,6 +1,7 @@
 import {
   ChangeDetectionStrategy,
   Component,
+  effect,
   OnInit,
   signal,
   WritableSignal,
@@ -44,10 +45,11 @@ export class HomeComponent implements OnInit {
   );
 
   constructor(private authService: AuthService) {
-    const userJson = localStorage.getItem('currentUser');
-    if (userJson) {
-      this.getMe.update(() => JSON.parse(userJson));
-    }
+    effect(() => {
+      this.authService.getMe().subscribe((getMe: GetMeModel) => {
+        this.getMe.update(() => getMe);
+      });
+    });
   }
 
   ngOnInit() {}

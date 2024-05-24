@@ -1,8 +1,8 @@
 import {
   ChangeDetectionStrategy,
   Component,
+  effect,
   OnDestroy,
-  Signal,
   signal,
   WritableSignal,
 } from '@angular/core';
@@ -23,6 +23,7 @@ import { MatIcon, MatIconModule } from '@angular/material/icon';
 import { MatIconButton } from '@angular/material/button';
 import { LoaderComponent } from '../../components/loader/loader.component';
 import { GetMeModel } from '../../models/user.model';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -67,11 +68,12 @@ export class CreateRoomComponent implements OnDestroy {
     ]),
   });
 
-  constructor() {
-    const userJson = localStorage.getItem('currentUser');
-    if (userJson) {
-      this.getMe.update(() => JSON.parse(userJson));
-    }
+  constructor(private authService: AuthService) {
+    effect(() => {
+      this.authService.getMe().subscribe((getMe: GetMeModel) => {
+        this.getMe.update(() => getMe);
+      });
+    });
   }
 
   onNameChange(): void {

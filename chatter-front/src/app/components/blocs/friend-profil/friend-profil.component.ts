@@ -2,8 +2,10 @@ import {
   ChangeDetectionStrategy,
   Component,
   effect,
+  EventEmitter,
   input,
   InputSignal,
+  Output,
   signal,
   WritableSignal,
 } from '@angular/core';
@@ -12,7 +14,6 @@ import { MatIcon } from '@angular/material/icon';
 import { DialogService } from '../../../services/dialog.service';
 import { LoaderComponent } from '../../loader/loader.component';
 import { environment } from '../../../../env';
-import { FriendRelationModel } from '../../../models/friend-relation.model';
 import { DatePipe, NgStyle } from '@angular/common';
 import {
   trigger,
@@ -52,6 +53,8 @@ import { PopupService } from '../../../services/popup.service';
 })
 export class FriendProfilComponent {
   public getMe: InputSignal<GetMeModel> = input.required<GetMeModel>();
+
+  @Output() refreshGetMeEvent = new EventEmitter<any>();
   public userSelected: InputSignal<UserModel> = input.required<UserModel>();
   public isFriend: WritableSignal<boolean> = signal(false);
   public isProfilSelected: InputSignal<boolean> = input.required<boolean>();
@@ -63,17 +66,13 @@ export class FriendProfilComponent {
     private friendService: FriendService,
     private popupService: PopupService,
   ) {
-    // Liste de mes amis //
-    //const friendShipList: Signal<FriendRelationModel[]> = computed(() =>
-    //  this.getMe().friendships!.map((friend) => friend),
-    //);
-
     effect(
       () => {
         this.getMe().friends!.forEach((friend: UserModel) => {
           if (this.userSelected().id === friend.id) {
             console.log(this.userSelected().id);
             this.isFriend.set(true);
+            this.friendStatus(this.getMe().id, this.userSelected().id);
           } else {
             this.isFriend.set(false);
           }
@@ -96,6 +95,7 @@ export class FriendProfilComponent {
     this.friendService.sendFriendRequest(currentUserId, userModel.id).subscribe(
       (response) => {
         console.log('Invitation envoyée avec succès:', response);
+        this.refreshGetMeEvent.emit();
         this.popupService.openSnackBar('Invitation envoyée', 'lawngreen');
       },
       (error) => {
@@ -105,5 +105,18 @@ export class FriendProfilComponent {
     );
   }
 
-  deleteFriend(userModel: UserModel) {}
+  deleteFriend(userModel: UserModel) {
+    this.refreshGetMeEvent.emit();
+  }
+
+  async friendStatus(getMeId: string, friendSelectedId: string) {
+    this.friendService.getFriend(getMeId, friendSelectedId).subscribe(
+      (response) => {
+        console.log('Ami trouvé:', response);
+      },
+      (error) => {
+        console.error("Erreur lors de la recherche de l'ami:", error);
+      },
+    );
+  }
 }

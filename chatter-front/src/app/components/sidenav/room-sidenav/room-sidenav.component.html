@@ -1,4 +1,6 @@
 <h3>Salons</h3>
+<div class="content-list" [ngClass]="isExpanded() ? 'expanded' : 'collapsed'">
+
 @for(room of roomList(); track room.id) {
   <div class="room-list-content">
     <app-section-detail-unit
@@ -12,7 +14,11 @@
     <p>Vous n'avez pas encore de salon</p>
     <button (click)="goCreateRoom()">Créer un salon</button>
   } @else {
-      <mat-icon>sentiment_dissatisfied</mat-icon>
+    <div class="icon-add-room">
+      <mat-icon class="icon-add" (click)="goCreateRoom()">add</mat-icon>
+
+    </div>
   }
   </div>
 }
+</div>

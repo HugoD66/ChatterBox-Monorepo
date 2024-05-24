@@ -8,6 +8,16 @@
       />
     }
   } @empty {
-    <p>No contacts</p>
+    <div class="negative-condition-room">
+      @if(isExpanded()) {
+        <p>Vous n'avez pas encore de contact</p>
+        <button (click)="goAddFriend()">Ajouter un contact</button>
+      } @else {
+        <div class="icon-add-room">
+          <mat-icon class="icon-add" (click)="goAddFriend()">add</mat-icon>
+
+        </div>
+      }
+    </div>
   }
 </div>

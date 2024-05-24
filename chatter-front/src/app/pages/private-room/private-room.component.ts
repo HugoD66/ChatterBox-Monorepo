@@ -1,6 +1,7 @@
 import {
   ChangeDetectionStrategy,
   Component,
+  effect,
   signal,
   WritableSignal,
 } from '@angular/core';
@@ -10,6 +11,7 @@ import { GetMeModel, UserModel } from '../../models/user.model';
 import { MessageModel } from '../../models/message.model';
 import { ActivatedRoute } from '@angular/router';
 import { RoomService } from '../../services/room.service';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -30,11 +32,13 @@ export class PrivateRoomComponent {
   constructor(
     private roomService: RoomService,
     private route: ActivatedRoute,
+    private authService: AuthService,
   ) {
-    const userJson = localStorage.getItem('currentUser');
-    if (userJson) {
-      this.getMe.update(() => JSON.parse(userJson));
-    }
+    effect(() => {
+      this.authService.getMe().subscribe((getMe: GetMeModel) => {
+        this.getMe.update(() => getMe);
+      });
+    });
 
     this.roomService.getRoom(this.roomId()!).subscribe((room) => {
       console.log(room);

@@ -71,8 +71,6 @@ export class LoginComponent {
       this.authService.login(credentials).subscribe({
         next: (response) => {
           localStorage.setItem('authToken', response.access_token);
-          console.log(response);
-          localStorage.setItem('currentUser', JSON.stringify(response));
 
           this.router.navigate(['/home']);
         },

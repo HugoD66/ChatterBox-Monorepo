@@ -10,7 +10,6 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { User } from './entities/user.entity';
 import { Repository } from 'typeorm';
 import { LoginDto } from './dto/login.dto';
-import { LoginResponseDto } from './dto/login.response.dto';
 import * as bcrypt from 'bcrypt';
 import { JwtService } from '@nestjs/jwt';
 import { UserGeneralRoleEnum } from './entities/types/user.general.roles.enum';
@@ -81,7 +80,7 @@ export class UsersService {
     }));
   }
 
-  async login(loginDto: LoginDto): Promise<LoginResponseDto> {
+  async login(loginDto: LoginDto): Promise<GetMeResponseDto> {
     const user: User = await this.usersRepository.findOne({
       where: { email: loginDto.email },
       relations: ['friendships', 'friendships.friend'],

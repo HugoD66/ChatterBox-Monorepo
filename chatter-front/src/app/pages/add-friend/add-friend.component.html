@@ -1,16 +1,23 @@
-<div class="add-friend-content">
-  <app-friend-profil
-    [getMe]="this.getMe()!"
-    [userSelected]="profilSelected()!"
-    [isProfilSelected]="false"
-    [ngStyle]="{'height': profilSelected() ? '20vh' : 'auto'}"
-  />
-  <app-add-friend-search
-    [getMe]="this.getMe()!"
-    (onUserclick)="this.onUserclick($event)"
-    [ngClass]="{
+@if(isLoading()) {
+  <app-loader/>
+}
+@else {
+  <div class="add-friend-content">
+    <app-friend-profil
+      [getMe]="this.getMe()!"
+      (refreshGetMeEvent)="this.refreshGetMeEvent()"
+      [userSelected]="profilSelected()!"
+      [isProfilSelected]="false"
+      [ngStyle]="{'height': profilSelected() ? '20vh' : 'auto'}"
+    />
+    <app-add-friend-search
+      [getMe]="this.getMe()!"
+      (onUserclick)="this.onUserclick($event)"
+      [ngClass]="{
       'search-expanded': !profilSelected(),
       'search-collapsed': profilSelected()
     }"
-  />
-</div>
+    />
+  </div>
+
+}

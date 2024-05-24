@@ -1,9 +1,10 @@
-import { Component, signal, WritableSignal } from '@angular/core';
+import { Component, effect, signal, WritableSignal } from '@angular/core';
 import { DiscussionComponent } from '../../components/blocs/discussion/discussion.component';
 import { MessageModel } from '../../models/message.model';
 import { GroupRoomProfilComponent } from '../../components/blocs/group-room-profil/group-room-profil.component';
 import { GetMeModel, UserModel } from '../../models/user.model';
 import { UserGeneralRoleEnum } from '../../enum/user.general.role.enum';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-group-room',
@@ -116,11 +117,11 @@ export class GroupRoomComponent {
       roleGeneral: UserGeneralRoleEnum.User,
     },
   ]);
-  constructor() {
-    const userJson = localStorage.getItem('currentUser');
-    if (userJson) {
-      this.getMe.update(() => JSON.parse(userJson));
-      console.log(this.getMe());
-    }
+  constructor(private authService: AuthService) {
+    effect(() => {
+      this.authService.getMe().subscribe((getMe: GetMeModel) => {
+        this.getMe.update(() => getMe);
+      });
+    });
   }
 }

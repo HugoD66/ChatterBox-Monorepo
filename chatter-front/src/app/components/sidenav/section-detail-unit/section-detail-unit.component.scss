@@ -12,20 +12,18 @@
     height: 50px;
     border-radius: 90%;
   }
-
   &.expanded {
     p {
       @include global.sidebar-show-p;
-
+      @include fonts.p;
+      margin: auto;
+      text-align: center;
     }
-
   }
-
   /////////
   &.collapsed {
     p {
       @include global.sidebar-hidden-p;
-
     }
 
   }

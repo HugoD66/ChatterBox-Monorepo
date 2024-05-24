@@ -1,6 +1,7 @@
 import {
   ChangeDetectionStrategy,
   Component,
+  effect,
   signal,
   WritableSignal,
 } from '@angular/core';
@@ -34,11 +35,11 @@ export class LayoutComponent {
   public sidebarCollapsed = signal(true);
 
   constructor(private authService: AuthService) {
-    const userJson = localStorage.getItem('currentUser');
-    if (userJson) {
-      this.getMe.update(() => JSON.parse(userJson));
-      console.log(this.getMe());
-    }
+    effect(() => {
+      this.authService.getMe().subscribe((getMe: GetMeModel) => {
+        this.getMe.update(() => getMe);
+      });
+    });
   }
 
   isExpandedChange(isExpanded: boolean): void {

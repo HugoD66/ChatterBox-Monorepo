@@ -8,6 +8,7 @@ import { CreateFriendUserDto } from './dto/create-friend-user.dto';
 import { FriendStatusInvitation } from './entities/enum/friend-status-invitation.enum';
 import { RoomService } from '../room/room.service';
 import { NotificationsService } from '../socket/notifications.service';
+import { ResponseFriendDto } from './dto/response-friend.dto';
 
 @Injectable()
 export class FriendUsersService {
@@ -22,6 +23,20 @@ export class FriendUsersService {
     @Inject(forwardRef(() => RoomService))
     private roomService: RoomService,
   ) {}
+
+  async getFriend(
+    userId: string,
+    friendId: string,
+  ): Promise<ResponseFriendDto> {
+    const user: ResponseUserDto = await this.usersService.findOne(userId);
+    const friend: ResponseUserDto = await this.usersService.findOne(friendId);
+    const friendRelation: ResponseFriendDto =
+      await this.friendUserRepository.findOne({
+        where: { user: user, friend: friend },
+      });
+    console.log(friendRelation);
+    return friendRelation;
+  }
 
   async addFriend(userId: string, friendId: string): Promise<FriendUser> {
     const user: ResponseUserDto = await this.usersService.findOne(userId);
@@ -101,7 +116,7 @@ export class FriendUsersService {
   }
 
   async acceptFriendInvitation(invitationId: string): Promise<FriendUser> {
-    const invitation = await this.friendUserRepository.findOne({
+    const invitation: FriendUser = await this.friendUserRepository.findOne({
       where: { id: invitationId },
     });
     if (!invitation) {
@@ -112,7 +127,7 @@ export class FriendUsersService {
 
     //Create room ici
     await this.roomService.create({
-      title: `Private room`,
+      title: `Private room ${invitation.user.pseudo} and ${invitation.friend.pseudo}`,
       owner: invitation.user,
       participants: [invitation.friend],
       createdAt: new Date(),

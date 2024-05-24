@@ -33,6 +33,13 @@ export class RoomController {
     return this.roomService.findAll();
   }
 
+  @Get('/group/:userId')
+  findAllGroupRoom(
+    @Param('userId') userId: string,
+  ): Promise<ResponseRoomDto[]> {
+    return this.roomService.findAllGroupRoom(userId);
+  }
+
   @Patch(':id')
   update(
     @Param('id') id: string,

@@ -11,6 +11,7 @@ import { ButtonsSidenavComponent } from '../buttons-sidenav/buttons-sidenav.comp
 import { MatSidenav } from '@angular/material/sidenav';
 import { NgClass } from '@angular/common';
 import { FriendStatusInvitation } from '../../../models/enums/friend-status-invitation.enum';
+import { MatIcon } from '@angular/material/icon';
 
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -21,9 +22,10 @@ import { FriendStatusInvitation } from '../../../models/enums/friend-status-invi
     ButtonsSidenavComponent,
     MatSidenav,
     NgClass,
+    MatIcon,
   ],
   templateUrl: './contact-sidenav.component.html',
-  styleUrl: './contact-sidenav.component.scss',
+  styleUrl: '../sections-contact-room.component.scss',
 })
 export class ContactSidenavComponent {
   public getMe: InputSignal<GetMeModel | null> = input.required();

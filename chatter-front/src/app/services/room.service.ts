@@ -32,6 +32,21 @@ export class RoomService {
       );
   }
 
+  getRoomsByUser(userId: string): Observable<RoomModel[]> {
+    return this.http
+      .get<RoomModel[]>(`${this.apiUrl}/room/group/${userId}`, {
+        headers: new HttpHeaders().set(
+          'Authorization',
+          'Bearer ' + this.accessToken,
+        ),
+      })
+      .pipe(
+        catchError((error) => {
+          return throwError(() => error);
+        }),
+      );
+  }
+
   getRoomByUser(search: PrivateRoomSearch): Observable<RoomModel> {
     return this.http
       .get<RoomModel>(

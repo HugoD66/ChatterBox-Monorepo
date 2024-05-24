@@ -15,6 +15,7 @@ import { FriendUnitComponent } from './friend-unit/friend-unit.component';
 import { GetMeModel } from '../../../models/user.model';
 import { FriendStatusInvitation } from '../../../models/enums/friend-status-invitation.enum';
 import { FriendRelationModel } from '../../../models/friend-relation.model';
+import { Router } from '@angular/router';
 
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -35,7 +36,7 @@ export class FriendListComponent {
   public isPanelAddFriendToRoom: InputSignal<boolean> = input.required();
   public countFriends: WritableSignal<number> = signal(0);
 
-  constructor() {
+  constructor(private router: Router) {
     effect(
       () => {
         const acceptedFriendsCount =
@@ -50,4 +51,8 @@ export class FriendListComponent {
   }
 
   protected readonly FriendStatusInvitation = FriendStatusInvitation;
+
+  onUserList() {
+    this.router.navigate(['/friend/add']);
+  }
 }

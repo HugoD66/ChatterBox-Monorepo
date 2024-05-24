@@ -18,7 +18,6 @@ import { UsersService } from './users.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { ResponseUserDto } from './dto/response-user.dto';
-import { LoginResponseDto } from './dto/login.response.dto';
 import { Public } from '../security/auth/public.decorator';
 import { LoginDto } from './dto/login.dto';
 import { AuthGuard } from '../security/auth/auth.guard';
@@ -51,7 +50,7 @@ export class UsersController {
 
   @Public()
   @Post(`/auth/login`)
-  async login(@Body() loginDto: LoginDto): Promise<LoginResponseDto> {
+  async login(@Body() loginDto: LoginDto): Promise<GetMeResponseDto> {
     return await this.usersService.login(loginDto);
   }
 

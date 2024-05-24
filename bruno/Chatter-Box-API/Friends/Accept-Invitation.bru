@@ -1,0 +1,15 @@
+meta {
+  name: Accept-Invitation
+  type: http
+  seq: 4
+}
+
+post {
+  url: http://{{url}}:{{port}}/friend-users/accept-invitation/1afac10a-5699-4e72-b907-46554d0d6316
+  body: none
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{bearerToken}}
+}

@@ -5,17 +5,14 @@
 .button-action-list-count {
   @include global.flex-center;
   .action-friend, .action-room-list {
-    border: none;
     @include global.flex-center;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s ease, margin 0.3s ease;
+    @include global.sidebar-buttons;
     background-color: colors.$back-light-b;
     .icon-friend {
       width: 20px;
     }
     p {
-      @include fonts.p;
+      @include fonts.subtitle;
     }
   }
   &.expanded {

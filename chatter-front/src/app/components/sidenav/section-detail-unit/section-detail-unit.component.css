@@ -15,6 +15,10 @@
   transition: opacity 0.3s ease, visibility 0.3s ease 0.3s, width 0.3s ease 0.3s, height 0.3s ease 0.3s;
   margin: 0;
   padding: 0;
+  font-family: "JostRegular", sans-serif;
+  font-size: 1.05em;
+  margin: auto;
+  text-align: center;
 }
 .section-detail-unit-content.collapsed p {
   opacity: 0;

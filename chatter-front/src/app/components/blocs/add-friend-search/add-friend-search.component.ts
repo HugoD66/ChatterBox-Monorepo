@@ -31,7 +31,7 @@ export class AddFriendSearchComponent {
   public searchUserResult: WritableSignal<UserModel[]> = signal([]);
   public searchFriendResult: WritableSignal<FriendRelationModel[]> = signal([]);
   public getMe: InputSignal<GetMeModel> = input.required<GetMeModel>();
-  public isUserPanel: WritableSignal<boolean> = signal(false);
+  public isUserPanel: WritableSignal<boolean> = signal(true);
   public userProfil: WritableSignal<UserModel | null> = signal(null);
 
   @Output() public onUserclick: EventEmitter<UserModel> =
