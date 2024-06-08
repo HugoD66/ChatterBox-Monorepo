@@ -118,20 +118,30 @@ export class FriendUsersService {
   async acceptFriendInvitation(invitationId: string): Promise<FriendUser> {
     const invitation: FriendUser = await this.friendUserRepository.findOne({
       where: { id: invitationId },
+      relations: ['user', 'friend'],
     });
     if (!invitation) {
       throw new Error('Invitation not found');
     }
 
     invitation.status = FriendStatusInvitation.ACCEPTED;
+    console.log(invitation);
 
     //Create room ici
     await this.roomService.create({
-      title: `Private room ${invitation.user.pseudo} and ${invitation.friend.pseudo}`,
+      title: `Private room ${invitation.friend.pseudo} and ${invitation.friend.pseudo}`,
       owner: invitation.user,
       participants: [invitation.friend],
       createdAt: new Date(),
     });
+    console.log(
+      await this.roomService.create({
+        title: `Private room ${invitation.user.pseudo} and ${invitation.friend.pseudo}`,
+        owner: invitation.user,
+        participants: [invitation.friend],
+        createdAt: new Date(),
+      }),
+    );
 
     return await this.friendUserRepository.save(invitation);
   }

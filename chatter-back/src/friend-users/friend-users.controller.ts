@@ -1,4 +1,12 @@
-import { Controller, Post, Body, Get, Param, UseGuards } from '@nestjs/common';
+import {
+  Controller,
+  Post,
+  Body,
+  Get,
+  Param,
+  UseGuards,
+  Req,
+} from '@nestjs/common';
 import { FriendUsersService } from './friend-users.service';
 import { Public } from '../security/auth/public.decorator';
 import { ResponseUserDto } from '../users/dto/response-user.dto';

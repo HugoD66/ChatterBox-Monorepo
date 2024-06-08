@@ -32,7 +32,7 @@ export class SectionDetailUnitComponent {
   }
 
   public async goToUserConversation(userId?: string, roomId?: string) {
-    console.log(userId);
+    console.log('userId' + userId);
     this.router.navigate([`/room/private/${userId || roomId}`]);
   }
 }

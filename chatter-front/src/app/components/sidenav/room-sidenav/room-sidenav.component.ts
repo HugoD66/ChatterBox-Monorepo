@@ -18,7 +18,6 @@ import { RoomService } from '../../../services/room.service';
 
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,
-
   selector: 'app-room-sidenav',
   standalone: true,
   imports: [SectionDetailUnitComponent, MatIcon, NgClass, MatButton],
@@ -34,11 +33,17 @@ export class RoomSidenavComponent {
     private router: Router,
     private roomService: RoomService,
   ) {
-    effect(() => {
-      this.roomService.getRoomsByUser(this.getMe()!.id).subscribe((rooms) => {
-        this.roomList.update(() => rooms);
-      });
-    });
+    effect(
+      () => {
+        if (!this.getMe()?.id) {
+          return;
+        }
+        this.roomService.getRoomsByUser(this.getMe()!.id).subscribe((rooms) => {
+          this.roomList.set(rooms);
+        });
+      },
+      { allowSignalWrites: true },
+    );
   }
 
   goCreateRoom() {

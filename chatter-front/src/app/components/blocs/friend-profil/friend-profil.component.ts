@@ -67,16 +67,21 @@ export class FriendProfilComponent {
     private popupService: PopupService,
   ) {
     effect(
-      () => {
-        this.getMe().friends!.forEach((friend: UserModel) => {
+      async () => {
+        if (!this.getMe()) {
+          return;
+        }
+
+        console.log(this.getMe());
+        for (const friend of this.getMe().friends!) {
           if (this.userSelected().id === friend.id) {
             console.log(this.userSelected().id);
             this.isFriend.set(true);
-            this.friendStatus(this.getMe().id, this.userSelected().id);
+            await this.friendStatus(this.getMe().id, this.userSelected().id);
           } else {
             this.isFriend.set(false);
           }
-        });
+        }
       },
       { allowSignalWrites: true },
     );

@@ -40,6 +40,8 @@ export class PrivateRoomComponent {
       });
     });
 
+    //On récupére l'id de l'user et non pas de la room dans le paramsMap
+    //utiliser plutot dans room sevice getRoomByUser
     this.roomService.getRoom(this.roomId()!).subscribe((room) => {
       console.log(room);
       this.friend.update(() => room.participants[0]);
