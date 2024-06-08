@@ -1,11 +1,17 @@
 import { AppComponent } from './app.component';
-import { NgModule } from '@angular/core';
+import {
+  NgModule,
+  provideExperimentalZonelessChangeDetection,
+} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule, RouterOutlet } from '@angular/router';
 import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
-import { HttpClientModule } from '@angular/common/http';
+import {
+  provideHttpClient,
+  withInterceptorsFromDi,
+} from '@angular/common/http';
 import { SidenavComponent } from './components/sidenav/sidenav.component';
 import { TruncateLongPipe } from './pipe/TruncateLongPipe';
 import { DialogService } from './services/dialog.service';
@@ -17,12 +23,13 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RoomService } from './services/room.service';
 @NgModule({
   declarations: [AppComponent],
+  bootstrap: [AppComponent],
+  exports: [],
   imports: [
     CommonModule,
     RouterOutlet,
     BrowserModule,
     AppRoutingModule,
-    HttpClientModule,
     RouterModule,
     BrowserAnimationsModule,
     TruncateLongPipe,
@@ -36,8 +43,8 @@ import { RoomService } from './services/room.service';
     UserService,
     RoomService,
     PopupService,
+    provideHttpClient(withInterceptorsFromDi()),
+    provideExperimentalZonelessChangeDetection(),
   ],
-  bootstrap: [AppComponent],
-  exports: [],
 })
 export class AppModule {}
