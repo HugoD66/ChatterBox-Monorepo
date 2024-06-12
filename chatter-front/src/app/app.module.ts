@@ -4,9 +4,9 @@ import {
   provideExperimentalZonelessChangeDetection,
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RouterModule, RouterOutlet } from '@angular/router';
+import { provideRouter, RouterModule, RouterOutlet } from '@angular/router';
 import { BrowserModule } from '@angular/platform-browser';
-import { AppRoutingModule } from './app-routing.module';
+import { AppRoutingModule, routes } from './app-routing.module';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import {
   provideHttpClient,
@@ -22,9 +22,6 @@ import { PopupService } from './services/popup.service';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RoomService } from './services/room.service';
 @NgModule({
-  declarations: [AppComponent],
-  bootstrap: [AppComponent],
-  exports: [],
   imports: [
     CommonModule,
     RouterOutlet,
@@ -36,15 +33,16 @@ import { RoomService } from './services/room.service';
     SidenavComponent,
   ],
   providers: [
-    //provideAnimationsAsync(),
     DialogService,
     MessageService,
     FriendService,
     UserService,
     RoomService,
     PopupService,
+    provideRouter(routes),
     provideHttpClient(withInterceptorsFromDi()),
     provideExperimentalZonelessChangeDetection(),
+    provideAnimationsAsync(),
   ],
 })
 export class AppModule {}
