@@ -1,12 +1,11 @@
 <h3 (click)="goAddFriend()" >Contacts</h3>
 <div class="content-list" [ngClass]="isExpanded() ? 'expanded' : 'collapsed'">
-  @for(friend of getMe()?.friendships; track friend.id) {
-    @if(friend.status === FriendStatusInvitation.ACCEPTED) {
+  @for(friend of this.friendAcceptedList(); track friend.id) {
       <app-section-detail-unit
         [detailUser]="friend.friend"
         [isExpanded]="isExpanded()"
       />
-    }
+
   } @empty {
     <div class="negative-condition-room">
       @if(isExpanded()) {
@@ -15,7 +14,6 @@
       } @else {
         <div class="icon-add-room">
           <mat-icon class="icon-add" (click)="goAddFriend()">add</mat-icon>
-
         </div>
       }
     </div>

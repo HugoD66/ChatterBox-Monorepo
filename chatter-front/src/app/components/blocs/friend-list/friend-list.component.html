@@ -2,19 +2,16 @@
   <div class="friend-infos">
     <p>23 en ligne</p>
     <p>{{ countFriends() }} {{ countFriends() > 1 ? ' amis' : ' ami' }}</p>
-
   </div>
   <div class="friend-list">
       <div class="friend-list-loop">
         <div class="friends">
-          @for (friend of getMe().friendships; track friend.id) {
-            @if(friend.status === FriendStatusInvitation.ACCEPTED) {
+          @for(friend of this.friendAcceptedList(); track friend.id) {
               <app-friend-unit
                 [getMe]="getMe()"
                 [friend]="friend.friend"
                 [isPanelAddFriendToRoom]="isPanelAddFriendToRoom()"
               />
-            }
           } @empty {
             <div class="negative-condition">
               <p>Vous n'avez aucuns amis pour l'instant</p>

@@ -35,6 +35,7 @@ export class FriendListComponent {
   public getMe: InputSignal<GetMeModel> = input.required<GetMeModel>();
   public isPanelAddFriendToRoom: InputSignal<boolean> = input.required();
   public countFriends: WritableSignal<number> = signal(0);
+  public friendAcceptedList: WritableSignal<FriendRelationModel[]> = signal([]);
 
   constructor(private router: Router) {
     effect(
@@ -45,6 +46,17 @@ export class FriendListComponent {
               friendship.status === FriendStatusInvitation.ACCEPTED,
           ).length || 0;
         this.countFriends.update(() => acceptedFriendsCount);
+
+        if (this.getMe()?.friendships) {
+          this.friendAcceptedList.set(
+            this.getMe()!.friendships!.filter(
+              (friend) => friend.status === FriendStatusInvitation.ACCEPTED,
+            ),
+          );
+        } else {
+          this.friendAcceptedList.set([]);
+        }
+        console.log(this.friendAcceptedList());
       },
       { allowSignalWrites: true },
     );

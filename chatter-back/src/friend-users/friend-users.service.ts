@@ -24,16 +24,13 @@ export class FriendUsersService {
     private roomService: RoomService,
   ) {}
 
-  async getFriend(
-    userId: string,
-    friendId: string,
-  ): Promise<ResponseFriendDto> {
-    const user: ResponseUserDto = await this.usersService.findOne(userId);
-    const friend: ResponseUserDto = await this.usersService.findOne(friendId);
-    const friendRelation: ResponseFriendDto =
-      await this.friendUserRepository.findOne({
-        where: { user: user, friend: friend },
-      });
+  async getFriend(userId: string, friendId: string) {
+    const friendRelation: FriendUser = await this.friendUserRepository.findOne({
+      where: { user: { id: userId }, friend: { id: friendId } },
+      relations: ['user', 'friend'],
+    });
+
+    console.log('FRIND RELATION FRIND RELATION');
     console.log(friendRelation);
     return friendRelation;
   }

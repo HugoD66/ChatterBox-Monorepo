@@ -1,7 +1,6 @@
 import {
   ChangeDetectionStrategy,
   Component,
-  effect,
   signal,
   WritableSignal,
 } from '@angular/core';

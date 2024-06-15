@@ -26,7 +26,7 @@ export class FriendUsersController {
   async getFriend(
     @Param('userId') userId: string,
     @Param('friendId') friendId: string,
-  ): Promise<ResponseFriendDto> {
+  ) {
     console.log('userId', userId, 'friendId', friendId);
     return this.friendUsersService.getFriend(userId, friendId);
   }
