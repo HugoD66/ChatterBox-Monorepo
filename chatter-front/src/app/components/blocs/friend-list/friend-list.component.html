@@ -9,7 +9,7 @@
           @for(friend of this.friendAcceptedList(); track friend.id) {
               <app-friend-unit
                 [getMe]="getMe()"
-                [friend]="friend.friend"
+                [friend]="friend"
                 [isPanelAddFriendToRoom]="isPanelAddFriendToRoom()"
               />
           } @empty {

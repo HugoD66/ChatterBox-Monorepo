@@ -1,0 +1,22 @@
+meta {
+  name: Remove Friend
+  type: http
+  seq: 5
+}
+
+post {
+  url: http://{{url}}:{{port}/friend-users/delete-friend
+  body: json
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{bearerToken}}
+}
+
+body:json {
+  {
+    "userId": "8ac63a1d-3a36-4db3-a0e8-35eaca86f138",
+    "friendId": "a9768be3-1cf9-4463-91db-446685ad1ac3"
+  }
+}

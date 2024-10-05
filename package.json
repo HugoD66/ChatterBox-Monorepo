@@ -12,7 +12,7 @@
   "scripts": {
     "startd:clean": "cd chatter-back && docker-compose up -V --force-recreate",
     "startd": "cd chatter-back && docker-compose up -V",
-    "startb": "cd chatter-back && npm run start dev",
+    "startb": "cd chatter-back && npm run start:dev",
     "startf": "cd chatter-front && ng serve",
     "format:fix": "prettier --ignore-unknown --write .",
     "lint:fix": "eslint --fix ."

@@ -19,11 +19,11 @@ export class FriendUser {
     onDelete: 'CASCADE',
   })
   @JoinColumn({ name: 'userId' })
-  user: ResponseUserDto;
+  user: ResponseUserDto | User;
 
   @ManyToOne(() => User)
   @JoinColumn({ name: 'friendId' })
-  friend: ResponseUserDto;
+  friend: ResponseUserDto | User;
 
   @CreateDateColumn()
   createdAt: Date;

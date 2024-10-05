@@ -14,4 +14,5 @@ export class UserModel {
 export interface GetMeModel extends UserModel {
   access_token: string;
   friends: UserModel[];
+  pendingInvitations: UserModel[];
 }

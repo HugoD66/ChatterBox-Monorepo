@@ -2,7 +2,7 @@
 <div class="content-list" [ngClass]="isExpanded() ? 'expanded' : 'collapsed'">
   @for(friend of this.friendAcceptedList(); track friend.id) {
       <app-section-detail-unit
-        [detailUser]="friend.friend"
+        [detailUser]="friend"
         [isExpanded]="isExpanded()"
       />
 

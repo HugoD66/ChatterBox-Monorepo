@@ -2,12 +2,12 @@
   @if(isLoading()) {
     <app-loader />
   } @else {
-    @if (user.pseudo) {
-      <h2 mat-dialog-title>{{ user.pseudo }}</h2>
+    @if (user()!.pseudo) {
+      <h2 mat-dialog-title>{{ user()!.pseudo }}</h2>
     } @else {
       <h2 mat-dialog-title>Pas de user pseudo !</h2>
     }
-    <h2 mat-dialog-title>{{ user.pseudo }}</h2>
+    <h2 mat-dialog-title>{{ user()!.pseudo }}</h2>
     <mat-dialog-content class="dialog-content">
       <h3>Develop across all platforms</h3>
       <p>

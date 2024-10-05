@@ -1,14 +1,18 @@
-import { forwardRef, Inject, Injectable } from '@nestjs/common';
+import {
+  forwardRef,
+  Inject,
+  Injectable,
+  NotFoundException,
+} from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { FriendUser } from './entities/friend-user.entity';
-import { Repository } from 'typeorm';
+import { Or, Repository } from 'typeorm';
 import { UsersService } from '../users/users.service';
 import { ResponseUserDto } from '../users/dto/response-user.dto';
 import { CreateFriendUserDto } from './dto/create-friend-user.dto';
 import { FriendStatusInvitation } from './entities/enum/friend-status-invitation.enum';
 import { RoomService } from '../room/room.service';
 import { NotificationsService } from '../socket/notifications.service';
-import { ResponseFriendDto } from './dto/response-friend.dto';
 
 @Injectable()
 export class FriendUsersService {
@@ -23,17 +27,6 @@ export class FriendUsersService {
     @Inject(forwardRef(() => RoomService))
     private roomService: RoomService,
   ) {}
-
-  async getFriend(userId: string, friendId: string) {
-    const friendRelation: FriendUser = await this.friendUserRepository.findOne({
-      where: { user: { id: userId }, friend: { id: friendId } },
-      relations: ['user', 'friend'],
-    });
-
-    console.log('FRIND RELATION FRIND RELATION');
-    console.log(friendRelation);
-    return friendRelation;
-  }
 
   async addFriend(userId: string, friendId: string): Promise<FriendUser> {
     const user: ResponseUserDto = await this.usersService.findOne(userId);
@@ -112,9 +105,26 @@ export class FriendUsersService {
     return await this.friendUserRepository.save(friendUser);
   }
 
-  async acceptFriendInvitation(invitationId: string): Promise<FriendUser> {
+  async getFriend(userId: string, friendId: string) {
+    return await this.friendUserRepository.findOne({
+      where: { user: { id: userId }, friend: { id: friendId } },
+      relations: ['user', 'friend'],
+    });
+  }
+
+  async removeInvitation(userId: string, friendId: string): Promise<void> {
+    const existingRelation = await this.getFriend(userId, friendId);
+
+    if (!existingRelation) {
+      throw new NotFoundException('No friend found');
+    }
+
+    await this.friendUserRepository.remove(existingRelation);
+  }
+
+  async acceptFriendInvitation(friendRelationId: string) {
     const invitation: FriendUser = await this.friendUserRepository.findOne({
-      where: { id: invitationId },
+      where: { id: friendRelationId },
       relations: ['user', 'friend'],
     });
     if (!invitation) {
