@@ -18,6 +18,7 @@ import { ChangePasswordDto } from './dto/ChangePasswordDto';
 import { GetMeResponseDto } from './dto/get-me-response.dto';
 import { FriendUser } from '../friend-users/entities/friend-user.entity';
 import { FriendStatusInvitation } from '../friend-users/entities/enum/friend-status-invitation.enum';
+import { ResponseFriendDto } from '../friend-users/dto/response-friend.dto';
 
 @Injectable()
 export class UsersService {
@@ -87,7 +88,6 @@ export class UsersService {
   async login(loginDto: LoginDto): Promise<GetMeResponseDto> {
     const user: User = await this.usersRepository.findOne({
       where: { email: loginDto.email },
-      relations: ['friendships', 'friendships.friend'],
     });
     if (!user) {
       throw new NotFoundException(ValidationErrors.USER_NOT_FOUND);
@@ -104,7 +104,6 @@ export class UsersService {
       ...user,
       access_token: await this.jwtService.signAsync(payload),
       friends: await this.getFriends(user.id),
-      pendingInvitations: await this.getFriendRequests(user.id),
     };
   }
 
@@ -118,7 +117,6 @@ export class UsersService {
       ...user,
       access_token: await this.jwtService.signAsync(payload),
       friends: await this.getFriends(user.id),
-      pendingInvitations: await this.getFriendRequests(user.id),
     };
   }
 
@@ -166,7 +164,6 @@ export class UsersService {
       picture: updatedUser.picture,
       createdAt: updatedUser.createdAt,
       roleGeneral: updatedUser.roleGeneral,
-      friendships: updatedUser.friendships,
     };
   }
 
@@ -186,54 +183,84 @@ export class UsersService {
     await this.usersRepository.delete({});
   }
 
-  async getFriendRequests(userId: string): Promise<ResponseUserDto[]> {
-    const usersWithPendingRequests = await this.usersRepository
-      .createQueryBuilder('user')
-      .leftJoinAndSelect('user.friendships', 'friendship')
-      .leftJoinAndSelect('friendship.user', 'friend')
-      .where('friendship.friend.id = :userId', { userId })
-      .andWhere('friendship.status = :status', {
-        status: FriendStatusInvitation.PENDING,
+  async getFriends(userId: string): Promise<ResponseFriendDto[][]> {
+    const friendListAccepted: FriendUser[] =
+      await this.friendUsersRespository.find({
+        where: [
+          { user: { id: userId }, status: FriendStatusInvitation.ACCEPTED },
+          { friend: { id: userId }, status: FriendStatusInvitation.ACCEPTED },
+        ],
+        relations: ['friend', 'user'],
+      });
+
+    const friendListAcceptedFiltered = friendListAccepted
+      .map((friendship) => {
+        if (friendship.user.id === userId) {
+          return { ...friendship, friendRelation: friendship.friend };
+        }
+        return { ...friendship, friendRelation: friendship.user };
       })
-      .getMany();
+      .map((friendship) => {
+        delete friendship.user;
+        delete friendship.friend;
+        return friendship;
+      });
 
-    return usersWithPendingRequests.flatMap((user) =>
-      user.friendships.map((f) => f.user),
-    );
-  }
-
-  async getFriends(userId: string): Promise<ResponseUserDto[]> {
-    const userWithFriends = await this.usersRepository
-      .createQueryBuilder('user')
-      .leftJoinAndSelect('user.friendships', 'friendship')
-      .leftJoinAndSelect('friendship.friend', 'friend')
-      .where('user.id = :userId', { userId })
-      .andWhere('friendship.status = :status', {
-        status: FriendStatusInvitation.ACCEPTED,
+    //Pending
+    const friendListPending: FriendUser[] =
+      await this.friendUsersRespository.find({
+        where: [
+          { user: { id: userId }, status: FriendStatusInvitation.PENDING },
+          { friend: { id: userId }, status: FriendStatusInvitation.PENDING },
+        ],
+        relations: ['friend', 'user'],
+      });
+    const friendListPendingFiltered = friendListPending
+      .map((friendship) => {
+        if (friendship.user.id === userId) {
+          return { ...friendship, isSendingByMe: true };
+        }
+        return { ...friendship, isSendingByMe: false };
       })
-      .getOne();
-
-    if (!userWithFriends) {
-      throw new NotFoundException(`User with ID ${userId} not found`);
-    }
-
-    const friendsWithUser = await this.friendUsersRespository
-      .createQueryBuilder('friendUser')
-      .leftJoinAndSelect('friendUser.user', 'user')
-      .where('friendUser.friend.id = :userId', { userId })
-      .andWhere('friendUser.status = :status', {
-        status: FriendStatusInvitation.ACCEPTED,
+      .map((friendship) => {
+        if (friendship.user.id === userId) {
+          return { ...friendship, friendRelation: friendship.friend };
+        }
+        return { ...friendship, friendRelation: friendship.user };
       })
-      .getMany();
+      .map((friendship) => {
+        delete friendship.user;
+        delete friendship.friend;
+        return friendship;
+      });
 
-    const friends = userWithFriends.friendships.map((f) => f.friend);
-    const additionalFriends = friendsWithUser.map((f) => f.user);
+    //Rejected
+    const friendListRejected: FriendUser[] =
+      await this.friendUsersRespository.find({
+        where: [
+          { user: { id: userId }, status: FriendStatusInvitation.REJECTED },
+          { friend: { id: userId }, status: FriendStatusInvitation.REJECTED },
+        ],
+        relations: ['friend', 'user'],
+      });
 
-    const allFriends = [...friends, ...additionalFriends];
+    const friendListRejectedFiltered = friendListRejected
+      .map((friendship) => {
+        if (friendship.user.id === userId) {
+          return { ...friendship, friendRelation: friendship.friend };
+        }
+        return { ...friendship, friendRelation: friendship.user };
+      })
+      .map((friendship) => {
+        delete friendship.user;
+        delete friendship.friend;
+        return friendship;
+      });
 
-    return allFriends.filter(
-      (friend, index, self) =>
-        index === self.findIndex((f) => f.id === friend.id),
-    );
+    return [
+      friendListAcceptedFiltered,
+      friendListPendingFiltered,
+      friendListRejectedFiltered,
+    ];
   }
 }

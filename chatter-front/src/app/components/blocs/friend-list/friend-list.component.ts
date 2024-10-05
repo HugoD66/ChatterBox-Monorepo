@@ -2,6 +2,7 @@ import {
   ChangeDetectionStrategy,
   Component,
   effect,
+  inject,
   input,
   InputSignal,
   signal,
@@ -12,9 +13,14 @@ import { AsyncPipe } from '@angular/common';
 import { MatProgressSpinner } from '@angular/material/progress-spinner';
 import { LoaderComponent } from '../../loader/loader.component';
 import { FriendUnitComponent } from './friend-unit/friend-unit.component';
-import { GetMeModel, UserModel } from '../../../models/user.model';
-import { FriendStatusInvitation } from '../../../models/enums/friend-status-invitation.enum';
+import { GetMeModel } from '../../../models/user.model';
+import {
+  FriendStatusIndexEnum,
+  FriendStatusInvitation,
+} from '../../../models/enums/friend-status-invitation.enum';
 import { Router } from '@angular/router';
+import { FriendModel } from '../../../models/friend-relation.model';
+import { FriendFormatservice } from '../../../services/friend-format.service';
 
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -34,9 +40,10 @@ export class FriendListComponent {
   public getMe: InputSignal<GetMeModel> = input.required<GetMeModel>();
   public isPanelAddFriendToRoom: InputSignal<boolean> = input.required();
   public countFriends: WritableSignal<number> = signal(0);
-  public friendAcceptedList: WritableSignal<UserModel[]> = signal([]);
+  public friendAcceptedList: WritableSignal<FriendModel[]> = signal([]);
 
   protected readonly FriendStatusInvitation = FriendStatusInvitation;
+  private friendFormatService = inject(FriendFormatservice);
 
   constructor(private router: Router) {
     effect(
@@ -44,14 +51,16 @@ export class FriendListComponent {
         const getMeInformations: GetMeModel = this.getMe();
 
         if (!getMeInformations || !getMeInformations.friends) {
-          this.countFriends.set(0);
           this.friendAcceptedList.set([]);
           return;
         }
 
-        const acceptedFriendsCount = getMeInformations.friends.length || 0;
-        this.countFriends.set(acceptedFriendsCount);
-        this.friendAcceptedList.set(getMeInformations.friends);
+        this.countFriends.set(
+          this.friendFormatService.countFriends(this.getMe()!.friends),
+        );
+        this.friendAcceptedList.set(
+          getMeInformations.friends[FriendStatusIndexEnum.ACCEPTED],
+        );
       },
       { allowSignalWrites: true },
     );

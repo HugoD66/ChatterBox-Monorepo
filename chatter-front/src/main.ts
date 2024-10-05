@@ -17,6 +17,7 @@ import { FriendService } from './app/services/friend.service';
 import { UserService } from './app/services/user.service';
 import { RoomService } from './app/services/room.service';
 import { PopupService } from './app/services/popup.service';
+import { FriendFormatservice } from './app/services/friend-format.service';
 
 /*platformBrowserDynamic()
   .bootstrapModule(AppModule)
@@ -32,6 +33,7 @@ bootstrapApplication(AppComponent, {
     DialogService,
     MessageService,
     FriendService,
+    FriendFormatservice,
     UserService,
     RoomService,
     PopupService,

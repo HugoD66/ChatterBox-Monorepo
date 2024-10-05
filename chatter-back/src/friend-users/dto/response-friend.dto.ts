@@ -4,7 +4,7 @@ import { FriendStatusInvitation } from '../entities/enum/friend-status-invitatio
 export class ResponseFriendDto {
   id: string;
   createdAt: Date;
-  user: ResponseUserDto;
-  friend: ResponseUserDto;
+  user?: ResponseUserDto;
+  friend?: ResponseUserDto;
   status: FriendStatusInvitation;
 }

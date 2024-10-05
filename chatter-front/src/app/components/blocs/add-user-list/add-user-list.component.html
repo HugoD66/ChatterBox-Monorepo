@@ -29,11 +29,11 @@
 }
 
 @if(friendClicked()) {
-  <div class="add-user-list-unit" (click)="onUserclick.emit(friendClicked()?.friend)">
+  <div class="add-user-list-unit" (click)="onUserclick.emit(friendClicked()?.friendRelation)">
     <div class="picture-pseudo">
-      @if (friendClicked()!.friend.picture) {
+      @if (friendClicked()!.friendRelation.picture) {
         <img
-          src="{{ apiUrl }}/./{{ friendClicked()!.friend.picture }}"
+          src="{{ apiUrl }}/./{{ friendClicked()!.friendRelation.picture }}"
           alt="image de profil de l'utilisateur"
         />
       } @else {
@@ -42,7 +42,7 @@
           alt="image de profil par defaut"
         />
       }
-      <p>{{ friendClicked()!.friend.pseudo }}</p>
+      <p>{{ friendClicked()!.friendRelation.pseudo }}</p>
     </div>
     <div class="bloc-information">
       <p>10 serveurs en commun</p>

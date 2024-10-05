@@ -3,6 +3,7 @@ import {
   Component,
   computed,
   effect,
+  inject,
   input,
   InputSignal,
   signal,
@@ -14,6 +15,7 @@ import { MatButton } from '@angular/material/button';
 import { GetMeModel } from '../../../models/user.model';
 import { FriendStatusInvitation } from '../../../models/enums/friend-status-invitation.enum';
 import { FriendRelationModel } from '../../../models/friend-relation.model';
+import { FriendFormatservice } from '../../../services/friend-format.service';
 
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -28,15 +30,15 @@ export class ButtonsSidenavComponent {
   public getMe: InputSignal<GetMeModel | null> = input.required();
   public friendCount: WritableSignal<number> = signal(0);
 
+  private friendFormatService = inject(FriendFormatservice);
   constructor(private router: Router) {
     effect(
       () => {
-        this.friendCount.update(
-          () =>
-            this.getMe()?.friendships?.filter(
-              (f: FriendRelationModel) =>
-                f.status === FriendStatusInvitation.ACCEPTED,
-            ).length || 0,
+        if (!this.getMe()) {
+          return;
+        }
+        this.friendCount.update(() =>
+          this.friendFormatService.countFriends(this.getMe()!.friends),
         );
       },
       { allowSignalWrites: true },

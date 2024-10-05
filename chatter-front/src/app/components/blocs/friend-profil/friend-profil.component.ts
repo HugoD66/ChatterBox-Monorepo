@@ -76,6 +76,7 @@ export class FriendProfilComponent {
         if (!this.getMe() || !this.userSelected()) {
           return;
         }
+        //TODO Ici conditionner le call friendService, en avec la liste de friends de getMe
         this.friendService
           .getFriend(this.getMe()!.id, this.userSelected().id)
           .subscribe((friendRelation) => {

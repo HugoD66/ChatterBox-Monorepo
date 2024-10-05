@@ -3,3 +3,9 @@ export enum FriendStatusInvitation {
   ACCEPTED = 'ACCEPTED',
   REJECTED = 'REJECTED',
 }
+
+export enum FriendStatusIndexEnum {
+  ACCEPTED = 0,
+  PENDING = 1,
+  REJECTED = 2,
+}

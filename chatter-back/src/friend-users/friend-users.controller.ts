@@ -1,9 +1,10 @@
 import { Controller, Post, Body, Get, Param, UseGuards } from '@nestjs/common';
 import { FriendUsersService } from './friend-users.service';
 import { Public } from '../security/auth/public.decorator';
-import { ResponseUserDto } from '../users/dto/response-user.dto';
 import { UsersService } from '../users/users.service';
 import { AuthGuard } from '../security/auth/auth.guard';
+import { ResponseFriendDto } from './dto/response-friend.dto';
+import { FriendUser } from './entities/friend-user.entity';
 
 @Controller('friend-users')
 export class FriendUsersController {
@@ -17,7 +18,7 @@ export class FriendUsersController {
   async getFriend(
     @Param('userId') userId: string,
     @Param('friendId') friendId: string,
-  ) {
+  ): Promise<FriendUser> {
     console.log('userId', userId, 'friendId', friendId);
     return this.friendUsersService.getFriend(userId, friendId);
   }
@@ -26,7 +27,7 @@ export class FriendUsersController {
   @Get(`/friends/:userId`)
   async getFriends(
     @Param('userId') userId: string,
-  ): Promise<ResponseUserDto[]> {
+  ): Promise<ResponseFriendDto[][]> {
     return this.usersService.getFriends(userId);
   }
 
