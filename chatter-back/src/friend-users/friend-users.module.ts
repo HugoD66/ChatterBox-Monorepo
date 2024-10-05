@@ -16,6 +16,6 @@ import { NotificationsModule } from '../socket/notification.module';
   ],
   controllers: [FriendUsersController],
   providers: [FriendUsersService],
-  exports: [FriendUsersService],
+  exports: [FriendUsersService, TypeOrmModule],
 })
 export class FriendUsersModule {}

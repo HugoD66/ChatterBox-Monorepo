@@ -12,9 +12,8 @@ import { AsyncPipe } from '@angular/common';
 import { MatProgressSpinner } from '@angular/material/progress-spinner';
 import { LoaderComponent } from '../../loader/loader.component';
 import { FriendUnitComponent } from './friend-unit/friend-unit.component';
-import { GetMeModel } from '../../../models/user.model';
+import { GetMeModel, UserModel } from '../../../models/user.model';
 import { FriendStatusInvitation } from '../../../models/enums/friend-status-invitation.enum';
-import { FriendRelationModel } from '../../../models/friend-relation.model';
 import { Router } from '@angular/router';
 
 @Component({
@@ -35,36 +34,30 @@ export class FriendListComponent {
   public getMe: InputSignal<GetMeModel> = input.required<GetMeModel>();
   public isPanelAddFriendToRoom: InputSignal<boolean> = input.required();
   public countFriends: WritableSignal<number> = signal(0);
-  public friendAcceptedList: WritableSignal<FriendRelationModel[]> = signal([]);
+  public friendAcceptedList: WritableSignal<UserModel[]> = signal([]);
+
+  protected readonly FriendStatusInvitation = FriendStatusInvitation;
 
   constructor(private router: Router) {
     effect(
       () => {
-        const acceptedFriendsCount =
-          this.getMe().friendships?.filter(
-            (friendship: FriendRelationModel): boolean =>
-              friendship.status === FriendStatusInvitation.ACCEPTED,
-          ).length || 0;
-        this.countFriends.update(() => acceptedFriendsCount);
+        const getMeInformations: GetMeModel = this.getMe();
 
-        if (this.getMe()?.friendships) {
-          this.friendAcceptedList.set(
-            this.getMe()!.friendships!.filter(
-              (friend) => friend.status === FriendStatusInvitation.ACCEPTED,
-            ),
-          );
-        } else {
+        if (!getMeInformations || !getMeInformations.friends) {
+          this.countFriends.set(0);
           this.friendAcceptedList.set([]);
+          return;
         }
-        console.log(this.friendAcceptedList());
+
+        const acceptedFriendsCount = getMeInformations.friends.length || 0;
+        this.countFriends.set(acceptedFriendsCount);
+        this.friendAcceptedList.set(getMeInformations.friends);
       },
       { allowSignalWrites: true },
     );
   }
 
-  protected readonly FriendStatusInvitation = FriendStatusInvitation;
-
-  onUserList() {
+  protected onUserList() {
     this.router.navigate(['/friend/add']);
   }
 }

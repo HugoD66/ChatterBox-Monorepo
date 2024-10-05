@@ -1,18 +1,9 @@
-import {
-  Controller,
-  Post,
-  Body,
-  Get,
-  Param,
-  UseGuards,
-  Req,
-} from '@nestjs/common';
+import { Controller, Post, Body, Get, Param, UseGuards } from '@nestjs/common';
 import { FriendUsersService } from './friend-users.service';
 import { Public } from '../security/auth/public.decorator';
 import { ResponseUserDto } from '../users/dto/response-user.dto';
 import { UsersService } from '../users/users.service';
 import { AuthGuard } from '../security/auth/auth.guard';
-import { ResponseFriendDto } from './dto/response-friend.dto';
 
 @Controller('friend-users')
 export class FriendUsersController {
@@ -56,9 +47,20 @@ export class FriendUsersController {
   }
 
   @UseGuards(AuthGuard)
-  @Post('/accept-invitation/:invitationId')
-  async acceptInvitation(@Param('invitationId') invitationId: string) {
-    return await this.friendUsersService.acceptFriendInvitation(invitationId);
+  @Post('/delete-friend')
+  async deleteFriend(@Body() body: { userId: string; friendId: string }) {
+    return await this.friendUsersService.removeInvitation(
+      body.userId,
+      body.friendId,
+    );
+  }
+
+  @UseGuards(AuthGuard)
+  @Post('/accept-invitation/:friendRelationId')
+  async acceptInvitation(@Param('friendRelationId') friendRelationId: string) {
+    return await this.friendUsersService.acceptFriendInvitation(
+      friendRelationId,
+    );
   }
 
   @UseGuards(AuthGuard)

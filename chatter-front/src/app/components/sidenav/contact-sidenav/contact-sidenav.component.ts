@@ -9,7 +9,7 @@ import {
   effect,
   Signal,
 } from '@angular/core';
-import { GetMeModel } from '../../../models/user.model';
+import { GetMeModel, UserModel } from '../../../models/user.model';
 import { SectionDetailUnitComponent } from '../section-detail-unit/section-detail-unit.component';
 import { Router } from '@angular/router';
 import { ButtonsSidenavComponent } from '../buttons-sidenav/buttons-sidenav.component';
@@ -36,7 +36,7 @@ import { FriendRelationModel } from '../../../models/friend-relation.model';
 export class ContactSidenavComponent {
   public getMe: InputSignal<GetMeModel | null> = input.required();
   public isExpanded: InputSignal<boolean> = input.required<boolean>();
-  public friendAcceptedList: WritableSignal<FriendRelationModel[]> = signal([]);
+  public friendAcceptedList: WritableSignal<UserModel[]> = signal([]);
 
   protected readonly FriendStatusInvitation = FriendStatusInvitation;
 
@@ -44,15 +44,10 @@ export class ContactSidenavComponent {
     effect(
       () => {
         if (this.getMe()?.friendships) {
-          this.friendAcceptedList.set(
-            this.getMe()!.friendships!.filter(
-              (friend) => friend.status === FriendStatusInvitation.ACCEPTED,
-            ),
-          );
+          this.friendAcceptedList.set(this.getMe()!.friends);
         } else {
           this.friendAcceptedList.set([]);
         }
-        console.log(this.friendAcceptedList());
       },
       { allowSignalWrites: true },
     );

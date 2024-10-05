@@ -1,17 +1,17 @@
+@if (!getMe()) {
+}
 <div class="home-content">
-  @if (getMe()) {
-    <app-profil
+  <app-profil
+    [getMe]="getMe()"
+    (userUpdated)="onUserUpdated()"
+    class="profil"
+  />
+  <div class="message-friends">
+    <app-last-message [getMe]="getMe()" class="last-messages-content" />
+    <app-friend-list
+      [isPanelAddFriendToRoom]="false"
       [getMe]="getMe()"
-      (userUpdated)="onUserUpdated()"
-      class="profil"
+      class="friend-list-content"
     />
-    <div class="message-friends">
-      <app-last-message [getMe]="getMe()" class="last-messages-content" />
-      <app-friend-list
-        [isPanelAddFriendToRoom]="false"
-        [getMe]="getMe()"
-        class="friend-list-content"
-      />
-    </div>
-  }
+  </div>
 </div>

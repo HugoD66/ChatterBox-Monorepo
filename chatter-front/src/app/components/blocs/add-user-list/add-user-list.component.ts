@@ -31,13 +31,13 @@ export class AddUserListComponent {
   public friendClicked: InputSignal<FriendRelationModel | undefined> = input<
     FriendRelationModel | undefined
   >();
-
   public isUserPanel: InputSignal<boolean> = input.required<boolean>();
+
+  protected readonly FriendStatusInvitation = FriendStatusInvitation;
+
   constructor() {
     effect(() => {
       //console.log(this.user());
     });
   }
-
-  protected readonly FriendStatusInvitation = FriendStatusInvitation;
 }

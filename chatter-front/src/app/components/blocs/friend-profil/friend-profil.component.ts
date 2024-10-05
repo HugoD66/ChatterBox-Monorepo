@@ -16,14 +16,16 @@ import { LoaderComponent } from '../../loader/loader.component';
 import { environment } from '../../../../env';
 import { DatePipe, NgStyle } from '@angular/common';
 import {
-  trigger,
+  animate,
   state,
   style,
   transition,
-  animate,
+  trigger,
 } from '@angular/animations';
 import { FriendService } from '../../../services/friend.service';
 import { PopupService } from '../../../services/popup.service';
+import { FriendRelationModel } from '../../../models/friend-relation.model';
+import { FriendStatusInvitation } from '../../../models/enums/friend-status-invitation.enum';
 
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -59,6 +61,9 @@ export class FriendProfilComponent {
   public isFriend: WritableSignal<boolean> = signal(false);
   public isProfilSelected: InputSignal<boolean> = input.required<boolean>();
   public onOpenComponent: WritableSignal<boolean> = signal(true);
+  public friendUserRelation: WritableSignal<FriendRelationModel | null> =
+    signal(null);
+
   protected apiUrl = environment.apiUrl;
 
   constructor(
@@ -68,27 +73,28 @@ export class FriendProfilComponent {
   ) {
     effect(
       async () => {
-        if (!this.getMe()) {
+        if (!this.getMe() || !this.userSelected()) {
           return;
         }
-
-        console.log(this.getMe());
-        for (const friend of this.getMe().friends!) {
-          if (this.userSelected().id === friend.id) {
-            console.log(this.userSelected().id);
-            this.isFriend.set(true);
-            await this.friendStatus(this.getMe().id, this.userSelected().id);
-          } else {
-            this.isFriend.set(false);
-          }
-        }
+        this.friendService
+          .getFriend(this.getMe()!.id, this.userSelected().id)
+          .subscribe((friendRelation) => {
+            this.friendUserRelation.set(friendRelation);
+            this.friendUserRelation()?.status ===
+            FriendStatusInvitation.ACCEPTED
+              ? this.isFriend.set(true)
+              : this.isFriend.set(false);
+          });
       },
       { allowSignalWrites: true },
     );
   }
 
-  public openDialog(user: UserModel): void {
-    this.dialogService.openDialog(this.userSelected());
+  public openDialog(
+    user: UserModel,
+    friendRelation?: FriendRelationModel,
+  ): void {
+    this.dialogService.openDialog(user, friendRelation);
   }
 
   toggle() {
@@ -110,7 +116,34 @@ export class FriendProfilComponent {
     );
   }
 
-  deleteFriend(userModel: UserModel) {
+  acceptFriend() {
+    this.friendService
+      .acceptFriendRequest(this.friendUserRelation()!.id)
+      .subscribe(
+        (response) => {
+          console.log('Invitation acceptée avec succès:', response);
+          this.refreshGetMeEvent.emit();
+        },
+        (error) => {
+          console.error("Erreur lors de l'acceptation de l'invitation:", error);
+        },
+      );
+  }
+
+  deleteFriend() {
+    this.friendService
+      .removeFriend(this.getMe().id, this.userSelected().id)
+      .subscribe(
+        (response) => {
+          console.log('Suppression réussit:', response);
+          this.refreshGetMeEvent.emit();
+        },
+        (error) => {
+          console.error('Erreur lors de la suppression:', error);
+        },
+      );
+    this.popupService.openSnackBar('Amitié finie!', 'green');
+
     this.refreshGetMeEvent.emit();
   }
 
@@ -124,4 +157,6 @@ export class FriendProfilComponent {
       },
     );
   }
+
+  protected readonly FriendStatusInvitation = FriendStatusInvitation;
 }

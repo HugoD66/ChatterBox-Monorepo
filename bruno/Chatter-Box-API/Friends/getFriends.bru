@@ -5,7 +5,11 @@ meta {
 }
 
 get {
-  url: http://{{url}}:{{port}}/friend-users/friends/d2cb362a-d410-43fc-a544-b56ee241d23d
+  url: http://{{url}}:{{port}}/friend-users/friends/8ac63a1d-3a36-4db3-a0e8-35eaca86f138
   body: none
-  auth: none
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{bearerToken}}
 }

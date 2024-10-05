@@ -51,7 +51,9 @@ export class AddFriendSearchComponent {
     effect(
       () => {
         if (this.getMe().friendships) {
-          this.searchFriendResult.update(() => this.getMe().friendships!);
+          console.log('this.getMe().friendships!');
+          console.log(this.getMe());
+          this.searchFriendResult.set(this.getMe().friendships!);
         }
       },
       { allowSignalWrites: true },
@@ -82,7 +84,7 @@ export class AddFriendSearchComponent {
     this.searchBar.reset();
   }
 
-  setUserInformation($event: UserModel) {
+  public setUserInformation($event: UserModel) {
     this.userProfil.set($event);
     this.onUserclick.emit($event);
   }

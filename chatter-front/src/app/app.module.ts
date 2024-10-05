@@ -1,4 +1,3 @@
-import { AppComponent } from './app.component';
 import {
   NgModule,
   provideExperimentalZonelessChangeDetection,
@@ -21,6 +20,7 @@ import { UserService } from './services/user.service';
 import { PopupService } from './services/popup.service';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RoomService } from './services/room.service';
+
 @NgModule({
   imports: [
     CommonModule,

@@ -46,6 +46,7 @@ import { NotificationsModule } from './socket/notification.module';
           database: configService.get(`DB_NAME`),
           entities: [User, Message, FriendUser, Room],
           synchronize: true,
+          logging: true,
         };
         return dbConfig;
       },

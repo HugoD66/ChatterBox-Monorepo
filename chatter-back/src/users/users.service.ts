@@ -16,6 +16,8 @@ import { UserGeneralRoleEnum } from './entities/types/user.general.roles.enum';
 import { ValidationErrors } from '../exceptions/ValidationErrors';
 import { ChangePasswordDto } from './dto/ChangePasswordDto';
 import { GetMeResponseDto } from './dto/get-me-response.dto';
+import { FriendUser } from '../friend-users/entities/friend-user.entity';
+import { FriendStatusInvitation } from '../friend-users/entities/enum/friend-status-invitation.enum';
 
 @Injectable()
 export class UsersService {
@@ -23,6 +25,8 @@ export class UsersService {
     @InjectRepository(User)
     private usersRepository: Repository<User>,
     private readonly jwtService: JwtService,
+    @InjectRepository(FriendUser)
+    private friendUsersRespository: Repository<FriendUser>,
   ) {}
   //Fixtures
   async create(createUserDto: CreateUserDto): Promise<ResponseUserDto> {
@@ -100,6 +104,7 @@ export class UsersService {
       ...user,
       access_token: await this.jwtService.signAsync(payload),
       friends: await this.getFriends(user.id),
+      pendingInvitations: await this.getFriendRequests(user.id),
     };
   }
 
@@ -113,6 +118,7 @@ export class UsersService {
       ...user,
       access_token: await this.jwtService.signAsync(payload),
       friends: await this.getFriends(user.id),
+      pendingInvitations: await this.getFriendRequests(user.id),
     };
   }
 
@@ -180,16 +186,54 @@ export class UsersService {
     await this.usersRepository.delete({});
   }
 
+  async getFriendRequests(userId: string): Promise<ResponseUserDto[]> {
+    const usersWithPendingRequests = await this.usersRepository
+      .createQueryBuilder('user')
+      .leftJoinAndSelect('user.friendships', 'friendship')
+      .leftJoinAndSelect('friendship.user', 'friend')
+      .where('friendship.friend.id = :userId', { userId })
+      .andWhere('friendship.status = :status', {
+        status: FriendStatusInvitation.PENDING,
+      })
+      .getMany();
+
+    return usersWithPendingRequests.flatMap((user) =>
+      user.friendships.map((f) => f.user),
+    );
+  }
+
   async getFriends(userId: string): Promise<ResponseUserDto[]> {
-    const userWithFriends: ResponseUserDto = await this.usersRepository
+    const userWithFriends = await this.usersRepository
       .createQueryBuilder('user')
       .leftJoinAndSelect('user.friendships', 'friendship')
       .leftJoinAndSelect('friendship.friend', 'friend')
       .where('user.id = :userId', { userId })
+      .andWhere('friendship.status = :status', {
+        status: FriendStatusInvitation.ACCEPTED,
+      })
       .getOne();
 
-    return userWithFriends
-      ? userWithFriends.friendships.map((f) => f.friend)
-      : [];
+    if (!userWithFriends) {
+      throw new NotFoundException(`User with ID ${userId} not found`);
+    }
+
+    const friendsWithUser = await this.friendUsersRespository
+      .createQueryBuilder('friendUser')
+      .leftJoinAndSelect('friendUser.user', 'user')
+      .where('friendUser.friend.id = :userId', { userId })
+      .andWhere('friendUser.status = :status', {
+        status: FriendStatusInvitation.ACCEPTED,
+      })
+      .getMany();
+
+    const friends = userWithFriends.friendships.map((f) => f.friend);
+    const additionalFriends = friendsWithUser.map((f) => f.user);
+
+    const allFriends = [...friends, ...additionalFriends];
+
+    return allFriends.filter(
+      (friend, index, self) =>
+        index === self.findIndex((f) => f.id === friend.id),
+    );
   }
 }

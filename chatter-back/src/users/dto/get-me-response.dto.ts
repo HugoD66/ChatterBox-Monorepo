@@ -7,4 +7,7 @@ export class GetMeResponseDto extends ResponseUserDto {
 
   @IsNotEmpty()
   friends: ResponseUserDto[];
+
+  @IsNotEmpty()
+  pendingInvitations: ResponseUserDto[];
 }

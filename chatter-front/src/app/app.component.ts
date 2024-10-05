@@ -3,8 +3,6 @@ import { AuthService } from './services/auth.service';
 import { Router, RouterModule, RouterOutlet } from '@angular/router';
 import { SidenavComponent } from './components/sidenav/sidenav.component';
 import { TruncateLongPipe } from './pipe/TruncateLongPipe';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { BrowserModule } from '@angular/platform-browser';
 import { CommonModule } from '@angular/common';
 
 @Component({

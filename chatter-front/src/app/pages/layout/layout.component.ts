@@ -5,7 +5,6 @@ import {
   signal,
   WritableSignal,
 } from '@angular/core';
-import { FriendListComponent } from '../../components/blocs/friend-list/friend-list.component';
 import { LastMessageComponent } from '../../components/blocs/last-message/last-message.component';
 import { ProfilComponent } from '../../components/blocs/profil/profil.component';
 import { SidenavComponent } from '../../components/sidenav/sidenav.component';
@@ -17,7 +16,6 @@ import { GetMeModel } from '../../models/user.model';
   selector: 'app-layout',
   standalone: true,
   imports: [
-    FriendListComponent,
     LastMessageComponent,
     ProfilComponent,
     SidenavComponent,

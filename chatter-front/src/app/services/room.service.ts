@@ -33,7 +33,6 @@ export class RoomService {
   }
 
   getRoomsByUser(userId: string): Observable<RoomModel[]> {
-    console.log(userId);
     return this.http
       .get<RoomModel[]>(`${this.apiUrl}/room/group/${userId}`, {
         headers: new HttpHeaders().set(

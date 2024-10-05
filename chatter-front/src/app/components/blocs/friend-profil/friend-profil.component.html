@@ -26,14 +26,20 @@
     </div>
     <div class="friend-profil-footer">
       <div class="button-list-footer">
+        @if(friendUserRelation()?.status === FriendStatusInvitation.PENDING && friendUserRelation()!.friend.id === getMe()!.id) {
+          <button (click)="acceptFriend()">Accepter ! </button>
+        } @else {
+        }
         <mat-icon
-          (click)="openDialog(userSelected())"
+          (click)="openDialog(userSelected(), friendUserRelation()!)"
         >settings</mat-icon
         >
-        <mat-icon (click)="invitationFriend(userSelected())">person_add</mat-icon>
-        <mat-icon
+        @if(!friendUserRelation()) {
+          <mat-icon (click)="invitationFriend(userSelected())">person_add</mat-icon>
+        }
+          <mat-icon
           class="friend-footer-setting-icon"
-          (click)="deleteFriend(userSelected())"
+          (click)="deleteFriend()"
         >delete</mat-icon
         >
       </div>

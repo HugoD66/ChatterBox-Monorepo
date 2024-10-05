@@ -9,7 +9,7 @@ import {
   signal,
   WritableSignal,
 } from '@angular/core';
-import { GetMeModel, UserModel } from '../../../models/user.model';
+import { GetMeModel } from '../../../models/user.model';
 import { MatButton } from '@angular/material/button';
 import { MatDivider } from '@angular/material/divider';
 import { LoaderComponent } from '../../loader/loader.component';
@@ -104,7 +104,7 @@ export class ProfilComponent implements OnInit {
     this.userService.getPicture().subscribe((picture) => {
       const pictureUrl = `${this.apiUrl}/./${picture}`;
       this.getMeAvatar.update(() => `${pictureUrl}`);
-      this.isLoading.update(() => false);
+      this.isLoading.set(false);
     });
   }
 
