@@ -1,6 +1,7 @@
 import {
   ChangeDetectionStrategy,
   Component,
+  computed,
   effect,
   EventEmitter,
   input,
@@ -24,8 +25,15 @@ import {
 } from '@angular/animations';
 import { FriendService } from '../../../services/friend.service';
 import { PopupService } from '../../../services/popup.service';
-import { FriendRelationModel } from '../../../models/friend-relation.model';
-import { FriendStatusInvitation } from '../../../models/enums/friend-status-invitation.enum';
+import {
+  FriendModel,
+  FriendRelationModel,
+} from '../../../models/friend-relation.model';
+import {
+  FriendStatusIndexEnum,
+  FriendStatusInvitation,
+} from '../../../models/enums/friend-status-invitation.enum';
+import { FriendFormatservice } from '../../../services/friend-format.service';
 
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -59,24 +67,84 @@ export class FriendProfilComponent {
   @Output() refreshGetMeEvent = new EventEmitter<any>();
   public userSelected: InputSignal<UserModel> = input.required<UserModel>();
   public isFriend: WritableSignal<boolean> = signal(false);
+  public friendStatus: WritableSignal<FriendStatusInvitation> = signal(
+    FriendStatusInvitation.NOTFRIEND,
+  );
+
   public isProfilSelected: InputSignal<boolean> = input.required<boolean>();
   public onOpenComponent: WritableSignal<boolean> = signal(true);
   public friendUserRelation: WritableSignal<FriendRelationModel | null> =
     signal(null);
 
+  public myFriends: WritableSignal<FriendModel[]> = signal([]);
+  public myRejectedFriends: WritableSignal<FriendModel[]> = signal([]);
+  public myPendingByMeFriends: WritableSignal<FriendModel[]> = signal([]);
+  public myPendingReceivedFriends: WritableSignal<FriendModel[]> = signal([]);
+
   protected apiUrl = environment.apiUrl;
+
+  protected readonly FriendStatusInvitation = FriendStatusInvitation;
 
   constructor(
     public dialogService: DialogService,
     private friendService: FriendService,
     private popupService: PopupService,
+    private friendFormatservice: FriendFormatservice,
   ) {
     effect(
       async () => {
         if (!this.getMe() || !this.userSelected()) {
           return;
         }
-        //TODO Ici conditionner le call friendService, en avec la liste de friends de getMe
+
+        this.myFriends.set(
+          this.friendFormatservice.getFriendListAccepted(this.getMe().friends),
+        );
+        this.myRejectedFriends.set(
+          this.friendFormatservice.getFriendListRejected(this.getMe().friends),
+        );
+        this.myPendingByMeFriends.set(
+          this.friendFormatservice.getFriendListPendingSendByMe(
+            this.getMe().friends,
+          ),
+        );
+        this.myPendingReceivedFriends.set(
+          this.friendFormatservice.getFriendListPendingReceived(
+            this.getMe().friends,
+          ),
+        );
+
+        switch (this.userSelected().id) {
+          case this.myFriends().find(
+            (friend) => friend.friendRelation.id === this.userSelected().id,
+          )?.friendRelation.id:
+            this.friendStatus.set(FriendStatusInvitation.ACCEPTED);
+            break;
+
+          case this.myPendingByMeFriends().find(
+            (friend) => friend.friendRelation.id === this.userSelected().id,
+          )?.friendRelation.id:
+            this.friendStatus.set(FriendStatusInvitation.PENDINGSENDBYME);
+            break;
+
+          case this.myPendingReceivedFriends().find(
+            (friend) => friend.friendRelation.id === this.userSelected().id,
+          )?.friendRelation.id:
+            this.friendStatus.set(FriendStatusInvitation.PENDINGRECEIVED);
+            break;
+
+          case this.myRejectedFriends().find(
+            (friend) => friend.friendRelation.id === this.userSelected().id,
+          )?.friendRelation.id:
+            this.friendStatus.set(FriendStatusInvitation.REJECTED);
+            break;
+
+          default:
+            this.friendStatus.set(FriendStatusInvitation.NOTFRIEND);
+            break;
+        }
+
+        //Remove ca, voir status de l'amitiée via mon objet friend du getMe
         this.friendService
           .getFriend(this.getMe()!.id, this.userSelected().id)
           .subscribe((friendRelation) => {
@@ -148,7 +216,7 @@ export class FriendProfilComponent {
     this.refreshGetMeEvent.emit();
   }
 
-  async friendStatus(getMeId: string, friendSelectedId: string) {
+  /* async friendStatus(getMeId: string, friendSelectedId: string) {
     this.friendService.getFriend(getMeId, friendSelectedId).subscribe(
       (response) => {
         console.log('Ami trouvé:', response);
@@ -157,7 +225,5 @@ export class FriendProfilComponent {
         console.error("Erreur lors de la recherche de l'ami:", error);
       },
     );
-  }
-
-  protected readonly FriendStatusInvitation = FriendStatusInvitation;
+  }*/
 }

@@ -2,6 +2,9 @@ export enum FriendStatusInvitation {
   PENDING = 'PENDING',
   ACCEPTED = 'ACCEPTED',
   REJECTED = 'REJECTED',
+  PENDINGSENDBYME = 'PENDINGSENDBYME',
+  PENDINGRECEIVED = 'PENDINGRECEIVED',
+  NOTFRIEND = 'NOTFRIEND',
 }
 
 export enum FriendStatusIndexEnum {

@@ -35,11 +35,34 @@ export class FriendFormatservice {
     );
   }
 
-  public getFriendListPending() {
-    // return this.friendListPending();
+  public getFriendListPendingSendByMe(
+    pendingList: FriendModel[][],
+  ): FriendModel[] {
+    const friendFlat = this.getAllFriends(pendingList);
+    return friendFlat.filter(
+      (friend) =>
+        friend.status === FriendStatusInvitation.PENDING &&
+        friend.isSendingByMe,
+    );
   }
 
-  public getFriendListRejected() {
-    // return this.friendListRejected();
+  public getFriendListPendingReceived(
+    pendingList: FriendModel[][],
+  ): FriendModel[] {
+    const friendFlat = this.getAllFriends(pendingList);
+    return friendFlat.filter(
+      (friend) =>
+        friend.status === FriendStatusInvitation.PENDING &&
+        !friend.isSendingByMe,
+    );
+  }
+
+  public getFriendListRejected(
+    friendListRejected: FriendModel[][],
+  ): FriendModel[] {
+    const friendFlat = this.getAllFriends(friendListRejected);
+    return friendFlat.filter(
+      (friend) => friend.status === FriendStatusInvitation.REJECTED,
+    );
   }
 }

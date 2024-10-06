@@ -13,4 +13,5 @@ export class FriendModel {
   id!: string;
   status!: FriendStatusInvitation;
   friendRelation!: UserModel;
+  isSendingByMe?: boolean;
 }

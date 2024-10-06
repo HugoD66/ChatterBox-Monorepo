@@ -42,8 +42,7 @@
           (click)="deleteFriend()"
         >delete</mat-icon
         >
-      </div>
-      <p>  {{
+      </div><p>  {{
           isFriend()
             ? "Amis depuis le:" + (userSelected().createdAt | date: "dd/MM/yyyy")
             : "Compte créé le:" + (userSelected().createdAt | date: "dd/MM/yyyy")

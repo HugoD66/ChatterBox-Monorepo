@@ -19,11 +19,9 @@
       <p>8 amis en commun</p>
     </div>
     <span class="created-or-friend-since">
-    <p>
       <i>
         Compte créé le {{(userClicked()!.createdAt | date: "dd/MM/yyyy")}}
       </i>
-    </p>
   </span>
   </div>
 }
@@ -49,7 +47,7 @@
       <p>8 amis en commun</p>
     </div>
     <span class="created-or-friend-since">
-    <p><i>
+    <i>
       @if(friendClicked()?.status === FriendStatusInvitation.PENDING) {
         En attente de confirmation
       }
@@ -59,7 +57,7 @@
       @if(friendClicked()?.status === FriendStatusInvitation.REJECTED) {
         Invitation refusée
       }
-    </i></p>
+    </i>
   </span>
   </div>
 }
