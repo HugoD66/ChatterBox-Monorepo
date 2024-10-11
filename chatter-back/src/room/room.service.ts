@@ -95,6 +95,7 @@ export class RoomService {
   }
 
   async getRoomByUser({ userId, participantId }): Promise<Room> {
+    console.log('ICI ROOMBYUSER', userId, participantId);
     return await this.roomRepository
       .createQueryBuilder('room')
       .leftJoinAndSelect('room.participants', 'participant')

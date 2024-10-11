@@ -1,7 +1,6 @@
 import {
   ChangeDetectionStrategy,
   Component,
-  computed,
   effect,
   EventEmitter,
   input,
@@ -25,15 +24,11 @@ import {
 } from '@angular/animations';
 import { FriendService } from '../../../services/friend.service';
 import { PopupService } from '../../../services/popup.service';
-import {
-  FriendModel,
-  FriendRelationModel,
-} from '../../../models/friend-relation.model';
-import {
-  FriendStatusIndexEnum,
-  FriendStatusInvitation,
-} from '../../../models/enums/friend-status-invitation.enum';
+import { FriendRelationModel } from '../../../models/friend-relation.model';
+import { FriendStatusInvitation } from '../../../models/enums/friend-status-invitation.enum';
 import { FriendFormatservice } from '../../../services/friend-format.service';
+import { RoomService } from '../../../services/room.service';
+import { Router } from '@angular/router';
 
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -67,19 +62,14 @@ export class FriendProfilComponent {
   @Output() refreshGetMeEvent = new EventEmitter<any>();
   public userSelected: InputSignal<UserModel> = input.required<UserModel>();
   public isFriend: WritableSignal<boolean> = signal(false);
-  public friendStatus: WritableSignal<FriendStatusInvitation> = signal(
-    FriendStatusInvitation.NOTFRIEND,
-  );
 
   public isProfilSelected: InputSignal<boolean> = input.required<boolean>();
   public onOpenComponent: WritableSignal<boolean> = signal(true);
   public friendUserRelation: WritableSignal<FriendRelationModel | null> =
     signal(null);
 
-  public myFriends: WritableSignal<FriendModel[]> = signal([]);
-  public myRejectedFriends: WritableSignal<FriendModel[]> = signal([]);
-  public myPendingByMeFriends: WritableSignal<FriendModel[]> = signal([]);
-  public myPendingReceivedFriends: WritableSignal<FriendModel[]> = signal([]);
+  public userSelectedFriendSituation: WritableSignal<FriendStatusInvitation> =
+    signal(FriendStatusInvitation.NOTFRIEND);
 
   protected apiUrl = environment.apiUrl;
 
@@ -90,6 +80,8 @@ export class FriendProfilComponent {
     private friendService: FriendService,
     private popupService: PopupService,
     private friendFormatservice: FriendFormatservice,
+    private roomService: RoomService,
+    private router: Router,
   ) {
     effect(
       async () => {
@@ -97,63 +89,12 @@ export class FriendProfilComponent {
           return;
         }
 
-        this.myFriends.set(
-          this.friendFormatservice.getFriendListAccepted(this.getMe().friends),
-        );
-        this.myRejectedFriends.set(
-          this.friendFormatservice.getFriendListRejected(this.getMe().friends),
-        );
-        this.myPendingByMeFriends.set(
-          this.friendFormatservice.getFriendListPendingSendByMe(
-            this.getMe().friends,
+        this.userSelectedFriendSituation.set(
+          this.friendFormatservice.findFriendSituation(
+            this.userSelected(),
+            this.friendFormatservice.getAllFriends(this.getMe().friends),
           ),
         );
-        this.myPendingReceivedFriends.set(
-          this.friendFormatservice.getFriendListPendingReceived(
-            this.getMe().friends,
-          ),
-        );
-
-        switch (this.userSelected().id) {
-          case this.myFriends().find(
-            (friend) => friend.friendRelation.id === this.userSelected().id,
-          )?.friendRelation.id:
-            this.friendStatus.set(FriendStatusInvitation.ACCEPTED);
-            break;
-
-          case this.myPendingByMeFriends().find(
-            (friend) => friend.friendRelation.id === this.userSelected().id,
-          )?.friendRelation.id:
-            this.friendStatus.set(FriendStatusInvitation.PENDINGSENDBYME);
-            break;
-
-          case this.myPendingReceivedFriends().find(
-            (friend) => friend.friendRelation.id === this.userSelected().id,
-          )?.friendRelation.id:
-            this.friendStatus.set(FriendStatusInvitation.PENDINGRECEIVED);
-            break;
-
-          case this.myRejectedFriends().find(
-            (friend) => friend.friendRelation.id === this.userSelected().id,
-          )?.friendRelation.id:
-            this.friendStatus.set(FriendStatusInvitation.REJECTED);
-            break;
-
-          default:
-            this.friendStatus.set(FriendStatusInvitation.NOTFRIEND);
-            break;
-        }
-
-        //Remove ca, voir status de l'amitiée via mon objet friend du getMe
-        this.friendService
-          .getFriend(this.getMe()!.id, this.userSelected().id)
-          .subscribe((friendRelation) => {
-            this.friendUserRelation.set(friendRelation);
-            this.friendUserRelation()?.status ===
-            FriendStatusInvitation.ACCEPTED
-              ? this.isFriend.set(true)
-              : this.isFriend.set(false);
-          });
       },
       { allowSignalWrites: true },
     );
@@ -197,6 +138,29 @@ export class FriendProfilComponent {
           console.error("Erreur lors de l'acceptation de l'invitation:", error);
         },
       );
+  }
+
+  openChat(userId: string, participantId: string) {
+    this.roomService.getRoomByUser({ userId, participantId }).subscribe(
+      (room) => {
+        this.router.navigate([`/room/private/${room.id}`]);
+      },
+      (error) => {
+        console.error('Erreur lors de la recherche de la room:', error);
+      },
+    );
+
+    return;
+  }
+
+  shareUserselected() {
+    const absoluteUrl = this.router.serializeUrl(
+      this.router.createUrlTree([`/friend/add/${this.userSelected().id}`]),
+    );
+    console.log(absoluteUrl);
+    this.popupService.openSnackBar('Profil copié', 'green');
+
+    return;
   }
 
   deleteFriend() {

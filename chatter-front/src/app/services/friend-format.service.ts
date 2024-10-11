@@ -1,6 +1,7 @@
-import { effect, Injectable, signal, WritableSignal } from '@angular/core';
+import { effect, Injectable } from '@angular/core';
 import { FriendModel } from '../models/friend-relation.model';
 import { FriendStatusInvitation } from '../models/enums/friend-status-invitation.enum';
+import { UserModel } from '../models/user.model';
 
 @Injectable()
 export class FriendFormatservice {
@@ -65,4 +66,64 @@ export class FriendFormatservice {
       (friend) => friend.status === FriendStatusInvitation.REJECTED,
     );
   }
+
+  public findFriendSituation(
+    userSelected: UserModel,
+    friends: FriendModel[],
+  ): FriendStatusInvitation {
+    console.log('userSelected', userSelected);
+    console.log('friends', friends);
+    if (!friends || !Array.isArray(friends)) {
+      console.warn('Friends data is undefined or not an array');
+      return FriendStatusInvitation.NOTFRIEND;
+    }
+
+    if (
+      friends.find((friend) => {
+        return (
+          friend.friendRelation.id === userSelected.id &&
+          friend.status === FriendStatusInvitation.ACCEPTED
+        );
+      })
+    ) {
+      return FriendStatusInvitation.ACCEPTED;
+    }
+
+    if (
+      friends.find(
+        (friend) =>
+          friend.friendRelation.id === userSelected.id &&
+          friend.isSendingByMe &&
+          friend.status === FriendStatusInvitation.PENDING,
+      )
+    ) {
+      return FriendStatusInvitation.PENDINGSENDBYME;
+    }
+
+    if (
+      friends.find(
+        (friend) =>
+          friend.friendRelation.id === userSelected.id &&
+          !friend.isSendingByMe &&
+          friend.status === FriendStatusInvitation.PENDING,
+      )
+    ) {
+      return FriendStatusInvitation.PENDINGRECEIVED;
+    }
+
+    if (
+      friends.find(
+        (friend) =>
+          friend.friendRelation.id === userSelected.id &&
+          friend.status === FriendStatusInvitation.REJECTED,
+      )
+    ) {
+      return FriendStatusInvitation.REJECTED;
+    }
+
+    return FriendStatusInvitation.NOTFRIEND;
+  }
+
+  //TODO Count friends en commun
+  //TODO Service des roomms
 }

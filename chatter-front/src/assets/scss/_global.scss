@@ -62,11 +62,23 @@ $radius-background: 16px;
   align-items: center;
   flex-direction: column;
 }
+@mixin flex-betwen-column-end {
+  display: flex;
+  justify-content: space-between;
+  align-items: end;
+  flex-direction: column;
+}
 @mixin flex-between-column {
   display: flex;
   justify-content: space-between;
   align-items: center;
   flex-direction: column;
+}
+@mixin flex-between-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-direction: row;
 }
 @mixin flex-center-column-center {
   display: flex;

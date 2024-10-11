@@ -101,7 +101,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  flex-direction: column;
+  flex-direction: row;
 }
 .friend-profil-content .friend-profil-footer .button-list-footer {
   display: flex;
@@ -118,7 +118,23 @@
   margin: 10px;
   cursor: pointer;
 }
-.friend-profil-content .friend-profil-footer p {
+.friend-profil-content .friend-profil-footer .friend-informations-footer {
+  height: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: end;
+  flex-direction: column;
+}
+.friend-profil-content .friend-profil-footer .friend-informations-footer div p {
+  font-size: 0.9em;
+  color: rgb(39, 39, 39);
+  font-family: "JostLight", sans-serif;
+  margin: 0;
+  font-style: italic;
+  text-align: end;
+  padding: 3px;
+}
+.friend-profil-content .friend-profil-footer .friend-informations-footer p {
   font-size: 0.9em;
   color: rgb(39, 39, 39);
   font-family: "JostLight", sans-serif;
@@ -127,7 +143,7 @@
   align-self: end;
 }
 @media screen and (max-width: 600px) {
-  .friend-profil-content .friend-profil-footer p {
+  .friend-profil-content .friend-profil-footer .friend-informations-footer p {
     width: 90%;
     text-align: end;
     font-size: 0.8em;

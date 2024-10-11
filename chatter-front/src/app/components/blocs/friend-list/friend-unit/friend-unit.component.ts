@@ -1,9 +1,7 @@
 import {
   Component,
-  effect,
   input,
   InputSignal,
-  model,
   signal,
   WritableSignal,
 } from '@angular/core';
@@ -54,16 +52,6 @@ export class FriendUnitComponent {
           participantId: friend.id,
         })
         .subscribe((room: RoomModel) => {
-          console.log(room);
-          /*const privateRoom = rooms.find(
-            (room: RoomModel) =>
-              room.owner.id === this.getMe()!.id &&
-              room.participants[0].id === friend.id &&
-              room.participants.length === 1,
-          );
-          console.warn(privateRoom!.id);
-          this.router.navigate([`/room/private/${privateRoom!.id}`]);*/
-          console.warn(room.id);
           this.router.navigate([`/room/private/${room.id}`]);
         });
     } catch (error) {

@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { environment } from '../../env';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { catchError, Observable, tap, throwError } from 'rxjs';
+import { catchError, Observable, pipe, tap, throwError } from 'rxjs';
 import { UserModel } from '../models/user.model';
 
 @Injectable()
@@ -17,6 +17,22 @@ export class UserService {
         return throwError(() => error);
       }),
     );
+  }
+
+  getUserById(userId: string): Observable<UserModel> {
+    const accessToken = localStorage.getItem(`authToken`);
+    return this.http
+      .get<UserModel>(`${this.apiUrl}/users/${userId}`, {
+        headers: new HttpHeaders().set(
+          'Authorization',
+          'Bearer ' + accessToken,
+        ),
+      })
+      .pipe(
+        catchError((error) => {
+          return throwError(() => error);
+        }),
+      );
   }
 
   uploadUserPicture(userId: string, file: File) {

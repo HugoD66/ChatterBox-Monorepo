@@ -63,7 +63,7 @@
   .friend-profil-footer {
     height: 100%;
     width: 50%;
-    @include global.flex-between-column;
+    @include global.flex-between-row;
     .button-list-footer {
       @include global.flex-center-row-center;
       height: 80%;
@@ -76,16 +76,28 @@
         cursor: pointer;
       }
     }
-    p {
-      @include fonts.subtitle;
-      margin: 4px;
-      align-self: end;
-      @media screen and (max-width: 600px) {
-        width: 90%;
-        text-align: end;
-        font-size: 0.8em;
+    .friend-informations-footer {
+      height: 100%;
+      @include global.flex-betwen-column-end;
+      div {
+         p {
+           @include fonts.subtitle-italic;
+           text-align: end;
+           padding: 3px;
+         }
+      }
+      p {
+        @include fonts.subtitle;
+        margin: 4px;
+        align-self: end;
+        @media screen and (max-width: 600px) {
+          width: 90%;
+          text-align: end;
+          font-size: 0.8em;
+        }
       }
     }
+
   }
   .loading-profil {
     width: 100%;

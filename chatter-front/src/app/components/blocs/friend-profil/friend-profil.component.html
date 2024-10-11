@@ -26,7 +26,89 @@
     </div>
     <div class="friend-profil-footer">
       <div class="button-list-footer">
-        @if(friendUserRelation()?.status === FriendStatusInvitation.PENDING && friendUserRelation()!.friend.id === getMe()!.id) {
+        @switch (userSelectedFriendSituation()) {
+          @case (FriendStatusInvitation.ACCEPTED) {
+            <mat-icon
+              (click)="shareUserselected()"
+            >share</mat-icon>
+            <mat-icon
+              (click)="openDialog(userSelected(), friendUserRelation()!)"
+            >settings</mat-icon>
+            <mat-icon
+              (click)="openChat(getMe().id, userSelected().id)"
+            >message</mat-icon>
+            <mat-icon
+              class="friend-footer-setting-icon"
+              (click)="deleteFriend()"
+            >delete</mat-icon>
+            <!--
+            Trade profil
+            Setting (liste amis/room en commun)
+            Messagerie
+            Supprimer
+            -->
+          }
+          @case (FriendStatusInvitation.PENDINGSENDBYME) {
+            <mat-icon
+              (click)="shareUserselected()"
+            >share</mat-icon>
+            <mat-icon
+              (click)="openDialog(userSelected(), friendUserRelation()!)"
+            >settings</mat-icon>
+            <mat-icon
+              class="friend-footer-setting-icon"
+              (click)="deleteFriend()"
+            >delete</mat-icon>
+            <!--
+            Trade profil
+            Setting (liste amis/room en commun)
+            Supprimer
+            -->
+          }
+          @case (FriendStatusInvitation.PENDINGRECEIVED) {
+            <mat-icon
+              (click)="shareUserselected()"
+            >share</mat-icon>
+            <mat-icon
+              (click)="openDialog(userSelected(), friendUserRelation()!)"
+            >settings</mat-icon>
+            <mat-icon
+              class="friend-footer-setting-icon"
+              (click)="deleteFriend()"
+            >delete</mat-icon>
+            <!--
+            Trade profil
+           Setting (liste amis/room en commun)
+           Supprimer
+           -->
+          }
+          @case (FriendStatusInvitation.REJECTED){
+            <mat-icon
+              (click)="shareUserselected()"
+            >share</mat-icon>
+            <span>Invitation refusée</span>
+            <!--
+          Trade profil
+          Setting (liste amis/room en commun)
+           -->
+          }
+          @case (FriendStatusInvitation.NOTFRIEND){
+            <mat-icon
+              (click)="shareUserselected()"
+            >share</mat-icon>
+            <span>CONNAIS PAS</span>
+            <!--
+            Trade profil
+           Setting (liste amis/room en commun)
+           -->
+          }
+          @default{
+            <span>Non amis</span>
+          }
+        }
+        <!--RAJOUTER CLEF - MESSAGE - -->
+        <!--RAJOUTER PARTAGER PROFIL -->
+      <!--  @if(friendUserRelation()?.status === FriendStatusInvitation.PENDING && friendUserRelation()!.friend.id === getMe()!.id) {
           <button (click)="acceptFriend()">Accepter ! </button>
         } @else {
         }
@@ -36,18 +118,21 @@
         >
         @if(!friendUserRelation()) {
           <mat-icon (click)="invitationFriend(userSelected())">person_add</mat-icon>
-        }
-          <mat-icon
-          class="friend-footer-setting-icon"
-          (click)="deleteFriend()"
-        >delete</mat-icon
-        >
-      </div><p>  {{
-          isFriend()
-            ? "Amis depuis le:" + (userSelected().createdAt | date: "dd/MM/yyyy")
-            : "Compte créé le:" + (userSelected().createdAt | date: "dd/MM/yyyy")
-        }}
-      </p>
+        }-->
+      </div>
+      <div class="friend-informations-footer">
+        <div>
+          <p>10 serveurs en commun</p>
+          <p>8 amis en commun</p>
+        </div>
+        <p>
+          {{
+            isFriend()
+              ? "Amis depuis le:" + (userSelected().createdAt | date: "dd/MM/yyyy")
+              : "Compte créé le:" + (userSelected().createdAt | date: "dd/MM/yyyy")
+          }}
+        </p>
+      </div>
     </div>
   </div>
 }
