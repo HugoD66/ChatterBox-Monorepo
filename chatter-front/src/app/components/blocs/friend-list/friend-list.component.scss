@@ -42,7 +42,7 @@
             @include fonts.p;
           }
           .button-one {
-            @include global.button-one;
+            @include global.button-modal;
           }
         }
       }

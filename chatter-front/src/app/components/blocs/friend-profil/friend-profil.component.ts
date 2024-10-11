@@ -5,13 +5,17 @@ import {
   EventEmitter,
   input,
   InputSignal,
+  OnDestroy,
   Output,
   signal,
   WritableSignal,
 } from '@angular/core';
 import { GetMeModel, UserModel } from '../../../models/user.model';
 import { MatIcon } from '@angular/material/icon';
-import { DialogService } from '../../../services/dialog.service';
+import {
+  DialogService,
+  SettingsOrRemoveFriendDialogData,
+} from '../../../services/dialog.service';
 import { LoaderComponent } from '../../loader/loader.component';
 import { environment } from '../../../../env';
 import { DatePipe, NgStyle } from '@angular/common';
@@ -29,12 +33,15 @@ import { FriendStatusInvitation } from '../../../models/enums/friend-status-invi
 import { FriendFormatservice } from '../../../services/friend-format.service';
 import { RoomService } from '../../../services/room.service';
 import { Router } from '@angular/router';
+import { MatTooltip } from '@angular/material/tooltip';
+import { DialogTypeEnum } from '../../../enum/dialog.type.enum';
+import { async, Subscription } from 'rxjs';
 
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,
   selector: 'app-friend-profil',
   standalone: true,
-  imports: [MatIcon, LoaderComponent, DatePipe, NgStyle],
+  imports: [MatIcon, LoaderComponent, DatePipe, NgStyle, MatTooltip],
   templateUrl: './friend-profil.component.html',
   styleUrl: './friend-profil.component.scss',
   animations: [
@@ -56,23 +63,20 @@ import { Router } from '@angular/router';
     ]),
   ],
 })
-export class FriendProfilComponent {
+export class FriendProfilComponent implements OnDestroy {
   public getMe: InputSignal<GetMeModel> = input.required<GetMeModel>();
 
   @Output() refreshGetMeEvent = new EventEmitter<any>();
   public userSelected: InputSignal<UserModel> = input.required<UserModel>();
-  public isFriend: WritableSignal<boolean> = signal(false);
-
   public isProfilSelected: InputSignal<boolean> = input.required<boolean>();
   public onOpenComponent: WritableSignal<boolean> = signal(true);
   public friendUserRelation: WritableSignal<FriendRelationModel | null> =
     signal(null);
-
   public userSelectedFriendSituation: WritableSignal<FriendStatusInvitation> =
     signal(FriendStatusInvitation.NOTFRIEND);
+  public userListRefrehNeeded: Subscription;
 
   protected apiUrl = environment.apiUrl;
-
   protected readonly FriendStatusInvitation = FriendStatusInvitation;
 
   constructor(
@@ -96,15 +100,56 @@ export class FriendProfilComponent {
           ),
         );
       },
+
       { allowSignalWrites: true },
     );
+
+    effect(
+      async () => {
+        const relation = await this.friendService
+          .getFriend(this.getMe().id, this.userSelected().id)
+          .toPromise();
+        if (!relation) {
+          return;
+        }
+        this.friendUserRelation.set(relation);
+      },
+      { allowSignalWrites: true },
+    );
+
+    this.userListRefrehNeeded =
+      this.friendService.userListRefreshNeeded.subscribe(() => {
+        this.refreshGetMeEvent.emit();
+      });
+  }
+
+  public ngOnDestroy(): void {
+    if (this.userListRefrehNeeded) {
+      this.userListRefrehNeeded.unsubscribe();
+    }
   }
 
   public openDialog(
     user: UserModel,
-    friendRelation?: FriendRelationModel,
+    friendRelation: FriendRelationModel,
+    type: 'remove' | 'settings',
   ): void {
-    this.dialogService.openDialog(user, friendRelation);
+    const dialogData = new SettingsOrRemoveFriendDialogData(
+      user,
+      friendRelation,
+    );
+    type === 'remove'
+      ? this.dialogService.openDialog(
+          this.getMe(),
+          dialogData,
+          DialogTypeEnum.REMOVE_FRIEND,
+        )
+      : this.dialogService.openDialog(
+          this.getMe(),
+          dialogData,
+          DialogTypeEnum.SETTINGS_FRIEND,
+        );
+    // TODO ADD SUBSCRIPTION FOR REFRESH this.refreshGetMeEvent.emit();
   }
 
   toggle() {
@@ -126,34 +171,18 @@ export class FriendProfilComponent {
     );
   }
 
-  async friendStatus(getMeId: string, friendSelectedId: string) {
-    this.friendService.getFriend(getMeId, friendSelectedId).subscribe(
-      (response) => {
-        console.log('Amitiée trouvé:', response);
-      },
-      (error) => {
-        console.error("Erreur lors de la recherche de l'amitiée:", error);
-      },
-    );
-  }
-
   async acceptFriend() {
-    const relation = await this.friendService
-      .getFriend(this.getMe().id, this.userSelected().id)
-      .toPromise();
-    if (!relation) {
-      return;
-    }
-    this.friendUserRelation.set(relation);
-    this.friendService.acceptFriendRequest(relation.id).subscribe(
-      (response) => {
-        console.log('Invitation acceptée avec succès:', response);
-        this.refreshGetMeEvent.emit();
-      },
-      (error) => {
-        console.error("Erreur lors de l'acceptation de l'invitation:", error);
-      },
-    );
+    this.friendService
+      .acceptFriendRequest(this.friendUserRelation()!.id)
+      .subscribe(
+        (response) => {
+          console.log('Invitation acceptée avec succès:', response);
+          this.refreshGetMeEvent.emit();
+        },
+        (error) => {
+          console.error("Erreur lors de l'acceptation de l'invitation:", error);
+        },
+      );
   }
 
   openChat(userId: string, participantId: string) {
@@ -194,22 +223,5 @@ export class FriendProfilComponent {
       });
 
     return;
-  }
-
-  deleteFriend() {
-    this.friendService
-      .removeFriend(this.getMe().id, this.userSelected().id)
-      .subscribe(
-        (response) => {
-          console.log('Suppression réussit:', response);
-          this.refreshGetMeEvent.emit();
-        },
-        (error) => {
-          console.error('Erreur lors de la suppression:', error);
-        },
-      );
-    this.popupService.openSnackBar('Amitié finie!', 'green');
-
-    this.refreshGetMeEvent.emit();
   }
 }

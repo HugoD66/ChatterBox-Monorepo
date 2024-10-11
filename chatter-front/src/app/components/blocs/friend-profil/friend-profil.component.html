@@ -30,107 +30,110 @@
           @case (FriendStatusInvitation.ACCEPTED) {
             <mat-icon
               (click)="shareUserselected()"
+              matTooltip="Partager le profil"
+              matTooltipClass="tooltip-information"
             >share</mat-icon>
             <mat-icon
-              (click)="openDialog(userSelected(), friendUserRelation()!)"
+              (click)="openDialog(userSelected(), friendUserRelation()!, 'settings')"
+              matTooltip="Informations complémentaires"
+              matTooltipClass="tooltip-information"
             >settings</mat-icon>
             <mat-icon
               (click)="openChat(getMe().id, userSelected().id)"
+              matTooltip="Accéder au salon"
+              matTooltipClass="tooltip-delete"
             >message</mat-icon>
-            <mat-icon
+           <mat-icon
               class="red-icon"
-              (click)="deleteFriend()"
+              matTooltip="Supprimer l'ami"
+              matTooltipClass="tooltip-delete"
+              (click)="openDialog(userSelected(), friendUserRelation()!, 'remove')"
             >delete</mat-icon>
-
-            <!--
-            Trade profil GOOD
-            Setting (liste amis/room en commun)
-            Messagerie GOOD
-            Supprimer
-            -->
           }
           @case (FriendStatusInvitation.PENDINGSENDBYME) {
             <mat-icon
               (click)="shareUserselected()"
+              matTooltip="Partager le profil"
+              matTooltipClass="tooltip-information"
             >share</mat-icon>
             <mat-icon
-              (click)="openDialog(userSelected(), friendUserRelation()!)"
+              (click)="openDialog(userSelected(), friendUserRelation()!, 'settings')"
+              matTooltip="Informations complémentaires"
+              matTooltipClass="tooltip-information"
             >settings</mat-icon>
-            <mat-icon>access_time</mat-icon>
-            <mat-icon
+             <mat-icon
+              matTooltip="En attente de confirmation"
+              style="opacity: 0.6"
+              matTooltipClass="tooltip-information"
+            >access_time</mat-icon>
+           <mat-icon
               class="red-icon"
-              (click)="deleteFriend()"
+              matTooltip="Supprimer l'ami"
+              matTooltipClass="tooltip-information delete"
+              (click)="openDialog(userSelected(), friendUserRelation()!, 'remove')"
             >delete</mat-icon>
-
-            <!--
-            ICONE ATTENTE ( HORLOGE ) + TOOLTIP
-            Trade profil
-            Setting (liste amis/room en commun)
-            Supprimer
-            -->
           }
           @case (FriendStatusInvitation.PENDINGRECEIVED) {
             <mat-icon
+              matTooltip="Partager le profil"
+              matTooltipClass="tooltip-information"
               (click)="shareUserselected()"
             >share</mat-icon>
             <mat-icon
-              (click)="openDialog(userSelected(), friendUserRelation()!)"
+              (click)="openDialog(userSelected(), friendUserRelation()!, 'settings')"
+              matTooltip="Informations complémentaires"
+              matTooltipClass="tooltip-information"
             >settings</mat-icon>
             <mat-icon
             class="green-icon"
-              (click)="acceptFriend()"
+            matTooltip="Accepter l'invitation"
+            matTooltipClass="tooltip-information"
+            (click)="acceptFriend()"
             >check_circle</mat-icon>
             <mat-icon
               class="red-icon"
-              (click)="deleteFriend()"
+              matTooltip="Annuler l'invitation"
+              matTooltipClass="tooltip-information"
+              (click)="openDialog(userSelected(), friendUserRelation()!, 'remove')"
             >delete</mat-icon>
-            <!--
-            ACCEPT INVITATION
-            Trade profil
-           Setting (liste amis/room en commun)
-           Supprimer
-           -->
           }
           @case (FriendStatusInvitation.REJECTED){
-
             <mat-icon
+              matTooltip="Partager le profil"
+              matTooltipClass="tooltip-information"
               (click)="shareUserselected()"
             >share</mat-icon>
             <mat-icon
-              (click)="openDialog(userSelected(), friendUserRelation()!)"
+              (click)="openDialog(userSelected(), friendUserRelation()!, 'settings')"
+              matTooltip="Informations complémentaires"
+              matTooltipClass="tooltip-information"
             >settings</mat-icon>
             <mat-icon
               class="red-icon"
-              (click)="deleteFriend()"
+              matTooltip="Supprimer l'ami"
+              matTooltipClass="tooltip-information delete"
+              (click)="openDialog(userSelected(), friendUserRelation()!, 'remove')"
             >
               clear
             </mat-icon>
-            <!--
-            ICONE CROIX + TOOLTIP
-           -->
           }
           @case (FriendStatusInvitation.NOTFRIEND){
-            <mat-icon (click)="invitationFriend(userSelected())">person_add</mat-icon>
             <mat-icon
-              (click)="openDialog(userSelected(), friendUserRelation()!)"
+              matTooltip="Ajouter en ami"
+              matTooltipClass="tooltip-information"
+              (click)="invitationFriend(userSelected())">person_add</mat-icon>
+            <mat-icon
+              (click)="openDialog(userSelected(), friendUserRelation()!, 'settings')"
+              matTooltip="Informations complémentaires"
+              matTooltipClass="tooltip-information"
             >settings</mat-icon>
             <mat-icon
               (click)="shareUserselected()"
+              matTooltip="Partager le profil"
+              matTooltipClass="tooltip-information"
             >share</mat-icon>
-
           }
         }
-        <!--RAJOUTER CLEF - MESSAGE - -->
-        <!--RAJOUTER PARTAGER PROFIL -->
-      <!--  @if(friendUserRelation()?.status === FriendStatusInvitation.PENDING && friendUserRelation()!.friend.id === getMe()!.id) {
-          <button (click)="acceptFriend()">Accepter ! </button>
-        } @else {
-        }
-        <mat-icon
-          (click)="openDialog(userSelected(), friendUserRelation()!)"
-        >settings</mat-icon
-        >
-       -->
       </div>
       <div class="friend-informations-footer">
         <div>
@@ -139,8 +142,8 @@
         </div>
         <p>
           {{
-            isFriend()
-              ? "Amis depuis le:" + (userSelected().createdAt | date: "dd/MM/yyyy")
+            userSelectedFriendSituation() === FriendStatusInvitation.ACCEPTED ?
+              "Amis depuis le:" + (friendUserRelation()?.createdAt | date: "dd/MM/yyyy")
               : "Compte créé le:" + (userSelected().createdAt | date: "dd/MM/yyyy")
           }}
         </p>

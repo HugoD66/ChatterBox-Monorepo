@@ -1,8 +1,4 @@
-<div class="dialog">
-  @if(isLoading()) {
-    <app-loader />
-  } @else {
-    @if (user()!.pseudo) {
+ @if (user()!.pseudo) {
       <h2 mat-dialog-title>{{ user()!.pseudo }}</h2>
     } @else {
       <h2 mat-dialog-title>Pas de user pseudo !</h2>
@@ -109,5 +105,3 @@
         Install
       </button>
     </mat-dialog-actions>
-  }
-</div>

@@ -22,7 +22,7 @@
   height: 90%;
   width: 100%;
   position: absolute;
-  margin: auto;
+  margin: auto auto auto 2%;
   display: flex;
   justify-content: start;
   align-items: center;

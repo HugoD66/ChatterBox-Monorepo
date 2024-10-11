@@ -1,9 +1,36 @@
-.dialog {
-  @media screen and (max-width: 600px) {
+@use "../../../assets/scss/colors" as colors;
+@use "../../../assets/scss/global" as global;
+@use "../../../assets/scss/fonts" as fonts;
+
+.dialog-content {
+  height: 100%;
+  width: 100%;
+  margin: auto;
+  background-color: colors.$back-light-b;
+  /*@media screen and (max-width: 600px) {
     width: 150px !important;
-  }
-  background-color: orange;
-  .dialog-content {
-    background-color: red;
+  }*/
+  .dialog-remove-friend {
+    margin: auto;
+    width: 100%;
+    height: 100%;
+    @include global.flex-around-column;
+    p {
+      padding: 10px;
+      @include fonts.p;
+      color: colors.$gradient-dark-g;
+
+    }
+    .dialog-remove-friend-actions {
+      margin: 5%;
+      width: 100%;
+      @include global.flex-center-row-around;
+      .button-modal {
+        @include global.button-modal;
+      }
+    }
   }
 }
+
+
+

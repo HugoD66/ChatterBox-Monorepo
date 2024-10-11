@@ -1,12 +1,13 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { environment } from '../../env';
-import { catchError, Observable, throwError } from 'rxjs';
+import { catchError, Observable, Subject, tap, throwError } from 'rxjs';
 import { FriendRelationModel } from '../models/friend-relation.model';
 
 @Injectable()
 export class FriendService {
   private apiUrl = environment.apiUrl;
+  public userListRefreshNeeded: Subject<void> = new Subject<void>();
 
   constructor(private http: HttpClient) {}
 
@@ -78,6 +79,9 @@ export class FriendService {
         },
       )
       .pipe(
+        tap(() => {
+          this.userListRefreshNeeded.next();
+        }),
         catchError((error) => {
           return throwError(() => error);
         }),

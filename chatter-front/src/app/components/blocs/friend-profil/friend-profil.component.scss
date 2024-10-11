@@ -17,7 +17,7 @@
     height: 90%;
     width: 100%;
     position: absolute;
-    margin: auto;
+    margin: auto auto auto 2%;
     @include global.flex-center-row-start;
     @media screen and (max-width: 600px) {
       @include global.flex-center-column;
