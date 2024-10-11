@@ -126,18 +126,34 @@ export class FriendProfilComponent {
     );
   }
 
-  acceptFriend() {
-    this.friendService
-      .acceptFriendRequest(this.friendUserRelation()!.id)
-      .subscribe(
-        (response) => {
-          console.log('Invitation acceptée avec succès:', response);
-          this.refreshGetMeEvent.emit();
-        },
-        (error) => {
-          console.error("Erreur lors de l'acceptation de l'invitation:", error);
-        },
-      );
+  async friendStatus(getMeId: string, friendSelectedId: string) {
+    this.friendService.getFriend(getMeId, friendSelectedId).subscribe(
+      (response) => {
+        console.log('Amitiée trouvé:', response);
+      },
+      (error) => {
+        console.error("Erreur lors de la recherche de l'amitiée:", error);
+      },
+    );
+  }
+
+  async acceptFriend() {
+    const relation = await this.friendService
+      .getFriend(this.getMe().id, this.userSelected().id)
+      .toPromise();
+    if (!relation) {
+      return;
+    }
+    this.friendUserRelation.set(relation);
+    this.friendService.acceptFriendRequest(relation.id).subscribe(
+      (response) => {
+        console.log('Invitation acceptée avec succès:', response);
+        this.refreshGetMeEvent.emit();
+      },
+      (error) => {
+        console.error("Erreur lors de l'acceptation de l'invitation:", error);
+      },
+    );
   }
 
   openChat(userId: string, participantId: string) {
@@ -154,11 +170,28 @@ export class FriendProfilComponent {
   }
 
   shareUserselected() {
-    const absoluteUrl = this.router.serializeUrl(
-      this.router.createUrlTree([`/friend/add/${this.userSelected().id}`]),
+    let absoluteUrl = this.router.serializeUrl(
+      this.router.createUrlTree([
+        `${environment.urlDev}/friend/add/${this.userSelected().id}`,
+      ]),
     );
-    console.log(absoluteUrl);
-    this.popupService.openSnackBar('Profil copié', 'green');
+    absoluteUrl = absoluteUrl.split('').slice(1).join('');
+
+    navigator.clipboard
+      .writeText(absoluteUrl)
+      .then(() => {
+        this.popupService.openSnackBar(
+          'URL copiée dans le presse-papiers !',
+          'green',
+        );
+      })
+      .catch((err) => {
+        this.popupService.openSnackBar(
+          "Erreur lors de la copie de l'URL",
+          'red',
+        );
+        console.error('Erreur lors de la copie : ', err);
+      });
 
     return;
   }
@@ -179,15 +212,4 @@ export class FriendProfilComponent {
 
     this.refreshGetMeEvent.emit();
   }
-
-  /* async friendStatus(getMeId: string, friendSelectedId: string) {
-    this.friendService.getFriend(getMeId, friendSelectedId).subscribe(
-      (response) => {
-        console.log('Ami trouvé:', response);
-      },
-      (error) => {
-        console.error("Erreur lors de la recherche de l'ami:", error);
-      },
-    );
-  }*/
 }

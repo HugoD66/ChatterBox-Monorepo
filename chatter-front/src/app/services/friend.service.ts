@@ -106,10 +106,15 @@ export class FriendService {
 
   acceptFriendRequest(friendRelationId: string) {
     const accessToken = localStorage.getItem(`authToken`);
-    console.log(accessToken);
+
+    const headers = new HttpHeaders().set(
+      'Authorization',
+      'Bearer ' + accessToken,
+    );
     return this.http
-      .post(
+      .patch(
         `${this.apiUrl}/friend-users/accept-invitation/${friendRelationId}`,
+        headers,
         {
           headers: new HttpHeaders().set(
             'Authorization',

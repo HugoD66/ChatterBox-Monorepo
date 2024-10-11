@@ -1,4 +1,12 @@
-import { Controller, Post, Body, Get, Param, UseGuards } from '@nestjs/common';
+import {
+  Controller,
+  Post,
+  Body,
+  Get,
+  Param,
+  UseGuards,
+  Patch,
+} from '@nestjs/common';
 import { FriendUsersService } from './friend-users.service';
 import { Public } from '../security/auth/public.decorator';
 import { UsersService } from '../users/users.service';
@@ -15,6 +23,7 @@ export class FriendUsersController {
 
   @Public()
   @Get(`/:userId/:friendId`)
+  @UseGuards(AuthGuard)
   async getFriend(
     @Param('userId') userId: string,
     @Param('friendId') friendId: string,
@@ -57,7 +66,7 @@ export class FriendUsersController {
   }
 
   @UseGuards(AuthGuard)
-  @Post('/accept-invitation/:friendRelationId')
+  @Patch('/accept-invitation/:friendRelationId')
   async acceptInvitation(@Param('friendRelationId') friendRelationId: string) {
     return await this.friendUsersService.acceptFriendInvitation(
       friendRelationId,

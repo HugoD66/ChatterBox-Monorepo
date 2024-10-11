@@ -38,13 +38,14 @@
               (click)="openChat(getMe().id, userSelected().id)"
             >message</mat-icon>
             <mat-icon
-              class="friend-footer-setting-icon"
+              class="red-icon"
               (click)="deleteFriend()"
             >delete</mat-icon>
+
             <!--
-            Trade profil
+            Trade profil GOOD
             Setting (liste amis/room en commun)
-            Messagerie
+            Messagerie GOOD
             Supprimer
             -->
           }
@@ -55,11 +56,14 @@
             <mat-icon
               (click)="openDialog(userSelected(), friendUserRelation()!)"
             >settings</mat-icon>
+            <mat-icon>access_time</mat-icon>
             <mat-icon
-              class="friend-footer-setting-icon"
+              class="red-icon"
               (click)="deleteFriend()"
             >delete</mat-icon>
+
             <!--
+            ICONE ATTENTE ( HORLOGE ) + TOOLTIP
             Trade profil
             Setting (liste amis/room en commun)
             Supprimer
@@ -73,37 +77,47 @@
               (click)="openDialog(userSelected(), friendUserRelation()!)"
             >settings</mat-icon>
             <mat-icon
-              class="friend-footer-setting-icon"
+            class="green-icon"
+              (click)="acceptFriend()"
+            >check_circle</mat-icon>
+            <mat-icon
+              class="red-icon"
               (click)="deleteFriend()"
             >delete</mat-icon>
             <!--
+            ACCEPT INVITATION
             Trade profil
            Setting (liste amis/room en commun)
            Supprimer
            -->
           }
           @case (FriendStatusInvitation.REJECTED){
+
             <mat-icon
               (click)="shareUserselected()"
             >share</mat-icon>
-            <span>Invitation refusée</span>
+            <mat-icon
+              (click)="openDialog(userSelected(), friendUserRelation()!)"
+            >settings</mat-icon>
+            <mat-icon
+              class="red-icon"
+              (click)="deleteFriend()"
+            >
+              clear
+            </mat-icon>
             <!--
-          Trade profil
-          Setting (liste amis/room en commun)
+            ICONE CROIX + TOOLTIP
            -->
           }
           @case (FriendStatusInvitation.NOTFRIEND){
+            <mat-icon (click)="invitationFriend(userSelected())">person_add</mat-icon>
+            <mat-icon
+              (click)="openDialog(userSelected(), friendUserRelation()!)"
+            >settings</mat-icon>
             <mat-icon
               (click)="shareUserselected()"
             >share</mat-icon>
-            <span>CONNAIS PAS</span>
-            <!--
-            Trade profil
-           Setting (liste amis/room en commun)
-           -->
-          }
-          @default{
-            <span>Non amis</span>
+
           }
         }
         <!--RAJOUTER CLEF - MESSAGE - -->
@@ -116,9 +130,7 @@
           (click)="openDialog(userSelected(), friendUserRelation()!)"
         >settings</mat-icon
         >
-        @if(!friendUserRelation()) {
-          <mat-icon (click)="invitationFriend(userSelected())">person_add</mat-icon>
-        }-->
+       -->
       </div>
       <div class="friend-informations-footer">
         <div>
