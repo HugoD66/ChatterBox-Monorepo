@@ -11,6 +11,7 @@ import {
   provideHttpClient,
   withInterceptorsFromDi,
 } from '@angular/common/http';
+import { AnimationMetadataType, AnimationMetadata } from '@angular/animations';
 import { SidenavComponent } from './components/sidenav/sidenav.component';
 import { TruncateLongPipe } from './pipe/TruncateLongPipe';
 import { DialogService } from './services/dialog.service';
@@ -18,8 +19,12 @@ import { MessageService } from './services/message.service';
 import { FriendService } from './services/friend.service';
 import { UserService } from './services/user.service';
 import { PopupService } from './services/popup.service';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import {
+  BrowserAnimationsModule,
+  NoopAnimationsModule,
+} from '@angular/platform-browser/animations';
 import { RoomService } from './services/room.service';
+import { FormatPluralizePipe } from './pipe/FormatPluralizePipe';
 
 @NgModule({
   imports: [
@@ -31,6 +36,8 @@ import { RoomService } from './services/room.service';
     BrowserAnimationsModule,
     TruncateLongPipe,
     SidenavComponent,
+    FormatPluralizePipe,
+    NoopAnimationsModule,
   ],
   providers: [
     DialogService,

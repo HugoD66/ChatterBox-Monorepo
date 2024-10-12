@@ -141,6 +141,11 @@ h1 {
   background-color: colors.$dark-b;
 }
 
+// --------- BACKGROUND MODAL --------- //
+.cdk-overlay-backdrop {
+  backdrop-filter: blur(2px); /* Applique un flou de 8 pixels */
+  background-color: rgba(0, 0, 0, 0.2); /* Assombrit légèrement le fond */
+}
 
 
 html, body { height: 100%; }

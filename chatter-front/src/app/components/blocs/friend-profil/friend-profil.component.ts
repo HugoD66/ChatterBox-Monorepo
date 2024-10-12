@@ -1,104 +1,192 @@
 import {
   ChangeDetectionStrategy,
+  ChangeDetectorRef,
   Component,
   effect,
   EventEmitter,
   input,
   InputSignal,
+  OnDestroy,
   Output,
   signal,
   WritableSignal,
 } from '@angular/core';
 import { GetMeModel, UserModel } from '../../../models/user.model';
 import { MatIcon } from '@angular/material/icon';
-import { DialogService } from '../../../services/dialog.service';
+import {
+  DialogService,
+  SettingsOrRemoveFriendDialogData,
+} from '../../../services/dialog.service';
 import { LoaderComponent } from '../../loader/loader.component';
 import { environment } from '../../../../env';
 import { DatePipe, NgStyle } from '@angular/common';
-import {
-  animate,
-  state,
-  style,
-  transition,
-  trigger,
-} from '@angular/animations';
 import { FriendService } from '../../../services/friend.service';
 import { PopupService } from '../../../services/popup.service';
-import { FriendRelationModel } from '../../../models/friend-relation.model';
+import {
+  FriendModel,
+  FriendRelationModel,
+} from '../../../models/friend-relation.model';
 import { FriendStatusInvitation } from '../../../models/enums/friend-status-invitation.enum';
+import { FriendFormatservice } from '../../../services/friend-format.service';
+import { RoomService } from '../../../services/room.service';
+import { Router } from '@angular/router';
+import { MatTooltip } from '@angular/material/tooltip';
+import { DialogTypeEnum } from '../../../enum/dialog.type.enum';
+import { Subscription } from 'rxjs';
+import { FormatPluralizePipe } from '../../../pipe/FormatPluralizePipe';
+import {
+  transitionBetweenUsersAnimation,
+  TransitionSwitchUserEnum,
+} from '../../../services/animation/animation';
 
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,
   selector: 'app-friend-profil',
   standalone: true,
-  imports: [MatIcon, LoaderComponent, DatePipe, NgStyle],
+  imports: [
+    MatIcon,
+    LoaderComponent,
+    DatePipe,
+    NgStyle,
+    MatTooltip,
+    FormatPluralizePipe,
+  ],
   templateUrl: './friend-profil.component.html',
   styleUrl: './friend-profil.component.scss',
-  animations: [
-    trigger('openClose', [
-      state(
-        'open',
-        style({
-          height: '26vh',
-        }),
-      ),
-      state(
-        'closed',
-        style({
-          height: '0vh',
-        }),
-      ),
-      transition('closed => open', [animate('3s')]),
-      transition('open => closed', [animate('3s')]),
-    ]),
-  ],
+  animations: [transitionBetweenUsersAnimation],
 })
-export class FriendProfilComponent {
+export class FriendProfilComponent implements OnDestroy {
   public getMe: InputSignal<GetMeModel> = input.required<GetMeModel>();
-
-  @Output() refreshGetMeEvent = new EventEmitter<any>();
   public userSelected: InputSignal<UserModel> = input.required<UserModel>();
-  public isFriend: WritableSignal<boolean> = signal(false);
   public isProfilSelected: InputSignal<boolean> = input.required<boolean>();
   public onOpenComponent: WritableSignal<boolean> = signal(true);
   public friendUserRelation: WritableSignal<FriendRelationModel | null> =
     signal(null);
+  public userSelectedFriendSituation: WritableSignal<FriendStatusInvitation> =
+    signal(FriendStatusInvitation.NOTFRIEND);
+  public mutualFriends: WritableSignal<number> = signal(0);
+  public userListRefrehNeeded: Subscription;
+
+  public transitionState: WritableSignal<TransitionSwitchUserEnum> = signal(
+    TransitionSwitchUserEnum.CHANGESTART,
+  );
+
+  @Output() panelOpening = new EventEmitter<any>();
+  @Output() refreshGetMeEvent = new EventEmitter<any>(false);
 
   protected apiUrl = environment.apiUrl;
+  protected readonly FriendStatusInvitation = FriendStatusInvitation;
 
   constructor(
     public dialogService: DialogService,
     private friendService: FriendService,
     private popupService: PopupService,
+    private friendFormatservice: FriendFormatservice,
+    private roomService: RoomService,
+    private router: Router,
+    private cdr: ChangeDetectorRef,
   ) {
+    effect(
+      async () => {
+        this.startTransition();
+
+        if (!this.getMe() || !this.userSelected()) {
+          return;
+        }
+        this.panelOpening.emit(true);
+
+        const getMyFriends: FriendModel[] =
+          this.friendFormatservice.getAllFriends(this.getMe().friends);
+
+        const getMyFriendsAccepted: FriendModel[] =
+          this.friendFormatservice.getFriendListAccepted(this.getMe().friends);
+
+        const getFriendListOfMyFriend: FriendModel[] = await this.friendService
+          .getAcceptedFriends(this.userSelected().id)
+          .toPromise();
+
+        this.userSelectedFriendSituation.set(
+          this.friendFormatservice.findFriendSituation(
+            this.userSelected(),
+            getMyFriends,
+          ),
+        );
+
+        this.mutualFriends.set(
+          await this.friendFormatservice.countMutualFriends(
+            getMyFriendsAccepted,
+            getFriendListOfMyFriend,
+          ),
+        );
+      },
+      { allowSignalWrites: true },
+    );
+
     effect(
       async () => {
         if (!this.getMe() || !this.userSelected()) {
           return;
         }
-        this.friendService
-          .getFriend(this.getMe()!.id, this.userSelected().id)
-          .subscribe((friendRelation) => {
-            this.friendUserRelation.set(friendRelation);
-            this.friendUserRelation()?.status ===
-            FriendStatusInvitation.ACCEPTED
-              ? this.isFriend.set(true)
-              : this.isFriend.set(false);
-          });
+        const relation = await this.friendService
+          .getFriend(this.getMe().id, this.userSelected().id)
+          .toPromise();
+        if (!relation) {
+          return;
+        }
+        this.friendUserRelation.set(relation);
       },
       { allowSignalWrites: true },
     );
+
+    this.userListRefrehNeeded =
+      this.friendService.userListRefreshNeeded.subscribe(() => {
+        this.refreshGetMeEvent.emit();
+      });
+  }
+
+  public ngOnDestroy(): void {
+    //this.transitionState.set('changeClosed');
+    console.log('destroy');
+
+    if (this.userListRefrehNeeded) {
+      this.userListRefrehNeeded.unsubscribe();
+    }
   }
 
   public openDialog(
     user: UserModel,
-    friendRelation?: FriendRelationModel,
+    friendRelation: FriendRelationModel,
+    type: 'remove' | 'settings',
   ): void {
-    this.dialogService.openDialog(user, friendRelation);
+    const dialogData = new SettingsOrRemoveFriendDialogData(
+      user,
+      friendRelation,
+    );
+    type === 'remove'
+      ? this.dialogService.openDialog(
+          this.getMe(),
+          dialogData,
+          DialogTypeEnum.REMOVE_FRIEND,
+        )
+      : this.dialogService.openDialog(
+          this.getMe(),
+          dialogData,
+          DialogTypeEnum.SETTINGS_FRIEND,
+        );
+    // TODO ADD SUBSCRIPTION FOR REFRESH this.refreshGetMeEvent.emit();
   }
 
   toggle() {
     this.onOpenComponent.update((value) => !value);
+  }
+
+  public startTransition() {
+    this.transitionState.set(TransitionSwitchUserEnum.CHANGESTART);
+    this.cdr.detectChanges();
+    setTimeout(() => {
+      this.transitionState.set(TransitionSwitchUserEnum.CHANGEFINAL);
+      this.cdr.detectChanges();
+    }, 100);
   }
 
   invitationFriend(userModel: UserModel) {
@@ -116,7 +204,7 @@ export class FriendProfilComponent {
     );
   }
 
-  acceptFriend() {
+  async acceptFriend() {
     this.friendService
       .acceptFriendRequest(this.friendUserRelation()!.id)
       .subscribe(
@@ -130,33 +218,43 @@ export class FriendProfilComponent {
       );
   }
 
-  deleteFriend() {
-    this.friendService
-      .removeFriend(this.getMe().id, this.userSelected().id)
-      .subscribe(
-        (response) => {
-          console.log('Suppression réussit:', response);
-          this.refreshGetMeEvent.emit();
-        },
-        (error) => {
-          console.error('Erreur lors de la suppression:', error);
-        },
-      );
-    this.popupService.openSnackBar('Amitié finie!', 'green');
-
-    this.refreshGetMeEvent.emit();
-  }
-
-  async friendStatus(getMeId: string, friendSelectedId: string) {
-    this.friendService.getFriend(getMeId, friendSelectedId).subscribe(
-      (response) => {
-        console.log('Ami trouvé:', response);
+  openChat(userId: string, participantId: string) {
+    this.roomService.getRoomByUser({ userId, participantId }).subscribe(
+      (room) => {
+        this.router.navigate([`/room/private/${room.id}`]);
       },
       (error) => {
-        console.error("Erreur lors de la recherche de l'ami:", error);
+        console.error('Erreur lors de la recherche de la room:', error);
       },
     );
+
+    return;
   }
 
-  protected readonly FriendStatusInvitation = FriendStatusInvitation;
+  shareUserselected() {
+    let absoluteUrl = this.router.serializeUrl(
+      this.router.createUrlTree([
+        `${environment.urlDev}/friend/add/${this.userSelected().id}`,
+      ]),
+    );
+    absoluteUrl = absoluteUrl.split('').slice(1).join('');
+
+    navigator.clipboard
+      .writeText(absoluteUrl)
+      .then(() => {
+        this.popupService.openSnackBar(
+          'URL copiée dans le presse-papiers !',
+          'green',
+        );
+      })
+      .catch((err) => {
+        this.popupService.openSnackBar(
+          "Erreur lors de la copie de l'URL",
+          'red',
+        );
+        console.error('Erreur lors de la copie : ', err);
+      });
+
+    return;
+  }
 }

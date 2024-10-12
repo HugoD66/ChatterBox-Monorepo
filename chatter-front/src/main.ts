@@ -1,7 +1,7 @@
-import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
-
-import { AppModule } from './app/app.module';
-import { provideAnimations } from '@angular/platform-browser/animations';
+import {
+  BrowserAnimationsModule,
+  provideAnimations,
+} from '@angular/platform-browser/animations';
 import { provideExperimentalZonelessChangeDetection } from '@angular/core';
 import { bootstrapApplication } from '@angular/platform-browser';
 import { AppComponent } from './app/app.component';
@@ -17,11 +17,7 @@ import { FriendService } from './app/services/friend.service';
 import { UserService } from './app/services/user.service';
 import { RoomService } from './app/services/room.service';
 import { PopupService } from './app/services/popup.service';
-
-/*platformBrowserDynamic()
-  .bootstrapModule(AppModule)
-  .catch((err) => console.error(err));
-  */
+import { FriendFormatservice } from './app/services/friend-format.service';
 
 bootstrapApplication(AppComponent, {
   providers: [
@@ -29,9 +25,11 @@ bootstrapApplication(AppComponent, {
     provideHttpClient(withInterceptorsFromDi()),
     provideAnimations(),
     provideExperimentalZonelessChangeDetection(),
+    BrowserAnimationsModule,
     DialogService,
     MessageService,
     FriendService,
+    FriendFormatservice,
     UserService,
     RoomService,
     PopupService,

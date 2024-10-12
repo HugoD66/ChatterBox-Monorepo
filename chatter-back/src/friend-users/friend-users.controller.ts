@@ -1,9 +1,18 @@
-import { Controller, Post, Body, Get, Param, UseGuards } from '@nestjs/common';
+import {
+  Controller,
+  Post,
+  Body,
+  Get,
+  Param,
+  UseGuards,
+  Patch,
+} from '@nestjs/common';
 import { FriendUsersService } from './friend-users.service';
 import { Public } from '../security/auth/public.decorator';
-import { ResponseUserDto } from '../users/dto/response-user.dto';
 import { UsersService } from '../users/users.service';
 import { AuthGuard } from '../security/auth/auth.guard';
+import { ResponseFriendDto } from './dto/response-friend.dto';
+import { FriendUser } from './entities/friend-user.entity';
 
 @Controller('friend-users')
 export class FriendUsersController {
@@ -14,10 +23,11 @@ export class FriendUsersController {
 
   @Public()
   @Get(`/:userId/:friendId`)
+  @UseGuards(AuthGuard)
   async getFriend(
     @Param('userId') userId: string,
     @Param('friendId') friendId: string,
-  ) {
+  ): Promise<FriendUser> {
     console.log('userId', userId, 'friendId', friendId);
     return this.friendUsersService.getFriend(userId, friendId);
   }
@@ -26,8 +36,16 @@ export class FriendUsersController {
   @Get(`/friends/:userId`)
   async getFriends(
     @Param('userId') userId: string,
-  ): Promise<ResponseUserDto[]> {
+  ): Promise<ResponseFriendDto[][]> {
     return this.usersService.getFriends(userId);
+  }
+
+  @UseGuards(AuthGuard)
+  @Get(`/friends/accepted/:userId`)
+  async getAcceptedFriends(
+    @Param('userId') userId: string,
+  ): Promise<ResponseFriendDto[]> {
+    return this.usersService.getAcceptedFriends(userId);
   }
 
   //TODO CHOISIR ADDFRUIEND OU SENDINVITATION
@@ -56,7 +74,7 @@ export class FriendUsersController {
   }
 
   @UseGuards(AuthGuard)
-  @Post('/accept-invitation/:friendRelationId')
+  @Patch('/accept-invitation/:friendRelationId')
   async acceptInvitation(@Param('friendRelationId') friendRelationId: string) {
     return await this.friendUsersService.acceptFriendInvitation(
       friendRelationId,

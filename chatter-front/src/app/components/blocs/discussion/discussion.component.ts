@@ -8,13 +8,12 @@ import { ChatComponent } from './chat/chat.component';
 import { MessageInputComponent } from './message-input/message-input.component';
 import { MessageModel } from '../../../models/message.model';
 import { UserModel } from '../../../models/user.model';
-import { FriendProfilComponent } from '../friend-profil/friend-profil.component';
 
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,
   selector: 'app-discussion',
   standalone: true,
-  imports: [ChatComponent, MessageInputComponent, FriendProfilComponent],
+  imports: [ChatComponent, MessageInputComponent],
   templateUrl: './discussion.component.html',
   styleUrl: './discussion.component.scss',
 })

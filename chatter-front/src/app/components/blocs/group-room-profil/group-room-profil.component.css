@@ -4,7 +4,6 @@
   border: 2px solid rgba(68, 68, 68, 0.1);
   background: linear-gradient(110deg, rgb(237, 244, 255) 0%, white 48%, rgb(237, 244, 255) 100%);
   width: 100%;
-  height: 25vh;
   overflow-x: auto;
   display: flex;
   flex-direction: row;

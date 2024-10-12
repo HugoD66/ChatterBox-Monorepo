@@ -6,6 +6,8 @@ import {
   Patch,
   Param,
   Delete,
+  UseGuards,
+  Req,
 } from '@nestjs/common';
 import { RoomService } from './room.service';
 import { CreateRoomDto } from './dto/create-room.dto';
@@ -13,6 +15,7 @@ import { UpdateRoomDto } from './dto/update-room.dto';
 import { ResponseRoomDto } from './dto/response-room.dto';
 import { Room } from './entities/room.entity';
 import { ResponseMessageDto } from '../message/dto/response-message.dto';
+import { AuthGuard } from '../security/auth/auth.guard';
 
 @Controller('room')
 export class RoomController {
@@ -38,6 +41,16 @@ export class RoomController {
     @Param('userId') userId: string,
   ): Promise<ResponseRoomDto[]> {
     return this.roomService.findAllGroupRoom(userId);
+  }
+
+  @UseGuards(AuthGuard)
+  @Get('by-user/:userId')
+  findDiscussionByUser(
+    @Param('userId') userId: string,
+    @Req() req,
+  ): Promise<ResponseRoomDto> {
+    const meId = req.user.id;
+    return this.roomService.findDiscussionByUser(userId, meId);
   }
 
   @Patch(':id')

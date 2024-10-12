@@ -13,9 +13,8 @@
     width: 98%;
     flex-direction: row;
     height: 5%;
-    @include fonts.subtitle;
+    @include fonts.subtitle-italic;
     padding: 0;
-    font-style: italic;
     p {
       margin: 0;
       padding: 0;
@@ -43,7 +42,7 @@
             @include fonts.p;
           }
           .button-one {
-            @include global.button-one;
+            @include global.button-modal;
           }
         }
       }

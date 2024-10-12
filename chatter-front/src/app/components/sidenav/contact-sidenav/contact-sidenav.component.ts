@@ -15,9 +15,15 @@ import { Router } from '@angular/router';
 import { ButtonsSidenavComponent } from '../buttons-sidenav/buttons-sidenav.component';
 import { MatSidenav } from '@angular/material/sidenav';
 import { NgClass } from '@angular/common';
-import { FriendStatusInvitation } from '../../../models/enums/friend-status-invitation.enum';
+import {
+  FriendStatusIndexEnum,
+  FriendStatusInvitation,
+} from '../../../models/enums/friend-status-invitation.enum';
 import { MatIcon } from '@angular/material/icon';
-import { FriendRelationModel } from '../../../models/friend-relation.model';
+import {
+  FriendModel,
+  FriendRelationModel,
+} from '../../../models/friend-relation.model';
 
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -36,18 +42,19 @@ import { FriendRelationModel } from '../../../models/friend-relation.model';
 export class ContactSidenavComponent {
   public getMe: InputSignal<GetMeModel | null> = input.required();
   public isExpanded: InputSignal<boolean> = input.required<boolean>();
-  public friendAcceptedList: WritableSignal<UserModel[]> = signal([]);
+  public friendAcceptedList: WritableSignal<FriendModel[]> = signal([]);
 
   protected readonly FriendStatusInvitation = FriendStatusInvitation;
 
   constructor(private router: Router) {
     effect(
       () => {
-        if (this.getMe()?.friendships) {
-          this.friendAcceptedList.set(this.getMe()!.friends);
-        } else {
-          this.friendAcceptedList.set([]);
+        if (!this.getMe()!.friends) {
+          return;
         }
+        this.friendAcceptedList.set(
+          this.getMe()!.friends[FriendStatusIndexEnum.ACCEPTED],
+        );
       },
       { allowSignalWrites: true },
     );

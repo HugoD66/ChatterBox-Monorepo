@@ -1,11 +1,14 @@
 @if (friend()) {
   <div class="private-room-content">
     <app-friend-profil
+      (panelOpening)="panelOpening($event)"
+      [@openCloseFriendProfil]="isExpandedFriendProfil ? 'open' : 'closed'"
       [getMe]="getMe()!"
       [userSelected]="friend()"
       [isProfilSelected]="true"
     />
     <app-discussion
+      [@openCloseFriend]="isExpandedDiscussion ? 'open' : 'closed'"
       [getMe]="getMe()!"
       [messages]="messages()" />
   </div>

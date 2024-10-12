@@ -29,8 +29,11 @@ export class LastMessageComponent {
   public unreadMessages: WritableSignal<MessageModel[] | null> = signal([]);
 
   constructor(public roomService: RoomService) {
-    effect(() => {
-      if (this.getMe().id) {
+    effect(
+      () => {
+        if (!this.getMe()) {
+          return;
+        }
         this.roomService
           .getUnreadsMessagesByUser(this.getMe().id)
           .subscribe((messages: MessageModel[]) => {
@@ -40,7 +43,8 @@ export class LastMessageComponent {
             }
             this.isLoading.set(false);
           });
-      }
-    });
+      },
+      { allowSignalWrites: true },
+    );
   }
 }

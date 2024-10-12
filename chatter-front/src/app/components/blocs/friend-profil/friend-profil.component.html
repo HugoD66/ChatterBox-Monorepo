@@ -1,7 +1,8 @@
 @if (!userSelected()) {
 } @else {
-  <div class="friend-profil-content"  [@openClose]="onOpenComponent() ? 'open' : 'closed'">
-    <div class="friend-profil-info-picture">
+  <div class="friend-profil-content"   [@transitionBetweenUsers]="transitionState()"
+>
+  <div class="friend-profil-info-picture">
       @if (userSelected().picture) {
         <img
           src="{{ apiUrl }}/./{{ userSelected().picture }}"
@@ -26,29 +27,129 @@
     </div>
     <div class="friend-profil-footer">
       <div class="button-list-footer">
-        @if(friendUserRelation()?.status === FriendStatusInvitation.PENDING && friendUserRelation()!.friend.id === getMe()!.id) {
-          <button (click)="acceptFriend()">Accepter ! </button>
-        } @else {
+        @switch (userSelectedFriendSituation()) {
+          @case (FriendStatusInvitation.ACCEPTED) {
+            <mat-icon
+              (click)="shareUserselected()"
+              matTooltip="Partager le profil"
+              matTooltipClass="tooltip-information"
+            >share</mat-icon>
+            <mat-icon
+              (click)="openDialog(userSelected(), friendUserRelation()!, 'settings')"
+              matTooltip="Informations complémentaires"
+              matTooltipClass="tooltip-information"
+            >settings</mat-icon>
+            <mat-icon
+              (click)="openChat(getMe().id, userSelected().id)"
+              matTooltip="Accéder au salon"
+              matTooltipClass="tooltip-delete"
+            >message</mat-icon>
+           <mat-icon
+              class="red-icon"
+              matTooltip="Supprimer l'ami"
+              matTooltipClass="tooltip-delete"
+              (click)="openDialog(userSelected(), friendUserRelation()!, 'remove')"
+            >delete</mat-icon>
+          }
+          @case (FriendStatusInvitation.PENDINGSENDBYME) {
+            <mat-icon
+              (click)="shareUserselected()"
+              matTooltip="Partager le profil"
+              matTooltipClass="tooltip-information"
+            >share</mat-icon>
+            <mat-icon
+              (click)="openDialog(userSelected(), friendUserRelation()!, 'settings')"
+              matTooltip="Informations complémentaires"
+              matTooltipClass="tooltip-information"
+            >settings</mat-icon>
+             <mat-icon
+              matTooltip="En attente de confirmation"
+              style="opacity: 0.6"
+              matTooltipClass="tooltip-information"
+            >access_time</mat-icon>
+           <mat-icon
+              class="red-icon"
+              matTooltip="Supprimer l'ami"
+              matTooltipClass="tooltip-information delete"
+              (click)="openDialog(userSelected(), friendUserRelation()!, 'remove')"
+            >delete</mat-icon>
+          }
+          @case (FriendStatusInvitation.PENDINGRECEIVED) {
+            <mat-icon
+              matTooltip="Partager le profil"
+              matTooltipClass="tooltip-information"
+              (click)="shareUserselected()"
+            >share</mat-icon>
+            <mat-icon
+              (click)="openDialog(userSelected(), friendUserRelation()!, 'settings')"
+              matTooltip="Informations complémentaires"
+              matTooltipClass="tooltip-information"
+            >settings</mat-icon>
+            <mat-icon
+            class="green-icon"
+            matTooltip="Accepter l'invitation"
+            matTooltipClass="tooltip-information"
+            (click)="acceptFriend()"
+            >check_circle</mat-icon>
+            <mat-icon
+              class="red-icon"
+              matTooltip="Annuler l'invitation"
+              matTooltipClass="tooltip-information"
+              (click)="openDialog(userSelected(), friendUserRelation()!, 'remove')"
+            >delete</mat-icon>
+          }
+          @case (FriendStatusInvitation.REJECTED){
+            <mat-icon
+              matTooltip="Partager le profil"
+              matTooltipClass="tooltip-information"
+              (click)="shareUserselected()"
+            >share</mat-icon>
+            <mat-icon
+              (click)="openDialog(userSelected(), friendUserRelation()!, 'settings')"
+              matTooltip="Informations complémentaires"
+              matTooltipClass="tooltip-information"
+            >settings</mat-icon>
+            <mat-icon
+              class="red-icon"
+              matTooltip="Supprimer l'ami"
+              matTooltipClass="tooltip-information delete"
+              (click)="openDialog(userSelected(), friendUserRelation()!, 'remove')"
+            >
+              clear
+            </mat-icon>
+          }
+          @case (FriendStatusInvitation.NOTFRIEND){
+            <mat-icon
+              matTooltip="Ajouter en ami"
+              matTooltipClass="tooltip-information"
+              (click)="invitationFriend(userSelected())">person_add</mat-icon>
+            <mat-icon
+              (click)="openDialog(userSelected(), friendUserRelation()!, 'settings')"
+              matTooltip="Informations complémentaires"
+              matTooltipClass="tooltip-information"
+            >settings</mat-icon>
+            <mat-icon
+              (click)="shareUserselected()"
+              matTooltip="Partager le profil"
+              matTooltipClass="tooltip-information"
+            >share</mat-icon>
+          }
         }
-        <mat-icon
-          (click)="openDialog(userSelected(), friendUserRelation()!)"
-        >settings</mat-icon
-        >
-        @if(!friendUserRelation()) {
-          <mat-icon (click)="invitationFriend(userSelected())">person_add</mat-icon>
-        }
-          <mat-icon
-          class="friend-footer-setting-icon"
-          (click)="deleteFriend()"
-        >delete</mat-icon
-        >
       </div>
-      <p>  {{
-          isFriend()
-            ? "Amis depuis le:" + (userSelected().createdAt | date: "dd/MM/yyyy")
-            : "Compte créé le:" + (userSelected().createdAt | date: "dd/MM/yyyy")
-        }}
-      </p>
+      <div class="friend-informations-footer">
+        <div>
+          <p>{{ mutualFriends() | formatPluralize: 'ami': 'amis' }} en commun</p>          <p>8 amis en commun</p>
+        </div>
+        <p>
+          {{
+            userSelectedFriendSituation() === FriendStatusInvitation.ACCEPTED
+              ?
+              "Amis depuis le:" + (friendUserRelation()?.createdAt | date: "dd/MM/yyyy")
+              :
+              "Compte créé le:" + (userSelected().createdAt | date: "dd/MM/yyyy")
+          }}
+        </p>
+      </div>
     </div>
   </div>
 }

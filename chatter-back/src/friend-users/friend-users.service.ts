@@ -107,8 +107,10 @@ export class FriendUsersService {
 
   async getFriend(userId: string, friendId: string) {
     return await this.friendUserRepository.findOne({
-      where: { user: { id: userId }, friend: { id: friendId } },
-      relations: ['user', 'friend'],
+      where: [
+        { user: { id: userId }, friend: { id: friendId } },
+        { user: { id: friendId }, friend: { id: userId } },
+      ],
     });
   }
 
@@ -132,23 +134,23 @@ export class FriendUsersService {
     }
 
     invitation.status = FriendStatusInvitation.ACCEPTED;
-    console.log(invitation);
 
     //Create room ici
+    const isRoomAlreadyExist = await this.roomService.getRoomByUser({
+      userId: invitation.user.id,
+      participantId: invitation.friend.id,
+    });
+
+    if (isRoomAlreadyExist) {
+      return await this.friendUserRepository.save(invitation);
+    }
+
     await this.roomService.create({
       title: `Private room ${invitation.friend.pseudo} and ${invitation.friend.pseudo}`,
       owner: invitation.user,
       participants: [invitation.friend],
       createdAt: new Date(),
     });
-    console.log(
-      await this.roomService.create({
-        title: `Private room ${invitation.user.pseudo} and ${invitation.friend.pseudo}`,
-        owner: invitation.user,
-        participants: [invitation.friend],
-        createdAt: new Date(),
-      }),
-    );
 
     return await this.friendUserRepository.save(invitation);
   }

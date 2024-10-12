@@ -10,7 +10,7 @@ import {
 import { UserModel } from '../../../models/user.model';
 import { environment } from '../../../../env';
 import { DatePipe } from '@angular/common';
-import { FriendRelationModel } from '../../../models/friend-relation.model';
+import { FriendModel } from '../../../models/friend-relation.model';
 import { FriendStatusInvitation } from '../../../models/enums/friend-status-invitation.enum';
 
 @Component({
@@ -28,8 +28,8 @@ export class AddUserListComponent {
   public userClicked: InputSignal<UserModel | undefined> = input<
     UserModel | undefined
   >();
-  public friendClicked: InputSignal<FriendRelationModel | undefined> = input<
-    FriendRelationModel | undefined
+  public friendClicked: InputSignal<FriendModel | undefined> = input<
+    FriendModel | undefined
   >();
   public isUserPanel: InputSignal<boolean> = input.required<boolean>();
 
@@ -37,7 +37,7 @@ export class AddUserListComponent {
 
   constructor() {
     effect(() => {
-      //console.log(this.user());
+      //console.log(this.friendClicked());
     });
   }
 }

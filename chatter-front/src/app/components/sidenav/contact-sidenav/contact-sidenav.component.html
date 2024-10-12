@@ -1,21 +1,24 @@
-<h3 (click)="goAddFriend()" >Contacts</h3>
-<div class="content-list" [ngClass]="isExpanded() ? 'expanded' : 'collapsed'">
-  @for(friend of this.friendAcceptedList(); track friend.id) {
+@if(getMe()) {
+  <h3 (click)="goAddFriend()" >Contacts</h3>
+  <div class="content-list" [ngClass]="isExpanded() ? 'expanded' : 'collapsed'">
+    @for(friend of this.friendAcceptedList(); track friend.id) {
       <app-section-detail-unit
-        [detailUser]="friend"
+        [detailUser]="friend.friendRelation"
         [isExpanded]="isExpanded()"
       />
 
-  } @empty {
-    <div class="negative-condition-room">
-      @if(isExpanded()) {
-        <p>Vous n'avez pas encore de contact</p>
-        <button (click)="goAddFriend()">Ajouter un contact</button>
-      } @else {
-        <div class="icon-add-room">
-          <mat-icon class="icon-add" (click)="goAddFriend()">add</mat-icon>
-        </div>
-      }
-    </div>
-  }
-</div>
+    } @empty {
+      <div class="negative-condition-room">
+        @if(isExpanded()) {
+          <p>Vous n'avez pas encore de contact</p>
+          <button (click)="goAddFriend()">Ajouter un contact</button>
+        } @else {
+          <div class="icon-add-room">
+            <mat-icon class="icon-add" (click)="goAddFriend()">add</mat-icon>
+          </div>
+        }
+      </div>
+    }
+  </div>
+}
+

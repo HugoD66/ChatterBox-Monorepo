@@ -1,12 +1,13 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { environment } from '../../env';
-import { catchError, Observable, throwError } from 'rxjs';
+import { catchError, Observable, Subject, tap, throwError } from 'rxjs';
 import { FriendRelationModel } from '../models/friend-relation.model';
 
 @Injectable()
 export class FriendService {
   private apiUrl = environment.apiUrl;
+  public userListRefreshNeeded: Subject<void> = new Subject<void>();
 
   constructor(private http: HttpClient) {}
 
@@ -64,6 +65,47 @@ export class FriendService {
       );
   }
 
+  /*
+  *
+  /*
+  *   async getFriends(
+    userId: string,
+  ): Promise<Observable<FriendRelationModel | Error>> {
+    const accessToken = localStorage.getItem('authToken');
+    return this.http
+      .get<FriendRelationModel>(
+        `${this.apiUrl}/friend-users/friends/${userId}`,
+        {
+          headers: new HttpHeaders().set(
+            'Authorization',
+            'Bearer ' + accessToken,
+          ),
+        },
+      )
+      .pipe(
+        catchError((error) => {
+          return throwError(() => error);
+        }),
+      );
+  }
+*/
+
+  getAcceptedFriends(userId: string): Observable<any> {
+    const accessToken = localStorage.getItem(`authToken`);
+    return this.http
+      .get(`${this.apiUrl}/friend-users/friends/accepted/${userId}`, {
+        headers: new HttpHeaders().set(
+          'Authorization',
+          'Bearer ' + accessToken,
+        ),
+      })
+      .pipe(
+        catchError((error) => {
+          return throwError(() => error);
+        }),
+      );
+  }
+
   removeFriend(userId: string, friendId: string): Observable<any> {
     const accessToken = localStorage.getItem('authToken');
     return this.http
@@ -78,6 +120,9 @@ export class FriendService {
         },
       )
       .pipe(
+        tap(() => {
+          this.userListRefreshNeeded.next();
+        }),
         catchError((error) => {
           return throwError(() => error);
         }),
@@ -106,10 +151,15 @@ export class FriendService {
 
   acceptFriendRequest(friendRelationId: string) {
     const accessToken = localStorage.getItem(`authToken`);
-    console.log(accessToken);
+
+    const headers = new HttpHeaders().set(
+      'Authorization',
+      'Bearer ' + accessToken,
+    );
     return this.http
-      .post(
+      .patch(
         `${this.apiUrl}/friend-users/accept-invitation/${friendRelationId}`,
+        headers,
         {
           headers: new HttpHeaders().set(
             'Authorization',

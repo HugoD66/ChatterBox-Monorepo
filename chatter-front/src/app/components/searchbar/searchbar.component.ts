@@ -27,7 +27,7 @@ export class SearchbarComponent {
     this.searchEvent.emit(searchValue);
   }
 
-  reset() {
+  public reset() {
     this.value = ``;
     this.onSearchChange(this.value);
   }

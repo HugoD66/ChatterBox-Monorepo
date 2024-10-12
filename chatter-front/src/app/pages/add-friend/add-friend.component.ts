@@ -1,6 +1,8 @@
 import {
   ChangeDetectionStrategy,
   Component,
+  effect,
+  EventEmitter,
   signal,
   WritableSignal,
 } from '@angular/core';
@@ -10,6 +12,13 @@ import { GetMeModel, UserModel } from '../../models/user.model';
 import { LoaderComponent } from '../../components/loader/loader.component';
 import { NgClass, NgStyle } from '@angular/common';
 import { AuthService } from '../../services/auth.service';
+import { ActivatedRoute } from '@angular/router';
+import { UserService } from '../../services/user.service';
+import { switchMap } from 'rxjs';
+import {
+  openCloseFriendProfilAnimation,
+  openCloseFriendSearchAnimation,
+} from '../../services/animation/animation';
 
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -24,17 +33,32 @@ import { AuthService } from '../../services/auth.service';
   ],
   templateUrl: './add-friend.component.html',
   styleUrl: './add-friend.component.scss',
+  animations: [openCloseFriendProfilAnimation, openCloseFriendSearchAnimation],
 })
 export class AddFriendComponent {
   public getMe: WritableSignal<GetMeModel | null> = signal(null);
   public isLoading: WritableSignal<boolean> = signal(true);
   public profilSelected: WritableSignal<UserModel | null> = signal(null);
 
-  constructor(private authService: AuthService) {
+  public isExpandedFriendProfil = false;
+  public isExpandedFriend = true;
+
+  constructor(
+    private authService: AuthService,
+    private userService: UserService,
+    private route: ActivatedRoute,
+  ) {
     this.authService.getMe().subscribe((getMe: GetMeModel) => {
       this.getMe.update(() => getMe);
       this.isLoading.set(false);
     });
+
+    effect(
+      () => {
+        this.isUserIsShared();
+      },
+      { allowSignalWrites: true },
+    );
   }
 
   onUserclick($event: UserModel) {
@@ -46,5 +70,30 @@ export class AddFriendComponent {
       this.getMe.update(() => getMe);
       this.isLoading.set(false);
     });
+  }
+
+  private isUserIsShared(): any {
+    this.route.paramMap
+      .pipe(
+        switchMap((params) => {
+          const userId = params.get('id');
+
+          if (userId) {
+            return this.userService.getUserById(userId);
+          }
+
+          return [];
+        }),
+      )
+      .subscribe((user: UserModel) => {
+        if (user) {
+          this.profilSelected.set(user);
+        }
+      });
+  }
+
+  public panelOpening(event: boolean): void {
+    this.isExpandedFriendProfil = event;
+    this.isExpandedFriend = !event;
   }
 }

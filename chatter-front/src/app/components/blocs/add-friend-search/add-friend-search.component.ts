@@ -3,6 +3,7 @@ import {
   Component,
   effect,
   EventEmitter,
+  inject,
   input,
   InputSignal,
   Output,
@@ -15,7 +16,8 @@ import { LoaderComponent } from '../../loader/loader.component';
 import { GetMeModel, UserModel } from '../../../models/user.model';
 import { AddUserListComponent } from '../add-user-list/add-user-list.component';
 import { UserService } from '../../../services/user.service';
-import { FriendRelationModel } from '../../../models/friend-relation.model';
+import { FriendModel } from '../../../models/friend-relation.model';
+import { FriendFormatservice } from '../../../services/friend-format.service';
 
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -29,11 +31,12 @@ export class AddFriendSearchComponent {
   public isLoading: WritableSignal<boolean> = signal(true);
   public userList: WritableSignal<UserModel[]> = signal([]);
   public searchUserResult: WritableSignal<UserModel[]> = signal([]);
-  public searchFriendResult: WritableSignal<FriendRelationModel[]> = signal([]);
+  public searchFriendResult: WritableSignal<FriendModel[]> = signal([]);
   public getMe: InputSignal<GetMeModel> = input.required<GetMeModel>();
   public isUserPanel: WritableSignal<boolean> = signal(true);
   public userProfil: WritableSignal<UserModel | null> = signal(null);
 
+  private friendFormatService = inject(FriendFormatservice);
   @Output() public onUserclick: EventEmitter<UserModel> =
     new EventEmitter<UserModel>();
 
@@ -50,10 +53,26 @@ export class AddFriendSearchComponent {
 
     effect(
       () => {
-        if (this.getMe().friendships) {
-          console.log('this.getMe().friendships!');
-          console.log(this.getMe());
-          this.searchFriendResult.set(this.getMe().friendships!);
+        if (this.getMe().friends) {
+          const friends: FriendModel[] = this.friendFormatService.getAllFriends(
+            this.getMe().friends,
+          );
+          this.searchFriendResult.set(friends);
+        }
+      },
+      { allowSignalWrites: true },
+    );
+
+    effect(
+      () => {
+        if (this.isUserPanel() || !this.isUserPanel()) {
+          if (this.searchBar) {
+            this.searchBar.reset();
+          }
+          const friends: FriendModel[] = this.friendFormatService.getAllFriends(
+            this.getMe().friends,
+          );
+          this.searchFriendResult.set(friends);
         }
       },
       { allowSignalWrites: true },
@@ -62,12 +81,11 @@ export class AddFriendSearchComponent {
 
   onSearch($event: string) {
     if (!this.isUserPanel()) {
-      const searchFriendResult: FriendRelationModel[] =
-        this.searchFriendResult()!.filter(
-          (friendRelation: FriendRelationModel) =>
-            friendRelation.friend.pseudo
-              .toLowerCase()
-              .includes($event.toLowerCase()),
+      const searchFriendResult: FriendModel[] =
+        this.searchFriendResult()!.filter((friendRelation: FriendModel) =>
+          friendRelation.friendRelation.pseudo
+            .toLowerCase()
+            .includes($event.toLowerCase()),
         );
       this.searchFriendResult.set(searchFriendResult);
     } else {

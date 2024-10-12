@@ -2,6 +2,7 @@
   margin: auto;
   width: 100%;
   height: 25vh;
+  position: relative;
   border-radius: 16px;
   box-shadow: 0 0 10px rgba(68, 68, 68, 0.1);
   border: 2px solid rgba(68, 68, 68, 0.1);
@@ -19,9 +20,11 @@
 }
 .friend-profil-content .friend-profil-info-picture {
   height: 90%;
-  margin-left: 15px;
+  width: 100%;
+  position: absolute;
+  margin: auto auto auto 2%;
   display: flex;
-  justify-content: space-between;
+  justify-content: start;
   align-items: center;
   flex-direction: row;
 }
@@ -31,14 +34,11 @@
     justify-content: center;
     align-items: center;
     flex-direction: column;
-    width: 100%;
-    height: 80%;
-    position: absolute;
     margin-top: 10px;
   }
 }
 .friend-profil-content .friend-profil-info-picture img {
-  height: 100%;
+  height: 90%;
   border-radius: 50%;
 }
 @media screen and (max-width: 600px) {
@@ -97,11 +97,12 @@
 }
 .friend-profil-content .friend-profil-footer {
   height: 100%;
-  width: 50%;
+  width: 100%;
+  position: absolute;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  flex-direction: column;
+  flex-direction: row;
 }
 .friend-profil-content .friend-profil-footer .button-list-footer {
   display: flex;
@@ -109,7 +110,9 @@
   align-items: center;
   flex-direction: row;
   height: 80%;
-  margin: auto;
+  z-index: 15;
+  width: 40%;
+  margin: auto 5% auto auto;
 }
 .friend-profil-content .friend-profil-footer .button-list-footer mat-icon {
   font-size: 36px;
@@ -118,16 +121,47 @@
   margin: 10px;
   cursor: pointer;
 }
-.friend-profil-content .friend-profil-footer p {
+.friend-profil-content .friend-profil-footer .button-list-footer .red-icon {
+  color: rgb(89, 26, 26);
+}
+.friend-profil-content .friend-profil-footer .button-list-footer .green-icon {
+  color: rgba(26, 69, 39, 0.91);
+}
+@media screen and (max-width: 1350px) {
+  .friend-profil-content .friend-profil-footer .button-list-footer {
+    margin-right: 10%;
+  }
+}
+.friend-profil-content .friend-profil-footer .friend-informations-footer {
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  display: flex;
+  justify-content: space-between;
+  align-items: end;
+  flex-direction: column;
+}
+.friend-profil-content .friend-profil-footer .friend-informations-footer div p {
   font-size: 0.9em;
   color: rgb(39, 39, 39);
   font-family: "JostLight", sans-serif;
   margin: 0;
+  font-style: italic;
+  text-wrap: nowrap;
+  text-align: end;
+  padding: 3px;
+}
+.friend-profil-content .friend-profil-footer .friend-informations-footer p {
+  font-size: 0.9em;
+  color: rgb(39, 39, 39);
+  font-family: "JostLight", sans-serif;
+  margin: 0;
+  text-wrap: nowrap;
   margin: 4px;
   align-self: end;
 }
 @media screen and (max-width: 600px) {
-  .friend-profil-content .friend-profil-footer p {
+  .friend-profil-content .friend-profil-footer .friend-informations-footer p {
     width: 90%;
     text-align: end;
     font-size: 0.8em;

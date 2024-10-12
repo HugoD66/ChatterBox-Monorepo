@@ -30,6 +30,7 @@ export const routes: Routes = [
       { path: 'room/create', component: CreateRoomComponent },
       { path: 'room/group/:id', component: GroupRoomComponent },
       { path: 'friend/add', component: AddFriendComponent },
+      { path: 'friend/add/:id', component: AddFriendComponent },
     ],
   },
 
