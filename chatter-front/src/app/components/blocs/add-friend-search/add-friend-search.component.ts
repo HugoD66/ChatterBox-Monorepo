@@ -54,7 +54,6 @@ export class AddFriendSearchComponent {
     effect(
       () => {
         if (this.getMe().friends) {
-          console.log(this.getMe());
           const friends: FriendModel[] = this.friendFormatService.getAllFriends(
             this.getMe().friends,
           );
@@ -67,7 +66,9 @@ export class AddFriendSearchComponent {
     effect(
       () => {
         if (this.isUserPanel() || !this.isUserPanel()) {
-          this.searchBar.reset();
+          if (this.searchBar) {
+            this.searchBar.reset();
+          }
           const friends: FriendModel[] = this.friendFormatService.getAllFriends(
             this.getMe().friends,
           );
@@ -80,7 +81,6 @@ export class AddFriendSearchComponent {
 
   onSearch($event: string) {
     if (!this.isUserPanel()) {
-      console.log(this.searchFriendResult());
       const searchFriendResult: FriendModel[] =
         this.searchFriendResult()!.filter((friendRelation: FriendModel) =>
           friendRelation.friendRelation.pseudo

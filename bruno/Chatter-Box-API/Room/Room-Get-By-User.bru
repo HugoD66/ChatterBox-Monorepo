@@ -1,0 +1,15 @@
+meta {
+  name: Room-Get-By-User
+  type: http
+  seq: 3
+}
+
+get {
+  url: http://{{url}}:{{port}}/room/by-user/bf363e36-f84c-4d76-8aeb-15d5e494d955
+  body: none
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{bearerToken}}
+}

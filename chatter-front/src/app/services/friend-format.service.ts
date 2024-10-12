@@ -2,10 +2,11 @@ import { effect, Injectable } from '@angular/core';
 import { FriendModel } from '../models/friend-relation.model';
 import { FriendStatusInvitation } from '../models/enums/friend-status-invitation.enum';
 import { UserModel } from '../models/user.model';
+import { FriendService } from './friend.service';
 
 @Injectable()
 export class FriendFormatservice {
-  constructor() {
+  constructor(private friendService: FriendService) {
     effect(() => {}, { allowSignalWrites: true });
   }
 
@@ -26,10 +27,27 @@ export class FriendFormatservice {
   public countFriends(friends: FriendModel[][]): number {
     return this.getFriendListAccepted(friends).length;
   }
+  public async countMutualFriends(
+    friendsAccepted: FriendModel[],
+    friendsOfMyFriend: FriendModel[],
+  ): Promise<number> {
+    const acceptedFriendIds = new Set(
+      friendsAccepted.map((friend) => friend.id),
+    );
+
+    const mutualFriends = friendsOfMyFriend.filter((friend) =>
+      acceptedFriendIds.has(friend.id),
+    );
+
+    return mutualFriends.length;
+  }
 
   public getFriendListAccepted(
     friendListAccepted: FriendModel[][],
   ): FriendModel[] {
+    if (!friendListAccepted) {
+      return [];
+    }
     const friendFlat = this.getAllFriends(friendListAccepted);
     return friendFlat.filter(
       (friend) => friend.status === FriendStatusInvitation.ACCEPTED,
@@ -71,8 +89,6 @@ export class FriendFormatservice {
     userSelected: UserModel,
     friends: FriendModel[],
   ): FriendStatusInvitation {
-    console.log('userSelected', userSelected);
-    console.log('friends', friends);
     if (!friends || !Array.isArray(friends)) {
       console.warn('Friends data is undefined or not an array');
       return FriendStatusInvitation.NOTFRIEND;

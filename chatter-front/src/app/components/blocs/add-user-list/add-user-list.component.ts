@@ -37,7 +37,7 @@ export class AddUserListComponent {
 
   constructor() {
     effect(() => {
-      console.log(this.friendClicked());
+      //console.log(this.friendClicked());
     });
   }
 }

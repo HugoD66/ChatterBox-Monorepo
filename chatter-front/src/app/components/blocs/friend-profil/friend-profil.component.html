@@ -1,7 +1,8 @@
 @if (!userSelected()) {
 } @else {
-  <div class="friend-profil-content"  [@openClose]="onOpenComponent() ? 'open' : 'closed'">
-    <div class="friend-profil-info-picture">
+  <div class="friend-profil-content"   [@transitionBetweenUsers]="transitionState"
+>
+  <div class="friend-profil-info-picture">
       @if (userSelected().picture) {
         <img
           src="{{ apiUrl }}/./{{ userSelected().picture }}"
@@ -137,14 +138,15 @@
       </div>
       <div class="friend-informations-footer">
         <div>
-          <p>10 serveurs en commun</p>
-          <p>8 amis en commun</p>
+          <p>{{ mutualFriends() | formatPluralize: 'ami': 'amis' }} en commun</p>          <p>8 amis en commun</p>
         </div>
         <p>
           {{
-            userSelectedFriendSituation() === FriendStatusInvitation.ACCEPTED ?
+            userSelectedFriendSituation() === FriendStatusInvitation.ACCEPTED
+              ?
               "Amis depuis le:" + (friendUserRelation()?.createdAt | date: "dd/MM/yyyy")
-              : "Compte créé le:" + (userSelected().createdAt | date: "dd/MM/yyyy")
+              :
+              "Compte créé le:" + (userSelected().createdAt | date: "dd/MM/yyyy")
           }}
         </p>
       </div>

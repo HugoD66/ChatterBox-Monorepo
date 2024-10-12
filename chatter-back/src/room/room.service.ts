@@ -19,6 +19,27 @@ export class RoomService {
     return await this.roomRepository.save(roomCreated);
   }
 
+  async findDiscussionByUser(
+    userId: string,
+    participantId: string,
+  ): Promise<ResponseRoomDto> {
+    console.log('userId' + userId);
+    console.log('participantId' + participantId);
+    return await this.roomRepository
+      .createQueryBuilder('room')
+      .leftJoinAndSelect('room.participants', 'participant')
+      .leftJoinAndSelect('room.owner', 'owner')
+      .leftJoinAndSelect('room.messages', 'message')
+      .leftJoinAndSelect('message.sender', 'sender')
+      .where(
+        '(owner.id = :userId AND participant.id = :participantId) OR (owner.id = :participantId AND participant.id = :userId)',
+        { userId, participantId },
+      )
+      .groupBy('room.id, owner.id, participant.id, message.id, sender.id')
+      .having('COUNT(DISTINCT participant.id) <= 1')
+      .getOne();
+  }
+
   /*async findOne(id: string): Promise<ResponseRoomDto> {
     return await this.roomRepository.findOne({
       where: { id },

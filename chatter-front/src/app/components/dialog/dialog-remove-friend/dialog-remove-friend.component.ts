@@ -1,4 +1,10 @@
-import { Component, Inject, signal, WritableSignal } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  Inject,
+  signal,
+  WritableSignal,
+} from '@angular/core';
 import { GetMeModel, UserModel } from '../../../models/user.model';
 import { FriendRelationModel } from '../../../models/friend-relation.model';
 import { MatButton } from '@angular/material/button';
@@ -13,6 +19,7 @@ import { FriendService } from '../../../services/friend.service';
 import { PopupService } from '../../../services/popup.service';
 
 @Component({
+  changeDetection: ChangeDetectionStrategy.OnPush,
   selector: 'app-dialog-remove-friend',
   standalone: true,
   imports: [MatButton, MatDialogContent],

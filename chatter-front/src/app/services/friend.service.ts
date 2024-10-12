@@ -65,6 +65,47 @@ export class FriendService {
       );
   }
 
+  /*
+  *
+  /*
+  *   async getFriends(
+    userId: string,
+  ): Promise<Observable<FriendRelationModel | Error>> {
+    const accessToken = localStorage.getItem('authToken');
+    return this.http
+      .get<FriendRelationModel>(
+        `${this.apiUrl}/friend-users/friends/${userId}`,
+        {
+          headers: new HttpHeaders().set(
+            'Authorization',
+            'Bearer ' + accessToken,
+          ),
+        },
+      )
+      .pipe(
+        catchError((error) => {
+          return throwError(() => error);
+        }),
+      );
+  }
+*/
+
+  getAcceptedFriends(userId: string): Observable<any> {
+    const accessToken = localStorage.getItem(`authToken`);
+    return this.http
+      .get(`${this.apiUrl}/friend-users/friends/accepted/${userId}`, {
+        headers: new HttpHeaders().set(
+          'Authorization',
+          'Bearer ' + accessToken,
+        ),
+      })
+      .pipe(
+        catchError((error) => {
+          return throwError(() => error);
+        }),
+      );
+  }
+
   removeFriend(userId: string, friendId: string): Observable<any> {
     const accessToken = localStorage.getItem('authToken');
     return this.http

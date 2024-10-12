@@ -49,15 +49,27 @@ export class RoomService {
 
   getRoomByUser(search: PrivateRoomSearch): Observable<RoomModel> {
     return this.http
-      .get<RoomModel>(
-        `${this.apiUrl}/room/${search.userId}/${search.participantId}`,
-        {
-          headers: new HttpHeaders().set(
-            'Authorization',
-            `Bearer ${this.accessToken}`,
-          ),
-        },
-      )
+      .get<RoomModel>(`${this.apiUrl}/room/by-user/${search.participantId}`, {
+        headers: new HttpHeaders().set(
+          'Authorization',
+          `Bearer ${this.accessToken}`,
+        ),
+      })
+      .pipe(
+        catchError((error) => {
+          return throwError(() => error);
+        }),
+      );
+  }
+
+  getRoomyUser(userId: string): Observable<RoomModel> {
+    return this.http
+      .get<RoomModel>(`${this.apiUrl}/room/by-user/${userId}`, {
+        headers: new HttpHeaders().set(
+          'Authorization',
+          `Bearer ${this.accessToken}`,
+        ),
+      })
       .pipe(
         catchError((error) => {
           return throwError(() => error);

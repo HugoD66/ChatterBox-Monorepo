@@ -183,6 +183,30 @@ export class UsersService {
     await this.usersRepository.delete({});
   }
 
+  async getAcceptedFriends(userId: string): Promise<ResponseFriendDto[]> {
+    const friendListAccepted: FriendUser[] =
+      await this.friendUsersRespository.find({
+        where: [
+          { user: { id: userId }, status: FriendStatusInvitation.ACCEPTED },
+          { friend: { id: userId }, status: FriendStatusInvitation.ACCEPTED },
+        ],
+        relations: ['friend', 'user'],
+      });
+
+    return friendListAccepted
+      .map((friendship) => {
+        if (friendship.user.id === userId) {
+          return { ...friendship, friendRelation: friendship.friend };
+        }
+        return { ...friendship, friendRelation: friendship.user };
+      })
+      .map((friendship) => {
+        delete friendship.user;
+        delete friendship.friend;
+        return friendship;
+      });
+  }
+
   async getFriends(userId: string): Promise<ResponseFriendDto[][]> {
     const friendListAccepted: FriendUser[] =
       await this.friendUsersRespository.find({

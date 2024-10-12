@@ -1,4 +1,5 @@
 import {
+  ChangeDetectionStrategy,
   Component,
   Inject,
   input,
@@ -20,6 +21,7 @@ import { SettingsOrRemoveFriendDialogData } from '../../../services/dialog.servi
 import { MatButton } from '@angular/material/button';
 
 @Component({
+  changeDetection: ChangeDetectionStrategy.OnPush,
   selector: 'app-dialog-settings-friend',
   standalone: true,
   imports: [MatDialogContent, MatDialogActions, MatDialogClose, MatButton],

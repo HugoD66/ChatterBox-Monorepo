@@ -49,7 +49,7 @@ export class ContactSidenavComponent {
   constructor(private router: Router) {
     effect(
       () => {
-        if (!this.getMe()) {
+        if (!this.getMe()!.friends) {
           return;
         }
         this.friendAcceptedList.set(

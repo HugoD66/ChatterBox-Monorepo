@@ -12,22 +12,38 @@ import { MessageModel } from '../../models/message.model';
 import { ActivatedRoute } from '@angular/router';
 import { RoomService } from '../../services/room.service';
 import { AuthService } from '../../services/auth.service';
+import {
+  openCloseFriendPrivateRoomAnimation,
+  openCloseFriendProfilAnimation,
+} from '../../services/animation/animation';
+import { AddFriendSearchComponent } from '../../components/blocs/add-friend-search/add-friend-search.component';
 
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,
   selector: 'app-private-room',
   standalone: true,
-  imports: [FriendProfilComponent, DiscussionComponent],
+  imports: [
+    FriendProfilComponent,
+    DiscussionComponent,
+    FriendProfilComponent,
+    AddFriendSearchComponent,
+  ],
   templateUrl: './private-room.component.html',
   styleUrl: './private-room.component.scss',
+  animations: [
+    openCloseFriendProfilAnimation,
+    openCloseFriendPrivateRoomAnimation,
+  ],
 })
 export class PrivateRoomComponent {
   public messages: WritableSignal<MessageModel[]> = signal([]);
   public getMe: WritableSignal<GetMeModel | null> = signal(null);
-  public roomId: WritableSignal<string | null> = signal(
+  public friendId: WritableSignal<string | null> = signal(
     this.route.snapshot.paramMap.get('id'),
   );
   public friend: WritableSignal<UserModel> = signal({} as UserModel);
+  public isExpandedFriendProfil = false;
+  public isExpandedDiscussion = true;
 
   constructor(
     private roomService: RoomService,
@@ -40,13 +56,20 @@ export class PrivateRoomComponent {
       });
     });
 
-    //On récupére l'id de l'user et non pas de la room dans le paramsMap
-    //utiliser plutot dans room sevice getRoomByUser
-    this.roomService.getRoom(this.roomId()!).subscribe((room) => {
+    this.roomService.getRoomyUser(this.friendId()!).subscribe((room) => {
       console.log(room);
+      //TODO DO THAT ,
       this.friend.update(() => room.participants[0]);
       this.messages.update(() => room.messages);
       console.log(this.messages());
     });
+    this.isExpandedDiscussion = true;
+    // this.panelOpening(true);
+  }
+
+  public panelOpening(event: boolean): void {
+    console.log('coucou');
+    this.isExpandedFriendProfil = event;
+    this.isExpandedDiscussion = !event;
   }
 }

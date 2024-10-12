@@ -2,6 +2,7 @@ import {
   ChangeDetectionStrategy,
   Component,
   effect,
+  EventEmitter,
   signal,
   WritableSignal,
 } from '@angular/core';
@@ -14,6 +15,10 @@ import { AuthService } from '../../services/auth.service';
 import { ActivatedRoute } from '@angular/router';
 import { UserService } from '../../services/user.service';
 import { switchMap } from 'rxjs';
+import {
+  openCloseFriendProfilAnimation,
+  openCloseFriendSearchAnimation,
+} from '../../services/animation/animation';
 
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -28,11 +33,15 @@ import { switchMap } from 'rxjs';
   ],
   templateUrl: './add-friend.component.html',
   styleUrl: './add-friend.component.scss',
+  animations: [openCloseFriendProfilAnimation, openCloseFriendSearchAnimation],
 })
 export class AddFriendComponent {
   public getMe: WritableSignal<GetMeModel | null> = signal(null);
   public isLoading: WritableSignal<boolean> = signal(true);
   public profilSelected: WritableSignal<UserModel | null> = signal(null);
+
+  public isExpandedFriendProfil = false;
+  public isExpandedFriend = true;
 
   constructor(
     private authService: AuthService,
@@ -50,10 +59,6 @@ export class AddFriendComponent {
       },
       { allowSignalWrites: true },
     );
-
-    /*effect(() => {
-      if(userShared())
-    });*/
   }
 
   onUserclick($event: UserModel) {
@@ -81,11 +86,14 @@ export class AddFriendComponent {
         }),
       )
       .subscribe((user: UserModel) => {
-        console.log('OCUCOU');
-
         if (user) {
           this.profilSelected.set(user);
         }
       });
+  }
+
+  public panelOpening(event: boolean): void {
+    this.isExpandedFriendProfil = event;
+    this.isExpandedFriend = !event;
   }
 }

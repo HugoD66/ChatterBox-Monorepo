@@ -40,6 +40,14 @@ export class FriendUsersController {
     return this.usersService.getFriends(userId);
   }
 
+  @UseGuards(AuthGuard)
+  @Get(`/friends/accepted/:userId`)
+  async getAcceptedFriends(
+    @Param('userId') userId: string,
+  ): Promise<ResponseFriendDto[]> {
+    return this.usersService.getAcceptedFriends(userId);
+  }
+
   //TODO CHOISIR ADDFRUIEND OU SENDINVITATION
   @Public()
   @Post(`/add-friend/:userId/:friendId`)
