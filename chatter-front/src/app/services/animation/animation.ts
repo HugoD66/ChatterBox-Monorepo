@@ -22,8 +22,8 @@ export const openCloseFriendProfilAnimation = trigger('openCloseFriendProfil', [
       //filter: 'blur(50px)',
     }),
   ),
-  transition('open => closed', [animate('1s ease-in')]),
-  transition('closed => open', [animate('1s ease-in')]),
+  transition('open => closed', [animate('0.3s ease-in')]),
+  transition('closed => open', [animate('0.3s ease-in')]),
 ]);
 
 export const openCloseFriendSearchAnimation = trigger('openCloseFriendSearch', [
@@ -41,8 +41,8 @@ export const openCloseFriendSearchAnimation = trigger('openCloseFriendSearch', [
       opacity: 1,
     }),
   ),
-  transition('open => closed', [animate('1s ease-in')]),
-  transition('closed => open', [animate('1s ease-in')]),
+  transition('open => closed', [animate('0.3s ease-in')]),
+  transition('closed => open', [animate('0.3s ease-in')]),
 ]);
 
 export const openCloseFriendPrivateRoomAnimation = trigger('openCloseFriend', [
@@ -60,10 +60,15 @@ export const openCloseFriendPrivateRoomAnimation = trigger('openCloseFriend', [
       opacity: 1,
     }),
   ),
-  transition('open => closed', [animate('1s ease-in')]),
-  transition('closed => open', [animate('1s ease-in')]),
+  transition('open => closed', [animate('0.3s ease-in')]),
+  transition('closed => open', [animate('0.3s ease-in')]),
 ]);
 
+export enum TransitionSwitchUserEnum {
+  CHANGESTART = 'changeStart',
+  CHANGETRANSITION = 'changeTransition',
+  CHANGEFINAL = 'changeFinal',
+}
 export const transitionBetweenUsersAnimation = trigger(
   'transitionBetweenUsers',
   [
@@ -77,8 +82,8 @@ export const transitionBetweenUsersAnimation = trigger(
     state(
       'changeTransition',
       style({
-        opacity: 1,
-        filter: 'blur(3px)',
+        opacity: 0.9,
+        filter: 'blur(1px)',
       }),
     ),
     state(
@@ -88,46 +93,7 @@ export const transitionBetweenUsersAnimation = trigger(
         filter: 'blur(0px)',
       }),
     ),
-    transition('changeStart => changeTransition', [animate('0.1s ease-in')]),
+    transition('changeStart => changeTransition', [animate('0.05s ease-in')]),
     transition('changeTransition => changeFinal', [animate('0.1s ease-in')]),
   ],
 );
-/*
-*
-*  animations: [
-    trigger('transitionBetweenUsers', [
-      state(
-        'changeStart',
-        style({
-          filter: 'blur(0px)',
-          opacity: 1,
-        }),
-      ),
-      state(
-        'changeFinal',
-        style({
-          filter: 'blur(0px)',
-          opacity: 1,
-        }),
-      ),
-      transition('changeStart => changeTransition', [
-        animate(
-          '0.5s',
-          style({
-            filter: 'blur(10px)',
-            opacity: 0.5,
-          }),
-        ),
-      ]),
-      transition('changeTransition => changeFinal', [
-        animate(
-          '0.5s',
-          style({
-            filter: 'blur(0px)',
-            opacity: 1,
-          }),
-        ),
-      ]),
-    ]),
-  ],
-  * */

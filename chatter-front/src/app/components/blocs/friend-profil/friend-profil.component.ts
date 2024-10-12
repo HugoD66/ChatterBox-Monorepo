@@ -34,14 +34,10 @@ import { MatTooltip } from '@angular/material/tooltip';
 import { DialogTypeEnum } from '../../../enum/dialog.type.enum';
 import { Subscription } from 'rxjs';
 import { FormatPluralizePipe } from '../../../pipe/FormatPluralizePipe';
-import { transitionBetweenUsersAnimation } from '../../../services/animation/animation';
 import {
-  animate,
-  state,
-  style,
-  transition,
-  trigger,
-} from '@angular/animations';
+  transitionBetweenUsersAnimation,
+  TransitionSwitchUserEnum,
+} from '../../../services/animation/animation';
 
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -71,27 +67,12 @@ export class FriendProfilComponent implements OnDestroy {
   public mutualFriends: WritableSignal<number> = signal(0);
   public userListRefrehNeeded: Subscription;
 
-  //public transitionState: WritableSignal<string> = signal('changeStart');
+  public transitionState: WritableSignal<TransitionSwitchUserEnum> = signal(
+    TransitionSwitchUserEnum.CHANGESTART,
+  );
 
   @Output() panelOpening = new EventEmitter<any>();
   @Output() refreshGetMeEvent = new EventEmitter<any>(false);
-
-  transitionState: string = 'changeStart';
-
-  startTransition() {
-    this.transitionState = 'changeStart';
-    this.cdr.detectChanges();
-
-    setTimeout(() => {
-      this.transitionState = 'changeTransition';
-      this.cdr.detectChanges();
-    }, 100);
-
-    setTimeout(() => {
-      this.transitionState = 'changeFinal';
-      this.cdr.detectChanges();
-    }, 200);
-  }
 
   protected apiUrl = environment.apiUrl;
   protected readonly FriendStatusInvitation = FriendStatusInvitation;
@@ -197,6 +178,21 @@ export class FriendProfilComponent implements OnDestroy {
 
   toggle() {
     this.onOpenComponent.update((value) => !value);
+  }
+
+  public startTransition() {
+    this.transitionState.set(TransitionSwitchUserEnum.CHANGESTART);
+    this.cdr.detectChanges();
+
+    setTimeout(() => {
+      this.transitionState.set(TransitionSwitchUserEnum.CHANGETRANSITION);
+      this.cdr.detectChanges();
+    }, 50);
+
+    setTimeout(() => {
+      this.transitionState.set(TransitionSwitchUserEnum.CHANGEFINAL);
+      this.cdr.detectChanges();
+    }, 200);
   }
 
   invitationFriend(userModel: UserModel) {

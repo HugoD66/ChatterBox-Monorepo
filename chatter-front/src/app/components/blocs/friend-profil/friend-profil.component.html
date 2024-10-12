@@ -1,6 +1,6 @@
 @if (!userSelected()) {
 } @else {
-  <div class="friend-profil-content"   [@transitionBetweenUsers]="transitionState"
+  <div class="friend-profil-content"   [@transitionBetweenUsers]="transitionState()"
 >
   <div class="friend-profil-info-picture">
       @if (userSelected().picture) {
