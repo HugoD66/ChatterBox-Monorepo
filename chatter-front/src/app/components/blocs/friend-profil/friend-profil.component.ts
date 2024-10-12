@@ -183,16 +183,10 @@ export class FriendProfilComponent implements OnDestroy {
   public startTransition() {
     this.transitionState.set(TransitionSwitchUserEnum.CHANGESTART);
     this.cdr.detectChanges();
-
-    setTimeout(() => {
-      this.transitionState.set(TransitionSwitchUserEnum.CHANGETRANSITION);
-      this.cdr.detectChanges();
-    }, 50);
-
     setTimeout(() => {
       this.transitionState.set(TransitionSwitchUserEnum.CHANGEFINAL);
       this.cdr.detectChanges();
-    }, 200);
+    }, 100);
   }
 
   invitationFriend(userModel: UserModel) {

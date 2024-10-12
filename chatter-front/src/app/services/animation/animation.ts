@@ -75,15 +75,8 @@ export const transitionBetweenUsersAnimation = trigger(
     state(
       'changeStart',
       style({
-        opacity: 1,
-        filter: 'blur(0px)',
-      }),
-    ),
-    state(
-      'changeTransition',
-      style({
-        opacity: 0.9,
-        filter: 'blur(1px)',
+        opacity: 0.8,
+        filter: 'blur(2px)',
       }),
     ),
     state(
@@ -93,7 +86,16 @@ export const transitionBetweenUsersAnimation = trigger(
         filter: 'blur(0px)',
       }),
     ),
-    transition('changeStart => changeTransition', [animate('0.05s ease-in')]),
-    transition('changeTransition => changeFinal', [animate('0.1s ease-in')]),
+    transition('changeStart => changeFinal', [animate('0.1s ease-in')]),
+    //Test 3 states
+    /* state(
+    'changeTransition',
+    style({
+      opacity: 0.9,
+      filter: 'blur(1px)',
+    }),
+    ),*/
+    //transition('changeStart => changeTransition', [animate('0.05s ease-in')]),
+    //transition('changeTransition => changeFinal', [animate('0.1s ease-in')]),
   ],
 );
