@@ -5,11 +5,9 @@ import {
   ChangeDetectionStrategy,
   WritableSignal,
   signal,
-  computed,
   effect,
-  Signal,
 } from '@angular/core';
-import { GetMeModel, UserModel } from '../../../models/user.model';
+import { GetMeModel } from '../../../models/user.model';
 import { SectionDetailUnitComponent } from '../section-detail-unit/section-detail-unit.component';
 import { Router } from '@angular/router';
 import { ButtonsSidenavComponent } from '../buttons-sidenav/buttons-sidenav.component';
@@ -24,6 +22,8 @@ import {
   FriendModel,
   FriendRelationModel,
 } from '../../../models/friend-relation.model';
+import { Subscription } from 'rxjs';
+import { PopupService } from '../../../services/popup.service';
 
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,

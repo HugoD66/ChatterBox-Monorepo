@@ -121,10 +121,16 @@ export class RoomService {
       .createQueryBuilder('room')
       .leftJoinAndSelect('room.participants', 'participant')
       .leftJoinAndSelect('room.owner', 'owner')
-      .where('room.ownerId = :userId', { userId })
-      .andWhere('participant.id = :participantId', { participantId })
-      .groupBy('room.id, participant.id, owner.id')
-      .having('COUNT(participant.id) = 1')
+      .where('(room.ownerId = :userId OR room.ownerId = :participantId)', {
+        userId,
+        participantId,
+      })
+      .andWhere(
+        '(participant.id = :userId OR participant.id = :participantId)',
+        { userId, participantId },
+      )
+      .groupBy('room.id, owner.id, participant.id') // Inclure participant.id ici
+      .having('COUNT(participant) <= 1') // Vérifie qu'il y a au maximum un participant
       .getOne();
   }
 }

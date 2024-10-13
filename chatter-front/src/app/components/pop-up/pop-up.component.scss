@@ -2,11 +2,41 @@
 @use "../../../assets/scss/global" as global;
 @use "../../../assets/scss/fonts" as fonts;
 
-p {
-  margin: 0;
-  padding: 0;
-  @include fonts.p;
-}
-:host {
+
+.popup-user-login {
   display: flex;
+  flex-direction: row;
+  p {
+    color: colors.$dark-b !important;
+  }
+  .popup-user-picture {
+    width: 40px;
+    height: 40px;
+    border-radius: 90%;
+    box-shadow: 2px -2px 8px 2px rgba(0,0,0,0.1);
+
+  }
+}
+.self-logged {
+  justify-content: center;
+  align-content: center;
+}
+
+.close-modal {
+  &:hover {
+    cursor: pointer;
+    border: 1px solid colors.$back-body;
+    border-radius: 90%;
+  }
+}
+
+.general-popup {
+  //border: 1px solid colors.$gradient-light-g;
+  //border-radius: 5px;
+  //box-shadow: 1px -1px 8px 1px rgba(0,0,0,0.1);
+  p {
+    margin: auto;
+    text-align: center;
+    @include fonts.p;
+  }
 }

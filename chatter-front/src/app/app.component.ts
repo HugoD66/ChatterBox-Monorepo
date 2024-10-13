@@ -1,9 +1,8 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { AuthService } from './services/auth.service';
 import { Router, RouterModule, RouterOutlet } from '@angular/router';
-import { SidenavComponent } from './components/sidenav/sidenav.component';
-import { TruncateLongPipe } from './pipe/TruncateLongPipe';
 import { CommonModule } from '@angular/common';
+import { WebSocketService } from './socket/socket.service';
 
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -11,21 +10,16 @@ import { CommonModule } from '@angular/common';
   standalone: true,
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
-  imports: [
-    CommonModule,
-    RouterOutlet,
-    RouterModule,
-    //BrowserAnimationsModule,
-    TruncateLongPipe,
-    SidenavComponent,
-  ],
+  imports: [CommonModule, RouterOutlet, RouterModule],
 })
 export class AppComponent {
   constructor(
     private authService: AuthService,
     private router: Router,
+    private webSocketService: WebSocketService,
   ) {
     if (!this.authService.isLoggedIn()) {
+      this.webSocketService.connect();
       this.router.navigate(['/auth/login']) ||
         this.router.navigate(['/auth/register']);
     }

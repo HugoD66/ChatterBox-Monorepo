@@ -21,7 +21,11 @@ import { LoaderComponent } from '../../loader/loader.component';
 import { environment } from '../../../../env';
 import { DatePipe, NgStyle } from '@angular/common';
 import { FriendService } from '../../../services/friend.service';
-import { PopupService } from '../../../services/popup.service';
+import {
+  PopupDataTypeEnum,
+  PopupService,
+  SimpleMessage,
+} from '../../../services/popup.service';
 import {
   FriendModel,
   FriendRelationModel,
@@ -145,9 +149,6 @@ export class FriendProfilComponent implements OnDestroy {
   }
 
   public ngOnDestroy(): void {
-    //this.transitionState.set('changeClosed');
-    console.log('destroy');
-
     if (this.userListRefrehNeeded) {
       this.userListRefrehNeeded.unsubscribe();
     }
@@ -173,7 +174,6 @@ export class FriendProfilComponent implements OnDestroy {
           dialogData,
           DialogTypeEnum.SETTINGS_FRIEND,
         );
-    // TODO ADD SUBSCRIPTION FOR REFRESH this.refreshGetMeEvent.emit();
   }
 
   toggle() {
@@ -192,14 +192,17 @@ export class FriendProfilComponent implements OnDestroy {
   invitationFriend(userModel: UserModel) {
     const currentUserId = this.getMe().id;
     this.friendService.sendFriendRequest(currentUserId, userModel.id).subscribe(
-      (response) => {
-        console.log('Invitation envoyée avec succès:', response);
+      () => {
         this.refreshGetMeEvent.emit();
-        this.popupService.openSnackBar('Invitation envoyée', 'lawngreen');
+        const popupMessage = new SimpleMessage(
+          `Invitation envoyée à ${userModel.pseudo}`,
+          'green',
+        );
+        this.popupService.openSimpleMessageSnackBar(popupMessage);
       },
-      (error) => {
-        console.error("Erreur lors de l'envoi de l'invitation:", error);
-        this.popupService.openSnackBar("Echec de l'invitation", 'red');
+      () => {
+        const popupMessage = new SimpleMessage("Echec de l'invitation", 'red');
+        this.popupService.openSimpleMessageSnackBar(popupMessage);
       },
     );
   }
@@ -208,13 +211,10 @@ export class FriendProfilComponent implements OnDestroy {
     this.friendService
       .acceptFriendRequest(this.friendUserRelation()!.id)
       .subscribe(
-        (response) => {
-          console.log('Invitation acceptée avec succès:', response);
+        () => {
           this.refreshGetMeEvent.emit();
         },
-        (error) => {
-          console.error("Erreur lors de l'acceptation de l'invitation:", error);
-        },
+        () => {},
       );
   }
 
@@ -242,17 +242,18 @@ export class FriendProfilComponent implements OnDestroy {
     navigator.clipboard
       .writeText(absoluteUrl)
       .then(() => {
-        this.popupService.openSnackBar(
+        const popupMessage = new SimpleMessage(
           'URL copiée dans le presse-papiers !',
           'green',
         );
+        this.popupService.openSimpleMessageSnackBar(popupMessage);
       })
-      .catch((err) => {
-        this.popupService.openSnackBar(
+      .catch(() => {
+        const popupMessage = new SimpleMessage(
           "Erreur lors de la copie de l'URL",
           'red',
         );
-        console.error('Erreur lors de la copie : ', err);
+        this.popupService.openSimpleMessageSnackBar(popupMessage);
       });
 
     return;

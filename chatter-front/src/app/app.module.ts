@@ -25,6 +25,7 @@ import {
 } from '@angular/platform-browser/animations';
 import { RoomService } from './services/room.service';
 import { FormatPluralizePipe } from './pipe/FormatPluralizePipe';
+import { WebSocketService } from './socket/socket.service';
 
 @NgModule({
   imports: [
@@ -46,6 +47,7 @@ import { FormatPluralizePipe } from './pipe/FormatPluralizePipe';
     UserService,
     RoomService,
     PopupService,
+    WebSocketService,
     provideRouter(routes),
     provideHttpClient(withInterceptorsFromDi()),
     provideExperimentalZonelessChangeDetection(),

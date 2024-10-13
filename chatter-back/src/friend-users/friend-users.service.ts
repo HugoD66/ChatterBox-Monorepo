@@ -6,20 +6,22 @@ import {
 } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { FriendUser } from './entities/friend-user.entity';
-import { Or, Repository } from 'typeorm';
+import { Repository } from 'typeorm';
 import { UsersService } from '../users/users.service';
 import { ResponseUserDto } from '../users/dto/response-user.dto';
 import { CreateFriendUserDto } from './dto/create-friend-user.dto';
 import { FriendStatusInvitation } from './entities/enum/friend-status-invitation.enum';
 import { RoomService } from '../room/room.service';
-import { NotificationsService } from '../socket/notifications.service';
+import { NotificationsGateway } from '../socket/notifications.gateway';
+import { FriendResponse } from '../socket/class-response/friend.response';
+import { FriendRequestResponse } from '../socket/class-response/friend-request.response';
 
 @Injectable()
 export class FriendUsersService {
   constructor(
     private usersService: UsersService,
 
-    private notificationsService: NotificationsService,
+    private readonly notificationsGateway: NotificationsGateway,
 
     @InjectRepository(FriendUser)
     private friendUserRepository: Repository<FriendUser>,
@@ -98,8 +100,19 @@ export class FriendUsersService {
       status: FriendStatusInvitation.PENDING,
     });
 
-    this.notificationsService.sendInvitationNotification(
-      `You have a new friend request from ${user.pseudo}`,
+    const friendSocketInvitation: FriendRequestResponse =
+      new FriendRequestResponse(
+        user.id,
+        user.picture,
+        user.pseudo,
+        friendUser.friend.id,
+      );
+
+    console.log(friendSocketInvitation);
+
+    this.notificationsGateway.emitFriendInvitation(
+      `Message Socket: Friend invitation from ${user.pseudo} to ${friend.pseudo}`,
+      friendSocketInvitation,
     );
 
     return await this.friendUserRepository.save(friendUser);
@@ -129,28 +142,39 @@ export class FriendUsersService {
       where: { id: friendRelationId },
       relations: ['user', 'friend'],
     });
+
     if (!invitation) {
       throw new Error('Invitation not found');
     }
 
     invitation.status = FriendStatusInvitation.ACCEPTED;
 
-    //Create room ici
-    const isRoomAlreadyExist = await this.roomService.getRoomByUser({
+    const existingRoom = await this.roomService.getRoomByUser({
       userId: invitation.user.id,
       participantId: invitation.friend.id,
     });
 
-    if (isRoomAlreadyExist) {
-      return await this.friendUserRepository.save(invitation);
+    if (!existingRoom) {
+      await this.roomService.create({
+        title: `Private room ${invitation.user.pseudo} and ${invitation.friend.pseudo}`,
+        owner: invitation.user,
+        participants: [invitation.friend],
+        createdAt: new Date(),
+      });
     }
 
-    await this.roomService.create({
-      title: `Private room ${invitation.friend.pseudo} and ${invitation.friend.pseudo}`,
-      owner: invitation.user,
-      participants: [invitation.friend],
-      createdAt: new Date(),
-    });
+    const acceptedFriendInvitation: FriendResponse = new FriendResponse(
+      invitation.user.id,
+      invitation.friend.id,
+      invitation.user.pseudo,
+      invitation.friend.pseudo,
+      new Date(),
+    );
+
+    this.notificationsGateway.emitAcceptedFriendInvitation(
+      `Message Socket: ${invitation.user.pseudo} and ${invitation.friend.pseudo} are now friends`,
+      acceptedFriendInvitation,
+    );
 
     return await this.friendUserRepository.save(invitation);
   }

@@ -6,6 +6,7 @@ import { UsersModule } from '../users/users.module';
 import { FriendUser } from './entities/friend-user.entity';
 import { RoomModule } from '../room/room.module';
 import { NotificationsModule } from '../socket/notification.module';
+import { NotificationsGateway } from '../socket/notifications.gateway';
 
 @Module({
   imports: [
@@ -15,7 +16,7 @@ import { NotificationsModule } from '../socket/notification.module';
     NotificationsModule,
   ],
   controllers: [FriendUsersController],
-  providers: [FriendUsersService],
+  providers: [FriendUsersService, NotificationsGateway],
   exports: [FriendUsersService, TypeOrmModule],
 })
 export class FriendUsersModule {}

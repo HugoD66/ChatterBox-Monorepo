@@ -1,8 +1,7 @@
-@if(isLoading()) {
-  <app-loader/>
-}
-@else {
-  <div class="add-friend-content">
+<div class="add-friend-content">
+  @if(isLoading()) {
+  }
+  @else {
     <app-friend-profil
       (panelOpening)="panelOpening($event)"
       [@openCloseFriendProfil]="isExpandedFriendProfil ? 'open' : 'closed'"
@@ -17,6 +16,7 @@
       [getMe]="getMe()!"
       (onUserclick)="onUserclick($event)"
     />
-  </div>
+  }
+</div>
 
-}
+

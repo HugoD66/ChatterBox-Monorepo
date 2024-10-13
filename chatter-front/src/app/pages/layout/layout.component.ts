@@ -11,6 +11,8 @@ import { SidenavComponent } from '../../components/sidenav/sidenav.component';
 import { RouterOutlet } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
 import { GetMeModel } from '../../models/user.model';
+import { Subscription } from 'rxjs';
+import { PopupService } from '../../services/popup.service';
 
 @Component({
   selector: 'app-layout',
@@ -31,13 +33,24 @@ export class LayoutComponent {
   );
   public isSidenavExpanded: boolean = true;
   public sidebarCollapsed = signal(true);
+  public friendListRefreshNeeded: Subscription;
 
-  constructor(private authService: AuthService) {
+  constructor(
+    private authService: AuthService,
+    private popupService: PopupService,
+  ) {
     effect(() => {
       this.authService.getMe().subscribe((getMe: GetMeModel) => {
         this.getMe.update(() => getMe);
       });
     });
+    this.friendListRefreshNeeded =
+      this.popupService.friendListRefreshNeeded.subscribe(() => {
+        console.log('ICI C EST LE REFRESH');
+        this.authService.getMe().subscribe((getMe: GetMeModel) => {
+          this.getMe.update(() => getMe);
+        });
+      });
   }
 
   isExpandedChange(isExpanded: boolean): void {

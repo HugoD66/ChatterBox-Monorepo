@@ -19,10 +19,13 @@ import { GetMeResponseDto } from './dto/get-me-response.dto';
 import { FriendUser } from '../friend-users/entities/friend-user.entity';
 import { FriendStatusInvitation } from '../friend-users/entities/enum/friend-status-invitation.enum';
 import { ResponseFriendDto } from '../friend-users/dto/response-friend.dto';
+import { NotificationsGateway } from '../socket/notifications.gateway';
+import { UserResponse } from '../socket/class-response/user.response';
 
 @Injectable()
 export class UsersService {
   constructor(
+    private readonly notificationsGateway: NotificationsGateway,
     @InjectRepository(User)
     private usersRepository: Repository<User>,
     private readonly jwtService: JwtService,
@@ -100,11 +103,24 @@ export class UsersService {
       throw new UnauthorizedException(ValidationErrors.CREDENTIALS_INVALID);
     }
     const payload = { sub: user.id, email: user.email };
-    return {
+    const userReturn = {
       ...user,
       access_token: await this.jwtService.signAsync(payload),
       friends: await this.getFriends(user.id),
     };
+
+    const responseUserSocket: UserResponse = new UserResponse(
+      userReturn.id,
+      userReturn.pseudo,
+      userReturn.picture,
+    );
+
+    this.notificationsGateway.emitUserConnected(
+      `Connexion de l'utilisateur ${user.pseudo}`,
+      responseUserSocket,
+    );
+
+    return userReturn;
   }
 
   async getMe(userId: string): Promise<GetMeResponseDto> {
