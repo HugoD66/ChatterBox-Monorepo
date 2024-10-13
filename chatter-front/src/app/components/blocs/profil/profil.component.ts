@@ -129,10 +129,16 @@ export class ProfilComponent implements OnInit {
           const pictureUrl = `${this.apiUrl}/./${picture}`;
           this.getMeAvatar.update(() => `${pictureUrl}`);
           this.userUpdated.emit();
-          this.popupService.openSnackBar('Photo changée', 'lawngreen');
+          this.popupService.openSimpleMessageSnackBar({
+            message: 'Photo changée',
+            color: 'green',
+          });
         });
     } else {
-      this.popupService.openSnackBar('Format invalide', 'red');
+      this.popupService.openSimpleMessageSnackBar({
+        message: 'Format invalide',
+        color: 'red',
+      });
     }
   }
 }

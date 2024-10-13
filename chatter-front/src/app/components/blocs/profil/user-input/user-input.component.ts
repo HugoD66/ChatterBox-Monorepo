@@ -91,7 +91,10 @@ export class UserInputComponent implements OnInit {
       !this.userFormService.updateFormPseudo.valid ||
       this.userFormService.updateFormPseudo.value.pseudo == null
     ) {
-      this.popupService.openSnackBar('Champ requis', 'tomato');
+      this.popupService.openSimpleMessageSnackBar({
+        message: 'Champ requis',
+        color: 'red',
+      });
     }
     if (
       this.userFormService.updateFormPseudo.valid &&
@@ -105,10 +108,16 @@ export class UserInputComponent implements OnInit {
         next: () => {
           this.updateView.emit();
           this.userUpdated.emit();
-          this.popupService.openSnackBar('Pseudo changé', 'lawngreen');
+          this.popupService.openSimpleMessageSnackBar({
+            message: 'Pseudo changé',
+            color: 'green',
+          });
         },
         error: () => {
-          this.popupService.openSnackBar("Erreur lors de l'envoi", 'tomato');
+          this.popupService.openSimpleMessageSnackBar({
+            message: "Erreur lors de l'envoi",
+            color: 'red',
+          });
         },
       });
     }
@@ -127,14 +136,23 @@ export class UserInputComponent implements OnInit {
         next: () => {
           this.updateView.emit();
           this.userUpdated.emit();
-          this.popupService.openSnackBar('Email changé', 'lawngreen');
+          this.popupService.openSimpleMessageSnackBar({
+            message: 'Email changé',
+            color: 'green',
+          });
         },
         error: () => {
-          this.popupService.openSnackBar("Erreur lors de l'envoi", 'tomato');
+          this.popupService.openSimpleMessageSnackBar({
+            message: "Erreur lors de l'envoi",
+            color: 'red',
+          });
         },
       });
     } else {
-      this.popupService.openSnackBar('Format invalide', 'tomato');
+      this.popupService.openSimpleMessageSnackBar({
+        message: "Erreur lors de l'envoi",
+        color: 'red',
+      });
     }
   }
 
@@ -150,14 +168,23 @@ export class UserInputComponent implements OnInit {
         next: () => {
           this.updateView.emit();
           this.userUpdated.emit();
-          this.popupService.openSnackBar('Mot de passe changé', 'lawngreen');
+          this.popupService.openSimpleMessageSnackBar({
+            message: 'Mot de passe changé',
+            color: 'green',
+          });
         },
         error: () => {
-          this.popupService.openSnackBar("Erreur lors de l'envoi", 'tomato');
+          this.popupService.openSimpleMessageSnackBar({
+            message: "Erreur lors de l'envoi",
+            color: 'red',
+          });
         },
       });
     } else {
-      this.popupService.openSnackBar('Format invalide', 'tomato');
+      this.popupService.openSimpleMessageSnackBar({
+        message: 'Format invalide',
+        color: 'red',
+      });
     }
   }
 

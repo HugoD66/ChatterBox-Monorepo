@@ -58,15 +58,6 @@ export class PopupService {
     });
   }
 
-  openSnackBar(message: string, color: string) {
-    this._snackBar.openFromComponent(PopUpComponent, {
-      duration: this.durationInSeconds * 1000,
-      horizontalPosition: 'right',
-      verticalPosition: 'top',
-      data: { message: message, color: color },
-    });
-  }
-
   openSimpleMessageSnackBar(simpleMessage: SimpleMessage) {
     const socketTransfer = new Popup(
       simpleMessage,

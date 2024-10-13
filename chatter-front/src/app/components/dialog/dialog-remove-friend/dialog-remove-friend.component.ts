@@ -61,7 +61,10 @@ export class DialogRemoveFriendComponent {
       .subscribe(() => {
         this.closeDialog();
       });
-    this.popupService.openSnackBar('Amitié finie!', 'green');
+    this.popupService.openSimpleMessageSnackBar({
+      message: 'Amitié finie!',
+      color: 'tomato',
+    });
   }
 
   closeDialog() {

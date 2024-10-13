@@ -39,11 +39,13 @@
               matTooltip="Informations complémentaires"
               matTooltipClass="tooltip-information"
             >settings</mat-icon>
-            <mat-icon
-              (click)="openChat(getMe().id, userSelected().id)"
-              matTooltip="Accéder au salon"
-              matTooltipClass="tooltip-delete"
-            >message</mat-icon>
+            @if(!isDiscussionPanel()) {
+              <mat-icon
+                (click)="goToUserConversation(userSelected().id)"
+                matTooltip="Accéder au salon"
+                matTooltipClass="tooltip-delete"
+              >message</mat-icon>
+            }
            <mat-icon
               class="red-icon"
               matTooltip="Supprimer l'ami"

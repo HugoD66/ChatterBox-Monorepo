@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { io, Socket } from 'socket.io-client';
-import { Observable } from 'rxjs';
+import { interval, Observable } from 'rxjs';
 import { environment } from '../../env';
 import { UserSocket } from './response-model/user-socket';
 import { FriendSocket } from './response-model/friend-socket';
@@ -17,6 +17,13 @@ export class WebSocketService {
   constructor(private popupService: PopupService) {}
   connect() {
     this.socket = io(this.apiUrl);
+
+    interval(1000).subscribe(() => {
+      if (this.socket?.connected) {
+        console.log('Socket listening');
+      }
+    });
+
     this.socket.on('connect', () => {
       console.log('Connecté au serveur WebSocket');
     });

@@ -33,10 +33,10 @@ import {
 import { FriendStatusInvitation } from '../../../models/enums/friend-status-invitation.enum';
 import { FriendFormatservice } from '../../../services/friend-format.service';
 import { RoomService } from '../../../services/room.service';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { MatTooltip } from '@angular/material/tooltip';
 import { DialogTypeEnum } from '../../../enum/dialog.type.enum';
-import { Subscription } from 'rxjs';
+import { of, Subscription, switchMap } from 'rxjs';
 import { FormatPluralizePipe } from '../../../pipe/FormatPluralizePipe';
 import {
   transitionBetweenUsersAnimation,
@@ -64,6 +64,7 @@ export class FriendProfilComponent implements OnDestroy {
   public userSelected: InputSignal<UserModel> = input.required<UserModel>();
   public isProfilSelected: InputSignal<boolean> = input.required<boolean>();
   public onOpenComponent: WritableSignal<boolean> = signal(true);
+  public isDiscussionPanel: WritableSignal<boolean> = signal(false);
   public friendUserRelation: WritableSignal<FriendRelationModel | null> =
     signal(null);
   public userSelectedFriendSituation: WritableSignal<FriendStatusInvitation> =
@@ -86,10 +87,10 @@ export class FriendProfilComponent implements OnDestroy {
     private friendService: FriendService,
     private popupService: PopupService,
     private friendFormatservice: FriendFormatservice,
-    private roomService: RoomService,
     private router: Router,
     private cdr: ChangeDetectorRef,
   ) {
+    this.checkDiscussionPanel();
     effect(
       async () => {
         this.startTransition();
@@ -146,6 +147,10 @@ export class FriendProfilComponent implements OnDestroy {
       this.friendService.userListRefreshNeeded.subscribe(() => {
         this.refreshGetMeEvent.emit();
       });
+  }
+
+  private checkDiscussionPanel() {
+    this.isDiscussionPanel.set(this.router.url.includes('/room/private/'));
   }
 
   public ngOnDestroy(): void {
@@ -218,15 +223,19 @@ export class FriendProfilComponent implements OnDestroy {
       );
   }
 
+  public async goToUserConversation(userId?: string) {
+    console.log('userId' + userId);
+    this.router.navigate([`/room/private/${userId}`]);
+  }
   openChat(userId: string, participantId: string) {
-    this.roomService.getRoomByUser({ userId, participantId }).subscribe(
+    /*this.roomService.getRoomByUser({ userId, participantId }).subscribe(
       (room) => {
         this.router.navigate([`/room/private/${room.id}`]);
       },
       (error) => {
         console.error('Erreur lors de la recherche de la room:', error);
       },
-    );
+    );*/
 
     return;
   }

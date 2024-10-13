@@ -1,5 +1,6 @@
 .discussion-content {
   display: flex;
+  max-height: 66vh;
   height: 100%;
   flex-direction: column;
   margin: auto;

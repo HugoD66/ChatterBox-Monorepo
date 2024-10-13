@@ -168,6 +168,9 @@ export class FriendService {
         },
       )
       .pipe(
+        tap(() => {
+          this.userListRefreshNeeded.next();
+        }),
         catchError((error) => {
           return throwError(() => error);
         }),

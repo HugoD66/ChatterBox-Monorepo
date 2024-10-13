@@ -31,8 +31,9 @@ export class SectionDetailUnitComponent {
     effect(() => {}, { allowSignalWrites: true });
   }
 
-  public async goToUserConversation(userId?: string, roomId?: string) {
+  public async goToUserConversation(userId?: string) {
     console.log('userId' + userId);
-    this.router.navigate([`/room/private/${userId || roomId}`]);
+    console.log(this.detailUser());
+    this.router.navigate([`/room/private/${userId}`]);
   }
 }

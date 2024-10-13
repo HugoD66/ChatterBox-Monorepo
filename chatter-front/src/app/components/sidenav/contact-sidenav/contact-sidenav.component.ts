@@ -6,6 +6,7 @@ import {
   WritableSignal,
   signal,
   effect,
+  computed,
 } from '@angular/core';
 import { GetMeModel } from '../../../models/user.model';
 import { SectionDetailUnitComponent } from '../section-detail-unit/section-detail-unit.component';
@@ -18,12 +19,6 @@ import {
   FriendStatusInvitation,
 } from '../../../models/enums/friend-status-invitation.enum';
 import { MatIcon } from '@angular/material/icon';
-import {
-  FriendModel,
-  FriendRelationModel,
-} from '../../../models/friend-relation.model';
-import { Subscription } from 'rxjs';
-import { PopupService } from '../../../services/popup.service';
 
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -42,7 +37,12 @@ import { PopupService } from '../../../services/popup.service';
 export class ContactSidenavComponent {
   public getMe: InputSignal<GetMeModel | null> = input.required();
   public isExpanded: InputSignal<boolean> = input.required<boolean>();
-  public friendAcceptedList: WritableSignal<FriendModel[]> = signal([]);
+  public friendAcceptedList = computed(() => {
+    if (!this.getMe()!.friends) {
+      return [];
+    }
+    return this.getMe()!.friends[FriendStatusIndexEnum.ACCEPTED];
+  });
 
   protected readonly FriendStatusInvitation = FriendStatusInvitation;
 
@@ -52,9 +52,6 @@ export class ContactSidenavComponent {
         if (!this.getMe()!.friends) {
           return;
         }
-        this.friendAcceptedList.set(
-          this.getMe()!.friends[FriendStatusIndexEnum.ACCEPTED],
-        );
       },
       { allowSignalWrites: true },
     );
@@ -63,6 +60,4 @@ export class ContactSidenavComponent {
   goAddFriend() {
     this.router.navigate([`/friend/add`]);
   }
-
-  protected readonly FriendRelationModel = FriendRelationModel;
 }

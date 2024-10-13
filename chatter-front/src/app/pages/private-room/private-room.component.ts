@@ -1,6 +1,7 @@
 import {
   ChangeDetectionStrategy,
   Component,
+  computed,
   effect,
   signal,
   WritableSignal,
@@ -17,6 +18,7 @@ import {
   openCloseFriendProfilAnimation,
 } from '../../services/animation/animation';
 import { AddFriendSearchComponent } from '../../components/blocs/add-friend-search/add-friend-search.component';
+import { switchMap } from 'rxjs';
 
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -38,10 +40,8 @@ import { AddFriendSearchComponent } from '../../components/blocs/add-friend-sear
 export class PrivateRoomComponent {
   public messages: WritableSignal<MessageModel[]> = signal([]);
   public getMe: WritableSignal<GetMeModel | null> = signal(null);
-  public friendId: WritableSignal<string | null> = signal(
-    this.route.snapshot.paramMap.get('id'),
-  );
-  public friend: WritableSignal<UserModel> = signal({} as UserModel);
+  public friendId: WritableSignal<string | null> = signal(null);
+  public friend: WritableSignal<UserModel | null> = signal(null);
   public isExpandedFriendProfil = false;
   public isExpandedDiscussion = true;
 
@@ -50,21 +50,35 @@ export class PrivateRoomComponent {
     private route: ActivatedRoute,
     private authService: AuthService,
   ) {
-    effect(() => {
-      this.authService.getMe().subscribe((getMe: GetMeModel) => {
+    this.route.paramMap
+      .pipe(
+        switchMap((params) => {
+          const id = params.get('id');
+          this.friendId.update(() => id);
+          return this.authService.getMe();
+        }),
+      )
+      .subscribe((getMe: GetMeModel) => {
         this.getMe.update(() => getMe);
-      });
-    });
 
-    this.roomService.getRoomyUser(this.friendId()!).subscribe((room) => {
-      console.log(room);
-      //TODO DO THAT ,
-      this.friend.update(() => room.participants[0]);
-      this.messages.update(() => room.messages);
-      console.log(this.messages());
-    });
+        if (!this.getMe()) {
+          return;
+        }
+
+        this.roomService.getRoomyUser(this.friendId()!).subscribe((room) => {
+          if (!room) {
+            return;
+          }
+          if (this.getMe()!.id === room.owner.id) {
+            this.friend.update(() => room.participants[0]);
+          } else {
+            this.friend.update(() => room.owner);
+          }
+          this.messages.update(() => room.messages);
+          console.log(this.messages());
+        });
+      });
     this.isExpandedDiscussion = true;
-    // this.panelOpening(true);
   }
 
   public panelOpening(event: boolean): void {

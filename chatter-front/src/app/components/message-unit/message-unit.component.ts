@@ -1,8 +1,15 @@
-import { AfterViewInit, Component, input, InputSignal } from '@angular/core';
+import {
+  AfterViewInit,
+  Component,
+  effect,
+  input,
+  InputSignal,
+} from '@angular/core';
 import { MessageModel } from '../../models/message.model';
 import { DatePipe, NgClass } from '@angular/common';
 import { PickerModule } from '@ctrl/ngx-emoji-mart';
 import { UserModel } from '../../models/user.model';
+import { environment } from '../../../env';
 
 @Component({
   selector: 'app-message-unit',
@@ -12,6 +19,8 @@ import { UserModel } from '../../models/user.model';
   styleUrl: './message-unit.component.scss',
 })
 export class MessageUnitComponent implements AfterViewInit {
+  protected apiUrl = environment.apiUrl;
+
   public getMe: InputSignal<UserModel> = input.required<UserModel>();
 
   public message: InputSignal<MessageModel | null> =
@@ -22,6 +31,18 @@ export class MessageUnitComponent implements AfterViewInit {
     </div>
     //TODO EMOJIS !
    */
+  public constructor() {
+    effect(
+      () => {
+        if (!this.message()) {
+          return;
+        }
+        //console.log(this.message());
+      },
+      { allowSignalWrites: true },
+    );
+  }
+
   ngAfterViewInit(): void {
     //console.log(this.message());
   }

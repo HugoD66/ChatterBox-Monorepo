@@ -1,4 +1,11 @@
-import { Component, effect, signal, WritableSignal } from '@angular/core';
+import {
+  Component,
+  effect,
+  input,
+  InputSignal,
+  signal,
+  WritableSignal,
+} from '@angular/core';
 import { DiscussionComponent } from '../../components/blocs/discussion/discussion.component';
 import { MessageModel } from '../../models/message.model';
 import { GroupRoomProfilComponent } from '../../components/blocs/group-room-profil/group-room-profil.component';
@@ -34,10 +41,13 @@ export class GroupRoomComponent {
   public messages: WritableSignal<MessageModel[]> = signal([]);
   public getMe: WritableSignal<GetMeModel | null> = signal(null);
 
+  //public friendInDiscussion: InputSignal<UserModel[] | UserModel> =
+  //  input.required<UserModel[] | UserModel>();
+
   public isExpandedFriendProfil = false;
   public isExpandedDiscussion = true;
 
-  public friendList: WritableSignal<UserModel[]> = signal([
+  public friendInDiscussion: WritableSignal<UserModel[]> = signal([
     {
       id: '1',
       pseudo: 'John Doe',

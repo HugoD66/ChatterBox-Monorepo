@@ -7,13 +7,18 @@ import {
 } from '@angular/core';
 import { MatDivider } from '@angular/material/divider';
 import { MatIcon } from '@angular/material/icon';
-import { DialogService } from '../../../../services/dialog.service';
+import {
+  DialogService,
+  SettingsOrRemoveFriendDialogData,
+} from '../../../../services/dialog.service';
 import { GetMeModel, UserModel } from '../../../../models/user.model';
 import { Router } from '@angular/router';
 import { RoomAddFriendService } from '../../../../services/room-add-friend.service';
 import { environment } from '../../../../../env';
 import { RoomService } from '../../../../services/room.service';
-import { RoomModel } from '../../../../models/room.model';
+import { FriendRelationModel } from '../../../../models/friend-relation.model';
+import { DialogTypeEnum } from '../../../../enum/dialog.type.enum';
+import { FriendService } from '../../../../services/friend.service';
 
 @Component({
   selector: 'app-friend-unit',
@@ -34,29 +39,39 @@ export class FriendUnitComponent {
 
   constructor(
     private dialogService: DialogService,
-    private roomService: RoomService,
+    private friendService: FriendService,
     public roomAddFriendService: RoomAddFriendService,
     private router: Router,
   ) {}
 
-  public openDialog(user: UserModel): void {
-    console.log(user);
+  public async openDialog(
+    user: UserModel,
+    type: 'remove' | 'settings',
+  ): Promise<void> {
+    const relation = await this.friendService
+      .getFriend(this.getMe()!.id, this.friend()!.id)
+      .toPromise();
+
+    if (!relation) {
+      return;
+    }
+
+    const dialogData = new SettingsOrRemoveFriendDialogData(user, relation);
+    type === 'remove'
+      ? this.dialogService.openDialog(
+          this.getMe()!,
+          dialogData,
+          DialogTypeEnum.REMOVE_FRIEND,
+        )
+      : this.dialogService.openDialog(
+          this.getMe()!,
+          dialogData,
+          DialogTypeEnum.SETTINGS_FRIEND,
+        );
   }
 
-  async onPrivateChat(friend: UserModel) {
-    console.log(this.getMe()!.id, friend.id);
-    try {
-      this.roomService
-        .getRoomByUser({
-          userId: this.getMe()!.id,
-          participantId: friend.id,
-        })
-        .subscribe((room: RoomModel) => {
-          this.router.navigate([`/room/private/${room.id}`]);
-        });
-    } catch (error) {
-      console.error('Failed to get room', error);
-    }
+  public async goToUserConversation(userId?: string) {
+    this.router.navigate([`/room/private/${userId}`]);
   }
 
   public addFriend(friend: UserModel): void {

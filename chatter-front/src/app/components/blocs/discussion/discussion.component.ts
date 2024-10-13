@@ -19,7 +19,8 @@ import { UserModel } from '../../../models/user.model';
 })
 export class DiscussionComponent {
   public getMe: InputSignal<UserModel> = input.required<UserModel>();
-
+  public friendInDiscussion: InputSignal<UserModel[] | UserModel> =
+    input.required<UserModel[] | UserModel>();
   public messages: InputSignal<MessageModel[] | null> = input.required<
     MessageModel[] | null
   >();

@@ -23,8 +23,7 @@
       </div>
     </div>
     <div class="friend-actions">
-      <mat-icon class="friend-action-icon">settings</mat-icon>
-      <!--(click)="openDialog(friend())"-->
+      <mat-icon (click)="openDialog( friend()!, 'settings')" class="friend-action-icon">settings</mat-icon>
       @if (isPanelAddFriendToRoom()) {
         @if (isAdded()) {
           <mat-icon (click)="removeFriend(friend()!)" class="friend-action-icon"
@@ -36,7 +35,7 @@
           >
         }
       }
-      <mat-icon (click)="onPrivateChat(friend()!)" class="friend-action-icon"
+      <mat-icon (click)="goToUserConversation(friend()!.id)" class="friend-action-icon"
         >chat</mat-icon
       >
     </div>

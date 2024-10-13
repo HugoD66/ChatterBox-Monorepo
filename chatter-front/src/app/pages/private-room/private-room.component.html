@@ -4,12 +4,13 @@
       (panelOpening)="panelOpening($event)"
       [@openCloseFriendProfil]="isExpandedFriendProfil ? 'open' : 'closed'"
       [getMe]="getMe()!"
-      [userSelected]="friend()"
+      [userSelected]="friend()!"
       [isProfilSelected]="true"
     />
     <app-discussion
       [@openCloseFriend]="isExpandedDiscussion ? 'open' : 'closed'"
       [getMe]="getMe()!"
+      [friendInDiscussion]="friend()!"
       [messages]="messages()" />
   </div>
 }

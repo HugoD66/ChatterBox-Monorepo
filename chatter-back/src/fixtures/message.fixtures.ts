@@ -33,7 +33,7 @@ export class MessageFixtures {
       email: `sender-test@email.com`,
     });
     const privateRoom: Room = await this.roomService.findOneByOptions({
-      title: `Room private test 2`,
+      title: `Private room Sender Test and Hugo Dessauw`,
     });
 
     const messages: CreateMessageDto[] = [

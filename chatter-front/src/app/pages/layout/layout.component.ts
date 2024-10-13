@@ -13,6 +13,7 @@ import { AuthService } from '../../services/auth.service';
 import { GetMeModel } from '../../models/user.model';
 import { Subscription } from 'rxjs';
 import { PopupService } from '../../services/popup.service';
+import { FriendService } from '../../services/friend.service';
 
 @Component({
   selector: 'app-layout',
@@ -34,10 +35,12 @@ export class LayoutComponent {
   public isSidenavExpanded: boolean = true;
   public sidebarCollapsed = signal(true);
   public friendListRefreshNeeded: Subscription;
+  public userListRefrehNeeded: Subscription;
 
   constructor(
     private authService: AuthService,
     private popupService: PopupService,
+    private friendService: FriendService,
   ) {
     effect(() => {
       this.authService.getMe().subscribe((getMe: GetMeModel) => {
@@ -47,6 +50,13 @@ export class LayoutComponent {
     this.friendListRefreshNeeded =
       this.popupService.friendListRefreshNeeded.subscribe(() => {
         console.log('ICI C EST LE REFRESH');
+        this.authService.getMe().subscribe((getMe: GetMeModel) => {
+          this.getMe.update(() => getMe);
+        });
+      });
+    this.userListRefrehNeeded =
+      this.friendService.userListRefreshNeeded.subscribe(() => {
+        console.log('ICI C EST LE REFRESH DU FRIEND SERVICE ');
         this.authService.getMe().subscribe((getMe: GetMeModel) => {
           this.getMe.update(() => getMe);
         });
@@ -63,5 +73,14 @@ export class LayoutComponent {
     this.getMe.update(() => {
       return {} as GetMeModel;
     });
+  }
+
+  public ngOnDestroy(): void {
+    if (this.userListRefrehNeeded) {
+      this.userListRefrehNeeded.unsubscribe();
+    }
+    if (this.friendListRefreshNeeded) {
+      this.friendListRefreshNeeded.unsubscribe();
+    }
   }
 }

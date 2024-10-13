@@ -1,9 +1,10 @@
 <div class="group-room-content">
-  <app-group-room-profil [friendList]="friendList()"
+  <app-group-room-profil [friendList]="friendInDiscussion()"
      [@openCloseFriendProfil]="isExpandedFriendProfil ? 'open' : 'closed'"
   />
   <app-discussion
     [@openCloseFriend]="isExpandedDiscussion ? 'open' : 'closed'"
+    [friendInDiscussion]="friendInDiscussion()"
     [getMe]="getMe()!"
     [messages]="messages()" />
 </div>
