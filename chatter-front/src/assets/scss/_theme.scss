@@ -1,0 +1,189 @@
+@use 'sass:map';
+@use '../../../../node_modules/@angular/material/index' as mat;
+
+$_palettes: (
+  /*
+  primary: (
+    0: #071826,
+    10: #122230,
+    20: #1d2d3b,
+    25: #283745,
+    30: #33424f,
+    35: #3e4c5a,
+    40: #495764,  // ---ICI BUTTON
+    50: #54616e,
+    60: #5f6c79,
+    70: #6a7683,
+    80: #75818d,
+    90: #7f8b98,
+    95: #f1efff,
+    98: #fbf8ff,
+    99: #fffbff,
+    100: #ffffff,
+  ),
+  */
+  primary: (
+    0: #06131e,
+    10: #0c1928,
+    20: #112132,
+    25: #17283b,
+    30: #1c3045,
+    35: #22364f,
+    40: #273d58,
+    50: #2d4562,
+    60: #334c6b,
+    70: #395376,
+    80: #3e5a80,
+    90: #446289,
+    95: #cadde8,
+    98: #e1eff9,
+    99: #eaf3fc,
+    100: #edf4ff,
+  ),
+  secondary: (
+    0: #2A3E2C,
+    10: #4A5D48,
+    20: #6B7C65,
+    25: #87E38F,
+    30: #A3D9B2,
+    35: #B0E1B8,
+    40: #BDE9BF,
+    50: #C9F0C6,
+    60: #D6F7CD,
+    70: #E3FDD4,
+    80: #F0FFE0,
+    90: #F7FFF0,
+    95: #F9FFF2,
+    98: #FBFFF5,
+    99: #FDFFFB,
+    100: #FFFFFF,
+  ),
+  tertiary: (
+    0: #3A3227,
+    10: #4c4238,
+    20: #5e5349,
+    25: #705c5a,
+    30: #82746b,
+    35: #94857c,
+    40: #a6a58d,
+    50: #b8b49e,
+    60: #c9c1af,
+    70: #d1cbb7,
+    80: #d8d5c0,
+    90: #e0ded0,
+    95: #e8e5db,
+    98: #f0efea,
+    99: #f7f6f4,
+    100: #ffffff,
+  ),
+  neutral: (
+    0: #000000,
+    10: #1a1b24,
+    20: #2f303a,
+    25: #3a3b45,
+    30: #464650,
+    35: #51515c,
+    40: #5d5d69,
+    50: #767682,
+    60: #908f9c,
+    70: #abaab6,
+    80: #c6c5d2,
+    90: #e3e1ee,
+    95: #f1effd,
+    98: #fbf8ff,
+    99: #fffbff,
+    100: #ffffff,
+    4: #0d0e16,
+    6: #12131c,
+    12: #1e1f28,
+    17: #292933,
+    22: #34343e,
+    24: #383843,
+    87: #dad8e6,
+    92: #e9e7f4,
+    94: #eeecfa,
+    96: #f4f2ff,
+  ),
+  neutral-variant: (
+    0: #000000,
+    10: #191a29,
+    20: #2e2f3e,
+    25: #393a4a,
+    30: #454656,
+    35: #505162,
+    40: #5c5d6e,
+    50: #757687,
+    60: #8f8fa2,
+    70: #aaaabd,
+    80: #c5c5d8,
+    90: #e1e1f5,
+    95: #f1efff,
+    98: #fbf8ff,
+    99: #fffbff,
+    100: #ffffff,
+  ),
+  error: (
+    0: #000000,
+    10: #410002,
+    20: #690005,
+    25: #7e0007,
+    30: #93000a,
+    35: #a80710,
+    40: #ba1a1a,
+    50: #de3730,
+    60: #ff5449,
+    70: #ff897d,
+    80: #ffb4ab,
+    90: #ffdad6,
+    95: #ffedea,
+    98: #fff8f7,
+    99: #fffbff,
+    100: #ffffff,
+  ),
+);
+
+$_rest: (
+  secondary: map.get($_palettes, secondary),
+  neutral: map.get($_palettes, neutral),
+  neutral-variant: map.get($_palettes,  neutral-variant),
+  error: map.get($_palettes, error),
+);
+$_primary: map.merge(map.get($_palettes, primary), $_rest);
+$_tertiary: map.merge(map.get($_palettes, tertiary), $_rest);
+
+$light-theme: mat.define-theme((
+  color: (
+    theme-type: light,
+    primary: $_primary,
+    tertiary: $_tertiary,
+  ),
+));
+$dark-theme: mat.define-theme((
+  color: (
+    theme-type: dark,
+    primary: $_primary,
+    tertiary: $_tertiary,
+  ),
+));
+
+/*
+
+A tester
+$_secondary: map.merge(map.get($_palettes, secondary), $_rest);
+
+$light-theme: mat.define-theme((
+  color: (
+    theme-type: light,
+    primary: $_primary,
+    tertiary: $_secondary,
+  ),
+));
+$dark-theme: mat.define-theme((
+  color: (
+    theme-type: dark,
+    primary: $_secondary,
+    tertiary: $_tertiary,
+  ),
+));
+
+*/

@@ -1,51 +1,20 @@
-@use "../../node_modules/@angular/material" as mat;
+@use "@angular/material" as mat;
 @use "./assets/scss/colors" as colors;
 @use "./assets/scss/global" as global;
+@use "./assets/scss/theme" as theme;
+
 @include mat.core();
 
-/*
-@use '@angular/material' as mat;
-
-$chatter-front-theme: mat.define-theme((
-  color: (
-    theme-type: light,
-    primary: mat.$azure-palette,
-    tertiary: mat.$blue-palette,
-  ),
-  density: (
-    scale: 0,
-  )
-));*/
-
-/*
-$chatter-front-primary: mat.m2-define-palette(mat.$azure-palette, 10);
-$chatter-front-accent: mat.m2-define-palette(mat.$cyan-palette, 10);
-$chatter-front-warn: mat.m2-define-palette(mat.$red-palette, 10);
-*/
-
-
-$chatter-front-theme: mat.define-theme(
-  (
-    color: (
-      theme-type: light,
-      primary: mat.$azure-palette,
-    ),
-    density: (
-      scale: 0,
-    )
-  )
-);
+mat.$theme-ignore-duplication-warnings: true;
 
 :root {
-  @include mat.all-component-themes($chatter-front-theme);
+  @include mat.all-component-themes(theme.$light-theme);
+  @include mat.core-theme(theme.$light-theme);
 }
 
-body {
-  margin: 0;
-  padding: 0;
-  height: 100%;
-  width: 100%;
-  background-color: colors.$back-body;
+.theme-dark {
+  @include mat.all-component-themes(theme.$dark-theme);
+  @include mat.core-theme(theme.$dark-theme);
 }
 
 html,
@@ -54,6 +23,10 @@ body {
 }
 body {
   margin: 0;
+  padding: 0;
+  height: 100%;
+  width: 100%;
+  background-color: colors.$back-body;
   font-family: "JostRegular", serif;
 }
 button {
@@ -90,20 +63,10 @@ button {
   font-style: normal;
 }
 
-// !!!!!!!!!!! TRADE THEME !!!!!!!!!!! //
-//    transition: global.$theme-transition;
-
 // --------- LIGHT THEME --------- //
 h1 {
   color: colors.$dark-b;
 }
-
-// --------- DARK THEME --------- //
-/*
-.theme-dark h1 {
-  color: rgba(66, 56, 44, 1);
-}
-*/
 
 // --------- GLOBAL COMPONENT --------- //
 .buttonLogin {
@@ -143,10 +106,7 @@ h1 {
 
 // --------- BACKGROUND MODAL --------- //
 .cdk-overlay-backdrop {
-  backdrop-filter: blur(2px); /* Applique un flou de 8 pixels */
-  background-color: rgba(0, 0, 0, 0.2); /* Assombrit légèrement le fond */
+  backdrop-filter: blur(2px);
+  background-color: rgba(0, 0, 0, 0.2);
 }
 
-
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }

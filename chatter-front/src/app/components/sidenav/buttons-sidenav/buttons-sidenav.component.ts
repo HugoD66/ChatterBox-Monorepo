@@ -1,7 +1,6 @@
 import {
   ChangeDetectionStrategy,
   Component,
-  computed,
   effect,
   inject,
   input,
@@ -13,8 +12,6 @@ import { Router } from '@angular/router';
 import { NgClass } from '@angular/common';
 import { MatButton } from '@angular/material/button';
 import { GetMeModel } from '../../../models/user.model';
-import { FriendStatusInvitation } from '../../../models/enums/friend-status-invitation.enum';
-import { FriendRelationModel } from '../../../models/friend-relation.model';
 import { FriendFormatservice } from '../../../services/friend-format.service';
 
 @Component({

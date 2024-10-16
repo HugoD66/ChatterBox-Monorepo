@@ -37,7 +37,7 @@
   cursor: pointer;
 }
 .add-friend-search-content .negative-condition-found {
-  color: rgb(7, 24, 38);
+  color: rgb(6, 19, 30);
   height: 75%;
   margin: auto;
   display: flex;
