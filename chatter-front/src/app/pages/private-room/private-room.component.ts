@@ -75,14 +75,12 @@ export class PrivateRoomComponent {
             this.friend.update(() => room.owner);
           }
           this.messages.update(() => room.messages);
-          console.log(this.messages());
         });
       });
     this.isExpandedDiscussion = true;
   }
 
   public panelOpening(event: boolean): void {
-    console.log('coucou');
     this.isExpandedFriendProfil = event;
     this.isExpandedDiscussion = !event;
   }

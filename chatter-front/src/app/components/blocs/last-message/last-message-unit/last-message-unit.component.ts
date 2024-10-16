@@ -1,4 +1,4 @@
-import { Component, input, InputSignal } from '@angular/core';
+import { AfterContentInit, Component, input, InputSignal } from '@angular/core';
 import { DatePipe } from '@angular/common';
 import { MatButton } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
@@ -20,7 +20,11 @@ export class LastMessageUnitComponent {
 
   constructor(private router: Router) {}
 
-  redirectToRoom(chatId: string): void {
-    this.router.navigate([`/room/private/${chatId}`]);
+  public redirectToRoom(userId: string): void {
+    this.router.navigate([`/room/private/${userId}`]);
+  }
+
+  public goToUserProfil(userId?: string) {
+    this.router.navigate([`/friend/add/${userId}`]);
   }
 }

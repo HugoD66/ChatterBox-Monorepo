@@ -15,7 +15,6 @@
         <div class="positive-condition-last-message">
           <div class="messages">
             @for (message of unreadMessages(); track message.id) {
-              <!--| async-->
               <app-last-message-unit [message]="message" />
             }
           </div>

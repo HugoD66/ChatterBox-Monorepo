@@ -47,7 +47,7 @@
     .friend-action-icon {
       padding: 10px;
       margin: 5px;
-      //background-color: red;
+      cursor: pointer;
       color: colors.$back-b;
       border-radius: 90%;
       @include global.input-bloc;

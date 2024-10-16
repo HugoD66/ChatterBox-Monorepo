@@ -1,11 +1,11 @@
 form {
-  display: flex;
-  justify-content: center;
-  align-items: center;
   justify-content: space-around;
   flex-direction: column;
   width: 100%;
   height: 60%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 form .form-field {
   width: 80%;

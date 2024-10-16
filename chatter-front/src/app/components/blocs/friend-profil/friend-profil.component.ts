@@ -224,20 +224,7 @@ export class FriendProfilComponent implements OnDestroy {
   }
 
   public async goToUserConversation(userId?: string) {
-    console.log('userId' + userId);
     this.router.navigate([`/room/private/${userId}`]);
-  }
-  openChat(userId: string, participantId: string) {
-    /*this.roomService.getRoomByUser({ userId, participantId }).subscribe(
-      (room) => {
-        this.router.navigate([`/room/private/${room.id}`]);
-      },
-      (error) => {
-        console.error('Erreur lors de la recherche de la room:', error);
-      },
-    );*/
-
-    return;
   }
 
   shareUserselected() {

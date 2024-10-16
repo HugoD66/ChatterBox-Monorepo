@@ -43,6 +43,7 @@
   width: 100%;
   text-align: end;
   font-style: italic;
+  cursor: default;
 }
 .profil-content .picture-profile {
   margin: auto;

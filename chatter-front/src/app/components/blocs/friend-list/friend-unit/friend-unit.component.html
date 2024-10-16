@@ -27,8 +27,7 @@
       @if (isPanelAddFriendToRoom()) {
         @if (isAdded()) {
           <mat-icon (click)="removeFriend(friend()!)" class="friend-action-icon"
-            >remove</mat-icon
-          >
+            >remove</mat-icon>
         } @else {
           <mat-icon (click)="addFriend(friend()!)" class="friend-action-icon"
             >add</mat-icon

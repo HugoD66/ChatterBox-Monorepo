@@ -1,9 +1,14 @@
 @if (message()) {
   <div class="message-unit">
     <div class="message-unit-senderInfos">
-      <p>{{ message().sender.pseudo }}</p>
+      <p
+        class="message-unit-clickable-content"
+        (click)="goToUserProfil(message().sender.id)"
+      >{{ message().sender.pseudo }}</p>
       @if (message().sender.picture) {
         <img
+          class="message-unit-clickable-content"
+          (click)="goToUserProfil(message().sender.id)"
           src="{{ apiUrl }}/./{{ message().sender.picture }}"
           alt="image de profil de l'utilisateur"
         />
@@ -21,7 +26,7 @@
       <p>
         <i>{{ message().createdAt }}</i>
       </p>
-      <button (click)="redirectToRoom(message().roomId)">
+      <button (click)="redirectToRoom(message().sender.id)">
         <mat-icon class="message-unit-response"> chat_bubble_outline</mat-icon>
       </button>
     </div>

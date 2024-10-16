@@ -27,12 +27,16 @@
   height: 50px;
   border-radius: 50%;
 }
+.message-unit .message-unit-senderInfos .message-unit-clickable-content {
+  cursor: pointer;
+}
 .message-unit .message-unit-content {
   width: 90%;
 }
 .message-unit .message-unit-content p {
   font-family: "JostRegular", sans-serif;
   font-size: 1.05em;
+  cursor: default;
 }
 .message-unit .message-unit-footer {
   display: flex;
@@ -46,6 +50,7 @@
   color: rgb(39, 39, 39);
   font-family: "JostLight", sans-serif;
   margin: 0;
+  cursor: default;
 }
 .message-unit .message-unit-footer button {
   border-radius: 90%;
@@ -61,6 +66,7 @@
 .message-unit .message-unit-footer button .message-unit-response {
   margin-top: 4px;
   padding: 4px;
+  cursor: pointer;
 }
 
 /*# sourceMappingURL=last-message-unit.component.css.map */

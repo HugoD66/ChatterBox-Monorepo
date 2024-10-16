@@ -14,6 +14,7 @@
       letter-spacing: 3px;
       @include fonts.h3-title;
       top: 0;
+      cursor: default;
     }
     .positive-condition-last-message {
       height: 75%;

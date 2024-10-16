@@ -2,14 +2,13 @@
 @use "../../../../assets/scss/global" as global;
 
 form {
-  @include global.flex-center;
   justify-content: space-around;
   flex-direction: column;
   width: 100%;
   height: 60%;
+  @include global.flex-center;
   .form-field {
     width: 80%;
-
     input {
       font-size: 1.2rem;
     }

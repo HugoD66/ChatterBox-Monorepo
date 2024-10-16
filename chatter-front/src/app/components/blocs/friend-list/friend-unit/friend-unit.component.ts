@@ -15,8 +15,6 @@ import { GetMeModel, UserModel } from '../../../../models/user.model';
 import { Router } from '@angular/router';
 import { RoomAddFriendService } from '../../../../services/room-add-friend.service';
 import { environment } from '../../../../../env';
-import { RoomService } from '../../../../services/room.service';
-import { FriendRelationModel } from '../../../../models/friend-relation.model';
 import { DialogTypeEnum } from '../../../../enum/dialog.type.enum';
 import { FriendService } from '../../../../services/friend.service';
 
