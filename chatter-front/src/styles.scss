@@ -15,10 +15,6 @@ mat.$theme-ignore-duplication-warnings: true;
   --secondary-color: #c9f0c6;
 }
 
-:root {
-
-}
-
 .theme-dark {
   @include mat.all-component-themes(theme.$dark-theme);
   @include mat.core-theme(theme.$dark-theme);
@@ -26,37 +22,6 @@ mat.$theme-ignore-duplication-warnings: true;
   --secondary-color: #2a3e2c;
 }
 
-.theme-light {
-  --primary-color: #edf4ff;
-  --secondary-color: #c9f0c6;
-}
-
-
-/*:root {
-  @include mat.all-component-themes(theme.$light-theme);
-  @include mat.core-theme(theme.$light-theme);
-}
-
-.theme-dark {
-  @include mat.all-component-themes(theme.$dark-theme);
-  @include mat.core-theme(theme.$dark-theme);
-}*/
-
-//$theme : mat.get_theme-color(theme.$dark-theme, primary, 50);
-
-$actualTheme: theme.$light-theme;
-
-@mixin apply-theme($theme) {
-  @include mat.all-component-themes($theme);
-}
-
-.light-theme {
-  @include apply-theme(theme.$light-theme);
-}
-
-.dark-theme {
-  @include apply-theme(theme.$dark-theme);
-}
 
 
 html,

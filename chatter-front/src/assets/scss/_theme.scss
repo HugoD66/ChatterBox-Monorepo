@@ -2,26 +2,6 @@
 @use '../../../../node_modules/@angular/material/index' as mat;
 
 $_palettes: (
-  /*
-  primary: (
-    0: #071826,
-    10: #122230,
-    20: #1d2d3b,
-    25: #283745,
-    30: #33424f,
-    35: #3e4c5a,
-    40: #495764,  // ---ICI BUTTON
-    50: #54616e,
-    60: #5f6c79,
-    70: #6a7683,
-    80: #75818d,
-    90: #7f8b98,
-    95: #f1efff,
-    98: #fbf8ff,
-    99: #fffbff,
-    100: #ffffff,
-  ),
-  */
   primary: (
     0: #06131e,
     10: #0c1928,
@@ -149,6 +129,7 @@ $_rest: (
   neutral-variant: map.get($_palettes,  neutral-variant),
   error: map.get($_palettes, error),
 );
+
 $_primary: map.merge(map.get($_palettes, primary), $_rest);
 $_tertiary: map.merge(map.get($_palettes, tertiary), $_rest);
 
@@ -159,6 +140,7 @@ $light-theme: mat.define-theme((
     tertiary: $_tertiary,
   ),
 ));
+
 $dark-theme: mat.define-theme((
   color: (
     theme-type: dark,
@@ -166,27 +148,3 @@ $dark-theme: mat.define-theme((
     tertiary: $_tertiary,
   ),
 ));
-
-
-
-/*
-
-A tester
-$_secondary: map.merge(map.get($_palettes, secondary), $_rest);
-
-$light-theme: mat.define-theme((
-  color: (
-    theme-type: light,
-    primary: $_primary,
-    tertiary: $_secondary,
-  ),
-));
-$dark-theme: mat.define-theme((
-  color: (
-    theme-type: dark,
-    primary: $_secondary,
-    tertiary: $_tertiary,
-  ),
-));
-
-*/
