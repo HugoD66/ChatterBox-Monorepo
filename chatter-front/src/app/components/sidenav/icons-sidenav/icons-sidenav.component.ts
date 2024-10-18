@@ -41,16 +41,4 @@ export class IconsSidenavComponent {
     this.removeGetMe.emit();
     this.router.navigate(['/auth/login']);
   }
-
-  toggleTheme(isDarkMode: boolean): void {
-    this.isLightMode.update(() => !isDarkMode);
-    const themeClass = isDarkMode ? 'theme-dark' : 'theme-light';
-
-    this.renderer.removeClass(
-      document.body,
-      isDarkMode ? 'theme-light' : 'theme-dark',
-    );
-
-    this.renderer.addClass(document.body, themeClass);
-  }
 }

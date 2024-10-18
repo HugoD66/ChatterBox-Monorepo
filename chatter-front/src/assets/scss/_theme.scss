@@ -1,8 +1,46 @@
 @use 'sass:map';
-@use '../../../../node_modules/@angular/material/index' as mat;
+@use "@angular/material" as mat;
+
+@include mat.core();
 
 $_palettes: (
-  primary: (
+  green-light-theme: (
+    0: #2A3E2C,
+    10: #4A5D48,
+    20: #6B7C65,
+    25: #87E38F,
+    30: #A3D9B2,
+    35: #B0E1B8,
+    40: #BDE9BF,
+    50: #C9F0C6,
+    60: #D6F7CD,
+    70: #E3FDD4,
+    80: #F0FFE0,
+    90: #F7FFF0,
+    95: #F9FFF2,
+    98: #FBFFF5,
+    99: #FDFFFB,
+    100: #FFFFFF,
+  ),
+  green-dark-theme: (
+    0: #FFFFFF,
+    10: #FDFFFB,
+    20: #FBFFF5,
+    25: #F9FFF2,
+    30: #F7FFF0,
+    35: #F0FFE0,
+    40: #E3FDD4,
+    50: #D6F7CD,
+    60: #C9F0C6,
+    70: #BDE9BF,
+    80: #B0E1B8,
+    90: #A3D9B2,
+    95: #87E38F,
+    98: #6B7C65,
+    99: #4A5D48,
+    100: #2A3E2C,
+  ),
+  blue-light: (
     0: #06131e,
     10: #0c1928,
     20: #112132,
@@ -19,6 +57,24 @@ $_palettes: (
     98: #e1eff9,
     99: #eaf3fc,
     100: #edf4ff,
+  ),
+  blue-dark: (
+    0: #edf4ff,
+    10: #eaf3fc,
+    20: #e1eff9,
+    25: #cadde8,
+    30: #446289,
+    35: #3e5a80,
+    40: #395376,
+    50: #334c6b,
+    60: #2d4562,
+    70: #273d58,
+    80: #22364f,
+    90: #1c3045,
+    95: #17283b,
+    98: #112132,
+    99: #0c1928,
+    100: #06131e,
   ),
   secondary: (
     0: #2A3E2C,
@@ -58,7 +114,7 @@ $_palettes: (
   ),
   neutral: (
     0: #000000,
-    10: #1a1b24,
+    10: #1a1b24, //Couleur de fond wtf
     20: #2f303a,
     25: #3a3b45,
     30: #464650,
@@ -122,29 +178,66 @@ $_palettes: (
   ),
 );
 
+//BLUE
 
-$_rest: (
-  secondary: map.get($_palettes, secondary),
-  neutral: map.get($_palettes, neutral),
-  neutral-variant: map.get($_palettes,  neutral-variant),
+$_rest-blue-light: (
+  secondary: map.get($_palettes, blue-light),
+  neutral: map.get($_palettes, blue-light),
+  neutral-variant: map.get($_palettes,  blue-light),
   error: map.get($_palettes, error),
 );
 
-$_primary: map.merge(map.get($_palettes, primary), $_rest);
-$_tertiary: map.merge(map.get($_palettes, tertiary), $_rest);
+$_rest-blue-dark: (
+  secondary: map.get($_palettes, blue-dark),
+  neutral: map.get($_palettes, blue-dark),
+  neutral-variant: map.get($_palettes,  blue-dark),
+  error: map.get($_palettes, error),
+);
 
-$light-theme: mat.define-theme((
+$_blue-light-primary: map.merge(map.get($_palettes, blue-light), $_rest-blue-light);
+$_blue-light-tertiary: map.merge(map.get($_palettes, blue-dark), $_rest-blue-dark);
+
+$blue-light-theme: mat.define-theme((
   color: (
     theme-type: light,
-    primary: $_primary,
-    tertiary: $_tertiary,
+    primary: $_blue-light-primary,
+    tertiary: $_blue-light-tertiary,
   ),
 ));
 
-$dark-theme: mat.define-theme((
+$blue-dark-theme: mat.define-theme((
   color: (
     theme-type: dark,
-    primary: $_primary,
-    tertiary: $_tertiary,
+    primary: $_blue-light-primary,
+    tertiary: $_blue-light-tertiary,
+  ),
+));
+
+
+/// GREEN ///
+
+$_rest-green-light: (
+  secondary: map.get($_palettes, green-light-theme),
+  neutral: map.get($_palettes, green-light-theme),
+  neutral-variant: map.get($_palettes,  green-light-theme),
+  error: map.get($_palettes, error),
+);
+
+$_green-light-primary: map.merge(map.get($_palettes, green-light-theme), $_rest-green-light);
+$_green-light-tertiary: map.merge(map.get($_palettes, green-dark-theme), $_rest-green-light);
+
+$green-light-theme: mat.define-theme((
+  color: (
+    theme-type: light,
+    primary: $_green-light-primary,
+    tertiary: $_green-light-tertiary,
+  ),
+));
+
+$green-dark-theme: mat.define-theme((
+  color: (
+    theme-type: dark,
+    primary: $_green-light-tertiary,
+    tertiary: $_green-light-primary,
   ),
 ));

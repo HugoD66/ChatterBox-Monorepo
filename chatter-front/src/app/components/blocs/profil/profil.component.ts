@@ -7,6 +7,7 @@ import {
   OnInit,
   Output,
   signal,
+  ViewEncapsulation,
   WritableSignal,
 } from '@angular/core';
 import { GetMeModel } from '../../../models/user.model';
@@ -25,6 +26,11 @@ import { switchMap } from 'rxjs';
 import { UserInfoComponent } from './user-info/user-info.component';
 import { UserInputComponent } from './user-input/user-input.component';
 import { PopupService } from '../../../services/popup.service';
+import { ThemeEnum } from '../../../enum/theme.enum';
+import { ThemeService } from '../../../services/theme.service';
+import { DialogService, Theme } from '../../../services/dialog.service';
+import { DialogTypeEnum } from '../../../enum/dialog.type.enum';
+import { MatDialogContent } from '@angular/material/dialog';
 
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -44,7 +50,9 @@ import { PopupService } from '../../../services/popup.service';
     ReactiveFormsModule,
     UserInfoComponent,
     UserInputComponent,
+    MatDialogContent,
   ],
+  encapsulation: ViewEncapsulation.None,
   templateUrl: './profil.component.html',
   styleUrl: './profil.component.scss',
   /*animations: [
@@ -95,6 +103,7 @@ export class ProfilComponent implements OnInit {
   public isPasswordEditing: WritableSignal<boolean> = signal(false);
 
   constructor(
+    public dialogService: DialogService,
     private userService: UserService,
     public authService: AuthService,
     private popupService: PopupService,
@@ -141,4 +150,11 @@ export class ProfilComponent implements OnInit {
       });
     }
   }
+
+  public chooseTheme(): void {
+    const nothing = new Theme('');
+    this.dialogService.openDialog(this.getMe()!, nothing, DialogTypeEnum.THEME);
+  }
+
+  protected readonly ThemeEnum = ThemeEnum;
 }

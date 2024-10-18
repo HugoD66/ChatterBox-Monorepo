@@ -7,20 +7,69 @@
 
 mat.$theme-ignore-duplication-warnings: true;
 
-:root {
-  @include mat.all-component-themes(theme.$light-theme);
-  @include mat.core-theme(theme.$light-theme);
+//  BLUE AND DEFAULT ///
+:root, .blue-light {
+  @include mat.all-component-themes(theme.$blue-light-theme);
+  @include mat.core-theme(theme.$blue-light-theme);
 
-  --primary-color: mat.get-theme-color(theme.$light-theme, 'primary', 50);
-  --secondary-color: #c9f0c6;
+  //--primary-color: red;
+  //--primary-color: mat.get-theme-color(theme.$blue-light-theme, 'error', 10);
+  //--secondary-color: mat.get-theme-color(theme.$blue-dark-theme, 'primary', 10);
+
+  --primary-color: mat.get-theme-color(theme.$blue-light-theme, 'primary');
+  --secondary-color: mat.get-theme-color(theme.$blue-dark-theme, 'tertiary');
 }
 
-.theme-dark {
-  @include mat.all-component-themes(theme.$dark-theme);
-  @include mat.core-theme(theme.$dark-theme);
-  --primary-color: #2d4562;
-  --secondary-color: #2a3e2c;
+.blue-dark {
+  @include mat.all-component-themes(theme.$blue-dark-theme);
+  @include mat.core-theme(theme.$blue-dark-theme);
+
+  //--primary-color: green;
+  //--primary-color: mat.get-theme-color(theme.$blue-dark-theme, 'primary', 10);
+  //--secondary-color: mat.get-theme-color(theme.$blue-light-theme, 'tertiary', 10);
+
+  --primary-color: mat.get-theme-color(theme.$blue-dark-theme, 'primary');
+  --secondary-color: mat.get-theme-color(theme.$blue-light-theme, 'tertiary');
 }
+
+//  GREEN ///
+.green-light {
+  @include mat.all-component-themes(theme.$green-light-theme);
+  @include mat.core-theme(theme.$green-light-theme);
+
+  --primary-color: mat.get-theme-color(theme.$green-light-theme, 'primary', 10);
+  --secondary-color: mat.get-theme-color(theme.$green-dark-theme, 'tertiary', 10);;
+}
+
+.green-dark {
+  @include mat.all-component-themes(theme.$green-dark-theme);
+  @include mat.core-theme(theme.$green-dark-theme);
+
+  --primary-color: mat.get-theme-color(theme.$green-dark-theme, 'primary', 10);
+  --secondary-color: mat.get-theme-color(theme.$green-light-theme, 'tertiary', 10);;
+}
+
+/*
+
+$actualTheme: theme.$blue-light-theme;
+
+@mixin apply-theme($theme) {
+  @include mat.all-component-themes($theme);
+}
+
+.light-theme {
+  @include apply-theme(theme.$blue-light-theme);
+}
+
+.dark-theme {
+  @include apply-theme(theme.$blue-dark-theme);
+}
+*/
+
+
+
+
+
 
 
 

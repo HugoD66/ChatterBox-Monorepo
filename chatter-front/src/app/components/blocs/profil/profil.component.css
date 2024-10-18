@@ -19,6 +19,7 @@
   }
 }
 .profil-content .bloc-profile {
+  background-color: var(--primary-color);
   width: 60%;
   margin: 5%;
   height: 72%;
