@@ -1,6 +1,12 @@
 @use "../../../../assets/scss/colors" as colors;
 @use "../../../../assets/scss/global" as global;
 @use "../../../../assets/scss/fonts" as fonts;
+@use "../../../../assets/scss/theme" as theme;
+@use "../../../../styles" as general;
+
+@use "@angular/material" as mat;
+
+@include mat.core();
 
 .friend-list-content {
   width: 100%;
@@ -26,6 +32,24 @@
     @include global.flex-center-column;
     height: 95%;
     .friend-list-loop {
+      //background-color: mat.color(colors.$back-body, 50);
+      //background-color: mat.color(theme.$dark-theme);
+
+      //PAS MAL MAIS PAS SWITCH THEME.
+      //background-color:  mat.get-theme-color($_palettes, 'primary', 50);
+      //background-color:  mat.get-theme-color(theme.$light-theme, 'primary', 50);
+      //background-color:  mat.get-theme-color(general.$actualTheme, 'primary', 50);
+
+      //A CHIER
+      //background-color: mat.get-color($_primary-palette, 50);
+
+      //background-color: mat.get-color-from-palette(colors.$_palettes, 'primary', 50);
+
+      //background-color: mat.get-theme-color(theme.$_palettes, 'primary', 50);
+
+      //background-color : theme.$light-theme;
+      background-color: var(--primary-color);
+
       height: 90%;
       width: 90%;
       margin: auto;

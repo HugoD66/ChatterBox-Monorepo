@@ -26,7 +26,7 @@ import { NgClass } from '@angular/common';
 export class IconsSidenavComponent {
   public getMe: InputSignal<GetMeModel | null> = input.required();
   public isExpanded: InputSignal<boolean> = input.required<boolean>();
-  public isDarkMode: WritableSignal<boolean> = signal(false);
+  public isLightMode: WritableSignal<boolean> = signal(true);
   @Output() changeSidenavMode: EventEmitter<void> = new EventEmitter<void>();
   @Output() removeGetMe = new EventEmitter<UserModel>();
 
@@ -43,7 +43,7 @@ export class IconsSidenavComponent {
   }
 
   toggleTheme(isDarkMode: boolean): void {
-    this.isDarkMode.update(() => !isDarkMode);
+    this.isLightMode.update(() => !isDarkMode);
     const themeClass = isDarkMode ? 'theme-dark' : 'theme-light';
 
     this.renderer.removeClass(

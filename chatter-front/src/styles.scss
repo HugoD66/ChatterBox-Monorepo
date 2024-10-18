@@ -1,7 +1,7 @@
-@use "@angular/material" as mat;
 @use "./assets/scss/colors" as colors;
 @use "./assets/scss/global" as global;
 @use "./assets/scss/theme" as theme;
+@use "@angular/material" as mat;
 
 @include mat.core();
 
@@ -10,12 +10,54 @@ mat.$theme-ignore-duplication-warnings: true;
 :root {
   @include mat.all-component-themes(theme.$light-theme);
   @include mat.core-theme(theme.$light-theme);
+
+  --primary-color: mat.get-theme-color(theme.$light-theme, 'primary', 50);
+  --secondary-color: #c9f0c6;
+}
+
+:root {
+
 }
 
 .theme-dark {
   @include mat.all-component-themes(theme.$dark-theme);
   @include mat.core-theme(theme.$dark-theme);
+  --primary-color: #2d4562;
+  --secondary-color: #2a3e2c;
 }
+
+.theme-light {
+  --primary-color: #edf4ff;
+  --secondary-color: #c9f0c6;
+}
+
+
+/*:root {
+  @include mat.all-component-themes(theme.$light-theme);
+  @include mat.core-theme(theme.$light-theme);
+}
+
+.theme-dark {
+  @include mat.all-component-themes(theme.$dark-theme);
+  @include mat.core-theme(theme.$dark-theme);
+}*/
+
+//$theme : mat.get_theme-color(theme.$dark-theme, primary, 50);
+
+$actualTheme: theme.$light-theme;
+
+@mixin apply-theme($theme) {
+  @include mat.all-component-themes($theme);
+}
+
+.light-theme {
+  @include apply-theme(theme.$light-theme);
+}
+
+.dark-theme {
+  @include apply-theme(theme.$dark-theme);
+}
+
 
 html,
 body {
