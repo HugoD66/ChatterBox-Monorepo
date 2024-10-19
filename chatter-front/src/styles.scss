@@ -12,12 +12,8 @@ mat.$theme-ignore-duplication-warnings: true;
   @include mat.all-component-themes(theme.$blue-light-theme);
   @include mat.core-theme(theme.$blue-light-theme);
 
-  //--primary-color: red;
-  //--primary-color: mat.get-theme-color(theme.$blue-light-theme, 'error', 10);
+  --primary-color: #{mat.get-theme-color(theme.$blue-light-theme, 'error', 10)};
   //--secondary-color: mat.get-theme-color(theme.$blue-dark-theme, 'primary', 10);
-
-  --primary-color: mat.get-theme-color(theme.$blue-light-theme, 'primary');
-  --secondary-color: mat.get-theme-color(theme.$blue-dark-theme, 'tertiary');
 }
 
 .blue-dark {

@@ -21,14 +21,9 @@ export class ThemeService {
   constructor(rendererFactory: RendererFactory2) {
     this.renderer = rendererFactory.createRenderer(null, null);
 
-    // Récupérer le thème et le mode sombre depuis le localStorage
     const storedTheme = localStorage.getItem(this.THEME_STORAGE_KEY);
     const storedDarkMode = localStorage.getItem(this.DARK_MODE_STORAGE_KEY);
 
-    console.log('Stored theme:', storedTheme);
-    console.log('Stored dark mode:', storedDarkMode);
-
-    // Vérifier et définir les valeurs de signal
     this.currentTheme = signal(
       storedTheme && this.isValidTheme(storedTheme)
         ? (storedTheme as ThemeEnum)
@@ -45,7 +40,6 @@ export class ThemeService {
   }
 
   private applyTheme(): void {
-    console.log(`Applying theme: ${this.currentTheme()}-${this.darkMode()}`);
     this.renderer.addClass(
       document.body,
       `${this.currentTheme()}-${this.darkMode()}`,
@@ -64,8 +58,8 @@ export class ThemeService {
 
     this.renderer.addClass(document.body, `${theme}-${this.darkMode()}`);
 
-    // Mettre à jour le signal et stocker dans le localStorage
     this.currentTheme.set(theme);
+
     localStorage.setItem(this.THEME_STORAGE_KEY, theme);
 
     console.log(`${this.currentTheme()}-${this.darkMode()}`);
@@ -87,7 +81,6 @@ export class ThemeService {
 
     this.renderer.addClass(document.body, `${this.currentTheme()}-${newMode}`);
 
-    // Mettre à jour le localStorage
     localStorage.setItem(this.DARK_MODE_STORAGE_KEY, newMode);
 
     console.log(`${this.currentTheme()}-${newMode}`);
