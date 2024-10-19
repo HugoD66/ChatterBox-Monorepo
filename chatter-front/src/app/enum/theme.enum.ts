@@ -1,7 +1,9 @@
 export enum ThemeEnum {
   GREEN = 'green',
   BLUE = 'blue',
-  MARRON = 'marron',
+  BROWN = 'brown',
+  PURPLE = 'purple',
+  GRAY = 'gray',
 }
 
 export enum DarkModeEnum {

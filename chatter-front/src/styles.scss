@@ -7,67 +7,6 @@
 
 mat.$theme-ignore-duplication-warnings: true;
 
-//  BLUE AND DEFAULT ///
-:root, .blue-light {
-  @include mat.all-component-themes(theme.$blue-light-theme);
-  @include mat.core-theme(theme.$blue-light-theme);
-
-  --primary-color: #{mat.get-theme-color(theme.$blue-light-theme, 'error', 10)};
-  //--secondary-color: mat.get-theme-color(theme.$blue-dark-theme, 'primary', 10);
-}
-
-.blue-dark {
-  @include mat.all-component-themes(theme.$blue-dark-theme);
-  @include mat.core-theme(theme.$blue-dark-theme);
-
-  //--primary-color: green;
-  //--primary-color: mat.get-theme-color(theme.$blue-dark-theme, 'primary', 10);
-  //--secondary-color: mat.get-theme-color(theme.$blue-light-theme, 'tertiary', 10);
-
-  --primary-color: mat.get-theme-color(theme.$blue-dark-theme, 'primary');
-  --secondary-color: mat.get-theme-color(theme.$blue-light-theme, 'tertiary');
-}
-
-//  GREEN ///
-.green-light {
-  @include mat.all-component-themes(theme.$green-light-theme);
-  @include mat.core-theme(theme.$green-light-theme);
-
-  --primary-color: mat.get-theme-color(theme.$green-light-theme, 'primary', 10);
-  --secondary-color: mat.get-theme-color(theme.$green-dark-theme, 'tertiary', 10);;
-}
-
-.green-dark {
-  @include mat.all-component-themes(theme.$green-dark-theme);
-  @include mat.core-theme(theme.$green-dark-theme);
-
-  --primary-color: mat.get-theme-color(theme.$green-dark-theme, 'primary', 10);
-  --secondary-color: mat.get-theme-color(theme.$green-light-theme, 'tertiary', 10);;
-}
-
-/*
-
-$actualTheme: theme.$blue-light-theme;
-
-@mixin apply-theme($theme) {
-  @include mat.all-component-themes($theme);
-}
-
-.light-theme {
-  @include apply-theme(theme.$blue-light-theme);
-}
-
-.dark-theme {
-  @include apply-theme(theme.$blue-dark-theme);
-}
-*/
-
-
-
-
-
-
-
 
 html,
 body {
@@ -162,3 +101,100 @@ h1 {
   background-color: rgba(0, 0, 0, 0.2);
 }
 
+
+
+// --------- THEMING --------- //
+
+
+
+//  BLUE AND DEFAULT ///
+
+:root, .blue-light {
+  @include mat.all-component-themes(theme.$blue-light);
+  @include mat.core-theme(theme.$blue-light);
+
+  --primary: #{mat.get-theme-color(theme.$blue-light, 'primary', 90)};
+  --secondary: #{mat.get-theme-color(theme.$blue-light, 'tertiary', 90)};
+}
+
+.blue-dark {
+  @include mat.all-component-themes(theme.$blue-dark);
+  @include mat.core-theme(theme.$blue-dark);
+
+  --primary: #{mat.get-theme-color(theme.$blue-dark, 'tertiary', 90)};
+  --secondary: #{mat.get-theme-color(theme.$blue-dark, 'primary', 90)};
+}
+
+
+
+//  GREEN ///
+
+.green-light {
+  @include mat.all-component-themes(theme.$green-light);
+  @include mat.core-theme(theme.$green-light);
+
+  --primary: #{mat.get-theme-color(theme.$green-light, 'primary', 90)};
+  --secondary: #{mat.get-theme-color(theme.$green-light, 'tertiary', 90)};
+}
+
+.green-dark {
+  @include mat.all-component-themes(theme.$green-dark);
+  @include mat.core-theme(theme.$green-dark);
+
+  --primary: #{mat.get-theme-color(theme.$green-light, 'tertiary', 90)};
+  --secondary: #{mat.get-theme-color(theme.$green-dark, 'primary', 90)};
+}
+
+//  BROWN ///
+
+.brown-light {
+  @include mat.all-component-themes(theme.$brown-light);
+  @include mat.core-theme(theme.$brown-light);
+
+  --primary: #{mat.get-theme-color(theme.$brown-light, 'primary', 90)};
+  --secondary: #{mat.get-theme-color(theme.$brown-light, 'tertiary', 90)};
+}
+
+.brown-dark {
+  @include mat.all-component-themes(theme.$brown-dark);
+  @include mat.core-theme(theme.$brown-dark);
+
+  --primary: #{mat.get-theme-color(theme.$brown-light, 'tertiary', 90)};
+  --secondary: #{mat.get-theme-color(theme.$brown-dark, 'primary', 90)};
+}
+
+//  GRAY ///
+
+.gray-light {
+  @include mat.all-component-themes(theme.$gray-light);
+  @include mat.core-theme(theme.$gray-light);
+
+  --primary: #{mat.get-theme-color(theme.$gray-light, 'primary', 90)};
+  --secondary: #{mat.get-theme-color(theme.$gray-light, 'tertiary', 90)};
+}
+
+.gray-dark {
+  @include mat.all-component-themes(theme.$gray-dark);
+  @include mat.core-theme(theme.$gray-dark);
+
+  --primary: #{mat.get-theme-color(theme.$gray-light, 'tertiary', 90)};
+  --secondary: #{mat.get-theme-color(theme.$gray-dark, 'primary', 90)};
+}
+
+//  PURPLE ///
+
+.purple-light {
+  @include mat.all-component-themes(theme.$purple-light);
+  @include mat.core-theme(theme.$purple-light);
+
+  --primary: #{mat.get-theme-color(theme.$purple-light, 'primary', 90)};
+  --secondary: #{mat.get-theme-color(theme.$purple-light, 'tertiary', 90)};
+}
+
+.purple-dark {
+  @include mat.all-component-themes(theme.$purple-dark);
+  @include mat.core-theme(theme.$purple-dark);
+
+  --primary: #{mat.get-theme-color(theme.$purple-light, 'tertiary', 90)};
+  --secondary: #{mat.get-theme-color(theme.$purple-dark, 'primary', 90)};
+}

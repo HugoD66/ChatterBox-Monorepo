@@ -49,16 +49,18 @@
 }
 
 .theme-content {
+  height: 100%;
+  width: 1200px;
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
   flex-direction: row;
 }
 .theme-content .icon {
   border-radius: 90%;
   border: 1px solid black;
-  height: 4em;
-  width: 4em;
+  height: 4rem;
+  width: 4rem;
   margin: 3em;
 }
 .theme-content .green-icon {
@@ -67,8 +69,14 @@
 .theme-content .blue-icon {
   background-color: blue;
 }
-.theme-content .marron-icon {
+.theme-content .brown-icon {
   background-color: rgba(255, 102, 0, 0.55);
+}
+.theme-content .purple-icon {
+  background-color: rgba(76, 13, 94, 0.55);
+}
+.theme-content .gray-icon {
+  background-color: rgba(115, 115, 115, 0.55);
 }
 
 /*# sourceMappingURL=dialog.component.css.map */
