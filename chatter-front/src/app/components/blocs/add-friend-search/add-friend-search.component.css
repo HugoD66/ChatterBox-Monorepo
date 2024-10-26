@@ -3,9 +3,9 @@
   margin: 1% auto auto;
   top: 0;
   border-radius: 16px;
-  box-shadow: 0 0 10px rgba(68, 68, 68, 0.1);
-  border: 2px solid rgba(68, 68, 68, 0.1);
-  background: linear-gradient(110deg, rgb(237, 244, 255) 0%, white 48%, rgb(237, 244, 255) 100%);
+  box-shadow: 0 0 10px var(--background-contrast-one);
+  border: 2px solid var(--background-contrast-one);
+  background: linear-gradient(110deg, var(--background-bloc-one) 0%, var(--background-bloc-two) 48%, var(--background-bloc-one) 100%);
   display: flex;
   justify-content: space-around;
   align-items: center;
@@ -29,9 +29,9 @@
 }
 .add-friend-search-content .title-search .title-selection-panel span {
   font-size: 0.9em;
-  color: rgb(39, 39, 39);
   font-family: "JostLight", sans-serif;
   margin: 0;
+  color: var(--font-light-subtitle);
   margin-left: 40px;
   margin-top: 5px;
   cursor: pointer;

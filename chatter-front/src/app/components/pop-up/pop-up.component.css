@@ -28,6 +28,7 @@
   text-align: center;
   font-family: "JostRegular", sans-serif;
   font-size: 1.05em;
+  color: var(--font-light-text);
 }
 
 /*# sourceMappingURL=pop-up.component.css.map */

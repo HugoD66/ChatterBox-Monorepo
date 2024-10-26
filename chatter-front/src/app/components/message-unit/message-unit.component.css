@@ -19,6 +19,7 @@
   width: 80%;
   font-family: "JostRegular", sans-serif;
   font-size: 1.05em;
+  color: var(--font-light-text);
 }
 .message-unit-content .message-unit-infos {
   margin: auto; /*
@@ -34,9 +35,9 @@ flex-direction: column;*/
 .message-unit-content .message-unit-infos .created-at {
   width: 100%;
   font-size: 0.9em;
-  color: rgb(39, 39, 39);
   font-family: "JostLight", sans-serif;
   margin: 0;
+  color: var(--font-light-subtitle);
 }
 
 .message-unit-content-received {

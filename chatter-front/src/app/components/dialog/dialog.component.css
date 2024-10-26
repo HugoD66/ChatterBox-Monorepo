@@ -20,6 +20,7 @@
   padding: 10px;
   font-family: "JostRegular", sans-serif;
   font-size: 1.05em;
+  color: var(--font-light-text);
   color: rgb(39, 39, 39);
 }
 .dialog-content .dialog-remove-friend .dialog-remove-friend-actions {
@@ -32,7 +33,6 @@
 }
 .dialog-content .dialog-remove-friend .dialog-remove-friend-actions .button-modal {
   background-color: rgb(39, 39, 39);
-  color: rgb(237, 244, 255);
   font-size: 0.95rem;
   border: none;
   height: 2rem;
@@ -40,6 +40,7 @@
   cursor: pointer;
   transition: 0.2s;
   padding: 5px;
+  color: var(--font-light-text);
 }
 .dialog-content .dialog-remove-friend .dialog-remove-friend-actions .button-modal:hover {
   border: none;

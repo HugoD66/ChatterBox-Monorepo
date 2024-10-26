@@ -23,9 +23,9 @@
 }
 .button-action-list-count .action-friend p, .button-action-list-count .action-room-list p {
   font-size: 0.9em;
-  color: rgb(39, 39, 39);
   font-family: "JostLight", sans-serif;
   margin: 0;
+  color: var(--font-light-subtitle);
 }
 .button-action-list-count.expanded .action-friend, .button-action-list-count.expanded .action-room-list {
   margin: 5px;

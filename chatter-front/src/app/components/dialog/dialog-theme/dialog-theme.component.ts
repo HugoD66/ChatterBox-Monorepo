@@ -10,7 +10,12 @@ import { DialogTypeEnum } from '../../../enum/dialog.type.enum';
 import { ThemeEnum } from '../../../enum/theme.enum';
 import { ThemeService } from '../../../services/theme.service';
 import { MatIcon } from '@angular/material/icon';
-
+/*
+ * COUCOUCOUCUC
+ *
+ *
+ *
+ * */
 @Component({
   selector: 'app-dialog-theme',
   standalone: true,

@@ -2,4 +2,8 @@
   <span>{{ title() }}</span>
   <p>{{ value() }}</p>
 </div>
-<button mat-raised-button (click)="updateView.emit()">Modifier</button>
+<button mat-raised-button (click)="updateView.emit()" class="info-content-me-modify">
+  <span>
+    Modifier
+  </span>
+</button>
