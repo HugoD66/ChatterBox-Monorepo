@@ -142,7 +142,7 @@
 }
 
 @mixin button-modal {
-  background-color: colors.$gradient-dark-g;
+  background-color: var(--background-light-one);
   font-size: 0.95rem;
   border: none;
   height: 2rem;
@@ -153,8 +153,8 @@
   @include fonts.button;
   &:hover {
     border: none;
-    background-color: colors.$back-light-b;
-    color: colors.$gradient-dark-g;
+    background-color: var(--background-light-two);
+    color: var(--background-contrast-one);
     transform: scale(1.0);
   }
 }

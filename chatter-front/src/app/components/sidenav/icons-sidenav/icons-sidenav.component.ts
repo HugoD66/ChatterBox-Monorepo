@@ -5,9 +5,6 @@ import {
   input,
   InputSignal,
   Output,
-  Renderer2,
-  signal,
-  WritableSignal,
 } from '@angular/core';
 import { MatIcon } from '@angular/material/icon';
 import { GetMeModel, UserModel } from '../../../models/user.model';
@@ -26,14 +23,13 @@ import { NgClass } from '@angular/common';
 export class IconsSidenavComponent {
   public getMe: InputSignal<GetMeModel | null> = input.required();
   public isExpanded: InputSignal<boolean> = input.required<boolean>();
-  public isLightMode: WritableSignal<boolean> = signal(true);
+
   @Output() changeSidenavMode: EventEmitter<void> = new EventEmitter<void>();
   @Output() removeGetMe = new EventEmitter<UserModel>();
 
   constructor(
     private authService: AuthService,
     private router: Router,
-    private renderer: Renderer2,
   ) {}
 
   logout(): void {

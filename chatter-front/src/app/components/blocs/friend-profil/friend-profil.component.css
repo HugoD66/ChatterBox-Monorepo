@@ -77,6 +77,7 @@
   font-size: 0.9em;
   font-family: "JostLight", sans-serif;
   margin: 0;
+  background-color: var();
   color: var(--font-light-subtitle);
 }
 .friend-profil-content .friend-profil-info-picture .friend-profil-infos .status-content {
@@ -93,6 +94,7 @@
   font-size: 0.9em;
   font-family: "JostLight", sans-serif;
   margin: 0;
+  background-color: var();
   color: var(--font-light-subtitle);
 }
 .friend-profil-content .friend-profil-footer {
@@ -155,6 +157,7 @@
   font-size: 0.9em;
   font-family: "JostLight", sans-serif;
   margin: 0;
+  background-color: var();
   color: var(--font-light-subtitle);
   text-wrap: nowrap;
   margin: 4px;

@@ -10,8 +10,6 @@ mat-sidenav {
   transition: width 0.3s ease;
   opacity: 1;
   position: fixed;
-  //position: absolute;
-  //@include global.flex-around-column;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -36,6 +34,9 @@ mat-sidenav {
       position: relative;
       top: 50%;
     }
+    path {
+      fill: var(--font-light-title);
+    }
     span {
       position: relative;
       height: 100%;
@@ -43,6 +44,7 @@ mat-sidenav {
       margin: auto auto auto 5px;
       font-family: "Title", serif;
       font-size: 1.7em;
+      color: var(--font-light-title);
     }
   }
   .count-buttons-actions {
@@ -58,7 +60,6 @@ mat-sidenav {
   .icons-actions-content {
     height: 10vh;
      }
-/////////
   &.expanded {
     width: 15em !important;
     .logo-title-content {
@@ -86,9 +87,8 @@ mat-sidenav {
       transition:  width 0.3s ease 0.3s;
     }
   }
-/////////
   &.collapsed {
-    width: 5em !important; //5
+    width: 5em !important;
     .logo-title-content {
       .logo-chatter-box {
         width: 50px;

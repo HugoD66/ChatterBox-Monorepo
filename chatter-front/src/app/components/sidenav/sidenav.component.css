@@ -34,6 +34,9 @@ mat-sidenav .logo-title-content .logo-chatter-box {
   position: relative;
   top: 50%;
 }
+mat-sidenav .logo-title-content path {
+  fill: var(--font-light-title);
+}
 mat-sidenav .logo-title-content span {
   position: relative;
   height: 100%;
@@ -41,6 +44,7 @@ mat-sidenav .logo-title-content span {
   margin: auto auto auto 5px;
   font-family: "Title", serif;
   font-size: 1.7em;
+  color: var(--font-light-title);
 }
 mat-sidenav .count-buttons-actions {
   display: flex;

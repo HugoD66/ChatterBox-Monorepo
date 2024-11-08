@@ -32,7 +32,7 @@
   flex-direction: row;
 }
 .dialog-content .dialog-remove-friend .dialog-remove-friend-actions .button-modal {
-  background-color: rgb(39, 39, 39);
+  background-color: var(--background-light-one);
   font-size: 0.95rem;
   border: none;
   height: 2rem;
@@ -44,8 +44,8 @@
 }
 .dialog-content .dialog-remove-friend .dialog-remove-friend-actions .button-modal:hover {
   border: none;
-  background-color: rgb(237, 244, 255);
-  color: rgb(39, 39, 39);
+  background-color: var(--background-light-two);
+  color: var(--background-contrast-one);
   transform: scale(1);
 }
 

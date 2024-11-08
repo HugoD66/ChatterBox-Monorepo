@@ -54,11 +54,6 @@ button {
   font-style: normal;
 }
 
-// --------- LIGHT THEME --------- //
-h1 {
-  color: colors.$dark-b;
-}
-
 // --------- GLOBAL COMPONENT --------- //
 .buttonLogin {
   background-color: var(--background-light-one);
@@ -110,15 +105,12 @@ h1 {
 :root, .blue-light {
   @include mat.all-component-themes(theme.$blue-light);
   @include mat.core-theme(theme.$blue-light);
-
-  //CUSTOM
+  @include mat.core-theme(theme.$gray-dark);
   --background-light-one: #{mat.get-theme-color(theme.$blue-light, 'primary', 60)};
   --background-light-two: #{mat.get-theme-color(theme.$blue-light, 'tertiary', 95)};
 
   --background-bloc-one: #{mat.get-theme-color(theme.$blue-light, 'primary', 100)};
   --background-bloc-two: #{mat.get-theme-color(theme.$blue-light, 'tertiary', 20)};
-
-
 
   --background-contrast-one: #{mat.get-theme-color(theme.$blue-light, 'primary', 98)};
   --background-contrast-two: #{mat.get-theme-color(theme.$blue-light, 'tertiary', 98)};
@@ -127,30 +119,20 @@ h1 {
   --background-medium-two: #{mat.get-theme-color(theme.$blue-light, 'tertiary', 20)};
 
   //FONTS
-
   --font-light-title: #{mat.get-theme-color(theme.$gray-dark, 'primary', 99)};
   --font-light-subtitle: #{mat.get-theme-color(theme.$gray-dark, 'primary', 98)};
   --font-light-text: #{mat.get-theme-color(theme.$gray-dark, 'primary', 95)};
   --font-light-legend: #{mat.get-theme-color(theme.$gray-dark, 'primary', 90)};
-
-  //TDOO SHADOW
-
-  //TEMP
-  --primary: #{mat.get-theme-color(theme.$blue-light, 'primary', 90)};
-  --secondary: #{mat.get-theme-color(theme.$blue-light, 'tertiary', 90)};
 }
 
 .blue-dark {
   @include mat.all-component-themes(theme.$blue-dark);
   @include mat.core-theme(theme.$blue-dark);
-
   --background-light-one: #{mat.get-theme-color(theme.$blue-light, 'tertiary', 95)};
   --background-light-two: #{mat.get-theme-color(theme.$blue-light, 'primary', 95)};
 
   --background-bloc-one: #{mat.get-theme-color(theme.$blue-light, 'primary', 20)};
   --background-bloc-two: #{mat.get-theme-color(theme.$blue-light, 'tertiary', 100)};
-
-
 
   --background-contrast-one: #{mat.get-theme-color(theme.$blue-light, 'tertiary', 98)};
   --background-contrast-two: #{mat.get-theme-color(theme.$blue-light, 'primary', 98)};
@@ -158,44 +140,60 @@ h1 {
   --background-medium-one: #{mat.get-theme-color(theme.$blue-light, 'tertiary', 80)};
   --background-medium-two: #{mat.get-theme-color(theme.$blue-light, 'primary', 80)};
 
-  --primary: #{mat.get-theme-color(theme.$blue-dark, 'tertiary', 90)};
-  --secondary: #{mat.get-theme-color(theme.$blue-dark, 'primary', 90)};
+  //FONTS
+  --font-light-title: #{mat.get-theme-color(theme.$gray-dark, 'primary', 10)};
+  --font-light-subtitle: #{mat.get-theme-color(theme.$gray-dark, 'primary', 20)};
+  --font-light-text: #{mat.get-theme-color(theme.$gray-dark, 'primary', 25)};
+  --font-light-legend: #{mat.get-theme-color(theme.$gray-dark, 'primary', 40)};
 }
 
-
-
 //  GREEN ///
-
 .green-light {
   @include mat.all-component-themes(theme.$green-light);
   @include mat.core-theme(theme.$green-light);
+  @include mat.core-theme(theme.$gray-dark);
 
-  --background-light-one: #{mat.get-theme-color(theme.$green-light, 'primary', 95)};
+  --background-light-one: #{mat.get-theme-color(theme.$green-light, 'primary', 60)};
   --background-light-two: #{mat.get-theme-color(theme.$green-light, 'tertiary', 95)};
 
   --background-bloc-one: #{mat.get-theme-color(theme.$green-light, 'primary', 100)};
   --background-bloc-two: #{mat.get-theme-color(theme.$green-light, 'tertiary', 20)};
 
-  --primary: #{mat.get-theme-color(theme.$green-light, 'primary', 90)};
-  --secondary: #{mat.get-theme-color(theme.$green-light, 'tertiary', 90)};
+  --background-contrast-one: #{mat.get-theme-color(theme.$green-light, 'primary', 98)};
+  --background-contrast-two: #{mat.get-theme-color(theme.$green-light, 'tertiary', 98)};
+
+  --background-medium-one: #{mat.get-theme-color(theme.$green-light, 'primary', 80)};
+  --background-medium-two: #{mat.get-theme-color(theme.$green-light, 'tertiary', 20)};
+
+  //FONTS
+  --font-light-title: #{mat.get-theme-color(theme.$gray-dark, 'primary', 10)};
+  --font-light-subtitle: #{mat.get-theme-color(theme.$gray-dark, 'primary', 20)};
+  --font-light-text: #{mat.get-theme-color(theme.$gray-dark, 'primary', 25)};
+  --font-light-legend: #{mat.get-theme-color(theme.$gray-dark, 'primary', 40)};
 }
 
 .green-dark {
-  //TODO TO REMOVE ???
   @include mat.all-component-themes(theme.$green-dark);
   @include mat.core-theme(theme.$green-dark);
+  @include mat.core-theme(theme.$gray-dark);
 
-  @include mat.all-component-themes(theme.$green-light);
-  @include mat.core-theme(theme.$green-light);
+  --background-light-one: #{mat.get-theme-color(theme.$green-dark, 'tertiary', 95)};
+  --background-light-two: #{mat.get-theme-color(theme.$green-dark, 'primary', 95)};
 
-  --background-light-one: #{mat.get-theme-color(theme.$green-light, 'tertiary', 95)};
-  --background-light-two: #{mat.get-theme-color(theme.$green-light, 'primary', 95)};
+  --background-bloc-one: #{mat.get-theme-color(theme.$green-dark, 'primary', 20)};
+  --background-bloc-two: #{mat.get-theme-color(theme.$green-dark, 'tertiary', 100)};
 
-  --background-bloc-one: #{mat.get-theme-color(theme.$green-light, 'primary', 100)};
-  --background-bloc-two: #{mat.get-theme-color(theme.$green-light, 'tertiary', 20)};
+  --background-contrast-one: #{mat.get-theme-color(theme.$green-dark, 'tertiary', 98)};
+  --background-contrast-two: #{mat.get-theme-color(theme.$green-dark, 'primary', 98)};
 
-  --primary: #{mat.get-theme-color(theme.$green-dark, 'tertiary', 90)};
-  --secondary: #{mat.get-theme-color(theme.$green-dark, 'primary', 90)};
+  --background-medium-one: #{mat.get-theme-color(theme.$green-dark, 'tertiary', 80)};
+  --background-medium-two: #{mat.get-theme-color(theme.$green-dark, 'primary', 80)};
+
+  //FONTS
+  --font-light-title: #{mat.get-theme-color(theme.$gray-dark, 'primary', 99)};
+  --font-light-subtitle: #{mat.get-theme-color(theme.$gray-dark, 'primary', 98)};
+  --font-light-text: #{mat.get-theme-color(theme.$gray-dark, 'primary', 95)};
+  --font-light-legend: #{mat.get-theme-color(theme.$gray-dark, 'primary', 90)};
 }
 
 //  BROWN ///
@@ -203,17 +201,49 @@ h1 {
 .brown-light {
   @include mat.all-component-themes(theme.$brown-light);
   @include mat.core-theme(theme.$brown-light);
+  @include mat.core-theme(theme.$gray-dark);
 
-  --primary: #{mat.get-theme-color(theme.$brown-light, 'primary', 90)};
-  --secondary: #{mat.get-theme-color(theme.$brown-light, 'tertiary', 90)};
+  --background-light-one: #{mat.get-theme-color(theme.$brown-light, 'primary', 60)};
+  --background-light-two: #{mat.get-theme-color(theme.$brown-light, 'tertiary', 95)};
+
+  --background-bloc-one: #{mat.get-theme-color(theme.$brown-light, 'primary', 100)};
+  --background-bloc-two: #{mat.get-theme-color(theme.$brown-light, 'tertiary', 20)};
+
+  --background-contrast-one: #{mat.get-theme-color(theme.$brown-light, 'primary', 98)};
+  --background-contrast-two: #{mat.get-theme-color(theme.$brown-light, 'tertiary', 98)};
+
+  --background-medium-one: #{mat.get-theme-color(theme.$brown-light, 'primary', 80)};
+  --background-medium-two: #{mat.get-theme-color(theme.$brown-light, 'tertiary', 20)};
+
+  //FONTS
+  --font-light-title: #{mat.get-theme-color(theme.$gray-dark, 'primary', 10)};
+  --font-light-subtitle: #{mat.get-theme-color(theme.$gray-dark, 'primary', 20)};
+  --font-light-text: #{mat.get-theme-color(theme.$gray-dark, 'primary', 25)};
+  --font-light-legend: #{mat.get-theme-color(theme.$gray-dark, 'primary', 40)};
 }
 
 .brown-dark {
   @include mat.all-component-themes(theme.$brown-dark);
   @include mat.core-theme(theme.$brown-dark);
+  @include mat.core-theme(theme.$gray-dark);
 
-  --primary: #{mat.get-theme-color(theme.$brown-light, 'tertiary', 90)};
-  --secondary: #{mat.get-theme-color(theme.$brown-dark, 'primary', 90)};
+  --background-light-one: #{mat.get-theme-color(theme.$brown-dark, 'tertiary', 95)};
+  --background-light-two: #{mat.get-theme-color(theme.$brown-dark, 'primary', 95)};
+
+  --background-bloc-one: #{mat.get-theme-color(theme.$brown-dark, 'primary', 20)};
+  --background-bloc-two: #{mat.get-theme-color(theme.$brown-dark, 'tertiary', 100)};
+
+  --background-contrast-one: #{mat.get-theme-color(theme.$brown-dark, 'tertiary', 98)};
+  --background-contrast-two: #{mat.get-theme-color(theme.$brown-dark, 'primary', 98)};
+
+  --background-medium-one: #{mat.get-theme-color(theme.$brown-dark, 'tertiary', 80)};
+  --background-medium-two: #{mat.get-theme-color(theme.$brown-dark, 'primary', 80)};
+
+  //FONTS
+  --font-light-title: #{mat.get-theme-color(theme.$gray-dark, 'primary', 99)};
+  --font-light-subtitle: #{mat.get-theme-color(theme.$gray-dark, 'primary', 98)};
+  --font-light-text: #{mat.get-theme-color(theme.$gray-dark, 'primary', 95)};
+  --font-light-legend: #{mat.get-theme-color(theme.$gray-dark, 'primary', 90)};
 }
 
 //  GRAY ///
@@ -221,17 +251,49 @@ h1 {
 .gray-light {
   @include mat.all-component-themes(theme.$gray-light);
   @include mat.core-theme(theme.$gray-light);
+  @include mat.core-theme(theme.$gray-dark);
 
-  --primary: #{mat.get-theme-color(theme.$gray-light, 'primary', 90)};
-  --secondary: #{mat.get-theme-color(theme.$gray-light, 'tertiary', 90)};
+  --background-light-one: #{mat.get-theme-color(theme.$gray-light, 'primary', 60)};
+  --background-light-two: #{mat.get-theme-color(theme.$gray-light, 'tertiary', 95)};
+
+  --background-bloc-one: #{mat.get-theme-color(theme.$gray-light, 'primary', 100)};
+  --background-bloc-two: #{mat.get-theme-color(theme.$gray-light, 'tertiary', 20)};
+
+  --background-contrast-one: #{mat.get-theme-color(theme.$gray-light, 'primary', 98)};
+  --background-contrast-two: #{mat.get-theme-color(theme.$gray-light, 'tertiary', 98)};
+
+  --background-medium-one: #{mat.get-theme-color(theme.$gray-light, 'primary', 80)};
+  --background-medium-two: #{mat.get-theme-color(theme.$gray-light, 'tertiary', 20)};
+
+  //FONTS
+  --font-light-title: #{mat.get-theme-color(theme.$gray-dark, 'primary', 10)};
+  --font-light-subtitle: #{mat.get-theme-color(theme.$gray-dark, 'primary', 20)};
+  --font-light-text: #{mat.get-theme-color(theme.$gray-dark, 'primary', 25)};
+  --font-light-legend: #{mat.get-theme-color(theme.$gray-dark, 'primary', 40)};
 }
 
 .gray-dark {
   @include mat.all-component-themes(theme.$gray-dark);
   @include mat.core-theme(theme.$gray-dark);
+  @include mat.core-theme(theme.$gray-dark);
 
-  --primary: #{mat.get-theme-color(theme.$gray-light, 'tertiary', 90)};
-  --secondary: #{mat.get-theme-color(theme.$gray-dark, 'primary', 90)};
+  --background-light-one: #{mat.get-theme-color(theme.$gray-dark, 'tertiary', 95)};
+  --background-light-two: #{mat.get-theme-color(theme.$gray-dark, 'primary', 95)};
+
+  --background-bloc-one: #{mat.get-theme-color(theme.$gray-dark, 'primary', 20)};
+  --background-bloc-two: #{mat.get-theme-color(theme.$gray-dark, 'tertiary', 100)};
+
+  --background-contrast-one: #{mat.get-theme-color(theme.$gray-dark, 'tertiary', 98)};
+  --background-contrast-two: #{mat.get-theme-color(theme.$gray-dark, 'primary', 98)};
+
+  --background-medium-one: #{mat.get-theme-color(theme.$gray-dark, 'tertiary', 80)};
+  --background-medium-two: #{mat.get-theme-color(theme.$gray-dark, 'primary', 80)};
+
+  //FONTS
+  --font-light-title: #{mat.get-theme-color(theme.$gray-dark, 'primary', 99)};
+  --font-light-subtitle: #{mat.get-theme-color(theme.$gray-dark, 'primary', 98)};
+  --font-light-text: #{mat.get-theme-color(theme.$gray-dark, 'primary', 95)};
+  --font-light-legend: #{mat.get-theme-color(theme.$gray-dark, 'primary', 90)};
 }
 
 //  PURPLE ///
@@ -239,15 +301,57 @@ h1 {
 .purple-light {
   @include mat.all-component-themes(theme.$purple-light);
   @include mat.core-theme(theme.$purple-light);
+  @include mat.core-theme(theme.$gray-dark);
 
-  --primary: #{mat.get-theme-color(theme.$purple-light, 'primary', 90)};
-  --secondary: #{mat.get-theme-color(theme.$purple-light, 'tertiary', 90)};
+  --background-light-one: #{mat.get-theme-color(theme.$purple-light, 'primary', 60)};
+  --background-light-two: #{mat.get-theme-color(theme.$purple-light, 'tertiary', 95)};
+
+  --background-bloc-one: #{mat.get-theme-color(theme.$purple-light, 'primary', 100)};
+  --background-bloc-two: #{mat.get-theme-color(theme.$purple-light, 'tertiary', 20)};
+
+  --background-contrast-one: #{mat.get-theme-color(theme.$purple-light, 'primary', 98)};
+  --background-contrast-two: #{mat.get-theme-color(theme.$purple-light, 'tertiary', 98)};
+
+  --background-medium-one: #{mat.get-theme-color(theme.$purple-light, 'primary', 80)};
+  --background-medium-two: #{mat.get-theme-color(theme.$purple-light, 'tertiary', 20)};
+
+  //FONTS
+  --font-light-title: #{mat.get-theme-color(theme.$gray-dark, 'primary', 10)};
+  --font-light-subtitle: #{mat.get-theme-color(theme.$gray-dark, 'primary', 20)};
+  --font-light-text: #{mat.get-theme-color(theme.$gray-dark, 'primary', 25)};
+  --font-light-legend: #{mat.get-theme-color(theme.$gray-dark, 'primary', 40)};
 }
 
 .purple-dark {
   @include mat.all-component-themes(theme.$purple-dark);
   @include mat.core-theme(theme.$purple-dark);
+  @include mat.core-theme(theme.$gray-dark);
 
-  --primary: #{mat.get-theme-color(theme.$purple-light, 'tertiary', 90)};
-  --secondary: #{mat.get-theme-color(theme.$purple-dark, 'primary', 90)};
+  --background-light-one: #{mat.get-theme-color(theme.$purple-dark, 'tertiary', 95)};
+  --background-light-two: #{mat.get-theme-color(theme.$purple-dark, 'primary', 95)};
+
+  --background-bloc-one: #{mat.get-theme-color(theme.$purple-dark, 'primary', 20)};
+  --background-bloc-two: #{mat.get-theme-color(theme.$purple-dark, 'tertiary', 100)};
+
+  --background-contrast-one: #{mat.get-theme-color(theme.$purple-dark, 'tertiary', 98)};
+  --background-contrast-two: #{mat.get-theme-color(theme.$purple-dark, 'primary', 98)};
+
+  --background-medium-one: #{mat.get-theme-color(theme.$purple-dark, 'tertiary', 80)};
+  --background-medium-two: #{mat.get-theme-color(theme.$purple-dark, 'primary', 80)};
+
+  //FONTS
+  --font-light-title: #{mat.get-theme-color(theme.$gray-dark, 'primary', 99)};
+  --font-light-subtitle: #{mat.get-theme-color(theme.$gray-dark, 'primary', 98)};
+  --font-light-text: #{mat.get-theme-color(theme.$gray-dark, 'primary', 95)};
+  --font-light-legend: #{mat.get-theme-color(theme.$gray-dark, 'primary', 90)};
+}
+
+
+
+// --------- TITLE --------- //
+h1 {
+  color: colors.$dark-b;
+}
+h3 {
+  color: var(--font-light-title)
 }
