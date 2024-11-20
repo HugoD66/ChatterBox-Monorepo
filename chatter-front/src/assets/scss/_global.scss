@@ -1,7 +1,5 @@
 @use "./colors" as colors;
-
-$theme-transition: color 0.5s ease;
-$radius-background: 16px;
+@use "./fonts" as fonts;
 
 // Mixin
 
@@ -107,14 +105,14 @@ $radius-background: 16px;
 
 //Blocks
 @mixin bloc {
-  border-radius: $radius-background;
-  box-shadow: 0 0 10px rgba(68, 68, 68, 0.1);
-  border: 2px solid rgba(68, 68, 68, 0.1);
+  border-radius: 16px;
+  box-shadow: 0 0 10px var(--background-contrast-one); //TODO SHADOW HERE
+  border: 2px solid var(--background-contrast-one);
   background: linear-gradient(
     110deg,
-    colors.$back-light-b 0%,
-    white 48%,
-    colors.$back-light-b 100%
+      var(--background-bloc-one) 0%,
+      var(--background-bloc-two) 48%,
+      var(--background-bloc-one) 100%
   );
 }
 @mixin screenBloc {
@@ -129,23 +127,22 @@ $radius-background: 16px;
   border-radius: 90%;
   @include shadow-bloc;
 }
+
 //Buttons
 
 @mixin button-one {
-  // Add mat-raised-button
-  background-color: colors.$back-body;
-  color: colors.$dark-b;
   font-size: 1.05rem;
   height: 3rem;
   border-radius: 0.5rem;
   cursor: pointer;
-  transition: 0.3s;
   padding-bottom: 1px;
+  @include fonts.button;
+  &:hover {
+  }
 }
 
 @mixin button-modal {
-  background-color: colors.$gradient-dark-g;
-  color: colors.$back-light-b;
+  background-color: var(--background-light-one);
   font-size: 0.95rem;
   border: none;
   height: 2rem;
@@ -153,10 +150,11 @@ $radius-background: 16px;
   cursor: pointer;
   transition: 0.2s;
   padding: 5px;
+  @include fonts.button;
   &:hover {
     border: none;
-    background-color: colors.$back-light-b;
-    color: colors.$gradient-dark-g;
+    background-color: var(--background-light-two);
+    color: var(--background-contrast-one);
     transform: scale(1.0);
   }
 }

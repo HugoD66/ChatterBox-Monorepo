@@ -32,5 +32,50 @@
   }
 }
 
-
-
+.theme-content {
+  height: 80%;
+  width: 80%;
+  margin: auto;
+  @include global.flex-center-column;
+  h2 {
+    @include fonts.h3-title;
+    color: var(--font-light-title);
+  }
+  .icon {
+    border-radius: 90%;
+    border: none;
+    height: 4rem;
+    width: 4rem;
+    margin: 3em;
+  }
+  .icon-theme-change {
+    padding: 10px;
+    margin: 5px;
+    cursor: pointer;
+    border-radius: 90%;
+    @include global.input-bloc;
+  }
+  .theme-content-palette {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: row;
+    flex-wrap: wrap;
+    width: 100%;
+    .green-icon {
+      background-color: #87E38F;
+    }
+    .blue-icon {
+      background-color: #2d4562;
+    }
+    .brown-icon {
+      background-color: #ab9670;
+    }
+    .purple-icon {
+      background-color: #8a429b;
+    }
+    .gray-icon {
+      background-color: #555555;
+    }
+  }
+}

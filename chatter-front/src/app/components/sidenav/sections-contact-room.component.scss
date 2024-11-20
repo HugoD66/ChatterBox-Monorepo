@@ -26,17 +26,19 @@ h3 {
   p {
     width: 80%;
     text-align: center;
+    color: var(--font-light-text);
   }
   button {
     @include global.flex-center;
     @include global.sidebar-buttons;
     @include fonts.subtitle;
     padding: 8px;
+    background-color: var(--background-light-one);
   }
   .icon-add-room {
     mat-icon {
       padding: 10px;
-      background-color: colors.$light-b;
+      background-color: var(--background-light-one);
       border-radius: 90%;
       margin: auto;
     }

@@ -4,9 +4,9 @@
   align-items: center;
   flex-direction: column;
   border-radius: 16px;
-  box-shadow: 0 0 10px rgba(68, 68, 68, 0.1);
-  border: 2px solid rgba(68, 68, 68, 0.1);
-  background: linear-gradient(110deg, rgb(237, 244, 255) 0%, white 48%, rgb(237, 244, 255) 100%);
+  box-shadow: 0 0 10px var(--background-contrast-one);
+  border: 2px solid var(--background-contrast-one);
+  background: linear-gradient(110deg, var(--background-bloc-one) 0%, var(--background-bloc-two) 48%, var(--background-bloc-one) 100%);
   margin: 10px;
 }
 .message-unit .message-unit-senderInfos {
@@ -21,6 +21,7 @@
   margin: 0;
   font-family: "JostRegular", sans-serif;
   font-size: 1.05em;
+  color: var(--font-light-text);
 }
 .message-unit .message-unit-senderInfos img {
   width: 50px;
@@ -36,6 +37,7 @@
 .message-unit .message-unit-content p {
   font-family: "JostRegular", sans-serif;
   font-size: 1.05em;
+  color: var(--font-light-text);
   cursor: default;
 }
 .message-unit .message-unit-footer {
@@ -47,9 +49,10 @@
 }
 .message-unit .message-unit-footer p {
   font-size: 0.9em;
-  color: rgb(39, 39, 39);
   font-family: "JostLight", sans-serif;
   margin: 0;
+  background-color: var();
+  color: var(--font-light-subtitle);
   cursor: default;
 }
 .message-unit .message-unit-footer button {

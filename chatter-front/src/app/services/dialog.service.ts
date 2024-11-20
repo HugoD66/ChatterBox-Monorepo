@@ -5,12 +5,16 @@ import { DialogSettingsFriendComponent } from '../components/dialog/dialog-setti
 import { DialogRemoveFriendComponent } from '../components/dialog/dialog-remove-friend/dialog-remove-friend.component';
 import { FriendRelationModel } from '../models/friend-relation.model';
 import { DialogTypeEnum } from '../enum/dialog.type.enum';
+import { DialogThemeComponent } from '../components/dialog/dialog-theme/dialog-theme.component';
 
 export class SettingsOrRemoveFriendDialogData {
   constructor(
     public user: UserModel,
     public friendRelation: FriendRelationModel,
   ) {}
+}
+export class Theme {
+  constructor(public theme: string) {}
 }
 
 @Injectable()
@@ -19,12 +23,17 @@ export class DialogService {
 
   openDialog(
     getMe: GetMeModel,
-    dataType: SettingsOrRemoveFriendDialogData,
+    dataType: SettingsOrRemoveFriendDialogData | Theme,
     dialogType: DialogTypeEnum,
   ): void {
     let dialogRef;
 
     switch (dialogType) {
+      case DialogTypeEnum.THEME:
+        dialogRef = this.dialog.open(DialogThemeComponent, {
+          data: { getMe, dataType, dialogType },
+        });
+        break;
       case DialogTypeEnum.SETTINGS_FRIEND:
         dialogRef = this.dialog.open(DialogSettingsFriendComponent, {
           data: { getMe, dataType, dialogType },
@@ -47,33 +56,3 @@ export class DialogService {
     }
   }
 }
-
-/*
- public getMe: WritableSignal<GetMeModel | null> = signal(null);
-  public isLoading: WritableSignal<boolean> = signal(true);
-  public user: WritableSignal<UserModel | null> = signal(null);
-  public friendRelation: WritableSignal<FriendRelationModel | null> =
-    signal(null);
-  public dialogTypeEnum: WritableSignal<DialogTypeEnum> = signal(
-    DialogTypeEnum.SETTINGS_FRIEND,
-  );
-
-  constructor(
-    @Inject(MAT_DIALOG_DATA)
-    public data: {
-      getMe: GetMeModel;
-      dataType: SettingsOrRemoveFriendDialogData;
-      dialogType: DialogTypeEnum;
-    },
-  ) {
-    this.getMe.set(data.getMe);
-    this.dialogTypeEnum.set(data.dialogType);
-    this.user.set(data.dataType.user);
-    this.friendRelation.set(data.dataType.friendRelation);
-
-    this.isLoading.set(false);
-
-    console.log('DialogComponent data:', data);
-  }
-
-*/

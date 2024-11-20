@@ -3,25 +3,26 @@
   height: 100%;
 }
 .last-messages-content .last-messages {
+  height: 100%;
+  border-radius: 16px;
+  box-shadow: 0 0 10px var(--background-contrast-one);
+  border: 2px solid var(--background-contrast-one);
+  background: linear-gradient(110deg, var(--background-bloc-one) 0%, var(--background-bloc-two) 48%, var(--background-bloc-one) 100%);
   display: flex;
   justify-content: space-around;
   align-items: center;
   flex-direction: column;
-  border-radius: 16px;
-  box-shadow: 0 0 10px rgba(68, 68, 68, 0.1);
-  border: 2px solid rgba(68, 68, 68, 0.1);
-  background: linear-gradient(110deg, rgb(237, 244, 255) 0%, white 48%, rgb(237, 244, 255) 100%);
-  height: 100%;
 }
 .last-messages-content .last-messages h3 {
   letter-spacing: 3px;
+  top: 0;
+  cursor: default;
   text-align: center;
   width: 100%;
   padding: 5px;
   color: rgb(39, 39, 39);
   font-family: "JostLight", sans-serif;
-  top: 0;
-  cursor: default;
+  color: var(--font-light-title);
 }
 .last-messages-content .last-messages .positive-condition-last-message {
   height: 75%;
@@ -46,16 +47,15 @@
 .last-messages-content .last-messages .negative-condition-last-message p {
   font-family: "JostRegular", sans-serif;
   font-size: 1.05em;
+  color: var(--font-light-text);
 }
 .last-messages-content .last-messages .negative-condition-last-message .button-one {
-  background-color: rgb(246, 246, 246);
-  color: rgb(7, 24, 38);
   font-size: 1.05rem;
   height: 3rem;
   border-radius: 0.5rem;
   cursor: pointer;
-  transition: 0.3s;
   padding-bottom: 1px;
+  color: var(--font-light-text);
 }
 
 /*# sourceMappingURL=last-message.component.css.map */

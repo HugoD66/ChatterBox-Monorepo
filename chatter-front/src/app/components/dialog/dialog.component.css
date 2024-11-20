@@ -20,6 +20,7 @@
   padding: 10px;
   font-family: "JostRegular", sans-serif;
   font-size: 1.05em;
+  color: var(--font-light-text);
   color: rgb(39, 39, 39);
 }
 .dialog-content .dialog-remove-friend .dialog-remove-friend-actions {
@@ -31,8 +32,7 @@
   flex-direction: row;
 }
 .dialog-content .dialog-remove-friend .dialog-remove-friend-actions .button-modal {
-  background-color: rgb(39, 39, 39);
-  color: rgb(237, 244, 255);
+  background-color: var(--background-light-one);
   font-size: 0.95rem;
   border: none;
   height: 2rem;
@@ -40,12 +40,68 @@
   cursor: pointer;
   transition: 0.2s;
   padding: 5px;
+  color: var(--font-light-text);
 }
 .dialog-content .dialog-remove-friend .dialog-remove-friend-actions .button-modal:hover {
   border: none;
-  background-color: rgb(237, 244, 255);
-  color: rgb(39, 39, 39);
+  background-color: var(--background-light-two);
+  color: var(--background-contrast-one);
   transform: scale(1);
+}
+
+.theme-content {
+  height: 80%;
+  width: 80%;
+  margin: auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+.theme-content h2 {
+  text-align: center;
+  width: 100%;
+  padding: 5px;
+  color: rgb(39, 39, 39);
+  font-family: "JostLight", sans-serif;
+  color: var(--font-light-title);
+}
+.theme-content .icon {
+  border-radius: 90%;
+  border: none;
+  height: 4rem;
+  width: 4rem;
+  margin: 3em;
+}
+.theme-content .icon-theme-change {
+  padding: 10px;
+  margin: 5px;
+  cursor: pointer;
+  border-radius: 90%;
+  box-shadow: 0px 0px 4px 0px rgba(156, 156, 156, 0.75);
+}
+.theme-content .theme-content-palette {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: row;
+  flex-wrap: wrap;
+  width: 100%;
+}
+.theme-content .theme-content-palette .green-icon {
+  background-color: #87E38F;
+}
+.theme-content .theme-content-palette .blue-icon {
+  background-color: #2d4562;
+}
+.theme-content .theme-content-palette .brown-icon {
+  background-color: #ab9670;
+}
+.theme-content .theme-content-palette .purple-icon {
+  background-color: #8a429b;
+}
+.theme-content .theme-content-palette .gray-icon {
+  background-color: #555555;
 }
 
 /*# sourceMappingURL=dialog.component.css.map */

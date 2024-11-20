@@ -14,7 +14,10 @@ p {
   font-size: 1.1em;
   margin: 3px;
 }
-button {
+.info-content-me-modify {
   @include global.button-one;
-  font-size: 0.9em;
+  .span {
+    font-size: 0.9em;
+  }
 }
+

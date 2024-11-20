@@ -7,14 +7,15 @@
   width: 100%;
   height: 100%;
   .last-messages {
-    @include global.flex-around-column;
-    @include global.bloc;
     height: 100%;
+    @include global.bloc;
+    @include global.flex-around-column;
     h3 {
       letter-spacing: 3px;
-      @include fonts.h3-title;
       top: 0;
       cursor: default;
+      @include fonts.h3-title;
+      color: var(--font-light-title);
     }
     .positive-condition-last-message {
       height: 75%;

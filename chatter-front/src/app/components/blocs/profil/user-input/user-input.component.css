@@ -12,13 +12,15 @@ form .input-content {
 form .input-content input {
   height: 100%;
   margin: auto;
-  background-color: rgb(246, 246, 246);
   border-radius: 4px;
   border: 1px solid #e1e1e1;
   padding: 2px;
+  width: 18vw;
   font-family: "JostRegular", sans-serif;
   font-size: 1.05em;
-  width: 18vw;
+  color: var(--font-light-text);
+  color: var(--font-light-text);
+  background-color: var(--background-light-one);
 }
 form .input-content input:focus {
   outline: none;
@@ -31,6 +33,7 @@ form span {
   position: relative;
   cursor: pointer;
   transition: font-size 0.3s;
+  color: var(--font-light-text);
 }
 form span:hover {
   font-size: 1.05em;
@@ -42,15 +45,14 @@ form span:hover {
   }
 }
 form button {
-  background-color: rgb(246, 246, 246);
-  color: rgb(7, 24, 38);
+  font-size: 0.9em;
+  color: var(--font-light-text);
   font-size: 1.05rem;
   height: 3rem;
   border-radius: 0.5rem;
   cursor: pointer;
-  transition: 0.3s;
   padding-bottom: 1px;
-  font-size: 0.9em;
+  color: var(--font-light-text);
 }
 
 /*# sourceMappingURL=user-input.component.css.map */

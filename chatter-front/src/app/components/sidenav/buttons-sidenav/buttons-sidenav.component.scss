@@ -7,7 +7,7 @@
   .action-friend, .action-room-list {
     @include global.flex-center;
     @include global.sidebar-buttons;
-    background-color: colors.$back-light-b;
+    background-color: var(--background-light-one);
     .icon-friend {
       width: 20px;
     }

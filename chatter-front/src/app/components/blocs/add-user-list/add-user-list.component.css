@@ -33,6 +33,7 @@
   margin-bottom: 30px;
   font-family: "JostRegular", sans-serif;
   font-size: 1.05em;
+  color: var(--font-light-text);
   font-size: 1.2em;
   color: rgb(39, 39, 39);
   text-wrap: nowrap;
@@ -46,6 +47,7 @@
   margin: 0;
   font-family: "JostRegular", sans-serif;
   font-size: 1.05em;
+  color: var(--font-light-text);
   font-size: 0.8em;
 }
 .add-user-list-unit .created-or-friend-since {
@@ -53,9 +55,10 @@
   right: 5px;
   bottom: 5px;
   font-size: 0.9em;
-  color: rgb(39, 39, 39);
   font-family: "JostLight", sans-serif;
   margin: 0;
+  background-color: var();
+  color: var(--font-light-subtitle);
   font-size: 0.8em;
 }
 

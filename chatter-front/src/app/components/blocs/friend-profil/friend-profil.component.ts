@@ -21,22 +21,17 @@ import { LoaderComponent } from '../../loader/loader.component';
 import { environment } from '../../../../env';
 import { DatePipe, NgStyle } from '@angular/common';
 import { FriendService } from '../../../services/friend.service';
-import {
-  PopupDataTypeEnum,
-  PopupService,
-  SimpleMessage,
-} from '../../../services/popup.service';
+import { PopupService, SimpleMessage } from '../../../services/popup.service';
 import {
   FriendModel,
   FriendRelationModel,
 } from '../../../models/friend-relation.model';
 import { FriendStatusInvitation } from '../../../models/enums/friend-status-invitation.enum';
 import { FriendFormatservice } from '../../../services/friend-format.service';
-import { RoomService } from '../../../services/room.service';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Router } from '@angular/router';
 import { MatTooltip } from '@angular/material/tooltip';
 import { DialogTypeEnum } from '../../../enum/dialog.type.enum';
-import { of, Subscription, switchMap } from 'rxjs';
+import { Subscription } from 'rxjs';
 import { FormatPluralizePipe } from '../../../pipe/FormatPluralizePipe';
 import {
   transitionBetweenUsersAnimation,

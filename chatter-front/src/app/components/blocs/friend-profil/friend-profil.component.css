@@ -4,9 +4,9 @@
   height: 25vh;
   position: relative;
   border-radius: 16px;
-  box-shadow: 0 0 10px rgba(68, 68, 68, 0.1);
-  border: 2px solid rgba(68, 68, 68, 0.1);
-  background: linear-gradient(110deg, rgb(237, 244, 255) 0%, white 48%, rgb(237, 244, 255) 100%);
+  box-shadow: 0 0 10px var(--background-contrast-one);
+  border: 2px solid var(--background-contrast-one);
+  background: linear-gradient(110deg, var(--background-bloc-one) 0%, var(--background-bloc-two) 48%, var(--background-bloc-one) 100%);
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -75,9 +75,10 @@
 }
 .friend-profil-content .friend-profil-info-picture .friend-profil-infos .friend-profil-infos-email {
   font-size: 0.9em;
-  color: rgb(39, 39, 39);
   font-family: "JostLight", sans-serif;
   margin: 0;
+  background-color: var();
+  color: var(--font-light-subtitle);
 }
 .friend-profil-content .friend-profil-info-picture .friend-profil-infos .status-content {
   margin-top: 7%;
@@ -91,9 +92,10 @@
 }
 .friend-profil-content .friend-profil-info-picture .friend-profil-infos .status-content .friend-profil-infos-status {
   font-size: 0.9em;
-  color: rgb(39, 39, 39);
   font-family: "JostLight", sans-serif;
   margin: 0;
+  background-color: var();
+  color: var(--font-light-subtitle);
 }
 .friend-profil-content .friend-profil-footer {
   height: 100%;
@@ -143,19 +145,20 @@
 }
 .friend-profil-content .friend-profil-footer .friend-informations-footer div p {
   font-size: 0.9em;
-  color: rgb(39, 39, 39);
   font-family: "JostLight", sans-serif;
   margin: 0;
   font-style: italic;
+  color: var(--font-light-legend);
   text-wrap: nowrap;
   text-align: end;
   padding: 3px;
 }
 .friend-profil-content .friend-profil-footer .friend-informations-footer p {
   font-size: 0.9em;
-  color: rgb(39, 39, 39);
   font-family: "JostLight", sans-serif;
   margin: 0;
+  background-color: var();
+  color: var(--font-light-subtitle);
   text-wrap: nowrap;
   margin: 4px;
   align-self: end;
