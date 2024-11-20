@@ -1,22 +1,26 @@
 <div class="theme-content">
-  <div class="green-icon icon" (click)="changeTheme(ThemeEnum.GREEN)">
+  <h2>Couleur</h2>
+  <div class="theme-content-palette">
+    <div class="green-icon icon" (click)="changeTheme(ThemeEnum.GREEN)">
 
+    </div>
+    <div class="blue-icon icon" (click)="changeTheme(ThemeEnum.BLUE)">
+
+    </div>
+    <div class="gray-icon icon" (click)="changeTheme(ThemeEnum.GRAY)">
+
+    </div>
+    <div class="brown-icon icon" (click)="changeTheme(ThemeEnum.BROWN)">
+
+    </div>
+
+    <div class="purple-icon icon" (click)="changeTheme(ThemeEnum.PURPLE)">
+
+    </div>
   </div>
-  <div class="blue-icon icon" (click)="changeTheme(ThemeEnum.BLUE)">
-
-  </div>
-  <div class="gray-icon icon" (click)="changeTheme(ThemeEnum.GRAY)">
-
-  </div>
-  <div class="brown-icon icon" (click)="changeTheme(ThemeEnum.BROWN)">
-
-  </div>
-
-  <div class="purple-icon icon" (click)="changeTheme(ThemeEnum.PURPLE)">
-
-  </div>
-
+  <mat-divider style="width: 50%"/>
+  <h2>Theme</h2>
   <div class="icon">
-    <mat-icon (click)="changeThemeMode()">invert_colors</mat-icon>
+    <mat-icon (click)="changeThemeMode()" class="icon-theme-change">invert_colors</mat-icon>
   </div>
 </div>

@@ -50,34 +50,58 @@
 }
 
 .theme-content {
-  height: 100%;
-  width: 1200px;
+  height: 80%;
+  width: 80%;
+  margin: auto;
   display: flex;
   justify-content: center;
   align-items: center;
-  flex-direction: row;
+  flex-direction: column;
+}
+.theme-content h2 {
+  text-align: center;
+  width: 100%;
+  padding: 5px;
+  color: rgb(39, 39, 39);
+  font-family: "JostLight", sans-serif;
+  color: var(--font-light-title);
 }
 .theme-content .icon {
   border-radius: 90%;
-  border: 1px solid black;
+  border: none;
   height: 4rem;
   width: 4rem;
   margin: 3em;
 }
-.theme-content .green-icon {
-  background-color: green;
+.theme-content .icon-theme-change {
+  padding: 10px;
+  margin: 5px;
+  cursor: pointer;
+  border-radius: 90%;
+  box-shadow: 0px 0px 4px 0px rgba(156, 156, 156, 0.75);
 }
-.theme-content .blue-icon {
-  background-color: blue;
+.theme-content .theme-content-palette {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: row;
+  flex-wrap: wrap;
+  width: 100%;
 }
-.theme-content .brown-icon {
-  background-color: rgba(255, 102, 0, 0.55);
+.theme-content .theme-content-palette .green-icon {
+  background-color: #87E38F;
 }
-.theme-content .purple-icon {
-  background-color: rgba(76, 13, 94, 0.55);
+.theme-content .theme-content-palette .blue-icon {
+  background-color: #2d4562;
 }
-.theme-content .gray-icon {
-  background-color: rgba(115, 115, 115, 0.55);
+.theme-content .theme-content-palette .brown-icon {
+  background-color: #ab9670;
+}
+.theme-content .theme-content-palette .purple-icon {
+  background-color: #8a429b;
+}
+.theme-content .theme-content-palette .gray-icon {
+  background-color: #555555;
 }
 
 /*# sourceMappingURL=dialog.component.css.map */

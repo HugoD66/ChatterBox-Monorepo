@@ -16,6 +16,7 @@ import { DialogTypeEnum } from '../../../enum/dialog.type.enum';
 import { ThemeEnum } from '../../../enum/theme.enum';
 import { ThemeService } from '../../../services/theme.service';
 import { MatIcon } from '@angular/material/icon';
+import { MatDivider } from '@angular/material/divider';
 /*
  * COUCOUCOUCUC
  *
@@ -25,7 +26,7 @@ import { MatIcon } from '@angular/material/icon';
 @Component({
   selector: 'app-dialog-theme',
   standalone: true,
-  imports: [MatDialogContent, MatIcon],
+  imports: [MatDialogContent, MatIcon, MatDivider],
   templateUrl: './dialog-theme.component.html',
   styleUrl: './../dialog.component.scss',
 })

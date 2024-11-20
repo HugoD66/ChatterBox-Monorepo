@@ -33,32 +33,49 @@
 }
 
 .theme-content {
-  height: 100%;
-  width: 1200px;
-  @include global.flex-center-row-center;
+  height: 80%;
+  width: 80%;
+  margin: auto;
+  @include global.flex-center-column;
+  h2 {
+    @include fonts.h3-title;
+    color: var(--font-light-title);
+  }
   .icon {
     border-radius: 90%;
-    border: 1px solid black;
+    border: none;
     height: 4rem;
     width: 4rem;
     margin: 3em;
   }
-  .green-icon {
-    background-color: green;
+  .icon-theme-change {
+    padding: 10px;
+    margin: 5px;
+    cursor: pointer;
+    border-radius: 90%;
+    @include global.input-bloc;
   }
-  .blue-icon {
-    background-color: blue;
-  }
-  .brown-icon {
-    background-color: rgba(255, 102, 0, 0.55);
-  }
-  .purple-icon {
-    background-color: rgba(76, 13, 94, 0.55);
-  }
-  .gray-icon {
-    background-color: rgba(115, 115, 115, 0.55);
+  .theme-content-palette {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: row;
+    flex-wrap: wrap;
+    width: 100%;
+    .green-icon {
+      background-color: #87E38F;
+    }
+    .blue-icon {
+      background-color: #2d4562;
+    }
+    .brown-icon {
+      background-color: #ab9670;
+    }
+    .purple-icon {
+      background-color: #8a429b;
+    }
+    .gray-icon {
+      background-color: #555555;
+    }
   }
 }
-
-
-
