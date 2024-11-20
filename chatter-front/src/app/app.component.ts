@@ -3,6 +3,7 @@ import { AuthService } from './services/auth.service';
 import { Router, RouterModule, RouterOutlet } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { WebSocketService } from './socket/socket.service';
+import { ThemeService } from './services/theme.service';
 
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -17,11 +18,14 @@ export class AppComponent {
     private authService: AuthService,
     private router: Router,
     private webSocketService: WebSocketService,
+    private themeService: ThemeService,
   ) {
     if (!this.authService.isLoggedIn()) {
       this.webSocketService.connect();
       this.router.navigate(['/auth/login']) ||
         this.router.navigate(['/auth/register']);
     }
+
+    this.themeService.initThemeOnStart();
   }
 }

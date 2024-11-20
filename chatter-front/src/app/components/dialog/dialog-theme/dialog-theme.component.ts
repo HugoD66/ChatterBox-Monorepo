@@ -1,4 +1,10 @@
-import { Component, Inject, signal, WritableSignal } from '@angular/core';
+import {
+  Component,
+  Inject,
+  OnDestroy,
+  signal,
+  WritableSignal,
+} from '@angular/core';
 import { GetMeModel } from '../../../models/user.model';
 import {
   MAT_DIALOG_DATA,
@@ -23,7 +29,7 @@ import { MatIcon } from '@angular/material/icon';
   templateUrl: './dialog-theme.component.html',
   styleUrl: './../dialog.component.scss',
 })
-export class DialogThemeComponent {
+export class DialogThemeComponent implements OnDestroy {
   public getMe: WritableSignal<GetMeModel | null> = signal(null);
   public isLoading: WritableSignal<boolean> = signal(true);
 
@@ -46,14 +52,19 @@ export class DialogThemeComponent {
     console.log('DialogComponent data:', data);
   }
 
-  closeDialog() {
+  ngOnDestroy() {
+    this.closeDialog();
+  }
+
+  private closeDialog() {
     this.dialogRef.close();
   }
 
-  changeTheme(theme: ThemeEnum) {
+  public changeTheme(theme: ThemeEnum) {
     this.themeService.changeTheme(theme);
   }
-  changeThemeMode() {
+
+  public changeThemeMode() {
     this.themeService.changeThemeMode();
   }
 }

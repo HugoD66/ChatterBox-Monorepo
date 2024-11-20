@@ -14,81 +14,34 @@ import { GetMeModel } from '../../../models/user.model';
 import { MatButton } from '@angular/material/button';
 import { MatDivider } from '@angular/material/divider';
 import { LoaderComponent } from '../../loader/loader.component';
-import { DatePipe, NgOptimizedImage } from '@angular/common';
+import { DatePipe } from '@angular/common';
 import { MatIcon } from '@angular/material/icon';
 import { UserService } from '../../../services/user.service';
 import { environment } from '../../../../env';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { MatFormField, MatLabel } from '@angular/material/form-field';
-import { MatInput } from '@angular/material/input';
 import { AuthService } from '../../../services/auth.service';
 import { switchMap } from 'rxjs';
 import { UserInfoComponent } from './user-info/user-info.component';
 import { UserInputComponent } from './user-input/user-input.component';
 import { PopupService } from '../../../services/popup.service';
-import { ThemeEnum } from '../../../enum/theme.enum';
-import { ThemeService } from '../../../services/theme.service';
-import { DialogService, Theme } from '../../../services/dialog.service';
-import { DialogTypeEnum } from '../../../enum/dialog.type.enum';
-import { MatDialogContent } from '@angular/material/dialog';
 
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,
   selector: 'app-profil',
   standalone: true,
   imports: [
-    MatButton,
     MatDivider,
     LoaderComponent,
     DatePipe,
     MatIcon,
-    NgOptimizedImage,
     FormsModule,
-    MatFormField,
-    MatInput,
-    MatLabel,
     ReactiveFormsModule,
     UserInfoComponent,
     UserInputComponent,
-    MatDialogContent,
   ],
   encapsulation: ViewEncapsulation.None,
   templateUrl: './profil.component.html',
   styleUrl: './profil.component.scss',
-  /*animations: [
-    trigger('blurAnimation', [
-      transition(':enter', [
-        style({
-          width: '100%', // Assurez-vous que le largeur est correcte
-          top: 0, // Alignez le haut
-          filter: 'blur(10px)',
-          zIndex: 2, // Plus haut z-index pour s'assurer qu'il est au-dessus
-        }),
-        animate('0.5s ease-out', style({ filter: 'blur(0)' })),
-      ]),
-      transition(':leave', [
-        style({
-          width: '100%',
-          top: 0,
-          zIndex: 1, // Inférieur z-index pour que cela reste en dessous
-        }),
-        animate('0.5s ease-in', style({ filter: 'blur(10px)' })),
-      ]),
-    ]),
-  ],*/
-  /*
-  animations: [
-  trigger('blurAnimation', [
-    transition(':enter', [
-      style({ opacity: 0, filter: 'blur(10px)' }),
-      animate('0.5s ease-out', style({ opacity: 1, filter: 'blur(0)' })),
-    ]),
-    transition(':leave', [
-      animate('0.5s ease-in', style({ opacity: 0, filter: 'blur(10px)' })),
-    ]),
-  ]),
-]
-   */
 })
 export class ProfilComponent implements OnInit {
   @Output() userUpdated = new EventEmitter<void>();
@@ -103,7 +56,6 @@ export class ProfilComponent implements OnInit {
   public isPasswordEditing: WritableSignal<boolean> = signal(false);
 
   constructor(
-    public dialogService: DialogService,
     private userService: UserService,
     public authService: AuthService,
     private popupService: PopupService,
@@ -150,11 +102,4 @@ export class ProfilComponent implements OnInit {
       });
     }
   }
-
-  public chooseTheme(): void {
-    const nothing = new Theme('');
-    this.dialogService.openDialog(this.getMe()!, nothing, DialogTypeEnum.THEME);
-  }
-
-  protected readonly ThemeEnum = ThemeEnum;
 }

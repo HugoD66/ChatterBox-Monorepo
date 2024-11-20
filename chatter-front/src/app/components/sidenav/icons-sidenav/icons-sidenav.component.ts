@@ -11,6 +11,8 @@ import { GetMeModel, UserModel } from '../../../models/user.model';
 import { AuthService } from '../../../services/auth.service';
 import { Router } from '@angular/router';
 import { NgClass } from '@angular/common';
+import { DialogService, Theme } from '../../../services/dialog.service';
+import { DialogTypeEnum } from '../../../enum/dialog.type.enum';
 
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -30,11 +32,17 @@ export class IconsSidenavComponent {
   constructor(
     private authService: AuthService,
     private router: Router,
+    public dialogService: DialogService,
   ) {}
 
-  logout(): void {
+  public logout(): void {
     this.authService.logout();
     this.removeGetMe.emit();
     this.router.navigate(['/auth/login']);
+  }
+
+  public chooseTheme(): void {
+    const nothing = new Theme('');
+    this.dialogService.openDialog(this.getMe()!, nothing, DialogTypeEnum.THEME);
   }
 }

@@ -12,8 +12,8 @@ import { DarkModeEnum, ThemeEnum } from '../enum/theme.enum';
 })
 export class ThemeService {
   private renderer: Renderer2;
-  private currentTheme: WritableSignal<ThemeEnum>;
-  private darkMode: WritableSignal<DarkModeEnum>;
+  private currentTheme!: WritableSignal<ThemeEnum>;
+  private darkMode!: WritableSignal<DarkModeEnum>;
 
   private readonly THEME_STORAGE_KEY = 'currentTheme';
   private readonly DARK_MODE_STORAGE_KEY = 'darkMode';
@@ -21,21 +21,8 @@ export class ThemeService {
   constructor(rendererFactory: RendererFactory2) {
     this.renderer = rendererFactory.createRenderer(null, null);
 
-    const storedTheme = localStorage.getItem(this.THEME_STORAGE_KEY);
-    const storedDarkMode = localStorage.getItem(this.DARK_MODE_STORAGE_KEY);
+    this.initThemeOnStart();
 
-    this.currentTheme = signal(
-      storedTheme && this.isValidTheme(storedTheme)
-        ? (storedTheme as ThemeEnum)
-        : ThemeEnum.BLUE,
-    );
-    this.darkMode = signal(
-      storedDarkMode && this.isValidDarkMode(storedDarkMode)
-        ? (storedDarkMode as DarkModeEnum)
-        : DarkModeEnum.LIGHT,
-    );
-
-    // Appliquer le thème au démarrage
     this.applyTheme();
   }
 
@@ -92,5 +79,21 @@ export class ThemeService {
 
   private isValidDarkMode(value: string): value is DarkModeEnum {
     return Object.values(DarkModeEnum).includes(value as DarkModeEnum);
+  }
+
+  public initThemeOnStart() {
+    const storedTheme = localStorage.getItem(this.THEME_STORAGE_KEY);
+    const storedDarkMode = localStorage.getItem(this.DARK_MODE_STORAGE_KEY);
+
+    this.currentTheme = signal(
+      storedTheme && this.isValidTheme(storedTheme)
+        ? (storedTheme as ThemeEnum)
+        : ThemeEnum.BLUE,
+    );
+    this.darkMode = signal(
+      storedDarkMode && this.isValidDarkMode(storedDarkMode)
+        ? (storedDarkMode as DarkModeEnum)
+        : DarkModeEnum.LIGHT,
+    );
   }
 }
