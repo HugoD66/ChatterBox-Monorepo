@@ -8,6 +8,7 @@ import { ChatComponent } from './chat/chat.component';
 import { MessageInputComponent } from './message-input/message-input.component';
 import { MessageModel } from '../../../models/message.model';
 import { UserModel } from '../../../models/user.model';
+import { RoomModel } from '../../../models/room.model';
 
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -19,6 +20,7 @@ import { UserModel } from '../../../models/user.model';
 })
 export class DiscussionComponent {
   public getMe: InputSignal<UserModel> = input.required<UserModel>();
+  public room: InputSignal<RoomModel> = input.required<RoomModel>();
   public friendInDiscussion: InputSignal<UserModel[] | UserModel> =
     input.required<UserModel[] | UserModel>();
   public messages: InputSignal<MessageModel[] | null> = input.required<

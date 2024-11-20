@@ -1,7 +1,6 @@
 import {
   ChangeDetectionStrategy,
   Component,
-  computed,
   effect,
   signal,
   WritableSignal,
@@ -17,19 +16,14 @@ import {
   openCloseFriendPrivateRoomAnimation,
   openCloseFriendProfilAnimation,
 } from '../../services/animation/animation';
-import { AddFriendSearchComponent } from '../../components/blocs/add-friend-search/add-friend-search.component';
 import { switchMap } from 'rxjs';
+import { RoomModel } from '../../models/room.model';
 
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,
   selector: 'app-private-room',
   standalone: true,
-  imports: [
-    FriendProfilComponent,
-    DiscussionComponent,
-    FriendProfilComponent,
-    AddFriendSearchComponent,
-  ],
+  imports: [FriendProfilComponent, DiscussionComponent, FriendProfilComponent],
   templateUrl: './private-room.component.html',
   styleUrl: './private-room.component.scss',
   animations: [
@@ -40,6 +34,7 @@ import { switchMap } from 'rxjs';
 export class PrivateRoomComponent {
   public messages: WritableSignal<MessageModel[]> = signal([]);
   public getMe: WritableSignal<GetMeModel | null> = signal(null);
+  public room: WritableSignal<RoomModel | null> = signal(null);
   public friendId: WritableSignal<string | null> = signal(null);
   public friend: WritableSignal<UserModel | null> = signal(null);
   public isExpandedFriendProfil = false;
@@ -50,34 +45,42 @@ export class PrivateRoomComponent {
     private route: ActivatedRoute,
     private authService: AuthService,
   ) {
-    this.route.paramMap
-      .pipe(
-        switchMap((params) => {
-          const id = params.get('id');
-          this.friendId.update(() => id);
-          return this.authService.getMe();
-        }),
-      )
-      .subscribe((getMe: GetMeModel) => {
-        this.getMe.update(() => getMe);
+    effect(
+      () => {
+        this.route.paramMap
+          .pipe(
+            switchMap((params) => {
+              const id = params.get('id');
+              this.friendId.update(() => id);
+              return this.authService.getMe();
+            }),
+          )
+          .subscribe((getMe: GetMeModel) => {
+            this.getMe.update(() => getMe);
 
-        if (!this.getMe()) {
-          return;
-        }
+            if (!this.getMe()) {
+              return;
+            }
 
-        this.roomService.getRoomyUser(this.friendId()!).subscribe((room) => {
-          if (!room) {
-            return;
-          }
-          if (this.getMe()!.id === room.owner.id) {
-            this.friend.update(() => room.participants[0]);
-          } else {
-            this.friend.update(() => room.owner);
-          }
-          this.messages.update(() => room.messages);
-        });
-      });
-    this.isExpandedDiscussion = true;
+            this.roomService
+              .getRoomyUser(this.friendId()!)
+              .subscribe((room) => {
+                if (!room) {
+                  return;
+                }
+                this.room.set(room);
+                if (this.getMe()!.id === room.owner.id) {
+                  this.friend.update(() => room.participants[0]);
+                } else {
+                  this.friend.update(() => room.owner);
+                }
+                this.messages.update(() => room.messages);
+              });
+          });
+        this.isExpandedDiscussion = true;
+      },
+      { allowSignalWrites: true },
+    );
   }
 
   public panelOpening(event: boolean): void {

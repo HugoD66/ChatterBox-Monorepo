@@ -5,5 +5,9 @@
     [messages]="messages()"
     [friendInDiscussion]="friendInDiscussion()"
   />
-  <app-message-input class="message-input-content" />
+  <app-message-input
+    [getMe]="getMe()!"
+    [room]="room()!"
+    [friendInDiscussion]="friendInDiscussion()"
+    class="message-input-content" />
 </div>

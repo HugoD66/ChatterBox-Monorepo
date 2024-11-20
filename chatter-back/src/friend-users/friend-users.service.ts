@@ -72,6 +72,21 @@ export class FriendUsersService {
       status: createFriendsRealtionDto.status,
     });
 
+    //Verification si deja room crée entre les deux.
+    const isRoomExist = await this.roomService.getRoomByUser({
+      userId: user.id,
+      participantId: friend.id,
+    });
+
+    if (!isRoomExist) {
+      await this.roomService.create({
+        title: `Private room (Fixture generation) ${user.pseudo} and ${friend.pseudo}`,
+        owner: user,
+        participants: [friend],
+        createdAt: new Date(),
+      });
+    }
+
     return await this.friendUserRepository.save(friendRelation);
   }
 
@@ -107,8 +122,6 @@ export class FriendUsersService {
         user.pseudo,
         friendUser.friend.id,
       );
-
-    console.log(friendSocketInvitation);
 
     this.notificationsGateway.emitFriendInvitation(
       `Message Socket: Friend invitation from ${user.pseudo} to ${friend.pseudo}`,

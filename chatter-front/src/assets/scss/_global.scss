@@ -66,12 +66,6 @@
   align-items: center;
   flex-direction: column;
 }
-@mixin flex-around-column-center {
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
-  flex-direction: column;
-}
 @mixin flex-betwen-column-end {
   display: flex;
   justify-content: space-between;

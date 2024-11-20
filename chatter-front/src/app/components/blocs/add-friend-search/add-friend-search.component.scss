@@ -7,7 +7,7 @@
   margin: 1% auto auto;
   top: 0;
   @include global.bloc;
-  @include global.flex-around-column-center;
+  @include global.flex-around-column;
   .title-search {
     margin: 2%;
     width: 96%;
@@ -28,7 +28,7 @@
     color: var(--error);
     height: 75%;
     margin: auto;
-    @include global.flex-around-column-center;
+    @include global.flex-around-column;
   }
   .add-user-search-result {
     overflow-y: auto;

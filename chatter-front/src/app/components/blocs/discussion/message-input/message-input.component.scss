@@ -1,5 +1,6 @@
 @use "../../../../../assets/scss/colors" as colors;
 @use "../../../../../assets/scss/global" as global;
+@use "../../../../../assets/scss/fonts" as font;
 
 .message-content {
   @include global.bloc;
@@ -19,19 +20,28 @@
       justify-content: center;
       flex-direction: row;
       textarea {
-        width: 96%;
-        height: 95%;
+        margin-left: 1%;
+        width: 90%;
+        height: 80%;
         resize: none;
         overflow: auto;
         border: none;
         background-color: transparent;
+        @include font.p;
+        &:focus {
+          outline: none;
+        }
+
       }
       button {
         border: none;
-        background-color: transparent;
-        width: 10%;
+        background-color: var(--background-light-one);
+        border-radius: 90%;
+        margin: auto 20px auto auto;
         .send-form {
-          color: var(--font-light-text);
+          transform: scale(1.7);
+          margin: 8px;
+          color: var(--background-contrast-one);
           height: 100%;
         }
       }

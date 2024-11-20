@@ -10,6 +10,7 @@ import {
 import { MessageModel } from '../../../../models/message.model';
 import { MessageUnitComponent } from '../../../message-unit/message-unit.component';
 import { UserModel } from '../../../../models/user.model';
+import { MatIcon } from '@angular/material/icon';
 
 export class MessageUnit {
   constructor(
@@ -26,7 +27,7 @@ export class MessageUnit {
   selector: 'app-chat',
   changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: true,
-  imports: [MessageUnitComponent],
+  imports: [MessageUnitComponent, MatIcon],
   templateUrl: './chat.component.html',
   styleUrl: './chat.component.scss',
 })

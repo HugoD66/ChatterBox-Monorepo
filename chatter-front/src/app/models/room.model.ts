@@ -7,4 +7,17 @@ export class RoomModel {
   public owner!: UserModel;
   public participants!: UserModel[];
   public messages!: MessageModel[];
+  constructor(
+    id: string,
+    title: string,
+    owner: UserModel,
+    participants: UserModel[],
+    messages: MessageModel[],
+  ) {
+    this.id = id;
+    this.title = title;
+    this.owner = owner;
+    this.participants = participants;
+    this.messages = messages;
+  }
 }

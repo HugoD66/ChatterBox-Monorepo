@@ -20,6 +20,10 @@ export class MessageController {
 
   @Post()
   async create(@Body() createMessageDto: CreateMessageDto): Promise<Message> {
+    console.log(
+      '-------------------------- CREATION MESSAGE --------------------------',
+    );
+    console.log(createMessageDto);
     return await this.messageService.create(createMessageDto);
   }
 

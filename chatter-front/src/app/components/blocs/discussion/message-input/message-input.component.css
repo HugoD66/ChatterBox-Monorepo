@@ -28,20 +28,30 @@
   flex-direction: row;
 }
 .message-content .message form textarea {
-  width: 96%;
-  height: 95%;
+  margin-left: 1%;
+  width: 90%;
+  height: 80%;
   resize: none;
   overflow: auto;
   border: none;
   background-color: transparent;
+  font-family: "JostRegular", sans-serif;
+  font-size: 1.05em;
+  color: var(--font-light-text);
+}
+.message-content .message form textarea:focus {
+  outline: none;
 }
 .message-content .message form button {
   border: none;
-  background-color: transparent;
-  width: 10%;
+  background-color: var(--background-light-one);
+  border-radius: 90%;
+  margin: auto 20px auto auto;
 }
 .message-content .message form button .send-form {
-  color: var(--font-light-text);
+  transform: scale(1.7);
+  margin: 8px;
+  color: var(--background-contrast-one);
   height: 100%;
 }
 

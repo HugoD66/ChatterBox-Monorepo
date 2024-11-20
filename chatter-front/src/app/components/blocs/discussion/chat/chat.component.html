@@ -4,6 +4,15 @@
       <app-message-unit
         [getMe]="getMe()"
         [message]="message" />
+    } @empty {
+      <div class="chat-message-empty">
+        <div class="chat-message-empty-text">
+          <p>Commencez une discussion avec votre ami</p>
+        </div>
+        <span>
+            <mat-icon class="chat-message-empty-icone">message</mat-icon>
+        </span>
+      </div>
     }
   </div>
 </div>

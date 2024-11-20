@@ -4,7 +4,7 @@
 
 .group-room-profil-unit-content {
   height: 90%;
-  @include global.flex-around-column-center;
+  @include global.flex-around-column;
   margin: auto 10px;
   img {
     //TEMP

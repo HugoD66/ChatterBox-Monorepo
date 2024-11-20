@@ -3,7 +3,7 @@
     <form [formGroup]="messageSendForm" (ngSubmit)="onSubmit()">
       <textarea
         formControlName="message"
-        placeholder="Type your message here..."
+        placeholder="..."
       ></textarea>
       <button type="submit" [disabled]="!messageSendForm.valid">
         <mat-icon class="send-form">arrow_right</mat-icon>

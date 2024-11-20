@@ -6,7 +6,6 @@ import { Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
 import { ResponseMessageDto } from './dto/response-message.dto';
 import { UsersService } from '../users/users.service';
-import { ResponseUserDto } from '../users/dto/response-user.dto';
 
 @Injectable()
 export class MessageService {
