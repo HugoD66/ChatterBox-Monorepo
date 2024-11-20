@@ -1,3 +1,9 @@
+:root {
+  --error: #ff2020;
+  --valid: rgb(197, 255, 175);
+  --online: rgb(113, 250, 63);
+}
+
 .private-room-content {
   width: 90%;
   margin: 5vh auto;

@@ -123,6 +123,8 @@ button {
   --font-light-subtitle: #{mat.get-theme-color(theme.$gray-dark, 'primary', 98)};
   --font-light-text: #{mat.get-theme-color(theme.$gray-dark, 'primary', 95)};
   --font-light-legend: #{mat.get-theme-color(theme.$gray-dark, 'primary', 90)};
+
+  transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out;
 }
 
 .blue-dark {
@@ -145,6 +147,7 @@ button {
   --font-light-subtitle: #{mat.get-theme-color(theme.$gray-dark, 'primary', 20)};
   --font-light-text: #{mat.get-theme-color(theme.$gray-dark, 'primary', 25)};
   --font-light-legend: #{mat.get-theme-color(theme.$gray-dark, 'primary', 40)};
+  transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out;
 }
 
 //  GREEN ///
@@ -170,6 +173,7 @@ button {
   --font-light-subtitle: #{mat.get-theme-color(theme.$gray-dark, 'primary', 20)};
   --font-light-text: #{mat.get-theme-color(theme.$gray-dark, 'primary', 25)};
   --font-light-legend: #{mat.get-theme-color(theme.$gray-dark, 'primary', 40)};
+  transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out;
 }
 
 .green-dark {
@@ -194,6 +198,7 @@ button {
   --font-light-subtitle: #{mat.get-theme-color(theme.$gray-dark, 'primary', 98)};
   --font-light-text: #{mat.get-theme-color(theme.$gray-dark, 'primary', 95)};
   --font-light-legend: #{mat.get-theme-color(theme.$gray-dark, 'primary', 90)};
+  transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out;
 }
 
 //  BROWN ///
@@ -220,6 +225,7 @@ button {
   --font-light-subtitle: #{mat.get-theme-color(theme.$gray-dark, 'primary', 20)};
   --font-light-text: #{mat.get-theme-color(theme.$gray-dark, 'primary', 25)};
   --font-light-legend: #{mat.get-theme-color(theme.$gray-dark, 'primary', 40)};
+  transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out;
 }
 
 .brown-dark {
@@ -244,6 +250,7 @@ button {
   --font-light-subtitle: #{mat.get-theme-color(theme.$gray-dark, 'primary', 98)};
   --font-light-text: #{mat.get-theme-color(theme.$gray-dark, 'primary', 95)};
   --font-light-legend: #{mat.get-theme-color(theme.$gray-dark, 'primary', 90)};
+  transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out;
 }
 
 //  GRAY ///
@@ -270,6 +277,7 @@ button {
   --font-light-subtitle: #{mat.get-theme-color(theme.$gray-dark, 'primary', 20)};
   --font-light-text: #{mat.get-theme-color(theme.$gray-dark, 'primary', 25)};
   --font-light-legend: #{mat.get-theme-color(theme.$gray-dark, 'primary', 40)};
+  transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out;
 }
 
 .gray-dark {
@@ -294,6 +302,7 @@ button {
   --font-light-subtitle: #{mat.get-theme-color(theme.$gray-dark, 'primary', 98)};
   --font-light-text: #{mat.get-theme-color(theme.$gray-dark, 'primary', 95)};
   --font-light-legend: #{mat.get-theme-color(theme.$gray-dark, 'primary', 90)};
+  transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out;
 }
 
 //  PURPLE ///
@@ -320,6 +329,7 @@ button {
   --font-light-subtitle: #{mat.get-theme-color(theme.$gray-dark, 'primary', 20)};
   --font-light-text: #{mat.get-theme-color(theme.$gray-dark, 'primary', 25)};
   --font-light-legend: #{mat.get-theme-color(theme.$gray-dark, 'primary', 40)};
+  transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out;
 }
 
 .purple-dark {
@@ -344,14 +354,16 @@ button {
   --font-light-subtitle: #{mat.get-theme-color(theme.$gray-dark, 'primary', 98)};
   --font-light-text: #{mat.get-theme-color(theme.$gray-dark, 'primary', 95)};
   --font-light-legend: #{mat.get-theme-color(theme.$gray-dark, 'primary', 90)};
+  transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out;
 }
 
 
 
 // --------- TITLE --------- //
-h1 {
-  color: colors.$dark-b;
+h1, h3 {
+  color: var(--font-light-title);
 }
-h3 {
-  color: var(--font-light-title)
+
+* {
+  transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out;
 }

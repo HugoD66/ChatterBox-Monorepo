@@ -1,3 +1,9 @@
+:root {
+  --error: #ff2020;
+  --valid: rgb(197, 255, 175);
+  --online: rgb(113, 250, 63);
+}
+
 .add-user-list-unit {
   box-shadow: 0 0 10px rgba(68, 68, 68, 0.1);
   border: 2px solid rgba(68, 68, 68, 0.1);
@@ -35,7 +41,7 @@
   font-size: 1.05em;
   color: var(--font-light-text);
   font-size: 1.2em;
-  color: rgb(39, 39, 39);
+  color: var(--font-light-subtitle);
   text-wrap: nowrap;
 }
 .add-user-list-unit .bloc-information {

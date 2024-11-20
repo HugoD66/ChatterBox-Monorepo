@@ -1,3 +1,9 @@
+:root {
+  --error: #ff2020;
+  --valid: rgb(197, 255, 175);
+  --online: rgb(113, 250, 63);
+}
+
 .friend-profil-content {
   margin: auto;
   width: 100%;
@@ -63,8 +69,8 @@
   text-align: center;
   width: 100%;
   padding: 5px;
-  color: rgb(39, 39, 39);
   font-family: "JostLight", sans-serif;
+  color: var(--font-light-title);
   text-align: start;
 }
 @media screen and (max-width: 600px) {
@@ -88,7 +94,7 @@
   flex-direction: row;
 }
 .friend-profil-content .friend-profil-info-picture .friend-profil-infos .status-content .friend-status-icon {
-  color: rgba(0, 154, 64, 0.91);
+  color: var(--online);
 }
 .friend-profil-content .friend-profil-info-picture .friend-profil-infos .status-content .friend-profil-infos-status {
   font-size: 0.9em;
@@ -118,16 +124,16 @@
 }
 .friend-profil-content .friend-profil-footer .button-list-footer mat-icon {
   font-size: 36px;
-  color: rgb(39, 39, 39);
+  color: var(--background-contrast-two);
   padding: 30px;
   margin: 10px;
   cursor: pointer;
 }
 .friend-profil-content .friend-profil-footer .button-list-footer .red-icon {
-  color: rgb(89, 26, 26);
+  color: var(--error);
 }
 .friend-profil-content .friend-profil-footer .button-list-footer .green-icon {
-  color: rgba(26, 69, 39, 0.91);
+  color: var(valid);
 }
 @media screen and (max-width: 1350px) {
   .friend-profil-content .friend-profil-footer .button-list-footer {

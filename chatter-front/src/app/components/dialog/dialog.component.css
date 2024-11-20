@@ -1,11 +1,14 @@
+:root {
+  --error: #ff2020;
+  --valid: rgb(197, 255, 175);
+  --online: rgb(113, 250, 63);
+}
+
 .dialog-content {
   height: 100%;
   width: 100%;
   margin: auto;
-  background-color: rgb(237, 244, 255);
-  /*@media screen and (max-width: 600px) {
-    width: 150px !important;
-  }*/
+  background-color: var(--background-bloc-one);
 }
 .dialog-content .dialog-remove-friend {
   margin: auto;
@@ -21,7 +24,7 @@
   font-family: "JostRegular", sans-serif;
   font-size: 1.05em;
   color: var(--font-light-text);
-  color: rgb(39, 39, 39);
+  color: var(--font-light-subtitle);
 }
 .dialog-content .dialog-remove-friend .dialog-remove-friend-actions {
   margin: 5%;
@@ -62,8 +65,8 @@
   text-align: center;
   width: 100%;
   padding: 5px;
-  color: rgb(39, 39, 39);
   font-family: "JostLight", sans-serif;
+  color: var(--font-light-title);
   color: var(--font-light-title);
 }
 .theme-content .icon {

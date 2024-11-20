@@ -1,3 +1,9 @@
+:root {
+  --error: #ff2020;
+  --valid: rgb(197, 255, 175);
+  --online: rgb(113, 250, 63);
+}
+
 h3 {
   text-align: center;
 }
@@ -37,7 +43,6 @@ h3 {
   border: none;
   border-radius: 5px;
   cursor: pointer;
-  background-color: rgb(237, 244, 255);
   transition: background-color 0.3s ease, margin 0.3s ease;
   font-size: 0.9em;
   font-family: "JostLight", sans-serif;

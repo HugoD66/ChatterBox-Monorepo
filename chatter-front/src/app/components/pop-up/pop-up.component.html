@@ -15,65 +15,9 @@
     <p [ngStyle]="{ color: color || 'grey' }">
       {{ message}}
     </p>
-    <span matSnackBarActions>
       <mat-icon
         class="close-modal"
         (click)="snackBarRef.dismissWithAction()"
         [ngStyle]="{ color: color || 'grey' }">close</mat-icon>
-    </span>
   </span>
-
 }
-  <!--
-  @if (!isLoading()) {
-    @switch (data.dataType) {
-      @case (PopupDataTypeEnum.USER_LOGIN) {
-        @if(isGetMeLogged()) {
-          <span matSnackBarLabel class="general-popup popup-user-login self-logged">
-            <p [ngStyle]="{ color: color || 'grey' }">
-              {{message}}
-            </p>
-          </span>
-        } @else {
-          <span matSnackBarLabel class="general-popup popup-user-login">
-              <img
-                class="popup-user-picture"
-                src="{{ apiUrl }}/./{{ userLogged.picture }}"
-                alt="image de profil de l'utilisateur"
-              />
-            <p [ngStyle]="{ color: color || 'grey' }">
-              {{ userLogged.pseudo }} s'est connecté
-            </p>
-            <span matSnackBarActions>
-              <mat-icon
-                class="close-modal"
-                (click)="snackBarRef.dismissWithAction()"
-                [ngStyle]="{ color: color || 'grey' }">close</mat-icon>
-            </span>
-          </span>
-        }
-      }
-      @case (PopupDataTypeEnum.SIMPLE_MESSAGE) {
-        <span matSnackBarLabel class="general-popup">
-          <p [ngStyle]="{ color: color || 'grey' }">
-            {{ message }}
-          </p>
-          </span>
-              <span matSnackBarActions>
-            <mat-icon
-              class="close-modal"
-              (click)="snackBarRef.dismissWithAction()"
-              [ngStyle]="{ color: color || 'grey' }">close</mat-icon>
-          </span>
-      }
-      @case (PopupDataTypeEnum.FRIEND_ACCEPTED) {
-        <span matSnackBarLabel class="general-popup">
-          <p [ngStyle]="{ color: color || 'grey' }">
-            {{ message }}
-          </p>
-          </span>
-
-      }
-    }
-  }
-  -->

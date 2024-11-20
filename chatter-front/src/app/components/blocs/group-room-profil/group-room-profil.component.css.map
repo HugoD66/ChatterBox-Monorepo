@@ -1,1 +1,1 @@
-{"version":3,"sourceRoot":"","sources":["group-room-profil.component.scss","../../../../assets/scss/_global.scss"],"names":[],"mappings":"AAIA;ECuGE;EACA;EACA;EACA;EDxGA;EAEA;EACA;EACA;EACA","file":"group-room-profil.component.css"}
+{"version":3,"sourceRoot":"","sources":["../../../../assets/scss/_colors.scss","group-room-profil.component.scss","../../../../assets/scss/_global.scss"],"names":[],"mappings":"AASA;EACE;EACA;EACA;;;ACRF;ECuGE;EACA;EACA;EACA;EDxGA;EAEA;EACA;EACA;EACA","file":"group-room-profil.component.css"}

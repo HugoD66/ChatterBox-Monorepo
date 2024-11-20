@@ -6,10 +6,7 @@
   height: 100%;
   width: 100%;
   margin: auto;
-  background-color: colors.$back-light-b;
-  /*@media screen and (max-width: 600px) {
-    width: 150px !important;
-  }*/
+  background-color: var(--background-bloc-one);
   .dialog-remove-friend {
     margin: auto;
     width: 100%;
@@ -18,8 +15,7 @@
     p {
       padding: 10px;
       @include fonts.p;
-      color: colors.$gradient-dark-g;
-
+      color: var(--font-light-subtitle);
     }
     .dialog-remove-friend-actions {
       margin: 5%;

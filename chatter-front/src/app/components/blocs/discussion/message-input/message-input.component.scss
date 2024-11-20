@@ -31,7 +31,7 @@
         background-color: transparent;
         width: 10%;
         .send-form {
-          color: colors.$dark-b;
+          color: var(--font-light-text);
           height: 100%;
         }
       }

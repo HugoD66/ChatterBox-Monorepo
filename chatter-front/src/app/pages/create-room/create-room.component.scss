@@ -30,10 +30,10 @@
         }
       }
       .picture-add {
-        background-color: colors.$back-light-b;
+        color: var(--background-contrast-two);
       }
       .picture-added {
-        background-color: colors.$valid;
+        background-color: var(--valid);
       }
       img {
       }

@@ -1,3 +1,9 @@
+:root {
+  --error: #ff2020;
+  --valid: rgb(197, 255, 175);
+  --online: rgb(113, 250, 63);
+}
+
 .add-friend-search-content {
   max-height: 100%;
   margin: 1% auto auto;
@@ -38,7 +44,7 @@
   cursor: pointer;
 }
 .add-friend-search-content .negative-condition-found {
-  color: rgb(6, 19, 30);
+  color: var(--error);
   height: 75%;
   margin: auto;
   display: flex;

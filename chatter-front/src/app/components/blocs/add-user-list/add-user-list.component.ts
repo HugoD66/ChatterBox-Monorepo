@@ -1,7 +1,6 @@
 import {
   ChangeDetectionStrategy,
   Component,
-  effect,
   EventEmitter,
   input,
   InputSignal,
@@ -34,10 +33,4 @@ export class AddUserListComponent {
   public isUserPanel: InputSignal<boolean> = input.required<boolean>();
 
   protected readonly FriendStatusInvitation = FriendStatusInvitation;
-
-  constructor() {
-    effect(() => {
-      //console.log(this.friendClicked());
-    });
-  }
 }

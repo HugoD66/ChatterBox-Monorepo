@@ -1,9 +1,15 @@
+:root {
+  --error: #ff2020;
+  --valid: rgb(197, 255, 175);
+  --online: rgb(113, 250, 63);
+}
+
 .popup-user-login {
   display: flex;
   flex-direction: row;
 }
 .popup-user-login p {
-  color: rgb(6, 19, 30) !important;
+  color: var(--font-light-text) !important;
 }
 .popup-user-login .popup-user-picture {
   width: 40px;
@@ -19,7 +25,7 @@
 
 .close-modal:hover {
   cursor: pointer;
-  border: 1px solid rgb(246, 246, 246);
+  background-color: var(--background-contrast-two);
   border-radius: 90%;
 }
 

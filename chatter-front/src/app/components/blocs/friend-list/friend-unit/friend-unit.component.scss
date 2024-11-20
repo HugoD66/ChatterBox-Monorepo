@@ -37,7 +37,7 @@
         }
         .friend-status-icon {
           width: 80%;
-          color: colors.$online;
+          color: var(--online);
         }
       }
     }
@@ -48,7 +48,7 @@
       padding: 10px;
       margin: 5px;
       cursor: pointer;
-      color: colors.$back-b;
+      color: var(--background-contrast-two);
       border-radius: 90%;
       @include global.input-bloc;
     }

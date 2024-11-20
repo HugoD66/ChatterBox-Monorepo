@@ -3,35 +3,12 @@
 $dark-b: rgb(6, 19, 30);
 $back-b: rgb(0, 75, 93);
 $medium-b: rgba(104, 193, 236, 1);
-$light-b: rgba(188, 221, 230, 1);
-$back-light-b: rgb(237, 244, 255);
 
-// ------- Gradient Black/White ------- //
-
-$gradient-b: rgba(0, 0, 0, 1);
 $gradient-dark-g: rgb(39, 39, 39);
-$gradient-medium-g: rgba(128, 128, 128, 1);
-$gradient-light-g: rgba(191, 191, 191, 1);
-$gradient-w: rgba(255, 255, 255, 1);
 
-// ------- Gradient Brown/Green  ------- //
 
-$gradient-deep-brown-m: rgb(58, 50, 39);
-$gradient-dark-brown-m: rgba(110, 95, 83, 1);
-$gradient-medium-brown-m: rgba(156, 142, 123, 1);
-$gradient-light-brown-m: rgba(180, 165, 151, 1);
-$gradient-beige-m: rgba(208, 199, 184, 1);
-
-// ------- Gradient diver  ------- //
-$warning: rgb(248, 65, 65);
-$valid: rgb(197, 255, 175);
-$back-body: rgb(246, 246, 246);
-
-// ------- Status  ------- //
-
-$online: rgba(0, 154, 64, 0.91);
-
-// ------- ICONS ------- //
-$warning-icon: rgb(89, 26, 26);
-$green-icon: rgba(26, 69, 39, 0.91);
-//$basic-icon: rgb(83, 87, 84);
+:root {
+  --error: #ff2020;
+  --valid: rgb(197, 255, 175);
+  --online: rgb(113, 250, 63);
+}

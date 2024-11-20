@@ -49,8 +49,6 @@ export class DialogThemeComponent implements OnDestroy {
     this.getMe.set(data.getMe);
 
     this.isLoading.set(false);
-
-    console.log('DialogComponent data:', data);
   }
 
   ngOnDestroy() {

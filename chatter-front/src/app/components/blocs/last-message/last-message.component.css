@@ -1,3 +1,9 @@
+:root {
+  --error: #ff2020;
+  --valid: rgb(197, 255, 175);
+  --online: rgb(113, 250, 63);
+}
+
 .last-messages-content {
   width: 100%;
   height: 100%;
@@ -20,8 +26,8 @@
   text-align: center;
   width: 100%;
   padding: 5px;
-  color: rgb(39, 39, 39);
   font-family: "JostLight", sans-serif;
+  color: var(--font-light-title);
   color: var(--font-light-title);
 }
 .last-messages-content .last-messages .positive-condition-last-message {

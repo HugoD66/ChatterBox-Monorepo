@@ -17,9 +17,8 @@ import {
   DialogService,
   SettingsOrRemoveFriendDialogData,
 } from '../../../services/dialog.service';
-import { LoaderComponent } from '../../loader/loader.component';
 import { environment } from '../../../../env';
-import { DatePipe, NgStyle } from '@angular/common';
+import { DatePipe } from '@angular/common';
 import { FriendService } from '../../../services/friend.service';
 import { PopupService, SimpleMessage } from '../../../services/popup.service';
 import {
@@ -42,14 +41,7 @@ import {
   changeDetection: ChangeDetectionStrategy.OnPush,
   selector: 'app-friend-profil',
   standalone: true,
-  imports: [
-    MatIcon,
-    LoaderComponent,
-    DatePipe,
-    NgStyle,
-    MatTooltip,
-    FormatPluralizePipe,
-  ],
+  imports: [MatIcon, DatePipe, MatTooltip, FormatPluralizePipe],
   templateUrl: './friend-profil.component.html',
   styleUrl: './friend-profil.component.scss',
   animations: [transitionBetweenUsersAnimation],

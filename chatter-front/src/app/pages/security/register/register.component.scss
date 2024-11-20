@@ -20,7 +20,7 @@ form {
     text-align: center;
     .error-message {
       font-weight: bold;
-      color: colors.$warning;
+      color: var(--error);
     }
   }
   .goLogin {

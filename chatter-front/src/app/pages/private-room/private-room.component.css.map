@@ -1,1 +1,1 @@
-{"version":3,"sourceRoot":"","sources":["private-room.component.scss","../../../assets/scss/_global.scss"],"names":[],"mappings":"AAGA;ECmHE;EACA;EACA;EACA;EACA;EACA;;ADtHA;EACE;;AAEF;EACE","file":"private-room.component.css"}
+{"version":3,"sourceRoot":"","sources":["../../../assets/scss/_colors.scss","private-room.component.scss","../../../assets/scss/_global.scss"],"names":[],"mappings":"AASA;EACE;EACA;EACA;;;ACTF;ECmHE;EACA;EACA;EACA;EACA;EACA;;ADtHA;EACE;;AAEF;EACE","file":"private-room.component.css"}

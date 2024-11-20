@@ -35,7 +35,7 @@ export class UserService {
       );
   }
 
-  async getUserByIdTEST(userId: string) {
+  /* async getUserById(userId: string) {
     const accessToken = localStorage.getItem(`authToken`);
     return this.http
       .get<UserModel>(`${this.apiUrl}/users/${userId}`, {
@@ -49,7 +49,7 @@ export class UserService {
           return throwError(() => error);
         }),
       );
-  }
+  }*/
 
   uploadUserPicture(userId: string, file: File) {
     const formData = new FormData();

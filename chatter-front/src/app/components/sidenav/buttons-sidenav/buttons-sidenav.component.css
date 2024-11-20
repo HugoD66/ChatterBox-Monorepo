@@ -1,3 +1,9 @@
+:root {
+  --error: #ff2020;
+  --valid: rgb(197, 255, 175);
+  --online: rgb(113, 250, 63);
+}
+
 .button-action-list-count {
   display: flex;
   justify-content: center;
@@ -10,7 +16,6 @@
   border: none;
   border-radius: 5px;
   cursor: pointer;
-  background-color: rgb(237, 244, 255);
   transition: background-color 0.3s ease, margin 0.3s ease;
   background-color: var(--background-light-one);
 }

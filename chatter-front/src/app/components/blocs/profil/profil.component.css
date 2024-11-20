@@ -1,3 +1,9 @@
+:root {
+  --error: #ff2020;
+  --valid: rgb(197, 255, 175);
+  --online: rgb(113, 250, 63);
+}
+
 .profil-content {
   margin: auto;
   width: 100%;
@@ -67,11 +73,11 @@
   right: 8%;
   align-self: end;
   padding: 15px;
-  background-color: rgb(237, 244, 255);
   border-radius: 90%;
   box-shadow: 0px 0px 10px 0px rgba(156, 156, 156, 0.75);
 }
 .profil-content .picture-profile .add-picture .icon-add-picture {
+  color: var(--background-contrast-two);
   cursor: pointer;
   transform: scale(1.5);
 }

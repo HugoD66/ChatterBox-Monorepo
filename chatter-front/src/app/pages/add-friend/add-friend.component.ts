@@ -8,7 +8,6 @@ import {
 import { AddFriendSearchComponent } from '../../components/blocs/add-friend-search/add-friend-search.component';
 import { FriendProfilComponent } from '../../components/blocs/friend-profil/friend-profil.component';
 import { GetMeModel, UserModel } from '../../models/user.model';
-import { NgClass, NgStyle } from '@angular/common';
 import { AuthService } from '../../services/auth.service';
 import { ActivatedRoute } from '@angular/router';
 import { UserService } from '../../services/user.service';
@@ -22,7 +21,7 @@ import {
   changeDetection: ChangeDetectionStrategy.OnPush,
   selector: 'app-add-friend',
   standalone: true,
-  imports: [AddFriendSearchComponent, FriendProfilComponent, NgStyle, NgClass],
+  imports: [AddFriendSearchComponent, FriendProfilComponent],
   templateUrl: './add-friend.component.html',
   styleUrl: './add-friend.component.scss',
   animations: [openCloseFriendProfilAnimation, openCloseFriendSearchAnimation],

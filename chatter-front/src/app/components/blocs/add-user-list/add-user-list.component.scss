@@ -33,7 +33,7 @@
       margin-bottom: 30px;
       @include fonts.p;
       font-size: 1.2em;
-      color: colors.$gradient-dark-g;
+      color: var(--font-light-subtitle);
       text-wrap: nowrap;
     }
   }

@@ -5,15 +5,13 @@ import {
   signal,
   WritableSignal,
 } from '@angular/core';
-import { NgIf, NgStyle } from '@angular/common';
+import { NgStyle } from '@angular/common';
 import {
   MAT_SNACK_BAR_DATA,
-  MatSnackBarAction,
   MatSnackBarActions,
   MatSnackBarLabel,
   MatSnackBarRef,
 } from '@angular/material/snack-bar';
-import { MatButton } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
 import {
   Popup,
@@ -25,8 +23,6 @@ import { UserSocket } from '../../socket/response-model/user-socket';
 import { environment } from '../../../env';
 import { FriendSocket } from '../../socket/response-model/friend-socket';
 import { FriendRequestSocket } from '../../socket/response-model/friend-request-socket';
-import { Router } from '@angular/router';
-import { Subject, Subscription } from 'rxjs';
 
 class UserLoggerPopup {
   constructor(
@@ -37,15 +33,7 @@ class UserLoggerPopup {
 @Component({
   selector: 'app-pop-up',
   standalone: true,
-  imports: [
-    NgStyle,
-    NgIf,
-    MatSnackBarLabel,
-    MatSnackBarActions,
-    MatButton,
-    MatSnackBarAction,
-    MatIcon,
-  ],
+  imports: [NgStyle, MatSnackBarLabel, MatSnackBarActions, MatIcon],
   templateUrl: './pop-up.component.html',
   styleUrl: './pop-up.component.scss',
 })
@@ -88,7 +76,7 @@ export class PopUpComponent implements OnInit {
           return;
         }
 
-        (await this.userService.getUserByIdTEST(data.id)).subscribe((user) => {
+        (await this.userService.getUserById(data.id)).subscribe((user) => {
           this.userLogged.pseudo = user.pseudo;
           if (user.picture != null) {
             this.userLogged.picture = user.picture;

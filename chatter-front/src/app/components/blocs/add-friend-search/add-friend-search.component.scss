@@ -25,7 +25,7 @@
     }
   }
   .negative-condition-found {
-    color: colors.$dark-b;
+    color: var(--error);
     height: 75%;
     margin: auto;
     @include global.flex-around-column-center;

@@ -1,3 +1,9 @@
+:root {
+  --error: #ff2020;
+  --valid: rgb(197, 255, 175);
+  --online: rgb(113, 250, 63);
+}
+
 form {
   justify-content: space-around;
   flex-direction: column;
@@ -21,7 +27,7 @@ form .actions {
 }
 form .actions .error-message {
   font-weight: bold;
-  color: rgb(248, 65, 65);
+  color: var(--error);
 }
 form .goRegister {
   cursor: pointer;

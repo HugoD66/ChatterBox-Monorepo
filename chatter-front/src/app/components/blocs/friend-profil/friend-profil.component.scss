@@ -52,7 +52,7 @@
         margin-top: 7%;
         @include global.flex-center-row-center;
         .friend-status-icon {
-          color: colors.$online;
+          color: var(--online);
         }
         .friend-profil-infos-status {
           @include fonts.subtitle;
@@ -73,16 +73,16 @@
       margin: auto 5% auto auto;
       mat-icon {
         font-size: 36px;
-        color: colors.$gradient-dark-g;
+        color: var(--background-contrast-two);
         padding: 30px;
         margin: 10px;
         cursor: pointer;
       }
       .red-icon {
-        color: colors.$warning-icon;
+        color: var(--error);
       }
       .green-icon {
-        color: colors.$green-icon;
+        color: var(valid);
        }
       @media screen and (max-width: 1350px) {
         margin-right: 10%;

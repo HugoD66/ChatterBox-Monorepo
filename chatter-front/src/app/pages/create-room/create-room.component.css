@@ -1,3 +1,9 @@
+:root {
+  --error: #ff2020;
+  --valid: rgb(197, 255, 175);
+  --online: rgb(113, 250, 63);
+}
+
 .create-room-content {
   width: 90%;
   margin: 5vh auto;
@@ -31,10 +37,10 @@
   border: 2px solid rgba(68, 68, 68, 0.1);
 }
 .create-room-content .picture-content .upload-picture .picture-add {
-  background-color: rgb(237, 244, 255);
+  color: var(--background-contrast-two);
 }
 .create-room-content .picture-content .upload-picture .picture-added {
-  background-color: rgb(197, 255, 175);
+  background-color: var(--valid);
 }
 .create-room-content .inputs-content {
   height: 30%;
