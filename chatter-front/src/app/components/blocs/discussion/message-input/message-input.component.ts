@@ -69,6 +69,10 @@ export class MessageInputComponent {
       );
       this.messageService.sendMessage(message);
       console.log('Message envoyé :', this.messageSendForm.value.message);
+      this.messageSendForm.reset();
+
     }
   }
+
+
 }

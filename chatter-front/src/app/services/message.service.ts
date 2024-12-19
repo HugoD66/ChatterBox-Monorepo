@@ -3,7 +3,6 @@ import { environment } from '../../env';
 import { catchError, Observable, throwError } from 'rxjs';
 import { MessageModel } from '../models/message.model';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { FriendRelationModel } from '../models/friend-relation.model';
 
 @Injectable()
 export class MessageService {
@@ -14,9 +13,10 @@ export class MessageService {
   public async sendMessage(message: MessageModel): Promise<any> {
     const accessToken = localStorage.getItem(`authToken`);
 
-    console.log(message);
     return this.http
-      .post<MessageModel>(`${this.apiUrl}/message`, message, {
+      .post(`${this.apiUrl}/message`,
+        message,
+        {
         headers: new HttpHeaders().set(
           'Authorization',
           'Bearer ' + accessToken,
@@ -26,7 +26,7 @@ export class MessageService {
         catchError((error) => {
           return throwError(() => error);
         }),
-      );
+      ).toPromise();
   }
 
   getMessages(): Observable<MessageModel[]> {
@@ -38,13 +38,12 @@ export class MessageService {
   }
 
   getDiscussion(
-    receiverId: string,
-    userId: string,
+    roomId: string,
   ): Observable<MessageModel[]> {
     return this.http
       .get<
         MessageModel[]
-      >(`${this.apiUrl}/message/discussion/${receiverId}/${userId}`)
+      >(`${this.apiUrl}/message/discussion/${roomId}`)
       .pipe(
         catchError((error) => {
           return throwError(() => error);

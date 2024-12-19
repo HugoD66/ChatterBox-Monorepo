@@ -13,8 +13,9 @@ export class CreateMessageDto {
   @IsNotEmpty()
   sender: User;
 
-  @IsNotEmpty()
-  room: Room;
+  roomId: string;
+
+  room?: Room;
 
   @IsOptional()
   isRead: boolean = false;

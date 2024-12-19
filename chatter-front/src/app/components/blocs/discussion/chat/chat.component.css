@@ -38,6 +38,7 @@
   color: red;
   margin: auto;
   align-self: center;
+  user-select: none;
   font-family: "JostRegular", sans-serif;
   font-size: 1.05em;
   color: var(--font-light-text);

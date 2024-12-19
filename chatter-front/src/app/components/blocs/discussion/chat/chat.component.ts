@@ -1,10 +1,9 @@
 import {
   ChangeDetectionStrategy,
-  Component,
-  effect,
+  Component, effect, ElementRef,
   input,
   InputSignal,
-  signal,
+  signal, ViewChild,
   WritableSignal,
 } from '@angular/core';
 import { MessageModel } from '../../../../models/message.model';
@@ -29,6 +28,7 @@ export class MessageUnit {
   standalone: true,
   imports: [MessageUnitComponent, MatIcon],
   templateUrl: './chat.component.html',
+  host: { '(window:resize)': 'scrollToBottomEvent()' },
   styleUrl: './chat.component.scss',
 })
 export class ChatComponent {
@@ -38,28 +38,29 @@ export class ChatComponent {
   public messages: InputSignal<MessageModel[] | null> = input.required<
     MessageModel[] | null
   >();
+  //TODO REMOVE | undefined after set it on room.component
+  public scrollToBottom: InputSignal<boolean | undefined> = input<boolean | undefined>();
 
   public messageSender: WritableSignal<MessageUnit | null> = signal(null);
 
-  /* public constructor() {
-    effect(
-      () => {
-        if (!this.getMe() || !this.friendInDiscussion() || !this.messages()) {
-          return;
-        }
-        this.messages()?.forEach((message) => {
-          const messageUnit = new MessageUnit(
-            message.id,
-            message.isRead,
-            message.createdAt,
-            message.content,
-            message.sender.pseudo,
-            message.sender.picture,
-          );
-          this.messageSender.set(messageUnit);
-        });
-      },
-      { allowSignalWrites: true },
-    );
-  }*/
+  @ViewChild('chatContainer') chatContainer!: ElementRef<HTMLDivElement>;
+
+  public constructor() {
+    console.log('ttttttttt')
+    console.log(this.scrollToBottom())
+    effect(() => {
+      if (this.scrollToBottom()) {
+        console.log('TEST')
+
+        this.scrollToBottomEvent()
+      }
+    }, { allowSignalWrites: true });
+  }
+
+  public scrollToBottomEvent(): void {
+    this.chatContainer.nativeElement.scrollTop =
+    this.chatContainer.nativeElement.scrollHeight;
+  }
+
+
 }

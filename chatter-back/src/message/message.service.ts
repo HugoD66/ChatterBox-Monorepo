@@ -5,7 +5,8 @@ import { Message } from './entities/message.entity';
 import { Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
 import { ResponseMessageDto } from './dto/response-message.dto';
-import { UsersService } from '../users/users.service';
+import { RoomService } from '../room/room.service';
+import { NotificationsGateway } from '../socket/notifications.gateway';
 
 @Injectable()
 export class MessageService {
@@ -13,34 +14,40 @@ export class MessageService {
     @InjectRepository(Message)
     private messageRepository: Repository<Message>,
 
-    private usersSerivce: UsersService,
+    private readonly notificationsGateway: NotificationsGateway,
+
+    private roomService: RoomService,
   ) {}
 
   async create(createMessageDto: CreateMessageDto): Promise<Message> {
-    console.log(createMessageDto);
-    return await this.messageRepository.save(createMessageDto);
-  }
-  /*async create(createMessageDto: CreateMessageDto): Promise<Message> {
-    const sender: ResponseUserDto = await this.usersSerivce.findOne(
-      createMessageDto.senderId,
-    );
-    const receiver: ResponseUserDto = await this.usersSerivce.findOne(
-      createMessageDto.receiverId,
-    );
-    if (!sender || !receiver) {
-      throw new Error('Sender or receiver not found');
-    }
-    const message = this.messageRepository.create({
-      ...createMessageDto,
-      sender: sender,
-      receiver: receiver,
-    });
+    const room = await this.roomService.findOne(createMessageDto.roomId);
 
-    return await this.messageRepository.save(message);
-  }*/
+    if (!room) {
+      throw new Error('Room not found');
+    }
+
+    createMessageDto.room = room;
+
+    const messageInsered = await this.messageRepository.save(createMessageDto);
+
+    this.notificationsGateway.emitRefreshDiscussion(
+      'New message',
+      messageInsered,
+    );
+
+    return messageInsered;
+  }
 
   async findOne(id: string): Promise<ResponseMessageDto> {
     return await this.messageRepository.findOne({ where: { id } });
+  }
+
+  async findByRoom(roomId: string): Promise<ResponseMessageDto[]> {
+    return await this.messageRepository.find({
+      where: { room: { id: roomId } },
+      relations: ['sender'],
+      order: { createdAt: 'ASC' },
+    });
   }
 
   async findAll(): Promise<ResponseMessageDto[]> {

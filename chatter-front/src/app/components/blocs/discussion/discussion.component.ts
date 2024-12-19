@@ -1,6 +1,6 @@
 import {
   ChangeDetectionStrategy,
-  Component,
+  Component, inject,
   input,
   InputSignal,
 } from '@angular/core';
@@ -9,6 +9,7 @@ import { MessageInputComponent } from './message-input/message-input.component';
 import { MessageModel } from '../../../models/message.model';
 import { UserModel } from '../../../models/user.model';
 import { RoomModel } from '../../../models/room.model';
+import { WebSocketService } from '../../../socket/socket.service';
 
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -26,4 +27,10 @@ export class DiscussionComponent {
   public messages: InputSignal<MessageModel[] | null> = input.required<
     MessageModel[] | null
   >();
+
+  public scrollToBottom: InputSignal<boolean | undefined> = input<boolean| undefined>();
+
+  public webSocketService = inject(WebSocketService);
+
+
 }

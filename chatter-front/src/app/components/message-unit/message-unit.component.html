@@ -1,25 +1,28 @@
-<div
-  class="message-unit-content"
-  [ngClass]="
+@if(message()) {
+  <div
+    class="message-unit-content"
+    [ngClass]="
     message()?.sender!.id === getMe()!.id
       ? 'message-unit-content-received'
       : 'message-unit-content-sent'
   ">
-  <p>{{ message()?.content }}</p>
-  <div class="message-unit-infos">
-    @if(message()?.sender!.picture) {
-      <img
-        src="{{ apiUrl }}/./{{ message()?.sender?.picture }}"
-        alt="Photo de profil de {{ message()?.sender?.pseudo }}"
-      />
-    } @else {
-      <img
-        src="./assets/logos/cb-logo-dark-withoutBG.png"
-        alt="Icon de notre chatter-friend"
-      />
-    }
-    <p class="created-at">
-      {{ message()!.createdAt | date: "dd/MM/yyyy HH:mm:ss" }}
-    </p>
+    <p>{{ message()?.content }}</p>
+    <div class="message-unit-infos">
+      @if(message()?.sender!.picture) {
+        <img
+          src="{{ apiUrl }}/./{{ message()?.sender?.picture }}"
+          alt="Photo de profil de {{ message()?.sender?.pseudo }}"
+        />
+      } @else {
+        <img
+          src="./assets/logos/cb-logo-dark-withoutBG.png"
+          alt="Icon de notre chatter-friend"
+        />
+      }
+      <p class="created-at">
+        {{ message()!.createdAt | date: "dd/MM/yyyy HH:mm:ss" }}
+      </p>
+    </div>
   </div>
-</div>
+
+}
